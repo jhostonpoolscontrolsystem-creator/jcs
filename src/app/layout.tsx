@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -14,10 +14,13 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
+export const viewport: Viewport = {
+  themeColor: "#020617",
+};
+
 export const metadata: Metadata = {
   title: "JHPCS • JHoston Pools Control System | Revestimentos Monolíticos & Auditoria de Garantia",
   description: "Sistema Avançado de Gestão, Digital Twin, Telemetria Físico-Química Contínua e Inteligência de Revestimentos Monolíticos JHoston Pools.",
-  themeColor: "#020617",
 };
 
 export default function RootLayout({
