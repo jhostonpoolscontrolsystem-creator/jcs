@@ -27,10 +27,10 @@
   - [x] Campos: Nome, Cliente/Hotel, Volume (m³), Vazão (m³/h), Latitude/Longitude, Data de Aplicação
   - [x] Inserção com validação de tipos no Supabase e cálculo automático de fase de cura (7d seco / 28d submersa)
 
-- [x] **Task 3.3 — Automação do Despacho Mensal de Laudos em PDF**:
-  - [x] Criar rota agendada `/api/cron/monthly-reports` no `vercel.json` (0 8 1 * *)
-  - [x] Consolidar logs e parâmetros do período para cada ativo
-  - [x] Despachar mensagem e laudo de garantia via WhatsApp (Evolution API) para os clientes
+- [x] **Task 2.3 — Pareamento e Conexão Real da Evolution API**:
+  - [x] Conectar com a instância ativa `ecostone` na Render (`https://whatsapp-ecostone.onrender.com`)
+  - [x] Testar disparo ao vivo e validar entrega com status `HTTP 201 Created`
+  - [x] Configurar templates de Red Zone, perda de garantia e laudos mensais automáticos
 
 ---
 

@@ -1,0 +1,21 @@
+services:
+  # Webhook da Evolution API apontando de volta para a Vercel
+  # Instância hospedada em: https://whatsapp-ecostone.onrender.com
+  - type: web
+    name: jhpcs-evolution-api
+    env: docker
+    plan: starter
+    autoDeploy: false
+    envVars:
+      - key: SERVER_URL
+        value: https://whatsapp-ecostone.onrender.com
+      - key: AUTHENTICATION_API_KEY
+        value: Gabriel2006!
+      - key: WEBHOOK_GLOBAL_URL
+        value: https://jcs-pools.vercel.app/api/webhooks/evolution
+      - key: WEBHOOK_GLOBAL_ENABLED
+        value: "true"
+      - key: WEBHOOK_EVENTS_MESSAGES_UPSERT
+        value: "true"
+      - key: WEBHOOK_EVENTS_CONNECTION_UPDATE
+        value: "true"
