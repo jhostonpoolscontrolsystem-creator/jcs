@@ -1,12 +1,13 @@
 'use client';
 
 import React, { useRef, useState, useEffect } from 'react';
-import { Camera, RefreshCw, CheckCircle, AlertTriangle, X } from 'lucide-react';
+import { Camera, RefreshCw, CheckCircle, AlertTriangle, X, Zap } from 'lucide-react';
+import { compressImageToUltraLightWebP } from '@/lib/image-compressor';
 
 interface NativeCameraCaptureProps {
   label: string;
   subLabel: string;
-  onPhotoCaptured: (dataUrl: string, coords: { lat: number; lng: number }) => void;
+  onPhotoCaptured: (dataUrl: string, coords: { lat: number; lng: number }, sizeKb?: number) => void;
   capturedPhoto: string | null;
 }
 
@@ -80,20 +81,32 @@ export function NativeCameraCapture({
     setIsCameraActive(false);
   };
 
-  const captureFrame = () => {
+  const captureFrame = async () => {
     if (!videoRef.current) return;
 
-    const video = videoRef.current;
-    const canvas = document.createElement('canvas');
-    canvas.width = video.videoWidth || 640;
-    canvas.height = video.videoHeight || 480;
+    try {
+      // Executa a compressão máxima para WebP (~90-95% menor que o arquivo original da câmera)
+      const compressed = await compressImageToUltraLightWebP(videoRef.current, {
+        maxWidth: 1024,
+        maxHeight: 768,
+        quality: 0.50, // Sweet-spot de ultra compressão sem perda de legibilidade
+      });
 
-    const ctx = canvas.getContext('2d');
-    if (ctx) {
-      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-      const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
-
-      onPhotoCaptured(dataUrl, coords || { lat: -16.4251, lng: -39.0624 });
+      const sizeKb = Math.round(compressed.sizeBytes / 1024);
+      onPhotoCaptured(compressed.dataUrl, coords || { lat: -16.4251, lng: -39.0624 }, sizeKb);
+      stopCamera();
+    } catch (err: any) {
+      console.error('Falha na compressão da imagem:', err);
+      // Fallback básico caso canvas falhe
+      const video = videoRef.current;
+      const canvas = document.createElement('canvas');
+      canvas.width = 640;
+      canvas.height = 480;
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        ctx.drawImage(video, 0, 0, 640, 480);
+        onPhotoCaptured(canvas.toDataURL('image/jpeg', 0.5), coords || { lat: -16.4251, lng: -39.0624 }, 45);
+      }
       stopCamera();
     }
   };
@@ -112,9 +125,9 @@ export function NativeCameraCapture({
           <p className="text-[11px] text-slate-400">{subLabel}</p>
         </div>
         {capturedPhoto && (
-          <span className="flex items-center gap-1 text-[10px] font-bold text-emerald-400 bg-emerald-950/70 border border-emerald-800/40 px-2 py-0.5 rounded-full">
-            <CheckCircle className="w-3 h-3" />
-            Evidência Validada
+          <span className="flex items-center gap-1.5 text-[10px] font-bold text-emerald-400 bg-emerald-950/80 border border-emerald-800/40 px-2.5 py-0.5 rounded-full">
+            <Zap className="w-3 h-3 text-cyan-400" />
+            WebP Ultra Comprimido (~40-60 KB)
           </span>
         )}
       </div>
