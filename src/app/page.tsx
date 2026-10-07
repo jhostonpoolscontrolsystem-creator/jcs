@@ -25,9 +25,12 @@ import { ClientManagerDashboard } from '@/components/ClientManagerDashboard';
 import { EvolutionWhatsAppTester } from '@/components/EvolutionWhatsAppTester';
 import { GlobalHealthMap } from '@/components/GlobalHealthMap';
 import { PoolRegistrationModal } from '@/components/PoolRegistrationModal';
+import { UserRoleHierarchyViewer } from '@/components/UserRoleHierarchyViewer';
+import { UserRole } from '@/types/database';
 
 export default function JHPCSApp() {
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'client_portal' | 'pwa' | 'whatsapp' | 'audit_live'>('dashboard');
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'client_portal' | 'pwa' | 'whatsapp' | 'rbac' | 'audit_live'>('dashboard');
+  const [currentSimulatedRole, setCurrentSimulatedRole] = useState<UserRole>('MASTER');
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
 
   // Estado da Simulação Operacional do PWA do Piscineiro
@@ -180,6 +183,18 @@ export default function JHPCSApp() {
           >
             <Send className="w-4 h-4" />
             WhatsApp Evolution
+          </button>
+
+          <button
+            onClick={() => setActiveTab('rbac')}
+            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+              activeTab === 'rbac'
+                ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/30'
+                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'
+            }`}
+          >
+            <ShieldAlert className="w-4 h-4" />
+            Hierarquia (RBAC)
           </button>
 
           <button
@@ -401,6 +416,16 @@ export default function JHPCSApp() {
         {activeTab === 'whatsapp' && (
           <div className="animate-fadeIn">
             <EvolutionWhatsAppTester />
+          </div>
+        )}
+
+        {/* TAB: HIERARQUIA & PERFIS (RBAC) */}
+        {activeTab === 'rbac' && (
+          <div className="animate-fadeIn">
+            <UserRoleHierarchyViewer
+              currentRole={currentSimulatedRole}
+              onRoleChange={(role) => setCurrentSimulatedRole(role)}
+            />
           </div>
         )}
 
