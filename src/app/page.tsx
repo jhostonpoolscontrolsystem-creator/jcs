@@ -30,11 +30,12 @@ import { AuthModal } from '@/components/AuthModal';
 import { UserManagementPanel } from '@/components/UserManagementPanel';
 import { ExecutiveReportsWhatsAppPanel } from '@/components/ExecutiveReportsWhatsAppPanel';
 import { SystemTrainingAcademy } from '@/components/SystemTrainingAcademy';
+import { SystemHelpCenter } from '@/components/SystemHelpCenter';
 import { UserRole } from '@/types/database';
-import { LogIn, LogOut, Users, UserCheck, GraduationCap } from 'lucide-react';
+import { LogIn, LogOut, Users, UserCheck, GraduationCap, HelpCircle } from 'lucide-react';
 
 export default function JHPCSApp() {
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'client_portal' | 'pwa' | 'whatsapp' | 'rbac' | 'audit_live' | 'users' | 'executive_reports' | 'training'>('dashboard');
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'client_portal' | 'pwa' | 'whatsapp' | 'rbac' | 'audit_live' | 'users' | 'executive_reports' | 'training' | 'help'>('dashboard');
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
@@ -306,7 +307,7 @@ export default function JHPCSApp() {
             </button>
           )}
 
-          {/* ACADEMIA & CURSO DO SISTEMA: Acesso universal a todos os agentes */}
+          {/* ACADEMIA & CURSO DO SISTEMA */}
           <button
             onClick={() => setActiveTab('training')}
             className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
@@ -317,6 +318,19 @@ export default function JHPCSApp() {
           >
             <GraduationCap className="w-4 h-4" />
             Academia & Treinamento
+          </button>
+
+          {/* CENTRAL DE AJUDA & FAQ: Acesso universal a todos os usuários */}
+          <button
+            onClick={() => setActiveTab('help')}
+            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+              activeTab === 'help'
+                ? 'bg-gradient-to-r from-cyan-500 to-sky-500 text-slate-950 shadow-md shadow-cyan-500/30'
+                : 'text-cyan-400 hover:text-white hover:bg-slate-900'
+            }`}
+          >
+            <HelpCircle className="w-4 h-4" />
+            Central de Ajuda & FAQ
           </button>
         </div>
       </header>
@@ -619,6 +633,13 @@ export default function JHPCSApp() {
         {activeTab === 'training' && (
           <div className="space-y-6 animate-fadeIn">
             <SystemTrainingAcademy onSelectTab={(tab) => setActiveTab(tab)} />
+          </div>
+        )}
+
+        {/* TAB: CENTRAL DE AJUDA & FAQ */}
+        {activeTab === 'help' && (
+          <div className="space-y-6 animate-fadeIn">
+            <SystemHelpCenter onNavigateTab={(tab) => setActiveTab(tab)} />
           </div>
         )}
       </main>
