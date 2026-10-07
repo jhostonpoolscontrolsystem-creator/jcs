@@ -28,11 +28,12 @@ import { PoolRegistrationModal } from '@/components/PoolRegistrationModal';
 import { UserRoleHierarchyViewer } from '@/components/UserRoleHierarchyViewer';
 import { AuthModal } from '@/components/AuthModal';
 import { UserManagementPanel } from '@/components/UserManagementPanel';
+import { ExecutiveReportsWhatsAppPanel } from '@/components/ExecutiveReportsWhatsAppPanel';
 import { UserRole } from '@/types/database';
 import { LogIn, LogOut, Users, UserCheck } from 'lucide-react';
 
 export default function JHPCSApp() {
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'client_portal' | 'pwa' | 'whatsapp' | 'rbac' | 'audit_live' | 'users'>('dashboard');
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'client_portal' | 'pwa' | 'whatsapp' | 'rbac' | 'audit_live' | 'users' | 'executive_reports'>('dashboard');
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
@@ -241,6 +242,21 @@ export default function JHPCSApp() {
             >
               <Users className="w-4 h-4" />
               Gestão de Usuários
+            </button>
+          )}
+
+          {/* MASTER ou DIRETORIA_JH: Relatórios Executivos & Agenda WhatsApp */}
+          {(!currentUser || currentUser.role === 'MASTER' || currentUser.role === 'DIRETORIA_JH') && (
+            <button
+              onClick={() => setActiveTab('executive_reports')}
+              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+                activeTab === 'executive_reports'
+                  ? 'bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/30'
+                  : 'text-emerald-400 hover:text-emerald-200 hover:bg-slate-900'
+              }`}
+            >
+              <FileText className="w-4 h-4" />
+              Relatórios Diretoria (WhatsApp)
             </button>
           )}
 
@@ -575,6 +591,13 @@ export default function JHPCSApp() {
               currentUser={currentUser}
               onOpenRegisterModal={() => setIsAuthModalOpen(true)} 
             />
+          </div>
+        )}
+
+        {/* TAB: RELATÓRIOS EXECUTIVOS & WHATSAPP (MASTER E DIRETORIA) */}
+        {activeTab === 'executive_reports' && (
+          <div className="space-y-6 animate-fadeIn">
+            <ExecutiveReportsWhatsAppPanel />
           </div>
         )}
       </main>
