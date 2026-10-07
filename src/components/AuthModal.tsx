@@ -33,9 +33,9 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser }: Auth
   const [mode, setMode] = useState<'LOGIN' | 'REGISTER' | 'FORCE_CHANGE_PASSWORD'>('LOGIN');
   const [authMethod, setAuthMethod] = useState<'EMAIL' | 'CPF_PIN'>('EMAIL');
 
-  // Form State - Login
-  const [loginEmail, setLoginEmail] = useState('danielsmlopes@hotmail.com');
-  const [loginPassword, setLoginPassword] = useState('Gabriel2006');
+  // Form State - Login (Limpos por segurança)
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
   const [loginCpf, setLoginCpf] = useState('');
   const [loginPin, setLoginPin] = useState('');
 
@@ -424,59 +424,13 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser }: Auth
                     </div>
                   </div>
 
-                  {/* Atalhos Oficiais de Preenchimento Rápido da JHoston Pools */}
-                  <div className="space-y-1.5 pt-1">
-                    <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">
-                      Acessos Pré-Configurados JHoston Pools:
-                    </span>
-                    <div className="grid grid-cols-2 gap-1.5 text-[10px]">
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setLoginEmail('danielsmlopes@hotmail.com');
-                          setLoginPassword('Gabriel2006');
-                        }}
-                        className="p-1.5 bg-slate-950 border border-slate-800 hover:border-cyan-500/50 rounded-lg text-slate-300 text-left transition cursor-pointer"
-                      >
-                        <strong className="text-cyan-400 block">👑 Daniel (Master)</strong>
-                        <span>danielsmlopes@...</span>
-                      </button>
-
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setLoginEmail('patigrubel@gmail.com');
-                          setLoginPassword('Maraca132');
-                        }}
-                        className="p-1.5 bg-slate-950 border border-slate-800 hover:border-purple-500/50 rounded-lg text-slate-300 text-left transition cursor-pointer"
-                      >
-                        <strong className="text-purple-400 block">👑 Patrícia (Master)</strong>
-                        <span>patigrubel@...</span>
-                      </button>
-
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setLoginEmail('jhostontec@jhostontec.com.br');
-                          setLoginPassword('123456');
-                        }}
-                        className="p-1.5 bg-slate-950 border border-slate-800 hover:border-sky-500/50 rounded-lg text-slate-300 text-left transition cursor-pointer"
-                      >
-                        <strong className="text-sky-400 block">👔 Joabson (Diretoria)</strong>
-                        <span>Senha padrão: 123456</span>
-                      </button>
-
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setLoginEmail('tecnico@jhostontec.com.br');
-                          setLoginPassword('123456');
-                        }}
-                        className="p-1.5 bg-slate-950 border border-slate-800 hover:border-emerald-500/50 rounded-lg text-slate-300 text-left transition cursor-pointer"
-                      >
-                        <strong className="text-emerald-400 block">🔬 Gerente Técnico</strong>
-                        <span>Senha padrão: 123456</span>
-                      </button>
+                  {/* Garantia de Segurança Criptografada */}
+                  <div className="pt-2 pb-1">
+                    <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800 text-[11px] text-slate-400 flex items-center gap-2">
+                      <ShieldCheck className="w-4 h-4 text-cyan-400 shrink-0" />
+                      <span>
+                        Ambiente protegido com criptografia de ponta a ponta e controle hierárquico RLS. Insira suas credenciais cadastradas.
+                      </span>
                     </div>
                   </div>
                 </>

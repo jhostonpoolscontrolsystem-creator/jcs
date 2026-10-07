@@ -59,7 +59,23 @@ export function ClientManagerDashboard() {
             </span>
             <span className="text-xs text-slate-400">Digital Twin & Certificado de Garantia</span>
           </div>
-          <h2 className="text-2xl font-black text-white">{selectedPool.name}</h2>
+          <div className="flex flex-wrap items-center gap-3">
+            <h2 className="text-2xl font-black text-white">{selectedPool.name}</h2>
+            <select
+              value={selectedPool.id}
+              onChange={(e) => {
+                const found = mockPools.find(p => p.id === e.target.value);
+                if (found) setSelectedPool(found);
+              }}
+              className="bg-slate-950 border border-slate-800 text-xs text-cyan-400 font-bold rounded-xl px-3 py-1.5 focus:outline-none focus:border-cyan-500 cursor-pointer"
+            >
+              {mockPools.map((pool) => (
+                <option key={pool.id} value={pool.id}>
+                  {pool.name} ({pool.facility_type})
+                </option>
+              ))}
+            </select>
+          </div>
           <p className="text-xs text-slate-400">
             Tipo: <strong className="text-slate-200">{selectedPool.facility_type}</strong> • Volume:{' '}
             <strong className="text-cyan-400">{selectedPool.volume_m3} m³</strong> • Vazão:{' '}

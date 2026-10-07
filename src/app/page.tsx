@@ -31,13 +31,15 @@ import { UserManagementPanel } from '@/components/UserManagementPanel';
 import { ExecutiveReportsWhatsAppPanel } from '@/components/ExecutiveReportsWhatsAppPanel';
 import { SystemTrainingAcademy } from '@/components/SystemTrainingAcademy';
 import { SystemHelpCenter } from '@/components/SystemHelpCenter';
-import { UserRole } from '@/types/database';
+import { PoolMedicalRecordModal } from '@/components/PoolMedicalRecordModal';
+import { UserRole, Pool } from '@/types/database';
 import { LogIn, LogOut, Users, UserCheck, GraduationCap, HelpCircle } from 'lucide-react';
 
 export default function JHPCSApp() {
   const [activeTab, setActiveTab] = useState<'dashboard' | 'client_portal' | 'pwa' | 'whatsapp' | 'rbac' | 'audit_live' | 'users' | 'executive_reports' | 'training' | 'help'>('dashboard');
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [inspectingPool, setInspectingPool] = useState<Pool | null>(null);
 
   // Usuário Autenticado (Inicia como Master Daniel Lopes por conveniência)
   const [currentUser, setCurrentUser] = useState<{
@@ -455,8 +457,11 @@ export default function JHPCSApp() {
                       </p>
                       <div className="pt-2 border-t border-slate-800 flex justify-between items-center text-[10px]">
                         <span className="text-red-400 font-semibold">WhatsApp Notificado</span>
-                        <button className="px-2 py-1 rounded bg-red-600/80 text-white font-bold hover:bg-red-500">
-                          Assumir Triagem
+                        <button 
+                          onClick={() => setInspectingPool(mockPools.find(p => p.status === 'RED_ZONE') || mockPools[1])}
+                          className="px-2 py-1 rounded bg-red-600/80 text-white font-bold hover:bg-red-500 transition cursor-pointer"
+                        >
+                          Ver Prontuário
                         </button>
                       </div>
                     </div>
@@ -482,7 +487,10 @@ export default function JHPCSApp() {
                       </p>
                       <div className="pt-2 border-t border-slate-800 flex justify-between items-center text-[10px]">
                         <span className="text-slate-400">Auditor: Carlos O.</span>
-                        <button className="px-2 py-1 rounded bg-slate-800 text-slate-200 hover:bg-slate-700">
+                        <button 
+                          onClick={() => setInspectingPool(mockPools.find(p => p.status === 'SUBMERGED_CURE') || mockPools[2])}
+                          className="px-2 py-1 rounded bg-slate-800 text-slate-200 hover:bg-slate-700 transition cursor-pointer"
+                        >
                           Ver Laudo
                         </button>
                       </div>
@@ -508,8 +516,16 @@ export default function JHPCSApp() {
                         pH 7.4 | Cloro 2.2 ppm | Alcalinidade 100 ppm. Estoque com runway para 14 dias.
                       </p>
                       <div className="pt-2 border-t border-slate-800 flex justify-between items-center text-[10px] text-emerald-400">
-                        <CheckCircle2 className="w-3.5 h-3.5" />
-                        <span>Garantia 100% Protegida</span>
+                        <div className="flex items-center gap-1">
+                          <CheckCircle2 className="w-3.5 h-3.5" />
+                          <span>Garantia 100% Protegida</span>
+                        </div>
+                        <button
+                          onClick={() => setInspectingPool(mockPools[0])}
+                          className="px-2 py-1 rounded bg-emerald-950 border border-emerald-800 text-emerald-300 hover:bg-emerald-900 transition cursor-pointer"
+                        >
+                          Prontuário
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -671,6 +687,14 @@ export default function JHPCSApp() {
         onPoolCreated={(newPool) => {
           alert(`Digital Twin criado com sucesso para: ${newPool.name}!`);
         }}
+      />
+
+      {/* Modal de Prontuário Completo de Piscina */}
+      <PoolMedicalRecordModal
+        pool={inspectingPool}
+        isOpen={!!inspectingPool}
+        onClose={() => setInspectingPool(null)}
+        currentUserRole={currentUser?.role}
       />
 
       {/* Footer */}

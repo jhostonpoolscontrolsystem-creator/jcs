@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import { ShieldAlert, Droplets, MapPin, Eye, CheckCircle2, Clock } from 'lucide-react';
 import { Pool } from '@/types/database';
 import { mockPools } from '@/lib/mock-data';
+import { PoolMedicalRecordModal } from './PoolMedicalRecordModal';
 
 // Import dinâmico do Leaflet para compatibilidade com SSR (Next.js)
 const MapContainer = dynamic(
@@ -27,6 +28,7 @@ const Popup = dynamic(
 export function GlobalHealthMap() {
   const [pools, setPools] = useState<Pool[]>(mockPools);
   const [selectedPool, setSelectedPool] = useState<Pool | null>(null);
+  const [isRecordModalOpen, setIsRecordModalOpen] = useState(false);
   const [leafletLoaded, setLeafletLoaded] = useState(false);
   const [customIcons, setCustomIcons] = useState<any>(null);
 
@@ -203,16 +205,23 @@ export function GlobalHealthMap() {
 
             <div className="pt-1">
               <button
-                onClick={() => alert(`Abrindo prontuário histórico completo de ${selectedPool.name}`)}
+                onClick={() => setIsRecordModalOpen(true)}
                 className="w-full py-2 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-md shadow-cyan-600/20"
               >
                 <Eye className="w-3.5 h-3.5" />
-                Ver Prontuário Completo
+                Ver Prontuário & Laudo Completo
               </button>
             </div>
           </div>
         )}
       </div>
+
+      {/* Modal de Prontuário Técnico Completo da Piscina */}
+      <PoolMedicalRecordModal
+        pool={selectedPool}
+        isOpen={isRecordModalOpen}
+        onClose={() => setIsRecordModalOpen(false)}
+      />
     </div>
   );
 }
