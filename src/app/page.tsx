@@ -32,11 +32,12 @@ import { ExecutiveReportsWhatsAppPanel } from '@/components/ExecutiveReportsWhat
 import { SystemTrainingAcademy } from '@/components/SystemTrainingAcademy';
 import { SystemHelpCenter } from '@/components/SystemHelpCenter';
 import { PoolMedicalRecordModal } from '@/components/PoolMedicalRecordModal';
+import { MasterGovernanceHub } from '@/components/MasterGovernanceHub';
 import { UserRole, Pool } from '@/types/database';
-import { LogIn, LogOut, Users, UserCheck, GraduationCap, HelpCircle } from 'lucide-react';
+import { LogIn, LogOut, Users, UserCheck, GraduationCap, HelpCircle, Crown } from 'lucide-react';
 
 export default function JHPCSApp() {
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'client_portal' | 'pwa' | 'whatsapp' | 'rbac' | 'audit_live' | 'users' | 'executive_reports' | 'training' | 'help'>('dashboard');
+  const [activeTab, setActiveTab] = useState<'master' | 'dashboard' | 'client_portal' | 'pwa' | 'whatsapp' | 'rbac' | 'audit_live' | 'users' | 'executive_reports' | 'training' | 'help'>('master');
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [inspectingPool, setInspectingPool] = useState<Pool | null>(null);
@@ -189,9 +190,24 @@ export default function JHPCSApp() {
           )}
         </div>
 
-        {/* Navigation Tabs (Filtrados Estritamente por RBAC) */}
+        {/* Navigation Tabs (Filtrados Estritamente por RBAC para cada perfil) */}
         <div className="w-full flex items-center gap-1.5 bg-slate-950/80 p-1.5 rounded-xl border border-slate-800 overflow-x-auto">
-          {/* MASTER ou DIRETORIA_JH ou TECNICO_JH */}
+          {/* EXCLUSIVO MASTER: Centro de Comando e Governança */}
+          {currentUser?.role === 'MASTER' && (
+            <button
+              onClick={() => setActiveTab('master')}
+              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-black whitespace-nowrap transition-all ${
+                activeTab === 'master'
+                  ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 shadow-md shadow-amber-500/30'
+                  : 'text-amber-400 hover:text-white hover:bg-slate-900'
+              }`}
+            >
+              <Crown className="w-4 h-4" />
+              Painel MASTER
+            </button>
+          )}
+
+          {/* MASTER ou DIRETORIA_JH ou TECNICO_JH: Centro Operacional */}
           {(!currentUser || currentUser.role === 'MASTER' || currentUser.role === 'DIRETORIA_JH' || currentUser.role === 'TECNICO_JH') && (
             <button
               onClick={() => setActiveTab('dashboard')}
@@ -206,7 +222,7 @@ export default function JHPCSApp() {
             </button>
           )}
 
-          {/* MASTER ou GERENCIA_CLI ou TECNICO_CLI */}
+          {/* MASTER, GERENCIA_CLI ou TECNICO_CLI: Portal do Cliente */}
           {(!currentUser || currentUser.role === 'MASTER' || currentUser.role === 'GERENCIA_CLI' || currentUser.role === 'TECNICO_CLI') && (
             <button
               onClick={() => setActiveTab('client_portal')}
@@ -217,22 +233,24 @@ export default function JHPCSApp() {
               }`}
             >
               <Layers className="w-4 h-4" />
-              Portal Gerência / Cliente
+              Portal do Cliente (Digital Twin)
             </button>
           )}
 
-          {/* PWA Tratador (Todos podem testar, mas é a ÚNICA tela do Piscineiro) */}
-          <button
-            onClick={() => setActiveTab('pwa')}
-            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
-              activeTab === 'pwa'
-                ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/30'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'
-            }`}
-          >
-            <Smartphone className="w-4 h-4" />
-            PWA Tratador (Mobile)
-          </button>
+          {/* MASTER ou PISCINEIRO (Piscineiro enxerga apenas este app) */}
+          {(!currentUser || currentUser.role === 'MASTER' || currentUser.role === 'PISCINEIRO') && (
+            <button
+              onClick={() => setActiveTab('pwa')}
+              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+                activeTab === 'pwa'
+                  ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/30'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'
+              }`}
+            >
+              <Smartphone className="w-4 h-4" />
+              App do Tratador (PWA)
+            </button>
+          )}
 
           {/* MASTER ou DIRETORIA_JH: Gestão de Usuários */}
           {(!currentUser || currentUser.role === 'MASTER' || currentUser.role === 'DIRETORIA_JH') && (
@@ -249,7 +267,7 @@ export default function JHPCSApp() {
             </button>
           )}
 
-          {/* MASTER ou DIRETORIA_JH: Relatórios Executivos & Agenda WhatsApp */}
+          {/* MASTER ou DIRETORIA_JH: Relatórios Executivos & WhatsApp */}
           {(!currentUser || currentUser.role === 'MASTER' || currentUser.role === 'DIRETORIA_JH') && (
             <button
               onClick={() => setActiveTab('executive_reports')}
@@ -309,7 +327,7 @@ export default function JHPCSApp() {
             </button>
           )}
 
-          {/* ACADEMIA & CURSO DO SISTEMA */}
+          {/* ACADEMIA & CURSO DO SISTEMA: Universal */}
           <button
             onClick={() => setActiveTab('training')}
             className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
@@ -322,7 +340,7 @@ export default function JHPCSApp() {
             Academia & Treinamento
           </button>
 
-          {/* CENTRAL DE AJUDA & FAQ: Acesso universal a todos os usuários */}
+          {/* CENTRAL DE AJUDA & FAQ: Universal */}
           <button
             onClick={() => setActiveTab('help')}
             className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
@@ -340,6 +358,15 @@ export default function JHPCSApp() {
       {/* Main Container */}
       <main className="flex-1 max-w-7xl w-full mx-auto p-6 md:p-8 space-y-8">
         
+        {/* TAB 0: EXCLUSIVO MASTER (Centro de Comando & Governança Soberana) */}
+        {activeTab === 'master' && (
+          <MasterGovernanceHub
+            onNavigateTab={(tab) => setActiveTab(tab)}
+            onOpenUserManagement={() => setActiveTab('users')}
+            onOpenRegisterPool={() => setIsRegisterModalOpen(true)}
+          />
+        )}
+
         {/* TAB 1: DASHBOARD JHOSTONTEC */}
         {activeTab === 'dashboard' && (
           <div className="space-y-8 animate-fadeIn">

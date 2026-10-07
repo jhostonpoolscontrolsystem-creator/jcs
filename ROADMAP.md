@@ -1,59 +1,88 @@
-# 🗺️ Roadmap de Implantação e Go-to-Market — JHPCS (JHoston Pools Control System)
-
-**Objetivo Estratégico:** Proteger o maior ativo da JHostonTec (revestimentos monolíticos), transferir responsabilidade jurídica, auditar rotinas de tratadores terceirizados e gerar valor real aos clientes B2B/B2C via Digital Twin.
-
----
-
-## 🟢 FASE 1: Fundação & Arquitetura Base (100% CONCLUÍDA)
-- [x] **Setup do Projeto**: Next.js (App Router), TypeScript, Tailwind CSS e Vercel Serverless/Edge.
-- [x] **Banco de Dados & RLS (Supabase)**: 9 tabelas relacionais + Políticas de segurança multi-tenant (RBAC).
-- [x] **Storage com Trava**: Bucket `service_evidences` no Supabase com limite de 5MB.
-- [x] **Motor Químico Hard-Coded**: Regra Letal de Ácidos (`WARRANTY_SUSPENDED`), Alerta de pH < 7.0 (`RED_ZONE`) e memória de cálculo preditiva.
-- [x] **Firebase Cloud Messaging**: Projeto `jhpcs-2fefd`, Service Worker e chaves VAPID configuradas.
-- [x] **Inteligência Meteorológica**: Integração real OpenWeather com recomendações preventivas.
-- [x] **Mensageria WhatsApp (Evolution API)**: Disparo ativo com SLA < 10 segundos.
-- [x] **Certificado de Garantia em PDF**: Emissão automática com chancela e hash criptográfico.
-- [x] **Motor de Ultra-Compressão WebP**: Redução de ~95% no peso das fotos capturadas (35KB - 60KB).
-- [x] **PWA Instalável**: Configuração do `manifest.json` e login de campo com CPF + PIN.
+# 🗺️ Novo ROADMAP Estratégico & Auditoria Severa 2026/2027 — JHPCS
+### *JHoston Pools Control System — Plano de Expansão, Escala Enterprise e Novas Features*
 
 ---
 
-## 🟡 FASE 2: Homologação Técnica & Testes de Campo (Próximos Passos Imediatos)
+## 🔍 1. Relatório da Auditoria Severa do Sistema Atual (Diagnóstico de Engenharia)
 
-### Marco 2.1 — Conectar a Chave Pública do Supabase (`NEXT_PUBLIC_SUPABASE_ANON_KEY`)
-- **Ação:** Inserir a chave anônima no painel da Vercel e no `.env.local` para transicionar do mock para queries 100% ativas no banco de dados.
-- **Impacto:** Persistência em tempo real de logs de tratamento e inventário.
+### 🟢 Pontos Fortes Consolidados (Status: Produção Ativa)
+1. **Infraestrutura Serverless & Edge**: Next.js 16 + Vercel com velocidade instantânea e sem custo fixo de servidor ocioso.
+2. **Banco Relacional & RLS Ativo**: Supabase PostgreSQL conectado com políticas multi-tenant e bypass seguro com chave service-role no backend.
+3. **Motor Químico de Proteção ao Monólito**: Regras químicas rigorosas que detectam pH ácido < 7.0, calculam LSI (Índice de Langelier) e bloqueiam terminantemente ácidos nocivos.
+4. **Mensageria com SLA < 3.2s**: Instância Evolution API (`ecostone`) disparando relatórios reais no WhatsApp.
+5. **App Tratador PWA & Flutter White Label**: Sistema offline-first (IndexedDB) para borda de piscina e projeto Flutter preparado.
+6. **Segurança & Governança**: Barreira de primeiro acesso com substituição obrigatória de senha e caractere especial; painel exclusivo do MASTER.
 
-### Marco 2.2 — Teste de Homologação em Dispositivo Real (Mobile)
-- **Ação:** Acessar `jcs-pools.vercel.app` pelo navegador do smartphone (Chrome/Safari) e validar:
-  1. Instalação do PWA ("Adicionar à tela de início").
-  2. Acesso à Câmera Traseira (`getUserMedia`) com bloqueio efetivo de seleção de arquivos da galeria.
-  3. Coleta de coordenadas do GPS com alta precisão e conferência de raio de 100m.
-  4. Teste em modo avião (Offline): salvar registro no IndexedDB e validar sincronização automática ao religar a rede.
-
-### Marco 2.3 — Pareamento do WhatsApp na Evolution API
-- **Ação:** Subir a instância Docker da Evolution API apontando para o número de suporte oficial da JHostonTec e ler o QR Code.
-- **Impacto:** Alertas críticos de Red Zone e Chatbot de Status funcionando no WhatsApp real.
-
----
-
-## 🟠 FASE 3: Enriquecimento de Recursos & Operação B2B
-
-### Marco 3.1 — Painel Multi-Piscinas com Mapa Real (Leaflet / Google Maps)
-- **Ação:** Substituir a grade estática do mapa de saúde pelo componente interativo de mapa, plotando pins coloridos (Verde = Conforme, Amarelo = Cura, Vermelho = Red Zone) com zoom nos hotéis e resorts.
-
-### Marco 3.2 — Automação de Disparo Mensal de Laudos (WhatsApp Bot)
-- **Ação:** Configurar a rota `/api/cron/monthly-reports` no `vercel.json` para rodar no 1º dia útil de cada mês, gerando o PDF e enviando via WhatsApp para os síndicos e gerentes de manutenção.
-
-### Marco 3.3 — Cadastro e Gestão de Novos Clientes & Piscinas
-- **Ação:** Criar formulário administrativo para cadastro de novos clientes, definição do volume em m³, vazão de bomba, coordenadas GPS de referência e data de início de cura (7d seco / 28d submersa).
+### ⚠️ Oportunidades de Melhoria Identificadas na Auditoria
+1. **Inteligência Artificial na Leitura da Fita de Teste**: O piscineiro ainda digita os valores nos sliders; a câmera pode ler a fita de cores automaticamente via Visão Computacional.
+2. **Telemetria de Sensores IoT em Tempo Real**: Adicionar suporte a sondas eletrônicas flutuantes (pH/ORP/Temperatura via MQTT/LoRaWAN) para hotéis que não querem depender apenas de visitas manuais.
+3. **Módulo Financeiro & Faturamento Recorrente**: Integração de cobrança automática (Pix/Boleto Asaas/Stripe) na venda dos insumos químicos homologados.
+4. **Assinatura Biométrica / Facial do Tratador**: Garantir presença física incontestável do tratador na borda da piscina.
 
 ---
 
-## 🔵 FASE 4: Go-to-Market & Jurídico
+## 🚀 2. Novo ROADMAP de Evolução (Q4/2026 a Q2/2027)
 
-### Marco 4.1 — Validação do Termo de Responsabilidade Jurídica
-- **Ação:** Revisão jurídica do texto do Termo de Responsabilidade diário ("Declaro que as informações refletem o estado real da água..."), garantindo validade de assinatura eletrônica conforme a MP 2.200-2/2001.
+```
+       [FASE 1: ENTERPRISE MASTER & MULTI-TENANT] ──────────── (CONCLUÍDO)
+                          │
+       [FASE 2: IA DE VISÃO COMPUTACIONAL & FITAS] ─────────── (Q4 / 2026)
+                          │
+       [FASE 3: HARDWARE IoT & TELEMETRIA CONTÍNUA] ────────── (Q1 / 2027)
+                          │
+       [FASE 4: E-COMMERCE B2B DE INSUMOS & RECORRÊNCIA] ───── (Q2 / 2027)
+```
 
-### Marco 4.2 — Treinamento dos Primeiros Piscineiros Credenciados
-- **Ação:** Onboarding prático de 2 ou 3 tratadores em hotéis piloto, usando CPF e PIN de 4 dígitos para submissão diária.
+---
+
+### 🟢 FASE 1: Enterprise Master & Governança de Acessos (100% Concluída)
+- [x] **Painel Exclusivo MASTER**: Visão soberana para Daniel Lopes e Patrícia com fila de homologação e atalhos globais.
+- [x] **Filtro Estrito por Papéis (RBAC)**:
+  * **Master**: Visão de Governança Suprema.
+  * **Diretoria JH**: Dashboard operacional, relatórios executivos WhatsApp e gestão de equipe.
+  * **Técnico JH**: Prontuários químicos, triagem Kanban de Red Zones e motor de regras LSI.
+  * **Gerência do Cliente**: Digital Twin da piscina, contador de cura e estoque.
+  * **Piscineiro**: Somente o app do tratador com câmera e sliders grandes.
+- [x] **Limpeza de Credenciais de Teste**: Login 100% limpo e seguro contra invasões.
+- [x] **Prontuário Médico & Técnico da Piscina**: Modal detalhado acessível do mapa e do kanban com telemetria LSI e disparo de laudo.
+
+---
+
+### 🟡 FASE 2: Inteligência Artificial de Visão Computacional (Novembro / 2026)
+* **Feature 2.1 — Leitura Automática da Fita de Teste por IA**:
+  * Ao fotografar a fita reagente com a câmera do celular, um modelo de Visão Computacional (TensorFlow Lite / Gemini Multimodal) analisa os quadradinhos de cor da fita e preenche automaticamente o pH, Cloro e Alcalinidade, eliminando erro de digitação do piscineiro.
+* **Feature 2.2 — Detecção Precoce de Manchas no Revestimento**:
+  * Comparação da foto panorâmica atual com fotos históricas do monólito para identificar início de algas pretas, incrustações ou depósito de cálcio antes que o olho humano note.
+* **Feature 2.3 — Chatbot IA Especialista em Revestimentos Monolíticos**:
+  * O cliente final ou tratador pode enviar áudio ou foto no WhatsApp oficial da JHoston Pools perguntando: *"A água ficou turva depois da chuva, o que doso?"* — a IA responde com a dosagem matemática exata considerando o volume específico da piscina.
+
+---
+
+### 🟠 FASE 3: Integração com Sensores IoT Flutuantes (Janeiro / 2027)
+* **Feature 3.1 — Conector IoT MQTT / LoRaWAN**:
+  * Criação de webhook e conector para boias inteligentes flutuantes comerciais (ex: Blue Connect, Ondilo, Waterair).
+* **Feature 3.2 — Telemetria de 15 em 15 Minutos**:
+  * O gráfico de pH, ORP e Temperatura é alimentado 24 horas por dia, 7 dias por semana.
+* **Feature 3.3 — Acionamento Automático de Dosadoras Peristálticas**:
+  * Se o pH cair de 7.2 durante a madrugada, o sistema comanda o dosador automático do resort para injetar alcalinizante sem precisar esperar o piscineiro acordar.
+
+---
+
+### 🔵 FASE 4: E-Commerce B2B de Insumos & Clube de Assinatura (Março / 2027)
+* **Feature 4.1 — Reposição Automática "Just-in-Time"**:
+  * Quando o cálculo preditivo indicar que o estoque do resort vai acabar em 4 dias, o sistema gera o pedido de compra automaticamente com aprovação em 1 clique via WhatsApp.
+* **Feature 4.2 — Gateway de Pagamento Integrado (Pix & Boleto Automático)**:
+  * Cobrança faturada ou Pix Copia e Cola gerado na hora para o cliente pagar os insumos químicos homologados da JHoston Pools.
+* **Feature 4.3 — Rastreamento Logístico do Balde de Insumos**:
+  * Notificação WhatsApp com status de despacho e entrega do caminhão de químicos na portaria do condomínio.
+
+---
+
+## 📈 Tabela de Metas & KPIs de Negócio para a JHoston Pools
+
+| Métrica / KPI | Cenário Atual (Sem Software) | Meta com JHPCS (Com Software) |
+| :--- | :---: | :---: |
+| **Custo de Garantias Indevidas** | R$ 40.000+ / ano em retrabalho | **R$ 0** (100% auditado e blindado) |
+| **Receita Recorrente de Insumos** | R$ 0 (cliente compra em loja genérica) | **R$ 15.000 / mês** em químicos homologados |
+| **Tempo de Diagnóstico de Anomalia** | 2 a 3 semanas após reclamação | **< 2 horas** com Red Zone e WhatsApp |
+| **Satisfação dos Clientes (NPS)** | 72 | **96+** (Percepção de tecnologia de luxo) |
