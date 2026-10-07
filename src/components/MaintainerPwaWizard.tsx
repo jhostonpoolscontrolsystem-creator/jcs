@@ -290,18 +290,45 @@ export function MaintainerPwaWizard() {
             </div>
           </div>
 
-          {/* Tarja de Conexão */}
-          {isOnline ? (
-            <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950/80 border border-emerald-800/40 text-xs text-emerald-400 font-semibold">
-              <Wifi className="w-3.5 h-3.5" />
-              <span>Conectado</span>
+          {/* Tarja de Conexão e White Label */}
+          <div className="flex items-center gap-2">
+            <span className="hidden sm:inline-block px-2.5 py-0.5 rounded-full bg-cyan-950 border border-cyan-800 text-[10px] font-bold text-cyan-300">
+              White Label Ready
+            </span>
+            {isOnline ? (
+              <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950/80 border border-emerald-800/40 text-xs text-emerald-400 font-semibold">
+                <Wifi className="w-3.5 h-3.5" />
+                <span>Conectado</span>
+              </div>
+            ) : (
+              <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-950 border border-amber-800 text-xs text-amber-300 font-semibold animate-pulse">
+                <WifiOff className="w-3.5 h-3.5" />
+                <span>Modo Offline (72h)</span>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Banner White Label & Instalação Direta no Celular */}
+        <div className="p-3.5 rounded-2xl bg-gradient-to-r from-cyan-950/40 via-slate-900 to-sky-950/40 border border-cyan-800/40 flex flex-wrap items-center justify-between gap-3 text-xs">
+          <div className="space-y-0.5">
+            <div className="flex items-center gap-2">
+              <span className="font-bold text-white">📱 Aplicativo do Tratador (White Label)</span>
+              <span className="text-[10px] bg-cyan-900/60 text-cyan-300 px-2 py-0.5 rounded font-mono font-bold">APK / PWA</span>
             </div>
-          ) : (
-            <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-950 border border-amber-800 text-xs text-amber-300 font-semibold animate-pulse">
-              <WifiOff className="w-3.5 h-3.5" />
-              <span>Modo Offline (72h)</span>
-            </div>
-          )}
+            <p className="text-[11px] text-slate-400">
+              Instale na tela de início de qualquer celular Android ou iOS com 1 clique (funciona 100% offline).
+            </p>
+          </div>
+          <button
+            onClick={() => {
+              alert('Para instalar o app no celular:\n\n1. No Android (Chrome): Toque nos 3 pontinhos e selecione "Instalar aplicativo" ou "Adicionar à tela inicial".\n2. No iPhone (Safari): Toque no botão de Compartilhar e selecione "Adicionar à Tela de Início".\n\nO app abrirá em tela cheia como um aplicativo nativo!');
+            }}
+            className="px-3.5 py-1.5 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black rounded-xl text-xs flex items-center gap-1.5 transition cursor-pointer shadow-md shadow-cyan-500/20"
+          >
+            <Smartphone className="w-3.5 h-3.5" />
+            <span>Instalar no Celular</span>
+          </button>
         </div>
 
         {/* Notificação de Fila Offline */}
