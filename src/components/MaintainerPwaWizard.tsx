@@ -20,6 +20,12 @@ import { saveOfflineMaintenanceLog, getPendingOfflineLogs, removeOfflineLog } fr
 import { evaluateChemicalRules, calculateChemicalDose } from '@/lib/chemical-rules';
 
 export function MaintainerPwaWizard() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [cpf, setCpf] = useState('123.456.789-00');
+  const [pin, setPin] = useState('');
+  const [authError, setAuthError] = useState<string | null>(null);
+  const [loggingIn, setLoggingIn] = useState(false);
+
   const [selectedPoolId, setSelectedPoolId] = useState('p-2');
   const [isOnline, setIsOnline] = useState(true);
   const [pendingLogsCount, setPendingLogsCount] = useState(0);
@@ -170,6 +176,104 @@ export function MaintainerPwaWizard() {
       setSubmitting(false);
     }
   };
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoggingIn(true);
+    setAuthError(null);
+
+    try {
+      const res = await fetch('/api/auth/pwa-login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cpf, pin }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setAuthError(data.error || 'Credenciais inválidas.');
+      } else {
+        setIsAuthenticated(true);
+      }
+    } catch (err: any) {
+      setAuthError('Falha ao conectar com o serviço de autenticação.');
+    } finally {
+      setLoggingIn(false);
+    }
+  };
+
+  if (!isAuthenticated) {
+    return (
+      <div className="max-w-md mx-auto bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 space-y-6 shadow-2xl animate-fadeIn">
+        <div className="text-center space-y-2">
+          <div className="h-14 w-14 mx-auto rounded-2xl bg-cyan-950 border border-cyan-800 flex items-center justify-center text-cyan-400 shadow-lg shadow-cyan-500/20">
+            <Lock className="w-7 h-7" />
+          </div>
+          <h3 className="text-xl font-black text-white">Acesso do Tratador</h3>
+          <p className="text-xs text-slate-400">PWA Operacional • Autenticação Rápida de Campo</p>
+        </div>
+
+        <form onSubmit={handleLogin} className="space-y-4">
+          <div>
+            <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+              CPF do Tratador:
+            </label>
+            <input
+              type="text"
+              value={cpf}
+              onChange={(e) => setCpf(e.target.value)}
+              className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 font-mono"
+              placeholder="000.000.000-00"
+              required
+            />
+          </div>
+
+          <div>
+            <div className="flex justify-between items-center mb-1.5">
+              <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider">
+                PIN de Operação (4 dígitos):
+              </label>
+              <span className="text-[10px] text-cyan-400">PIN Teste: 1234</span>
+            </div>
+            <input
+              type="password"
+              maxLength={6}
+              value={pin}
+              onChange={(e) => setPin(e.target.value)}
+              className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-center tracking-widest text-lg font-bold text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 font-mono"
+              placeholder="••••"
+              required
+            />
+          </div>
+
+          {authError && (
+            <div className="p-3 rounded-xl bg-red-950/60 border border-red-800 text-red-300 text-xs flex items-center gap-2">
+              <AlertTriangle className="w-4 h-4 flex-shrink-0" />
+              <span>{authError}</span>
+            </div>
+          )}
+
+          <button
+            type="submit"
+            disabled={loggingIn}
+            className="w-full py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-sky-500 text-slate-950 font-black text-sm shadow-xl shadow-cyan-500/20 hover:opacity-95 transition-all flex items-center justify-center gap-2 cursor-pointer"
+          >
+            {loggingIn ? (
+              <span>Validando Credenciais...</span>
+            ) : (
+              <>
+                <Lock className="w-4 h-4" />
+                <span>Acessar Roteiro do Dia</span>
+              </>
+            )}
+          </button>
+        </form>
+
+        <p className="text-[11px] text-center text-slate-500">
+          Acesso restrito a profissionais homologados pela JHostonTec.
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-2xl mx-auto space-y-6">
