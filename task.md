@@ -13,13 +13,13 @@
   - [ ] Implementar hook de consulta e inserção direta nas tabelas `pools` e `maintenance_logs`
   - [ ] Desativar dados de fallback mockados quando houver conexão viva com o Supabase
 
-- [ ] **Task 3.1 — Mapa Interativo de Saúde Global com Pins Geográficos**:
-  - [ ] Instalar biblioteca de mapas (`leaflet` e `react-leaflet` ou mapa SVG dinâmico)
-  - [ ] Renderizar coordenadas das piscinas com pins interativos:
+- [x] **Task 3.1 — Mapa Interativo de Saúde Global com Pins Geográficos**:
+  - [x] Instalar biblioteca de mapas (`leaflet` e `react-leaflet`)
+  - [x] Renderizar coordenadas das piscinas com pins interativos com código de cores:
     - 🟢 Verde: Parâmetros em conformidade
     - 🟡 Amarelo: Em cura submersa (28 dias)
-    - 🔴 Vermelho: Red Zone com risco iminente de corrosão
-  - [ ] Adicionar modal de detalhes rápidos ao clicar em um pin
+    - 🔴 Vermelho: Red Zone com risco iminente de corrosão (efeito radar pulsante)
+  - [x] Adicionar modal de detalhes rápidos ao clicar em um pin
 
 - [ ] **Task 3.2 — Módulo Administrativo de Cadastro de Piscinas (Digital Twin)**:
   - [ ] Criar formulário para cadastrar nova piscina

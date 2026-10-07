@@ -24,9 +24,11 @@ import { MaintainerPwaWizard } from '@/components/MaintainerPwaWizard';
 import { ClientManagerDashboard } from '@/components/ClientManagerDashboard';
 import { EvolutionWhatsAppTester } from '@/components/EvolutionWhatsAppTester';
 import { GlobalHealthMap } from '@/components/GlobalHealthMap';
+import { PoolRegistrationModal } from '@/components/PoolRegistrationModal';
 
 export default function JHPCSApp() {
   const [activeTab, setActiveTab] = useState<'dashboard' | 'client_portal' | 'pwa' | 'whatsapp' | 'audit_live'>('dashboard');
+  const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
 
   // Estado da Simulação Operacional do PWA do Piscineiro
   const [selectedPoolId, setSelectedPoolId] = useState('p-2');
@@ -200,7 +202,21 @@ export default function JHPCSApp() {
         {/* TAB 1: DASHBOARD JHOSTONTEC */}
         {activeTab === 'dashboard' && (
           <div className="space-y-8 animate-fadeIn">
-            {/* Top Metric Cards */}
+            {/* Top Metric Cards & Botão Cadastrar Ativo */}
+            <div className="flex justify-between items-center">
+              <div>
+                <h2 className="text-xl font-black text-white">Centro de Comando & Auditoria</h2>
+                <p className="text-xs text-slate-400">Monitoramento Contínuo e Gestão da Garantia de Revestimentos</p>
+              </div>
+
+              <button
+                onClick={() => setIsRegisterModalOpen(true)}
+                className="px-4 py-2.5 bg-gradient-to-r from-cyan-500 to-sky-500 text-slate-950 font-black rounded-xl text-xs flex items-center gap-2 shadow-lg shadow-cyan-500/20 hover:opacity-95 transition-all cursor-pointer"
+              >
+                <span>+ Cadastrar Nova Piscina</span>
+              </button>
+            </div>
+
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <div className="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-5 relative overflow-hidden">
                 <div className="flex justify-between items-start">
@@ -443,6 +459,15 @@ export default function JHPCSApp() {
           </div>
         )}
       </main>
+
+      {/* Modal de Cadastro de Novas Piscinas */}
+      <PoolRegistrationModal
+        isOpen={isRegisterModalOpen}
+        onClose={() => setIsRegisterModalOpen(false)}
+        onPoolCreated={(newPool) => {
+          alert(`Digital Twin criado com sucesso para: ${newPool.name}!`);
+        }}
+      />
 
       {/* Footer */}
       <footer className="border-t border-slate-900 bg-slate-950 px-6 py-4 text-center text-xs text-slate-500">
