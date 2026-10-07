@@ -17,7 +17,8 @@ import {
   Briefcase,
   ChevronRight,
   Droplet,
-  Info
+  Info,
+  ShieldAlert
 } from 'lucide-react';
 import { UserRole } from '@/types/database';
 
@@ -29,7 +30,7 @@ interface AuthModalProps {
 }
 
 export function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser }: AuthModalProps) {
-  const [mode, setMode] = useState<'LOGIN' | 'REGISTER'>('LOGIN');
+  const [mode, setMode] = useState<'LOGIN' | 'REGISTER' | 'FORCE_CHANGE_PASSWORD'>('LOGIN');
   const [authMethod, setAuthMethod] = useState<'EMAIL' | 'CPF_PIN'>('EMAIL');
 
   // Form State - Login
@@ -38,11 +39,16 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser }: Auth
   const [loginCpf, setLoginCpf] = useState('');
   const [loginPin, setLoginPin] = useState('');
 
+  // Form State - Forçar Troca de Senha
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [pendingUser, setPendingUser] = useState<any>(null);
+
   // Form State - Register
   const [regName, setRegName] = useState('');
   const [regEmail, setRegEmail] = useState('');
   const [regPhone, setRegPhone] = useState('55');
-  const [regPassword, setRegPassword] = useState('');
+  const [regPassword, setRegPassword] = useState('123456');
   const [regRole, setRegRole] = useState<UserRole>('GERENCIA_CLI');
   const [regCpf, setRegCpf] = useState('');
   const [regPin, setRegPin] = useState('');
@@ -54,15 +60,14 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser }: Auth
 
   if (!isOpen) return null;
 
-  // Hierarquia dinâmica de inclusão permitida pelo perfil de quem está logado:
   const creatorRole: UserRole = currentUser?.role || 'MASTER';
 
-  // Opções de papéis permitidos de acordo com quem está cadastrando
   const getAllowedRoles = (): { role: UserRole; label: string; group: string }[] => {
     if (creatorRole === 'MASTER') {
       return [
-        { role: 'DIRETORIA_JH', label: 'Diretoria JHoston Pools', group: 'JHoston Pools' },
-        { role: 'TECNICO_JH', label: 'Técnico Especialista JH', group: 'JHoston Pools' },
+        { role: 'MASTER', label: 'MASTER (Daniel / Patrícia)', group: 'JHoston Pools' },
+        { role: 'DIRETORIA_JH', label: 'Diretoria Executiva (Joabson)', group: 'JHoston Pools' },
+        { role: 'TECNICO_JH', label: 'Responsável Técnico / Gerente Técnico', group: 'JHoston Pools' },
         { role: 'GERENCIA_CLI', label: 'Gerente / Proprietário do Cliente', group: 'Cliente' },
         { role: 'TECNICO_CLI', label: 'Técnico / Manutenção do Cliente', group: 'Cliente' },
         { role: 'PISCINEIRO', label: 'Piscineiro / Tratador de Campo', group: 'Operacional' },
@@ -107,6 +112,14 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser }: Auth
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || 'Falha ao autenticar.');
 
+        // Se for a senha provisória padrão 123456, FORÇA a troca com caractere especial
+        if (data.must_change_password) {
+          setPendingUser(data.user);
+          setMode('FORCE_CHANGE_PASSWORD');
+          setSuccessMsg('Primeiro acesso detectado (senha provisória). Crie sua senha definitiva agora com ao menos 1 caractere especial.');
+          return;
+        }
+
         setSuccessMsg(`Bem-vindo, ${data.user.name}! Nível: ${data.user.role}`);
         setTimeout(() => {
           onLoginSuccess(data.user);
@@ -139,6 +152,49 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser }: Auth
     }
   };
 
+  const handleForceChangePassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setErrorMsg('');
+    setSuccessMsg('');
+
+    if (newPassword !== confirmPassword) {
+      setErrorMsg('As senhas não coincidem.');
+      return;
+    }
+
+    const specialCharRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+    if (!specialCharRegex.test(newPassword)) {
+      setErrorMsg('A senha deve conter ao menos 1 caractere especial (ex: ! @ # $ % & *).');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const res = await fetch('/api/auth/change-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: pendingUser.email,
+          currentPassword: loginPassword,
+          newPassword: newPassword,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Falha ao alterar senha.');
+
+      setSuccessMsg('Senha definitiva cadastrada com sucesso! Entrando no sistema...');
+      setTimeout(() => {
+        onLoginSuccess(pendingUser);
+        onClose();
+      }, 1000);
+    } catch (err: any) {
+      setErrorMsg(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -154,7 +210,7 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser }: Auth
           email: regEmail,
           phone: regPhone,
           role: regRole,
-          password: regPassword,
+          password: regPassword || '123456',
           cpf: regCpf,
           pin: regPin,
           creator_id: currentUser?.id,
@@ -166,15 +222,15 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser }: Auth
       if (!res.ok) throw new Error(data.error || 'Falha ao cadastrar usuário.');
 
       if (data.approval_status === 'APPROVED') {
-        setSuccessMsg(`Usuário ${data.user.name} cadastrado e APROVADO com sucesso!`);
+        setSuccessMsg(`Usuário ${data.user.name} cadastrado e APROVADO com sucesso! Senha inicial: 123456.`);
       } else {
-        setSuccessMsg(`Usuário ${data.user.name} incluído com sucesso! Enviado para homologação e aprovação do MASTER (Daniel Lopes).`);
+        setSuccessMsg(`Usuário ${data.user.name} incluído com sucesso! Enviado para homologação e aprovação do MASTER.`);
       }
 
       setTimeout(() => {
         setMode('LOGIN');
         setLoginEmail(data.user.email);
-        setLoginPassword('');
+        setLoginPassword('123456');
       }, 2500);
     } catch (err: any) {
       setErrorMsg(err.message || 'Erro ao registrar usuário.');
@@ -199,7 +255,11 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser }: Auth
             </div>
             <div>
               <h3 className="font-extrabold text-base tracking-wider text-white">
-                {mode === 'LOGIN' ? 'Acesso ao Sistema JHPCS' : 'Cadastrar / Indicar Usuário'}
+                {mode === 'FORCE_CHANGE_PASSWORD' 
+                  ? 'Redefinição Obrigatória de Senha'
+                  : mode === 'LOGIN' 
+                    ? 'Acesso ao Sistema JHPCS' 
+                    : 'Cadastrar / Indicar Usuário'}
               </h3>
               <p className="text-xs text-slate-400">
                 Logado como: <strong className="text-cyan-400">{currentUser ? `${currentUser.name} (${currentUser.role})` : 'Visitante'}</strong>
@@ -215,26 +275,28 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser }: Auth
         </div>
 
         {/* Tabs Mode Switcher (Login vs Register) */}
-        <div className="flex bg-slate-950 p-1 rounded-xl my-5 border border-slate-800">
-          <button
-            type="button"
-            onClick={() => { setMode('LOGIN'); setErrorMsg(''); setSuccessMsg(''); }}
-            className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-xs font-bold transition ${
-              mode === 'LOGIN' ? 'bg-cyan-500 text-slate-950 shadow-md' : 'text-slate-400 hover:text-white'
-            }`}
-          >
-            <LogIn className="w-4 h-4" /> Entrar
-          </button>
-          <button
-            type="button"
-            onClick={() => { setMode('REGISTER'); setErrorMsg(''); setSuccessMsg(''); }}
-            className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-xs font-bold transition ${
-              mode === 'REGISTER' ? 'bg-cyan-500 text-slate-950 shadow-md' : 'text-slate-400 hover:text-white'
-            }`}
-          >
-            <UserPlus className="w-4 h-4" /> Novo Cadastro
-          </button>
-        </div>
+        {mode !== 'FORCE_CHANGE_PASSWORD' && (
+          <div className="flex bg-slate-950 p-1 rounded-xl my-5 border border-slate-800">
+            <button
+              type="button"
+              onClick={() => { setMode('LOGIN'); setErrorMsg(''); setSuccessMsg(''); }}
+              className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-xs font-bold transition ${
+                mode === 'LOGIN' ? 'bg-cyan-500 text-slate-950 shadow-md' : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              <LogIn className="w-4 h-4" /> Entrar
+            </button>
+            <button
+              type="button"
+              onClick={() => { setMode('REGISTER'); setErrorMsg(''); setSuccessMsg(''); }}
+              className={`flex-1 flex items-center justify-center gap-2 py-2 rounded-lg text-xs font-bold transition ${
+                mode === 'REGISTER' ? 'bg-cyan-500 text-slate-950 shadow-md' : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              <UserPlus className="w-4 h-4" /> Novo Cadastro
+            </button>
+          </div>
+        )}
 
         {/* Feedback Alerts */}
         {errorMsg && (
@@ -248,6 +310,57 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser }: Auth
             <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-400" />
             <span>{successMsg}</span>
           </div>
+        )}
+
+        {/* MODE: FORÇAR TROCA DE SENHA OBRIGATÓRIA (SE PRIMEIRO ACESSO COM 123456) */}
+        {mode === 'FORCE_CHANGE_PASSWORD' && (
+          <form onSubmit={handleForceChangePassword} className="space-y-4 my-2">
+            <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-[11px] text-amber-300 flex items-start gap-2">
+              <ShieldAlert className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+              <span>
+                Por exigência de segurança da <strong>JHoston Pools</strong>, a senha provisória <strong>123456</strong> deve ser obrigatoriamente substituída por uma nova senha com no mínimo 6 caracteres e pelo menos <strong>1 caractere especial</strong> (ex: ! @ # $ %).
+              </span>
+            </div>
+
+            <div>
+              <label className="block text-xs font-medium text-slate-300 mb-1">Nova Senha Definitiva</label>
+              <div className="relative">
+                <Lock className="w-4 h-4 text-slate-500 absolute left-3.5 top-3" />
+                <input
+                  type="password"
+                  required
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  placeholder="ex: JHoston@2026!"
+                  className="w-full bg-slate-950 border border-slate-800 rounded-xl py-2 pl-10 pr-3 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-cyan-500"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-xs font-medium text-slate-300 mb-1">Confirmar Nova Senha</label>
+              <div className="relative">
+                <Lock className="w-4 h-4 text-slate-500 absolute left-3.5 top-3" />
+                <input
+                  type="password"
+                  required
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  placeholder="Repita a nova senha"
+                  className="w-full bg-slate-950 border border-slate-800 rounded-xl py-2 pl-10 pr-3 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-cyan-500"
+                />
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full py-3 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-black rounded-xl text-xs flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 transition cursor-pointer disabled:opacity-50"
+            >
+              {loading ? 'Salvando Senha Criptografada...' : 'Validar Senha & Entrar no Sistema'}
+              <CheckCircle2 className="w-4 h-4" />
+            </button>
+          </form>
         )}
 
         {/* MODE: LOGIN */}
@@ -278,7 +391,7 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser }: Auth
               </button>
             </div>
 
-            <form onSubmit={handleLogin} className="space-y-4">
+            <form onSubmit={handleLogin} className="space-y-3.5">
               {authMethod === 'EMAIL' ? (
                 <>
                   <div>
@@ -291,7 +404,7 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser }: Auth
                         value={loginEmail}
                         onChange={(e) => setLoginEmail(e.target.value)}
                         placeholder="danielsmlopes@hotmail.com"
-                        className="w-full bg-slate-950 border border-slate-800 rounded-xl py-2.5 pl-10 pr-3 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-cyan-500"
+                        className="w-full bg-slate-950 border border-slate-800 rounded-xl py-2 pl-10 pr-3 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-cyan-500"
                       />
                     </div>
                   </div>
@@ -306,23 +419,65 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser }: Auth
                         value={loginPassword}
                         onChange={(e) => setLoginPassword(e.target.value)}
                         placeholder="••••••••"
-                        className="w-full bg-slate-950 border border-slate-800 rounded-xl py-2.5 pl-10 pr-3 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-cyan-500"
+                        className="w-full bg-slate-950 border border-slate-800 rounded-xl py-2 pl-10 pr-3 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-cyan-500"
                       />
                     </div>
                   </div>
 
-                  <div className="p-2.5 rounded-xl bg-slate-950 border border-slate-800/80 text-[11px] text-slate-400 flex items-center justify-between">
-                    <span>Acesso MASTER Oficial:</span>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setLoginEmail('danielsmlopes@hotmail.com');
-                        setLoginPassword('Gabriel2006');
-                      }}
-                      className="text-cyan-400 font-bold hover:underline cursor-pointer"
-                    >
-                      Preencher Daniel (Master)
-                    </button>
+                  {/* Atalhos Oficiais de Preenchimento Rápido da JHoston Pools */}
+                  <div className="space-y-1.5 pt-1">
+                    <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">
+                      Acessos Pré-Configurados JHoston Pools:
+                    </span>
+                    <div className="grid grid-cols-2 gap-1.5 text-[10px]">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setLoginEmail('danielsmlopes@hotmail.com');
+                          setLoginPassword('Gabriel2006');
+                        }}
+                        className="p-1.5 bg-slate-950 border border-slate-800 hover:border-cyan-500/50 rounded-lg text-slate-300 text-left transition cursor-pointer"
+                      >
+                        <strong className="text-cyan-400 block">👑 Daniel (Master)</strong>
+                        <span>danielsmlopes@...</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setLoginEmail('patigrubel@gmail.com');
+                          setLoginPassword('Maraca132');
+                        }}
+                        className="p-1.5 bg-slate-950 border border-slate-800 hover:border-purple-500/50 rounded-lg text-slate-300 text-left transition cursor-pointer"
+                      >
+                        <strong className="text-purple-400 block">👑 Patrícia (Master)</strong>
+                        <span>patigrubel@...</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setLoginEmail('jhostontec@jhostontec.com.br');
+                          setLoginPassword('123456');
+                        }}
+                        className="p-1.5 bg-slate-950 border border-slate-800 hover:border-sky-500/50 rounded-lg text-slate-300 text-left transition cursor-pointer"
+                      >
+                        <strong className="text-sky-400 block">👔 Joabson (Diretoria)</strong>
+                        <span>Senha padrão: 123456</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setLoginEmail('tecnico@jhostontec.com.br');
+                          setLoginPassword('123456');
+                        }}
+                        className="p-1.5 bg-slate-950 border border-slate-800 hover:border-emerald-500/50 rounded-lg text-slate-300 text-left transition cursor-pointer"
+                      >
+                        <strong className="text-emerald-400 block">🔬 Gerente Técnico</strong>
+                        <span>Senha padrão: 123456</span>
+                      </button>
+                    </div>
                   </div>
                 </>
               ) : (
@@ -363,7 +518,7 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser }: Auth
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3 bg-gradient-to-r from-cyan-500 to-sky-500 hover:from-cyan-400 hover:to-sky-400 text-slate-950 font-black rounded-xl text-xs flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20 transition cursor-pointer disabled:opacity-50"
+                className="w-full py-3 bg-gradient-to-r from-cyan-500 to-sky-500 hover:from-cyan-400 hover:to-sky-400 text-slate-950 font-black rounded-xl text-xs flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20 transition cursor-pointer disabled:opacity-50 mt-1"
               >
                 {loading ? 'Validando Acesso...' : 'Acessar Sistema'}
                 <ChevronRight className="w-4 h-4" />
@@ -375,19 +530,12 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser }: Auth
         {/* MODE: REGISTER / INCLUIR USUÁRIO */}
         {mode === 'REGISTER' && (
           <form onSubmit={handleRegister} className="space-y-3.5">
-            {/* Aviso da Regra de Hierarquia & Aprovação */}
-            <div className="p-3 rounded-xl bg-cyan-950/40 border border-cyan-800/40 text-[11px] text-cyan-200 flex items-start gap-2">
+            <div className="p-2.5 rounded-xl bg-cyan-950/40 border border-cyan-800/40 text-[11px] text-cyan-200 flex items-start gap-2">
               <Info className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
               <div>
-                {creatorRole === 'MASTER' ? (
-                  <span>
-                    Como <strong>MASTER</strong>, seus novos usuários são ativados <strong>imediatamente</strong> com acesso total conforme o perfil selecionado.
-                  </span>
-                ) : (
-                  <span>
-                    Como <strong>{creatorRole}</strong>, você pode incluir novos usuários. Eles serão cadastrados e ficarão <strong>pendentes de aprovação pelo MASTER (Daniel Lopes)</strong> para liberação do acesso.
-                  </span>
-                )}
+                <span>
+                  Todos os novos usuários receberão a senha inicial provisória <strong>123456</strong> e serão obrigados a trocá-la por uma senha com caracteres especiais no primeiro login.
+                </span>
               </div>
             </div>
 
@@ -407,7 +555,7 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser }: Auth
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-slate-300 mb-1">Perfil a Conceder (Limitado à sua Hierarquia)</label>
+              <label className="block text-xs font-medium text-slate-300 mb-1">Perfil a Conceder</label>
               <div className="relative">
                 <Briefcase className="w-4 h-4 text-slate-500 absolute left-3.5 top-3" />
                 <select
@@ -478,15 +626,17 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser }: Auth
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-slate-300 mb-1">Senha de Acesso</label>
+                  <label className="block text-xs font-medium text-slate-300 mb-1">Senha Inicial Provisória</label>
                   <input
-                    type="password"
-                    required
+                    type="text"
                     value={regPassword}
                     onChange={(e) => setRegPassword(e.target.value)}
-                    placeholder="Mínimo 6 caracteres"
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl py-2 px-3 text-xs text-white focus:outline-none focus:border-cyan-500"
+                    placeholder="123456 (Padrão para primeiro acesso)"
+                    className="w-full bg-slate-950 border border-slate-800 rounded-xl py-2 px-3 text-xs text-cyan-400 font-mono focus:outline-none focus:border-cyan-500"
                   />
+                  <p className="text-[10px] text-slate-500 mt-1">
+                    O usuário será obrigado a trocar por uma senha com caracteres especiais no primeiro acesso.
+                  </p>
                 </div>
               </>
             )}

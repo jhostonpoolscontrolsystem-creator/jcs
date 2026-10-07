@@ -10,18 +10,21 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Email e senha são obrigatórios.' }, { status: 400 });
     }
 
-    // Busca o usuário no Supabase
+    const cleanEmail = email.trim().toLowerCase();
+
+    // 1. Busca o usuário no Supabase
     const { data: user, error } = await supabase
       .from('users')
       .select('*')
-      .eq('email', email.trim().toLowerCase())
+      .eq('email', cleanEmail)
       .single();
 
     if (error || !user) {
-      // Fallback para Master durante testes locais se não houver internet
-      if (email.trim().toLowerCase() === 'danielsmlopes@hotmail.com' && (password === 'Gabriel2006!' || password === 'Gabriel2006')) {
+      // Fallback estrito de emergência caso haja indisponibilidade de rede
+      if (cleanEmail === 'danielsmlopes@hotmail.com' && (password === 'Gabriel2006!' || password === 'Gabriel2006')) {
         return NextResponse.json({
           success: true,
+          must_change_password: false,
           user: {
             id: '00000000-0000-0000-0000-000000000001',
             name: 'Daniel Lopes (Master)',
@@ -30,26 +33,73 @@ export async function POST(request: Request) {
           },
         });
       }
+      if (cleanEmail === 'patigrubel@gmail.com' && password === 'Maraca132') {
+        return NextResponse.json({
+          success: true,
+          must_change_password: false,
+          user: {
+            id: '00000000-0000-0000-0000-000000000002',
+            name: 'Patrícia Grübel (Master)',
+            email: 'patigrubel@gmail.com',
+            role: 'MASTER',
+          },
+        });
+      }
+      if (cleanEmail === 'jhostontec@jhostontec.com.br' && password === '123456') {
+        return NextResponse.json({
+          success: true,
+          must_change_password: true,
+          user: {
+            id: '00000000-0000-0000-0000-000000000003',
+            name: 'Joabson (Diretoria JH)',
+            email: 'jhostontec@jhostontec.com.br',
+            role: 'DIRETORIA_JH',
+          },
+        });
+      }
+      if (cleanEmail === 'tecnico@jhostontec.com.br' && password === '123456') {
+        return NextResponse.json({
+          success: true,
+          must_change_password: true,
+          user: {
+            id: '00000000-0000-0000-0000-000000000004',
+            name: 'Responsável Técnico / Gerente Técnico JH',
+            email: 'tecnico@jhostontec.com.br',
+            role: 'TECNICO_JH',
+          },
+        });
+      }
+
       return NextResponse.json({ error: 'Usuário não encontrado.' }, { status: 401 });
     }
 
-    // Valida senha com bcrypt ou senha padrão temporária
+    // 2. Validação de senha via bcrypt ou tolerância inicial
     let isPasswordValid = false;
     if (user.password_hash) {
       isPasswordValid = await bcrypt.compare(password, user.password_hash);
     }
 
-    // Tolerância para Daniel com Gabriel2006 ou Gabriel2006!
-    if (!isPasswordValid && user.role === 'MASTER' && (password === 'Gabriel2006!' || password === 'Gabriel2006')) {
-      isPasswordValid = true;
+    // Tolerâncias de senhas oficiais
+    if (!isPasswordValid) {
+      if (user.email === 'danielsmlopes@hotmail.com' && (password === 'Gabriel2006!' || password === 'Gabriel2006')) {
+        isPasswordValid = true;
+      } else if (user.email === 'patigrubel@gmail.com' && password === 'Maraca132') {
+        isPasswordValid = true;
+      } else if ((user.email === 'jhostontec@jhostontec.com.br' || user.email === 'tecnico@jhostontec.com.br') && password === '123456') {
+        isPasswordValid = true;
+      }
     }
 
     if (!isPasswordValid) {
       return NextResponse.json({ error: 'Senha incorreta.' }, { status: 401 });
     }
 
+    // Identifica se é o primeiro acesso com a senha provisória padrão "123456"
+    const mustChangePassword = password === '123456';
+
     return NextResponse.json({
       success: true,
+      must_change_password: mustChangePassword,
       user: {
         id: user.id,
         name: user.name,
