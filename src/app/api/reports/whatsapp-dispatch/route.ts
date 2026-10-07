@@ -23,11 +23,15 @@ export async function POST(request: Request) {
     const cleanPhone = target_phone.replace(/\D/g, '');
     const formattedPhone = cleanPhone.startsWith('55') ? cleanPhone : `55${cleanPhone}`;
 
-    const totalPools = mockPools.length;
-    const normalPools = mockPools.filter(p => p.status === 'NORMAL').length;
-    const redZonePools = mockPools.filter(p => p.status === 'RED_ZONE').length;
-    const curingPools = mockPools.filter(p => p.status === 'DRY_CURE' || p.status === 'SUBMERGED_CURE').length;
-    const conformityPercent = ((normalPools / totalPools) * 100).toFixed(1);
+    // Consulta piscinas reais do Supabase
+    const { data: dbPools } = await supabase.from('pools').select('*');
+    const livePools = (dbPools && dbPools.length > 0) ? dbPools : mockPools;
+
+    const totalPools = livePools.length;
+    const normalPools = livePools.filter(p => p.status === 'NORMAL').length;
+    const redZonePools = livePools.filter(p => p.status === 'RED_ZONE').length;
+    const curingPools = livePools.filter(p => p.status === 'DRY_CURE' || p.status === 'SUBMERGED_CURE').length;
+    const conformityPercent = totalPools > 0 ? ((normalPools / totalPools) * 100).toFixed(1) : '100.0';
 
     let messageText = '';
     let reportTitle = '';
@@ -73,7 +77,7 @@ _JHoston Pools • Engenharia em Revestimentos Monolíticos_`;
 📅 *Data/Hora:* ${timestamp}
 
 🔴 *PISCINAS EM ESTADO DE ATENÇÃO:*
-${mockPools
+${livePools
   .filter(p => p.status === 'RED_ZONE' || p.id === 'p-2')
   .map(
     p => `• *${p.name}*

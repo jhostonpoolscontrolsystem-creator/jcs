@@ -29,11 +29,12 @@ import { UserRoleHierarchyViewer } from '@/components/UserRoleHierarchyViewer';
 import { AuthModal } from '@/components/AuthModal';
 import { UserManagementPanel } from '@/components/UserManagementPanel';
 import { ExecutiveReportsWhatsAppPanel } from '@/components/ExecutiveReportsWhatsAppPanel';
+import { SystemTrainingAcademy } from '@/components/SystemTrainingAcademy';
 import { UserRole } from '@/types/database';
-import { LogIn, LogOut, Users, UserCheck } from 'lucide-react';
+import { LogIn, LogOut, Users, UserCheck, GraduationCap } from 'lucide-react';
 
 export default function JHPCSApp() {
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'client_portal' | 'pwa' | 'whatsapp' | 'rbac' | 'audit_live' | 'users' | 'executive_reports'>('dashboard');
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'client_portal' | 'pwa' | 'whatsapp' | 'rbac' | 'audit_live' | 'users' | 'executive_reports' | 'training'>('dashboard');
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
@@ -304,6 +305,19 @@ export default function JHPCSApp() {
               Motor Químico & Regras
             </button>
           )}
+
+          {/* ACADEMIA & CURSO DO SISTEMA: Acesso universal a todos os agentes */}
+          <button
+            onClick={() => setActiveTab('training')}
+            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+              activeTab === 'training'
+                ? 'bg-gradient-to-r from-purple-500 to-indigo-500 text-white shadow-md shadow-purple-500/30'
+                : 'text-purple-300 hover:text-white hover:bg-slate-900'
+            }`}
+          >
+            <GraduationCap className="w-4 h-4" />
+            Academia & Treinamento
+          </button>
         </div>
       </header>
 
@@ -598,6 +612,13 @@ export default function JHPCSApp() {
         {activeTab === 'executive_reports' && (
           <div className="space-y-6 animate-fadeIn">
             <ExecutiveReportsWhatsAppPanel />
+          </div>
+        )}
+
+        {/* TAB: ACADEMIA & CURSO DO SISTEMA */}
+        {activeTab === 'training' && (
+          <div className="space-y-6 animate-fadeIn">
+            <SystemTrainingAcademy onSelectTab={(tab) => setActiveTab(tab)} />
           </div>
         )}
       </main>
