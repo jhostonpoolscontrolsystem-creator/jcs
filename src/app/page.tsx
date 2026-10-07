@@ -26,12 +26,28 @@ import { EvolutionWhatsAppTester } from '@/components/EvolutionWhatsAppTester';
 import { GlobalHealthMap } from '@/components/GlobalHealthMap';
 import { PoolRegistrationModal } from '@/components/PoolRegistrationModal';
 import { UserRoleHierarchyViewer } from '@/components/UserRoleHierarchyViewer';
+import { AuthModal } from '@/components/AuthModal';
+import { UserManagementPanel } from '@/components/UserManagementPanel';
 import { UserRole } from '@/types/database';
+import { LogIn, LogOut, Users, UserCheck } from 'lucide-react';
 
 export default function JHPCSApp() {
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'client_portal' | 'pwa' | 'whatsapp' | 'rbac' | 'audit_live'>('dashboard');
-  const [currentSimulatedRole, setCurrentSimulatedRole] = useState<UserRole>('MASTER');
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'client_portal' | 'pwa' | 'whatsapp' | 'rbac' | 'audit_live' | 'users'>('dashboard');
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+
+  // Usuário Autenticado (Inicia como Master Daniel Lopes por conveniência)
+  const [currentUser, setCurrentUser] = useState<{
+    id: string;
+    name: string;
+    email: string;
+    role: UserRole;
+  } | null>({
+    id: '00000000-0000-0000-0000-000000000001',
+    name: 'Daniel Lopes (Master)',
+    email: 'danielsmlopes@hotmail.com',
+    role: 'MASTER',
+  });
 
   // Estado da Simulação Operacional do PWA do Piscineiro
   const [selectedPoolId, setSelectedPoolId] = useState('p-2');
@@ -135,35 +151,75 @@ export default function JHPCSApp() {
           </div>
         </div>
 
-        {/* Navigation Tabs */}
-        <div className="flex items-center gap-2 bg-slate-950/80 p-1.5 rounded-xl border border-slate-800">
-          <button
-            onClick={() => setActiveTab('dashboard')}
-            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
-              activeTab === 'dashboard'
-                ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/30'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'
-            }`}
-          >
-            <LayoutDashboard className="w-4 h-4" />
-            Dashboard JHostonTec
-          </button>
+        {/* User Profile / Auth Button */}
+        <div className="flex items-center gap-3">
+          {currentUser ? (
+            <div className="flex items-center gap-2.5 bg-slate-950 border border-slate-800 py-1.5 px-3 rounded-xl">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-cyan-500 to-sky-400 flex items-center justify-center text-slate-950 font-black text-xs">
+                {currentUser.name.substring(0, 2).toUpperCase()}
+              </div>
+              <div className="text-left hidden sm:block">
+                <div className="text-xs font-bold text-white leading-tight">{currentUser.name}</div>
+                <div className="text-[10px] text-cyan-400 font-semibold uppercase tracking-wider">{currentUser.role}</div>
+              </div>
+              <button
+                onClick={() => {
+                  setCurrentUser(null);
+                  setActiveTab('pwa');
+                }}
+                className="ml-2 p-1 text-slate-400 hover:text-rose-400 transition cursor-pointer"
+                title="Sair / Desconectar"
+              >
+                <LogOut className="w-4 h-4" />
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={() => setIsAuthModalOpen(true)}
+              className="px-3.5 py-2 bg-gradient-to-r from-cyan-500 to-sky-500 text-slate-950 font-black rounded-xl text-xs flex items-center gap-1.5 shadow-lg shadow-cyan-500/20 hover:opacity-95 transition cursor-pointer"
+            >
+              <LogIn className="w-4 h-4" />
+              <span>Entrar / Cadastrar</span>
+            </button>
+          )}
+        </div>
 
-          <button
-            onClick={() => setActiveTab('client_portal')}
-            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
-              activeTab === 'client_portal'
-                ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/30'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'
-            }`}
-          >
-            <Layers className="w-4 h-4" />
-            Portal Gerência / Cliente
-          </button>
+        {/* Navigation Tabs (Filtrados Estritamente por RBAC) */}
+        <div className="w-full flex items-center gap-1.5 bg-slate-950/80 p-1.5 rounded-xl border border-slate-800 overflow-x-auto">
+          {/* MASTER ou DIRETORIA_JH ou TECNICO_JH */}
+          {(!currentUser || currentUser.role === 'MASTER' || currentUser.role === 'DIRETORIA_JH' || currentUser.role === 'TECNICO_JH') && (
+            <button
+              onClick={() => setActiveTab('dashboard')}
+              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+                activeTab === 'dashboard'
+                  ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/30'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'
+              }`}
+            >
+              <LayoutDashboard className="w-4 h-4" />
+              Dashboard JHostonTec
+            </button>
+          )}
 
+          {/* MASTER ou GERENCIA_CLI ou TECNICO_CLI */}
+          {(!currentUser || currentUser.role === 'MASTER' || currentUser.role === 'GERENCIA_CLI' || currentUser.role === 'TECNICO_CLI') && (
+            <button
+              onClick={() => setActiveTab('client_portal')}
+              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+                activeTab === 'client_portal'
+                  ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/30'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'
+              }`}
+            >
+              <Layers className="w-4 h-4" />
+              Portal Gerência / Cliente
+            </button>
+          )}
+
+          {/* PWA Tratador (Todos podem testar, mas é a ÚNICA tela do Piscineiro) */}
           <button
             onClick={() => setActiveTab('pwa')}
-            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
               activeTab === 'pwa'
                 ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/30'
                 : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'
@@ -173,41 +229,65 @@ export default function JHPCSApp() {
             PWA Tratador (Mobile)
           </button>
 
-          <button
-            onClick={() => setActiveTab('whatsapp')}
-            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
-              activeTab === 'whatsapp'
-                ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/30'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'
-            }`}
-          >
-            <Send className="w-4 h-4" />
-            WhatsApp Evolution
-          </button>
+          {/* MASTER ou DIRETORIA_JH: Gestão de Usuários */}
+          {(!currentUser || currentUser.role === 'MASTER' || currentUser.role === 'DIRETORIA_JH') && (
+            <button
+              onClick={() => setActiveTab('users')}
+              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+                activeTab === 'users'
+                  ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/30'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'
+              }`}
+            >
+              <Users className="w-4 h-4" />
+              Gestão de Usuários
+            </button>
+          )}
 
-          <button
-            onClick={() => setActiveTab('rbac')}
-            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
-              activeTab === 'rbac'
-                ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/30'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'
-            }`}
-          >
-            <ShieldAlert className="w-4 h-4" />
-            Hierarquia (RBAC)
-          </button>
+          {/* MASTER ou DIRETORIA_JH: WhatsApp Evolution */}
+          {(!currentUser || currentUser.role === 'MASTER' || currentUser.role === 'DIRETORIA_JH') && (
+            <button
+              onClick={() => setActiveTab('whatsapp')}
+              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+                activeTab === 'whatsapp'
+                  ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/30'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'
+              }`}
+            >
+              <Send className="w-4 h-4" />
+              WhatsApp Evolution
+            </button>
+          )}
 
-          <button
-            onClick={() => setActiveTab('audit_live')}
-            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
-              activeTab === 'audit_live'
-                ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/30'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'
-            }`}
-          >
-            <ShieldAlert className="w-4 h-4" />
-            Motor Químico & Regras
-          </button>
+          {/* MASTER ou DIRETORIA_JH: Hierarquia RBAC */}
+          {(!currentUser || currentUser.role === 'MASTER' || currentUser.role === 'DIRETORIA_JH') && (
+            <button
+              onClick={() => setActiveTab('rbac')}
+              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+                activeTab === 'rbac'
+                  ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/30'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'
+              }`}
+            >
+              <ShieldAlert className="w-4 h-4" />
+              Hierarquia (RBAC)
+            </button>
+          )}
+
+          {/* MASTER ou TECNICO_JH: Motor Químico */}
+          {(!currentUser || currentUser.role === 'MASTER' || currentUser.role === 'TECNICO_JH') && (
+            <button
+              onClick={() => setActiveTab('audit_live')}
+              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+                activeTab === 'audit_live'
+                  ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/30'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'
+              }`}
+            >
+              <ShieldAlert className="w-4 h-4" />
+              Motor Químico & Regras
+            </button>
+          )}
         </div>
       </header>
 
@@ -423,8 +503,12 @@ export default function JHPCSApp() {
         {activeTab === 'rbac' && (
           <div className="animate-fadeIn">
             <UserRoleHierarchyViewer
-              currentRole={currentSimulatedRole}
-              onRoleChange={(role) => setCurrentSimulatedRole(role)}
+              currentRole={currentUser?.role || 'MASTER'}
+              onRoleChange={(role) => {
+                if (currentUser) {
+                  setCurrentUser({ ...currentUser, role });
+                }
+              }}
             />
           </div>
         )}
@@ -483,7 +567,32 @@ export default function JHPCSApp() {
             </div>
           </div>
         )}
+
+        {/* TAB: GESTÃO DE USUÁRIOS (MASTER E DIRETORIA) */}
+        {activeTab === 'users' && (
+          <div className="space-y-6 animate-fadeIn">
+            <UserManagementPanel onOpenRegisterModal={() => setIsAuthModalOpen(true)} />
+          </div>
+        )}
       </main>
+
+      {/* Modal Unificado de Login e Cadastro de Usuários */}
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+        currentUser={currentUser}
+        onLoginSuccess={(user) => {
+          setCurrentUser(user);
+          // Redirecionamento inteligente baseado no perfil (RBAC)
+          if (user.role === 'PISCINEIRO') {
+            setActiveTab('pwa');
+          } else if (user.role === 'GERENCIA_CLI' || user.role === 'TECNICO_CLI') {
+            setActiveTab('client_portal');
+          } else {
+            setActiveTab('dashboard');
+          }
+        }}
+      />
 
       {/* Modal de Cadastro de Novas Piscinas */}
       <PoolRegistrationModal
