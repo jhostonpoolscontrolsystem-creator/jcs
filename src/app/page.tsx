@@ -23,6 +23,7 @@ import { evaluateChemicalRules, calculateChemicalDose } from '@/lib/chemical-rul
 import { MaintainerPwaWizard } from '@/components/MaintainerPwaWizard';
 import { ClientManagerDashboard } from '@/components/ClientManagerDashboard';
 import { EvolutionWhatsAppTester } from '@/components/EvolutionWhatsAppTester';
+import { GlobalHealthMap } from '@/components/GlobalHealthMap';
 
 export default function JHPCSApp() {
   const [activeTab, setActiveTab] = useState<'dashboard' | 'client_portal' | 'pwa' | 'whatsapp' | 'audit_live'>('dashboard');
@@ -358,52 +359,9 @@ export default function JHPCSApp() {
                 </div>
               </div>
 
-              {/* Mapa de Saúde Global & Digital Twin da Piscina */}
-              <div className="bg-slate-900/40 border border-slate-800/90 rounded-2xl p-6 space-y-5">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <MapPin className="w-5 h-5 text-cyan-400" />
-                    <h2 className="font-bold text-base text-white">Geolocalização & Anti-Fraude</h2>
-                  </div>
-                </div>
-
-                <div className="bg-slate-950 rounded-xl p-4 border border-slate-800 space-y-4">
-                  <div className="relative h-44 rounded-lg overflow-hidden bg-slate-900 border border-slate-800 flex items-center justify-center">
-                    {/* Simulated Map View */}
-                    <div className="absolute inset-0 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:16px_16px] opacity-70"></div>
-                    
-                    {/* Map Pins */}
-                    <div className="absolute top-1/4 left-1/3 flex flex-col items-center">
-                      <div className="h-4 w-4 rounded-full bg-emerald-500 ring-4 ring-emerald-500/30 animate-pulse"></div>
-                      <span className="text-[9px] bg-slate-900/90 text-white px-1.5 rounded mt-1 border border-slate-700">Terravista (OK)</span>
-                    </div>
-
-                    <div className="absolute top-1/2 right-1/4 flex flex-col items-center">
-                      <div className="h-4 w-4 rounded-full bg-red-500 ring-4 ring-red-500/40 animate-ping"></div>
-                      <span className="text-[9px] bg-slate-900/90 text-red-300 px-1.5 rounded mt-1 border border-red-800">Fasano (Red Zone)</span>
-                    </div>
-
-                    <div className="absolute bottom-1/4 left-1/2 flex flex-col items-center">
-                      <div className="h-4 w-4 rounded-full bg-amber-500 ring-4 ring-amber-500/30"></div>
-                      <span className="text-[9px] bg-slate-900/90 text-amber-200 px-1.5 rounded mt-1 border border-amber-800">Cura 28d</span>
-                    </div>
-                  </div>
-
-                  <div className="text-xs space-y-2 text-slate-300">
-                    <div className="flex justify-between py-1 border-b border-slate-900">
-                      <span className="text-slate-400">Raio Máximo Autorizado:</span>
-                      <span className="font-semibold text-cyan-400">100 metros</span>
-                    </div>
-                    <div className="flex justify-between py-1 border-b border-slate-900">
-                      <span className="text-slate-400">Captura de Câmera:</span>
-                      <span className="font-semibold text-emerald-400">Nativa (Bloqueio de Galeria)</span>
-                    </div>
-                    <div className="flex justify-between py-1">
-                      <span className="text-slate-400">Termo de Responsabilidade:</span>
-                      <span className="font-semibold text-emerald-400">Assinatura Eletrônica Obrigatória</span>
-                    </div>
-                  </div>
-                </div>
+              {/* Mapa Interativo de Saúde Global com Pins Georreferenciados (Leaflet) */}
+              <div className="lg:col-span-3">
+                <GlobalHealthMap />
               </div>
             </div>
           </div>
