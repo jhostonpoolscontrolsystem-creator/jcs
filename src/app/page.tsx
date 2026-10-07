@@ -21,9 +21,10 @@ import {
 import { mockPools, mockMaintenanceLogs } from '@/lib/mock-data';
 import { evaluateChemicalRules, calculateChemicalDose } from '@/lib/chemical-rules';
 import { MaintainerPwaWizard } from '@/components/MaintainerPwaWizard';
+import { ClientManagerDashboard } from '@/components/ClientManagerDashboard';
 
 export default function JHPCSApp() {
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'pwa' | 'audit_live'>('dashboard');
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'client_portal' | 'pwa' | 'audit_live'>('dashboard');
 
   // Estado da Simulação Operacional do PWA do Piscineiro
   const [selectedPoolId, setSelectedPoolId] = useState('p-2');
@@ -139,6 +140,18 @@ export default function JHPCSApp() {
           >
             <LayoutDashboard className="w-4 h-4" />
             Dashboard JHostonTec
+          </button>
+
+          <button
+            onClick={() => setActiveTab('client_portal')}
+            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+              activeTab === 'client_portal'
+                ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/30'
+                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'
+            }`}
+          >
+            <Layers className="w-4 h-4" />
+            Portal Gerência / Cliente
           </button>
 
           <button
@@ -380,6 +393,13 @@ export default function JHPCSApp() {
                 </div>
               </div>
             </div>
+          </div>
+        )}
+
+        {/* TAB: PORTAL DA GERÊNCIA / CLIENTE (DIGITAL TWIN & METEOROLOGIA) */}
+        {activeTab === 'client_portal' && (
+          <div className="animate-fadeIn">
+            <ClientManagerDashboard />
           </div>
         )}
 
