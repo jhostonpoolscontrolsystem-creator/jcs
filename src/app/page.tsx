@@ -33,6 +33,7 @@ import { SystemTrainingAcademy } from '@/components/SystemTrainingAcademy';
 import { SystemHelpCenter } from '@/components/SystemHelpCenter';
 import { PoolMedicalRecordModal } from '@/components/PoolMedicalRecordModal';
 import { MasterGovernanceHub } from '@/components/MasterGovernanceHub';
+import { MetricDrilldownModal, MetricDrilldownType } from '@/components/MetricDrilldownModal';
 import { UserRole, Pool } from '@/types/database';
 import { LogIn, LogOut, Users, UserCheck, GraduationCap, HelpCircle, Crown } from 'lucide-react';
 
@@ -41,6 +42,7 @@ export default function JHPCSApp() {
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [inspectingPool, setInspectingPool] = useState<Pool | null>(null);
+  const [activeDrilldown, setActiveDrilldown] = useState<MetricDrilldownType>(null);
 
   // Usuário Autenticado (Inicia como Master Daniel Lopes por conveniência)
   const [currentUser, setCurrentUser] = useState<{
@@ -385,66 +387,95 @@ export default function JHPCSApp() {
               </button>
             </div>
 
+            {/* Top Metric Cards Grid (4 Cards com Drilldown) */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <div className="glass-panel shimmer-border rounded-2xl p-5 relative overflow-hidden transition hover:border-cyan-500/50 hover:shadow-xl hover:shadow-cyan-950/20">
+              {/* CARD 1: ATIVOS MONITORADOS */}
+              <div 
+                onClick={() => setActiveDrilldown('TOTAL_POOLS')}
+                className="glass-panel shimmer-border rounded-2xl p-5 relative overflow-hidden transition-all hover:border-cyan-500/80 hover:shadow-xl hover:shadow-cyan-950/40 cursor-pointer group"
+              >
                 <div className="flex justify-between items-start">
                   <div>
-                    <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Ativos Monitorados</p>
+                    <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider group-hover:text-cyan-400 transition">Ativos Monitorados</p>
                     <h3 className="text-2xl font-black text-white mt-1">128 Piscinas</h3>
                   </div>
-                  <div className="p-2.5 rounded-xl bg-cyan-950/80 border border-cyan-800/60 text-cyan-400 shadow-md shadow-cyan-950/40">
+                  <div className="p-2.5 rounded-xl bg-cyan-950/80 border border-cyan-800/60 text-cyan-400 shadow-md shadow-cyan-950/40 group-hover:scale-110 transition">
                     <Droplet className="w-5 h-5" />
                   </div>
                 </div>
-                <div className="mt-4 flex items-center gap-2 text-xs text-emerald-400 font-medium">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  <span className="font-bold">94.2%</span> em conformidade química
+                <div className="mt-4 flex items-center justify-between text-xs">
+                  <div className="flex items-center gap-2 text-emerald-400 font-medium">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="font-bold">94.2%</span> em conformidade
+                  </div>
+                  <span className="text-[10px] text-cyan-400 font-bold group-hover:underline">Ver Detalhes →</span>
                 </div>
               </div>
 
-              <div className="glass-panel shimmer-border rounded-2xl p-5 relative overflow-hidden transition hover:border-rose-500/60 hover:shadow-xl hover:shadow-rose-950/30 bg-gradient-to-br from-rose-950/30 to-transparent">
+              {/* CARD 2: RED ZONES ATIVAS */}
+              <div 
+                onClick={() => setActiveDrilldown('RED_ZONES')}
+                className="glass-panel shimmer-border rounded-2xl p-5 relative overflow-hidden transition-all hover:border-rose-500/80 hover:shadow-xl hover:shadow-rose-950/50 bg-gradient-to-br from-rose-950/30 to-transparent cursor-pointer group"
+              >
                 <div className="flex justify-between items-start">
                   <div>
-                    <p className="text-[11px] font-bold text-rose-300 uppercase tracking-wider">Red Zones Ativas</p>
+                    <p className="text-[11px] font-bold text-rose-300 uppercase tracking-wider group-hover:text-rose-400 transition">Red Zones Ativas</p>
                     <h3 className="text-2xl font-black text-rose-400 mt-1">3 Críticas</h3>
                   </div>
-                  <div className="p-2.5 rounded-xl bg-rose-950/80 border border-rose-800/60 text-rose-400 shadow-md shadow-rose-950/40 animate-pulse">
+                  <div className="p-2.5 rounded-xl bg-rose-950/80 border border-rose-800/60 text-rose-400 shadow-md shadow-rose-950/40 animate-pulse group-hover:scale-110 transition">
                     <ShieldAlert className="w-5 h-5" />
                   </div>
                 </div>
-                <div className="mt-4 flex items-center gap-2 text-xs text-rose-300 font-medium">
-                  <span className="w-2 h-2 rounded-full bg-rose-500" />
-                  <span>Risco iminente de corrosão</span>
+                <div className="mt-4 flex items-center justify-between text-xs">
+                  <div className="flex items-center gap-2 text-rose-300 font-medium">
+                    <span className="w-2 h-2 rounded-full bg-rose-500" />
+                    <span>Risco de corrosão</span>
+                  </div>
+                  <span className="text-[10px] text-rose-400 font-bold group-hover:underline">Auditar Agora →</span>
                 </div>
               </div>
 
-              <div className="glass-panel shimmer-border rounded-2xl p-5 relative overflow-hidden transition hover:border-amber-500/60 hover:shadow-xl hover:shadow-amber-950/30 bg-gradient-to-br from-amber-950/30 to-transparent">
+              {/* CARD 3: EM PERÍODO DE CURA */}
+              <div 
+                onClick={() => setActiveDrilldown('CURE_POOLS')}
+                className="glass-panel shimmer-border rounded-2xl p-5 relative overflow-hidden transition-all hover:border-amber-500/80 hover:shadow-xl hover:shadow-amber-950/50 bg-gradient-to-br from-amber-950/30 to-transparent cursor-pointer group"
+              >
                 <div className="flex justify-between items-start">
                   <div>
-                    <p className="text-[11px] font-bold text-amber-300 uppercase tracking-wider">Em Período de Cura</p>
+                    <p className="text-[11px] font-bold text-amber-300 uppercase tracking-wider group-hover:text-amber-400 transition">Em Período de Cura</p>
                     <h3 className="text-2xl font-black text-amber-300 mt-1">14 Ativos</h3>
                   </div>
-                  <div className="p-2.5 rounded-xl bg-amber-950/80 border border-amber-800/60 text-amber-300 shadow-md shadow-amber-950/40">
+                  <div className="p-2.5 rounded-xl bg-amber-950/80 border border-amber-800/60 text-amber-300 shadow-md shadow-amber-950/40 group-hover:scale-110 transition">
                     <Calendar className="w-5 h-5" />
                   </div>
                 </div>
-                <div className="mt-4 flex items-center gap-2 text-xs text-amber-300 font-medium">
-                  <span>Cura Seca (7d) & Submersa (28d)</span>
+                <div className="mt-4 flex items-center justify-between text-xs">
+                  <div className="text-amber-300 font-medium text-[11px]">
+                    <span>Cura Seca (7d) & Submersa (28d)</span>
+                  </div>
+                  <span className="text-[10px] text-amber-400 font-bold group-hover:underline">Ver Lista →</span>
                 </div>
               </div>
 
-              <div className="glass-panel shimmer-border rounded-2xl p-5 relative overflow-hidden transition hover:border-emerald-500/60 hover:shadow-xl hover:shadow-emerald-950/30 bg-gradient-to-br from-emerald-950/30 to-transparent">
+              {/* CARD 4: SLA WHATSAPP EVOLUTION */}
+              <div 
+                onClick={() => setActiveDrilldown('WHATSAPP_SLA')}
+                className="glass-panel shimmer-border rounded-2xl p-5 relative overflow-hidden transition-all hover:border-emerald-500/80 hover:shadow-xl hover:shadow-emerald-950/50 bg-gradient-to-br from-emerald-950/30 to-transparent cursor-pointer group"
+              >
                 <div className="flex justify-between items-start">
                   <div>
-                    <p className="text-[11px] font-bold text-emerald-300 uppercase tracking-wider">SLA WhatsApp Evolution</p>
+                    <p className="text-[11px] font-bold text-emerald-300 uppercase tracking-wider group-hover:text-emerald-400 transition">SLA WhatsApp Evolution</p>
                     <h3 className="text-2xl font-black text-emerald-400 mt-1">&lt; 3.2 seg</h3>
                   </div>
-                  <div className="p-2.5 rounded-xl bg-emerald-950/80 border border-emerald-800/60 text-emerald-400 shadow-md shadow-emerald-950/40">
+                  <div className="p-2.5 rounded-xl bg-emerald-950/80 border border-emerald-800/60 text-emerald-400 shadow-md shadow-emerald-950/40 group-hover:scale-110 transition">
                     <Send className="w-5 h-5" />
                   </div>
                 </div>
-                <div className="mt-4 flex items-center gap-2 text-xs text-emerald-400 font-medium">
-                  <span>Disparo de emergência validado</span>
+                <div className="mt-4 flex items-center justify-between text-xs">
+                  <div className="text-emerald-400 font-medium text-[11px]">
+                    <span>Instância ecostone ativa</span>
+                  </div>
+                  <span className="text-[10px] text-emerald-400 font-bold group-hover:underline">Ver Status →</span>
                 </div>
               </div>
             </div>
@@ -722,6 +753,15 @@ export default function JHPCSApp() {
         isOpen={!!inspectingPool}
         onClose={() => setInspectingPool(null)}
         currentUserRole={currentUser?.role}
+      />
+
+      {/* Modal de Resumo & Drilldown dos 4 Cards de Métricas */}
+      <MetricDrilldownModal
+        type={activeDrilldown}
+        isOpen={!!activeDrilldown}
+        onClose={() => setActiveDrilldown(null)}
+        onSelectPoolToInspect={(pool) => setInspectingPool(pool)}
+        onNavigateToWhatsAppReports={() => setActiveTab('executive_reports')}
       />
 
       {/* Footer */}

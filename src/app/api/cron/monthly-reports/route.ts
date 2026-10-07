@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import { mockPools, mockUsers } from '@/lib/mock-data';
 import { supabase } from '@/lib/supabase';
 
+export const dynamic = 'force-dynamic';
+
 /**
  * Cron Job executado no 1º dia útil de cada mês na Vercel
  * Consolida as médias químicas e despacha o Laudo Mensal via WhatsApp (Evolution API)
