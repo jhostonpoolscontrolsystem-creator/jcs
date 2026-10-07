@@ -10,9 +10,11 @@ import {
   Phone, 
   CreditCard, 
   RefreshCw,
-  Building,
   CheckCircle,
-  Briefcase
+  XCircle,
+  Clock,
+  AlertTriangle,
+  UserCheck
 } from 'lucide-react';
 import { UserRole } from '@/types/database';
 
@@ -24,13 +26,23 @@ interface UserItem {
   role: UserRole;
   cpf?: string;
   created_at: string;
+  approval_status?: 'APPROVED' | 'PENDING' | 'REJECTED';
 }
 
-export function UserManagementPanel({ onOpenRegisterModal }: { onOpenRegisterModal: () => void }) {
+interface UserManagementPanelProps {
+  onOpenRegisterModal: () => void;
+  currentUser?: any;
+}
+
+export function UserManagementPanel({ onOpenRegisterModal, currentUser }: UserManagementPanelProps) {
   const [users, setUsers] = useState<UserItem[]>([]);
   const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [roleFilter, setRoleFilter] = useState<string>('ALL');
+  const [statusFilter, setStatusFilter] = useState<'ALL' | 'PENDING' | 'APPROVED'>('ALL');
+  const [processingId, setProcessingId] = useState<string | null>(null);
+
+  const isMaster = currentUser?.role === 'MASTER';
 
   const fetchUsers = async () => {
     setLoading(true);
@@ -51,14 +63,56 @@ export function UserManagementPanel({ onOpenRegisterModal }: { onOpenRegisterMod
     fetchUsers();
   }, []);
 
+  const handleApprove = async (userId: string) => {
+    setProcessingId(userId);
+    try {
+      const res = await fetch('/api/users/approve', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId, action: 'APPROVE', approverId: currentUser?.id }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setUsers(prev => prev.map(u => u.id === userId ? { ...u, approval_status: 'APPROVED' } : u));
+      }
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setProcessingId(null);
+    }
+  };
+
+  const handleReject = async (userId: string) => {
+    if (!confirm('Deseja realmente recusar o cadastro deste usuário?')) return;
+    setProcessingId(userId);
+    try {
+      const res = await fetch('/api/users/approve', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId, action: 'REJECT', approverId: currentUser?.id }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setUsers(prev => prev.filter(u => u.id !== userId));
+      }
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setProcessingId(null);
+    }
+  };
+
   const filteredUsers = users.filter((u) => {
     const matchSearch =
       u.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       u.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
       (u.cpf && u.cpf.includes(searchTerm));
     const matchRole = roleFilter === 'ALL' || u.role === roleFilter;
-    return matchSearch && matchRole;
+    const matchStatus = statusFilter === 'ALL' || (u.approval_status || 'APPROVED') === statusFilter;
+    return matchSearch && matchRole && matchStatus;
   });
+
+  const pendingCount = users.filter(u => u.approval_status === 'PENDING').length;
 
   const getRoleBadge = (role: UserRole) => {
     switch (role) {
@@ -110,10 +164,11 @@ export function UserManagementPanel({ onOpenRegisterModal }: { onOpenRegisterMod
         <div>
           <div className="flex items-center gap-2">
             <Users className="w-5 h-5 text-cyan-400" />
-            <h3 className="text-lg font-bold text-white">Gestão Unificada de Usuários & Acessos</h3>
+            <h3 className="text-lg font-bold text-white">Central de Governança & Aprovação de Usuários</h3>
           </div>
           <p className="text-xs text-slate-400 mt-1">
-            Cadastre e administre contas da Diretoria JH, Equipe Técnica, Clientes (Hotéis/Condomínios) e Piscineiros de campo.
+            Qualquer membro da JHoston pode incluir clientes e tratadores. O cliente pode cadastrar sua equipe técnica e tratadores.
+            <strong className="text-cyan-300 ml-1">Apenas o MASTER (Daniel Lopes) possui a chave mestra de homologação e aprovação de acessos.</strong>
           </p>
         </div>
 
@@ -132,10 +187,40 @@ export function UserManagementPanel({ onOpenRegisterModal }: { onOpenRegisterMod
             className="px-4 py-2.5 bg-gradient-to-r from-cyan-500 to-sky-500 text-slate-950 font-black rounded-xl text-xs flex items-center gap-2 shadow-lg shadow-cyan-500/20 hover:opacity-95 transition cursor-pointer"
           >
             <UserPlus className="w-4 h-4" />
-            <span>+ Cadastrar Novo Usuário</span>
+            <span>+ Incluir Novo Usuário</span>
           </button>
         </div>
       </div>
+
+      {/* Pending Approvals Notice for MASTER */}
+      {isMaster && (
+        <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="p-2 rounded-xl bg-amber-500/20 text-amber-400">
+              <Clock className="w-5 h-5" />
+            </div>
+            <div>
+              <h4 className="text-sm font-bold text-amber-300">
+                Fila de Homologação MASTER: {pendingCount} {pendingCount === 1 ? 'usuário pendente' : 'usuários pendentes'}
+              </h4>
+              <p className="text-xs text-slate-400">
+                Novos usuários cadastrados pela equipe JHoston ou clientes aguardando sua autorização expressa para logar.
+              </p>
+            </div>
+          </div>
+
+          <button
+            onClick={() => setStatusFilter(statusFilter === 'PENDING' ? 'ALL' : 'PENDING')}
+            className={`px-3 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${
+              statusFilter === 'PENDING' 
+                ? 'bg-amber-400 text-slate-950' 
+                : 'bg-amber-500/20 text-amber-300 hover:bg-amber-500/30'
+            }`}
+          >
+            {statusFilter === 'PENDING' ? 'Ver Todos' : 'Filtrar Pendentes'}
+          </button>
+        </div>
+      )}
 
       {/* Filter and Search Bar */}
       <div className="flex flex-col md:flex-row gap-3">
@@ -175,48 +260,82 @@ export function UserManagementPanel({ onOpenRegisterModal }: { onOpenRegisterMod
                 <th className="py-3 px-4">Perfil (RBAC)</th>
                 <th className="py-3 px-4">Contato (WhatsApp / Email)</th>
                 <th className="py-3 px-4">Identificador Acesso</th>
-                <th className="py-3 px-4 text-right">Status</th>
+                <th className="py-3 px-4">Status de Homologação</th>
+                {isMaster && <th className="py-3 px-4 text-right">Ação MASTER</th>}
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-800/60 text-xs">
               {filteredUsers.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="py-8 text-center text-slate-500">
+                  <td colSpan={isMaster ? 6 : 5} className="py-8 text-center text-slate-500">
                     Nenhum usuário localizado com os filtros selecionados.
                   </td>
                 </tr>
               ) : (
-                filteredUsers.map((u) => (
-                  <tr key={u.id} className="hover:bg-slate-800/40 transition">
-                    <td className="py-3 px-4">
-                      <div className="font-semibold text-white">{u.name}</div>
-                      <div className="text-[11px] text-slate-400">{u.email}</div>
-                    </td>
-                    <td className="py-3 px-4">{getRoleBadge(u.role)}</td>
-                    <td className="py-3 px-4 text-slate-300">
-                      <div className="flex items-center gap-1.5">
-                        <Phone className="w-3.5 h-3.5 text-emerald-400" />
-                        <span>{u.phone}</span>
-                      </div>
-                    </td>
-                    <td className="py-3 px-4 text-slate-400 font-mono text-[11px]">
-                      {u.role === 'PISCINEIRO' ? (
-                        <span className="flex items-center gap-1 text-slate-300">
-                          <CreditCard className="w-3.5 h-3.5 text-cyan-400" /> CPF: {u.cpf || 'Cadastrado'} (PIN)
-                        </span>
-                      ) : (
-                        <span className="flex items-center gap-1 text-slate-300">
-                          <Mail className="w-3.5 h-3.5 text-purple-400" /> E-mail + Senha
-                        </span>
+                filteredUsers.map((u) => {
+                  const status = u.approval_status || 'APPROVED';
+                  return (
+                    <tr key={u.id} className="hover:bg-slate-800/40 transition">
+                      <td className="py-3 px-4">
+                        <div className="font-semibold text-white">{u.name}</div>
+                        <div className="text-[11px] text-slate-400">{u.email}</div>
+                      </td>
+                      <td className="py-3 px-4">{getRoleBadge(u.role)}</td>
+                      <td className="py-3 px-4 text-slate-300">
+                        <div className="flex items-center gap-1.5">
+                          <Phone className="w-3.5 h-3.5 text-emerald-400" />
+                          <span>{u.phone}</span>
+                        </div>
+                      </td>
+                      <td className="py-3 px-4 text-slate-400 font-mono text-[11px]">
+                        {u.role === 'PISCINEIRO' ? (
+                          <span className="flex items-center gap-1 text-slate-300">
+                            <CreditCard className="w-3.5 h-3.5 text-cyan-400" /> CPF: {u.cpf || 'Cadastrado'} (PIN)
+                          </span>
+                        ) : (
+                          <span className="flex items-center gap-1 text-slate-300">
+                            <Mail className="w-3.5 h-3.5 text-purple-400" /> E-mail + Senha
+                          </span>
+                        )}
+                      </td>
+                      <td className="py-3 px-4">
+                        {status === 'APPROVED' ? (
+                          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                            <CheckCircle className="w-3 h-3" /> Aprovado (Ativo)
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-500/10 text-amber-300 border border-amber-500/30 animate-pulse">
+                            <Clock className="w-3 h-3" /> Aguardando MASTER
+                          </span>
+                        )}
+                      </td>
+                      {isMaster && (
+                        <td className="py-3 px-4 text-right">
+                          {status === 'PENDING' ? (
+                            <div className="flex items-center justify-end gap-2">
+                              <button
+                                onClick={() => handleApprove(u.id)}
+                                disabled={processingId === u.id}
+                                className="px-2.5 py-1 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black rounded-lg text-[11px] flex items-center gap-1 transition cursor-pointer"
+                              >
+                                <CheckCircle className="w-3 h-3" /> Aprovar
+                              </button>
+                              <button
+                                onClick={() => handleReject(u.id)}
+                                disabled={processingId === u.id}
+                                className="px-2.5 py-1 bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 font-bold rounded-lg text-[11px] flex items-center gap-1 transition cursor-pointer"
+                              >
+                                <XCircle className="w-3 h-3" /> Recusar
+                              </button>
+                            </div>
+                          ) : (
+                            <span className="text-[11px] text-slate-500">Homologado</span>
+                          )}
+                        </td>
                       )}
-                    </td>
-                    <td className="py-3 px-4 text-right">
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
-                        <CheckCircle className="w-3 h-3" /> Ativo
-                      </span>
-                    </td>
-                  </tr>
-                ))
+                    </tr>
+                  );
+                })
               )}
             </tbody>
           </table>

@@ -571,7 +571,10 @@ export default function JHPCSApp() {
         {/* TAB: GESTÃO DE USUÁRIOS (MASTER E DIRETORIA) */}
         {activeTab === 'users' && (
           <div className="space-y-6 animate-fadeIn">
-            <UserManagementPanel onOpenRegisterModal={() => setIsAuthModalOpen(true)} />
+            <UserManagementPanel 
+              currentUser={currentUser}
+              onOpenRegisterModal={() => setIsAuthModalOpen(true)} 
+            />
           </div>
         )}
       </main>

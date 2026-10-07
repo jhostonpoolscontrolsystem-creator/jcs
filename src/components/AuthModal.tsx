@@ -16,7 +16,8 @@ import {
   KeyRound, 
   Briefcase,
   ChevronRight,
-  Droplet
+  Droplet,
+  Info
 } from 'lucide-react';
 import { UserRole } from '@/types/database';
 
@@ -53,6 +54,43 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser }: Auth
 
   if (!isOpen) return null;
 
+  // Hierarquia dinâmica de inclusão permitida pelo perfil de quem está logado:
+  const creatorRole: UserRole = currentUser?.role || 'MASTER';
+
+  // Opções de papéis permitidos de acordo com quem está cadastrando
+  const getAllowedRoles = (): { role: UserRole; label: string; group: string }[] => {
+    if (creatorRole === 'MASTER') {
+      return [
+        { role: 'DIRETORIA_JH', label: 'Diretoria JHoston Pools', group: 'JHoston Pools' },
+        { role: 'TECNICO_JH', label: 'Técnico Especialista JH', group: 'JHoston Pools' },
+        { role: 'GERENCIA_CLI', label: 'Gerente / Proprietário do Cliente', group: 'Cliente' },
+        { role: 'TECNICO_CLI', label: 'Técnico / Manutenção do Cliente', group: 'Cliente' },
+        { role: 'PISCINEIRO', label: 'Piscineiro / Tratador de Campo', group: 'Operacional' },
+      ];
+    }
+    if (creatorRole === 'DIRETORIA_JH' || creatorRole === 'TECNICO_JH') {
+      return [
+        { role: 'GERENCIA_CLI', label: 'Gerente / Proprietário do Cliente', group: 'Cliente' },
+        { role: 'TECNICO_CLI', label: 'Técnico / Manutenção do Cliente', group: 'Cliente' },
+        { role: 'PISCINEIRO', label: 'Piscineiro / Tratador de Campo', group: 'Operacional' },
+      ];
+    }
+    if (creatorRole === 'GERENCIA_CLI') {
+      return [
+        { role: 'TECNICO_CLI', label: 'Equipe Técnica de Manutenção', group: 'Cliente' },
+        { role: 'PISCINEIRO', label: 'Piscineiro / Tratador', group: 'Operacional' },
+      ];
+    }
+    if (creatorRole === 'TECNICO_CLI') {
+      return [
+        { role: 'PISCINEIRO', label: 'Piscineiro / Tratador', group: 'Operacional' },
+      ];
+    }
+    return [];
+  };
+
+  const allowedRoles = getAllowedRoles();
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -75,7 +113,6 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser }: Auth
           onClose();
         }, 800);
       } else {
-        // PWA login via CPF + PIN
         const res = await fetch('/api/auth/pwa-login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -120,19 +157,25 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser }: Auth
           password: regPassword,
           cpf: regCpf,
           pin: regPin,
+          creator_id: currentUser?.id,
+          creator_role: creatorRole,
         }),
       });
 
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Falha ao cadastrar usuário.');
 
-      setSuccessMsg(`Usuário ${data.user.name} cadastrado com sucesso como ${data.user.role}!`);
+      if (data.approval_status === 'APPROVED') {
+        setSuccessMsg(`Usuário ${data.user.name} cadastrado e APROVADO com sucesso!`);
+      } else {
+        setSuccessMsg(`Usuário ${data.user.name} incluído com sucesso! Enviado para homologação e aprovação do MASTER (Daniel Lopes).`);
+      }
+
       setTimeout(() => {
         setMode('LOGIN');
         setLoginEmail(data.user.email);
         setLoginPassword('');
-        setSuccessMsg('Agora faça login com as credenciais criadas.');
-      }, 1500);
+      }, 2500);
     } catch (err: any) {
       setErrorMsg(err.message || 'Erro ao registrar usuário.');
     } finally {
@@ -156,9 +199,11 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser }: Auth
             </div>
             <div>
               <h3 className="font-extrabold text-base tracking-wider text-white">
-                {mode === 'LOGIN' ? 'Acesso ao Sistema JHPCS' : 'Cadastrar Novo Usuário'}
+                {mode === 'LOGIN' ? 'Acesso ao Sistema JHPCS' : 'Cadastrar / Indicar Usuário'}
               </h3>
-              <p className="text-xs text-slate-400">Controle de Acesso & Hierarquias RBAC</p>
+              <p className="text-xs text-slate-400">
+                Logado como: <strong className="text-cyan-400">{currentUser ? `${currentUser.name} (${currentUser.role})` : 'Visitante'}</strong>
+              </p>
             </div>
           </div>
           <button 
@@ -208,7 +253,6 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser }: Auth
         {/* MODE: LOGIN */}
         {mode === 'LOGIN' && (
           <div>
-            {/* Login Method Sub-Toggle */}
             <div className="flex justify-center gap-2 mb-4 text-xs">
               <button
                 type="button"
@@ -246,7 +290,7 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser }: Auth
                         required
                         value={loginEmail}
                         onChange={(e) => setLoginEmail(e.target.value)}
-                        placeholder="ex: danielsmlopes@hotmail.com"
+                        placeholder="danielsmlopes@hotmail.com"
                         className="w-full bg-slate-950 border border-slate-800 rounded-xl py-2.5 pl-10 pr-3 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-cyan-500"
                       />
                     </div>
@@ -267,9 +311,8 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser }: Auth
                     </div>
                   </div>
 
-                  {/* Master Quick Credentials Hint */}
                   <div className="p-2.5 rounded-xl bg-slate-950 border border-slate-800/80 text-[11px] text-slate-400 flex items-center justify-between">
-                    <span>Acesso Master configurado:</span>
+                    <span>Acesso MASTER Oficial:</span>
                     <button
                       type="button"
                       onClick={() => {
@@ -329,9 +372,25 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser }: Auth
           </div>
         )}
 
-        {/* MODE: REGISTER */}
+        {/* MODE: REGISTER / INCLUIR USUÁRIO */}
         {mode === 'REGISTER' && (
           <form onSubmit={handleRegister} className="space-y-3.5">
+            {/* Aviso da Regra de Hierarquia & Aprovação */}
+            <div className="p-3 rounded-xl bg-cyan-950/40 border border-cyan-800/40 text-[11px] text-cyan-200 flex items-start gap-2">
+              <Info className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
+              <div>
+                {creatorRole === 'MASTER' ? (
+                  <span>
+                    Como <strong>MASTER</strong>, seus novos usuários são ativados <strong>imediatamente</strong> com acesso total conforme o perfil selecionado.
+                  </span>
+                ) : (
+                  <span>
+                    Como <strong>{creatorRole}</strong>, você pode incluir novos usuários. Eles serão cadastrados e ficarão <strong>pendentes de aprovação pelo MASTER (Daniel Lopes)</strong> para liberação do acesso.
+                  </span>
+                )}
+              </div>
+            </div>
+
             <div>
               <label className="block text-xs font-medium text-slate-300 mb-1">Nome Completo</label>
               <div className="relative">
@@ -341,14 +400,14 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser }: Auth
                   required
                   value={regName}
                   onChange={(e) => setRegName(e.target.value)}
-                  placeholder="ex: Carlos Alberto"
+                  placeholder="ex: Roberto Almeida"
                   className="w-full bg-slate-950 border border-slate-800 rounded-xl py-2 pl-10 pr-3 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-cyan-500"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-slate-300 mb-1">Perfil / Hierarquia (RBAC)</label>
+              <label className="block text-xs font-medium text-slate-300 mb-1">Perfil a Conceder (Limitado à sua Hierarquia)</label>
               <div className="relative">
                 <Briefcase className="w-4 h-4 text-slate-500 absolute left-3.5 top-3" />
                 <select
@@ -356,18 +415,11 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser }: Auth
                   onChange={(e) => setRegRole(e.target.value as UserRole)}
                   className="w-full bg-slate-950 border border-slate-800 rounded-xl py-2 pl-10 pr-3 text-xs text-white focus:outline-none focus:border-cyan-500 cursor-pointer"
                 >
-                  <optgroup label="1. JHoston Pools (Interno)">
-                    <option value="MASTER">Nível 1: MASTER (Daniel Lopes)</option>
-                    <option value="DIRETORIA_JH">Nível 1: Diretoria JH</option>
-                    <option value="TECNICO_JH">Nível 1: Equipe Técnica JH</option>
-                  </optgroup>
-                  <optgroup label="2. Cliente (Hotéis / Resorts / Condomínios)">
-                    <option value="GERENCIA_CLI">Nível 2: Gerência / Síndico / Proprietário</option>
-                    <option value="TECNICO_CLI">Nível 2: Manutenção Interna do Cliente</option>
-                  </optgroup>
-                  <optgroup label="3. Campo / Operacional">
-                    <option value="PISCINEIRO">Nível 3: Piscineiro / Prestador de Serviço</option>
-                  </optgroup>
+                  {allowedRoles.map((item) => (
+                    <option key={item.role} value={item.role}>
+                      [{item.group}] {item.label}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
@@ -375,7 +427,7 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser }: Auth
             {regRole === 'PISCINEIRO' ? (
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-medium text-slate-300 mb-1">CPF (apenas números)</label>
+                  <label className="block text-xs font-medium text-slate-300 mb-1">CPF (somente números)</label>
                   <input
                     type="text"
                     required
@@ -386,7 +438,7 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser }: Auth
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-slate-300 mb-1">PIN (4 a 6 dígitos)</label>
+                  <label className="block text-xs font-medium text-slate-300 mb-1">PIN Numérico (4 a 6 dígitos)</label>
                   <input
                     type="password"
                     maxLength={6}
@@ -444,7 +496,11 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser }: Auth
               disabled={loading}
               className="w-full py-3 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black rounded-xl text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 transition cursor-pointer disabled:opacity-50 mt-2"
             >
-              {loading ? 'Cadastrando no Supabase...' : 'Confirmar Cadastro'}
+              {loading 
+                ? 'Processando Inclusão...' 
+                : creatorRole === 'MASTER' 
+                  ? 'Cadastrar e Ativar Usuário' 
+                  : 'Submeter para Aprovação do MASTER'}
               <CheckCircle2 className="w-4 h-4" />
             </button>
           </form>
