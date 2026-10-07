@@ -13,6 +13,8 @@ interface PoolRegistrationModalProps {
 export function PoolRegistrationModal({ isOpen, onClose, onPoolCreated }: PoolRegistrationModalProps) {
   const [name, setName] = useState('');
   const [facilityType, setFacilityType] = useState<FacilityType>('HOTEL');
+  const [address, setAddress] = useState('');
+  const [geocoding, setGeocoding] = useState(false);
   const [volumeM3, setVolumeM3] = useState('120');
   const [pumpFlowM3H, setPumpFlowM3H] = useState('20');
   const [gpsLat, setGpsLat] = useState('-16.4350');
@@ -24,6 +26,44 @@ export function PoolRegistrationModal({ isOpen, onClose, onPoolCreated }: PoolRe
   React.useEffect(() => {
     setApplicationDate(new Date().toISOString().split('T')[0]);
   }, []);
+
+  // Busca coordenadas automáticas através do endereço ou CEP digitado
+  const handleFetchCoordinatesFromAddress = async () => {
+    if (!address.trim()) return;
+    setGeocoding(true);
+    setErrorMsg(null);
+
+    try {
+      const res = await fetch(`/api/geocode?address=${encodeURIComponent(address)}`);
+      const data = await res.json();
+      if (data.success) {
+        setGpsLat(data.lat);
+        setGpsLng(data.lng);
+      } else {
+        setErrorMsg(data.message || 'Endereço não localizado automaticamente. Insira as coordenadas manualmente.');
+      }
+    } catch (e) {
+      setErrorMsg('Falha ao buscar coordenadas do endereço.');
+    } finally {
+      setGeocoding(false);
+    }
+  };
+
+  // Pega a localização atual do dispositivo via GPS
+  const handleUseCurrentLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          setGpsLat(pos.coords.latitude.toFixed(6));
+          setGpsLng(pos.coords.longitude.toFixed(6));
+        },
+        (err) => {
+          setErrorMsg('Não foi possível obter a localização do dispositivo: ' + err.message);
+        },
+        { enableHighAccuracy: true }
+      );
+    }
+  };
 
   if (!isOpen) return null;
 
@@ -92,6 +132,44 @@ export function PoolRegistrationModal({ isOpen, onClose, onPoolCreated }: PoolRe
               className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 font-medium"
               required
             />
+          </div>
+
+          {/* Campo de Endereço / CEP Inteligente */}
+          <div className="space-y-1.5 p-3 rounded-2xl bg-slate-950 border border-slate-800">
+            <div className="flex justify-between items-center">
+              <label className="block font-bold text-slate-300 uppercase tracking-wider text-[11px]">
+                Endereço, Condomínio ou CEP da Piscina:
+              </label>
+              <button
+                type="button"
+                onClick={handleUseCurrentLocation}
+                className="text-[10px] text-cyan-400 hover:text-cyan-300 flex items-center gap-1 font-semibold cursor-pointer"
+              >
+                <MapPin className="w-3 h-3" />
+                Usar Meu GPS Atual
+              </button>
+            </div>
+
+            <div className="flex gap-2">
+              <input
+                type="text"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                placeholder="Ex: Av. Beira Mar, 1200 - Trancoso, BA ou CEP"
+                className="flex-1 bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-white text-xs focus:outline-none focus:ring-2 focus:ring-cyan-500 font-medium"
+              />
+              <button
+                type="button"
+                onClick={handleFetchCoordinatesFromAddress}
+                disabled={geocoding || !address.trim()}
+                className="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-slate-700 rounded-xl text-xs font-bold transition-all disabled:opacity-40 cursor-pointer"
+              >
+                {geocoding ? 'Buscando...' : 'Obter GPS'}
+              </button>
+            </div>
+            <p className="text-[10px] text-slate-400">
+              O sistema busca automaticamente a Latitude/Longitude para o geofencing anti-fraude de 100m.
+            </p>
           </div>
 
           <div className="grid grid-cols-2 gap-3">

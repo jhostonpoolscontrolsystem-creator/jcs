@@ -21,15 +21,15 @@
     - 🔴 Vermelho: Red Zone com risco iminente de corrosão (efeito radar pulsante)
   - [x] Adicionar modal de detalhes rápidos ao clicar em um pin
 
-- [ ] **Task 3.2 — Módulo Administrativo de Cadastro de Piscinas (Digital Twin)**:
-  - [ ] Criar formulário para cadastrar nova piscina
-  - [ ] Campos: Nome, Cliente/Hotel, Volume (m³), Vazão (m³/h), Latitude/Longitude, Data de Aplicação
-  - [ ] Inserção com validação de tipos no Supabase
+- [x] **Task 3.2 — Módulo Administrativo de Cadastro de Piscinas (Digital Twin)**:
+  - [x] Criar formulário modal para cadastrar nova piscina
+  - [x] Campos: Nome, Cliente/Hotel, Volume (m³), Vazão (m³/h), Latitude/Longitude, Data de Aplicação
+  - [x] Inserção com validação de tipos no Supabase e cálculo automático de fase de cura (7d seco / 28d submersa)
 
-- [ ] **Task 3.3 — Automação do Despacho Mensal de Laudos em PDF**:
-  - [ ] Criar rota agendada `/api/cron/monthly-reports`
-  - [ ] Consolidar logs do mês anterior para cada ativo
-  - [ ] Despachar mensagem com anexo via Evolution API para a gerência
+- [x] **Task 3.3 — Automação do Despacho Mensal de Laudos em PDF**:
+  - [x] Criar rota agendada `/api/cron/monthly-reports` no `vercel.json` (0 8 1 * *)
+  - [x] Consolidar logs e parâmetros do período para cada ativo
+  - [x] Despachar mensagem e laudo de garantia via WhatsApp (Evolution API) para os clientes
 
 ---
 
