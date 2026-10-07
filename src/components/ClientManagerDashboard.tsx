@@ -17,7 +17,8 @@ import {
   Sparkles
 } from 'lucide-react';
 import { Pool, PoolInventory } from '@/types/database';
-import { mockPools } from '@/lib/mock-data';
+import { mockPools, mockMaintenanceLogs } from '@/lib/mock-data';
+import { generateWarrantyCertificatePdf } from '@/lib/pdf-generator';
 
 export function ClientManagerDashboard() {
   const [selectedPool, setSelectedPool] = useState<Pool>(mockPools[0]);
@@ -162,11 +163,11 @@ export function ClientManagerDashboard() {
             </div>
 
             <button
-              onClick={() => alert('Gerando Laudo de Conformidade e Garantia Oficial JHostonTec (PDF consolidado)...')}
-              className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-bold border border-slate-700 flex items-center gap-2"
+              onClick={() => generateWarrantyCertificatePdf(selectedPool, mockMaintenanceLogs)}
+              className="px-4 py-2 bg-gradient-to-r from-cyan-600 to-sky-600 hover:from-cyan-500 hover:to-sky-500 text-white rounded-xl text-xs font-bold border border-cyan-500/40 flex items-center gap-2 shadow-lg shadow-cyan-500/20 transition-all cursor-pointer"
             >
-              <FileText className="w-3.5 h-3.5 text-cyan-400" />
-              Baixar Laudo Mensal
+              <FileText className="w-3.5 h-3.5 text-white" />
+              Baixar Laudo Mensal (PDF)
             </button>
           </div>
         </div>
