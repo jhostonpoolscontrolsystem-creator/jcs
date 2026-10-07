@@ -357,62 +357,64 @@ export default function JHPCSApp() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <div className="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-5 relative overflow-hidden">
+              <div className="glass-panel shimmer-border rounded-2xl p-5 relative overflow-hidden transition hover:border-cyan-500/50 hover:shadow-xl hover:shadow-cyan-950/20">
                 <div className="flex justify-between items-start">
                   <div>
-                    <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Ativos Monitorados</p>
-                    <h3 className="text-2xl font-bold text-white mt-1">128 Piscinas</h3>
+                    <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Ativos Monitorados</p>
+                    <h3 className="text-2xl font-black text-white mt-1">128 Piscinas</h3>
                   </div>
-                  <div className="p-2.5 rounded-xl bg-cyan-950/60 border border-cyan-800/40 text-cyan-400">
+                  <div className="p-2.5 rounded-xl bg-cyan-950/80 border border-cyan-800/60 text-cyan-400 shadow-md shadow-cyan-950/40">
                     <Droplet className="w-5 h-5" />
                   </div>
                 </div>
-                <div className="mt-4 flex items-center gap-2 text-xs text-emerald-400">
-                  <span className="font-semibold">94.2%</span> em conformidade química
+                <div className="mt-4 flex items-center gap-2 text-xs text-emerald-400 font-medium">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="font-bold">94.2%</span> em conformidade química
                 </div>
               </div>
 
-              <div className="bg-slate-900/60 border border-red-900/40 rounded-2xl p-5 relative overflow-hidden bg-gradient-to-br from-red-950/20 to-transparent">
+              <div className="glass-panel shimmer-border rounded-2xl p-5 relative overflow-hidden transition hover:border-rose-500/60 hover:shadow-xl hover:shadow-rose-950/30 bg-gradient-to-br from-rose-950/30 to-transparent">
                 <div className="flex justify-between items-start">
                   <div>
-                    <p className="text-xs font-semibold text-red-300 uppercase tracking-wider">Red Zones Ativas</p>
-                    <h3 className="text-2xl font-bold text-red-400 mt-1">3 Críticas</h3>
+                    <p className="text-[11px] font-bold text-rose-300 uppercase tracking-wider">Red Zones Ativas</p>
+                    <h3 className="text-2xl font-black text-rose-400 mt-1">3 Críticas</h3>
                   </div>
-                  <div className="p-2.5 rounded-xl bg-red-950/80 border border-red-800/50 text-red-400">
+                  <div className="p-2.5 rounded-xl bg-rose-950/80 border border-rose-800/60 text-rose-400 shadow-md shadow-rose-950/40 animate-pulse">
                     <ShieldAlert className="w-5 h-5" />
                   </div>
                 </div>
-                <div className="mt-4 flex items-center gap-2 text-xs text-red-400">
+                <div className="mt-4 flex items-center gap-2 text-xs text-rose-300 font-medium">
+                  <span className="w-2 h-2 rounded-full bg-rose-500" />
                   <span>Risco iminente de corrosão</span>
                 </div>
               </div>
 
-              <div className="bg-slate-900/60 border border-amber-900/40 rounded-2xl p-5 relative overflow-hidden bg-gradient-to-br from-amber-950/20 to-transparent">
+              <div className="glass-panel shimmer-border rounded-2xl p-5 relative overflow-hidden transition hover:border-amber-500/60 hover:shadow-xl hover:shadow-amber-950/30 bg-gradient-to-br from-amber-950/30 to-transparent">
                 <div className="flex justify-between items-start">
                   <div>
-                    <p className="text-xs font-semibold text-amber-300 uppercase tracking-wider">Em Período de Cura</p>
-                    <h3 className="text-2xl font-bold text-amber-300 mt-1">14 Ativos</h3>
+                    <p className="text-[11px] font-bold text-amber-300 uppercase tracking-wider">Em Período de Cura</p>
+                    <h3 className="text-2xl font-black text-amber-300 mt-1">14 Ativos</h3>
                   </div>
-                  <div className="p-2.5 rounded-xl bg-amber-950/80 border border-amber-800/50 text-amber-300">
+                  <div className="p-2.5 rounded-xl bg-amber-950/80 border border-amber-800/60 text-amber-300 shadow-md shadow-amber-950/40">
                     <Calendar className="w-5 h-5" />
                   </div>
                 </div>
-                <div className="mt-4 flex items-center gap-2 text-xs text-amber-300">
+                <div className="mt-4 flex items-center gap-2 text-xs text-amber-300 font-medium">
                   <span>Cura Seca (7d) & Submersa (28d)</span>
                 </div>
               </div>
 
-              <div className="bg-slate-900/60 border border-emerald-900/40 rounded-2xl p-5 relative overflow-hidden bg-gradient-to-br from-emerald-950/20 to-transparent">
+              <div className="glass-panel shimmer-border rounded-2xl p-5 relative overflow-hidden transition hover:border-emerald-500/60 hover:shadow-xl hover:shadow-emerald-950/30 bg-gradient-to-br from-emerald-950/30 to-transparent">
                 <div className="flex justify-between items-start">
                   <div>
-                    <p className="text-xs font-semibold text-emerald-300 uppercase tracking-wider">SLA WhatsApp Evolution</p>
-                    <h3 className="text-2xl font-bold text-emerald-400 mt-1">&lt; 3.2 seg</h3>
+                    <p className="text-[11px] font-bold text-emerald-300 uppercase tracking-wider">SLA WhatsApp Evolution</p>
+                    <h3 className="text-2xl font-black text-emerald-400 mt-1">&lt; 3.2 seg</h3>
                   </div>
-                  <div className="p-2.5 rounded-xl bg-emerald-950/80 border border-emerald-800/50 text-emerald-400">
+                  <div className="p-2.5 rounded-xl bg-emerald-950/80 border border-emerald-800/60 text-emerald-400 shadow-md shadow-emerald-950/40">
                     <Send className="w-5 h-5" />
                   </div>
                 </div>
-                <div className="mt-4 flex items-center gap-2 text-xs text-emerald-400">
+                <div className="mt-4 flex items-center gap-2 text-xs text-emerald-400 font-medium">
                   <span>Disparo de emergência validado</span>
                 </div>
               </div>

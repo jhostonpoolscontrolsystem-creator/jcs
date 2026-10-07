@@ -303,6 +303,25 @@ export function ExecutiveReportsWhatsAppPanel() {
                 />
               </div>
 
+              {/* Live Preview Card do Balão de WhatsApp */}
+              <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
+                <div className="flex items-center justify-between text-[11px] text-slate-400 font-semibold">
+                  <span className="flex items-center gap-1.5 text-cyan-400">
+                    <MessageSquare className="w-3.5 h-3.5" />
+                    Pré-visualização do Balão WhatsApp (Tempo Real):
+                  </span>
+                  <span className="text-[10px] bg-slate-900 px-2 py-0.5 rounded text-emerald-400 border border-slate-800">
+                    SLA Garantido: &lt; 10s
+                  </span>
+                </div>
+                <div className="bg-[#0b141a] p-3.5 rounded-2xl border border-emerald-950/60 font-mono text-[11px] text-slate-200 leading-relaxed shadow-inner max-h-44 overflow-y-auto whitespace-pre-wrap selection:bg-emerald-600">
+                  {reportType === 'EXECUTIVE_SUMMARY' && `📊 *JHOSTON POOLS CONTROL SYSTEM*\n👑 *RELATÓRIO EXECUTIVO DA DIRETORIA*\n👤 *Destinatário:* ${recipientName || 'Diretor / Gestor'}\n\n🏊 *PANORAMA GERAL DOS ATIVOS:*\n• Total de Piscinas: 128 ativos\n• Conformidade Química: 94.2%\n• Curas de 28 dias: 14 ativos\n• Red Zones Ativas: 3 críticas\n${customNotes ? `\n📝 *Nota:* ${customNotes}\n` : ''}\n🔗 Portal: https://jcs-pools.vercel.app`}
+                  {reportType === 'RED_ZONE_AUDIT' && `🚨 *JHOSTON POOLS - AUDITORIA DE RISCO CRÍTICO*\n⚠️ *BOLETIM DE INTERVENÇÃO IMEDIATA*\n\n🔴 *PISCINAS EM ESTADO DE ATENÇÃO:*\n• Hotel Fasano: pH 6.8 (Ácido) - Risco de corrosão\nAção: Aplicar Barrilha Leve imediatamente\n${customNotes ? `\n📝 *Nota:* ${customNotes}\n` : ''}\n_Auditoria Central JHostonTec_`}
+                  {reportType === 'WARRANTY_MONTHLY' && `📄 *JHOSTON POOLS - LAUDO MENSAL DE GARANTIA*\n🏆 *CERTIFICADO DE CONFORMIDADE QUÍMICA*\n👤 *Aos Cuidados:* ${recipientName || 'Cliente'}\n\n✅ Cobertura de Garantia: ATIVA E REGULAR\n• 124 Check-ins auditados via PWA\n• 0 Incidentes com produtos abrasivos proibidos\n${customNotes ? `\n📝 *Nota:* ${customNotes}\n` : ''}`}
+                  {reportType === 'INVENTORY_RUNWAY' && `📦 *JHOSTON POOLS - BALANÇO PREDITIVO DE ESTOQUE*\n👤 *Para:* ${recipientName || 'Almoxarifado'}\n\n🧪 *AUTONOMIA DOS PRODUTOS:*\n• Cloro Granulado: 18 dias restantes\n• Elevador de Alcalinidade: 24 dias restantes\n• Barrilha Leve (pH Mais): 32 dias restantes\n${customNotes ? `\n📝 *Nota:* ${customNotes}\n` : ''}`}
+                </div>
+              </div>
+
               {errorMsg && (
                 <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs">
                   {errorMsg}
