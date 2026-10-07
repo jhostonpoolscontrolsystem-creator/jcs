@@ -8,10 +8,11 @@
 
 ## 🚀 SPRINT ATUAL: Enriquecimento B2B & Homologação
 
-- [ ] **Task 2.1 — Conexão Supabase Live Client**:
-  - [ ] Obter e configurar `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-  - [ ] Implementar hook de consulta e inserção direta nas tabelas `pools` e `maintenance_logs`
-  - [ ] Desativar dados de fallback mockados quando houver conexão viva com o Supabase
+- [x] **Task 2.1 — Conexão Supabase Live Client**:
+  - [x] Configurar `NEXT_PUBLIC_SUPABASE_ANON_KEY` oficial (`sb_publishable_Z4mxhBpI8sQ0h0J2mCDe7A_xXrL-nFM`)
+  - [x] Testar e validar conexão TCP e REST ativa com a instância `abyfbwvihjctbskhiunh.supabase.co`
+  - [x] Executar seed oficial de produtos químicos recomendados, perfis de usuários e ativos no banco
+  - [x] Criar endpoint `/api/pools/list` com busca em tempo real no Supabase
 
 - [x] **Task 3.1 — Mapa Interativo de Saúde Global com Pins Geográficos**:
   - [x] Instalar biblioteca de mapas (`leaflet` e `react-leaflet`)
