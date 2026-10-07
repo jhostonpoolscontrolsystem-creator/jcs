@@ -1,13 +1,13 @@
 importScripts('https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js');
 importScripts('https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging-compat.js');
 
-// Configuração padrão do Firebase para background messaging
-// Este arquivo é carregado pelo navegador para capturar push com o app fechado/em segundo plano
 firebase.initializeApp({
-  apiKey: "AIzaSy...", // Será injetado ou alimentado dinamicamente
-  projectId: "jhpcs-pools",
-  messagingSenderId: "1234567890",
-  appId: "1:1234567890:web:abcdef"
+  apiKey: "AIzaSyAuUUoLkZVNMnRVBhRpuq1zEld3dSx8-K8",
+  authDomain: "jhpcs-2fefd.firebaseapp.com",
+  projectId: "jhpcs-2fefd",
+  storageBucket: "jhpcs-2fefd.firebasestorage.app",
+  messagingSenderId: "92701227950",
+  appId: "1:92701227950:web:13aa16cf5631582e4ae63f"
 });
 
 const messaging = firebase.messaging();
