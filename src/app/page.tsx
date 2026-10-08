@@ -36,11 +36,12 @@ import { MasterGovernanceHub } from '@/components/MasterGovernanceHub';
 import { MetricDrilldownModal, MetricDrilldownType } from '@/components/MetricDrilldownModal';
 import { DocumentDownloadCenter } from '@/components/DocumentDownloadCenter';
 import { ChemicalSuppliesStore } from '@/components/ChemicalSuppliesStore';
+import ClientPortfolioViewer from '@/components/ClientPortfolioViewer';
 import { UserRole, Pool } from '@/types/database';
-import { LogIn, LogOut, Users, UserCheck, GraduationCap, HelpCircle, Crown, Download, ShoppingBag } from 'lucide-react';
+import { LogIn, LogOut, Users, UserCheck, GraduationCap, HelpCircle, Crown, Download, ShoppingBag, Building2 } from 'lucide-react';
 
 export default function JHPCSApp() {
-  const [activeTab, setActiveTab] = useState<'master' | 'dashboard' | 'client_portal' | 'pwa' | 'whatsapp' | 'rbac' | 'audit_live' | 'users' | 'executive_reports' | 'training' | 'help' | 'downloads' | 'store'>('master');
+  const [activeTab, setActiveTab] = useState<'master' | 'dashboard' | 'clients' | 'client_portal' | 'pwa' | 'whatsapp' | 'rbac' | 'audit_live' | 'users' | 'executive_reports' | 'training' | 'help' | 'downloads' | 'store'>('master');
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [inspectingPool, setInspectingPool] = useState<Pool | null>(null);
@@ -223,6 +224,21 @@ export default function JHPCSApp() {
             >
               <LayoutDashboard className="w-4 h-4" />
               Dashboard JHostonTec
+            </button>
+          )}
+
+          {/* MASTER, DIRETORIA_JH, TECNICO_JH ou GERENCIA_CLI: Visão de Clientes & Telemetria F1 */}
+          {(!currentUser || currentUser.role === 'MASTER' || currentUser.role === 'DIRETORIA_JH' || currentUser.role === 'TECNICO_JH' || currentUser.role === 'GERENCIA_CLI') && (
+            <button
+              onClick={() => setActiveTab('clients')}
+              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+                activeTab === 'clients'
+                  ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/30'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'
+              }`}
+            >
+              <Building2 className="w-4 h-4" />
+              Clientes & Telemetria F1
             </button>
           )}
 
@@ -625,6 +641,16 @@ export default function JHPCSApp() {
                 <GlobalHealthMap />
               </div>
             </div>
+          </div>
+        )}
+
+        {/* TAB: VISÃO DO CLIENTE & COCKPIT TELEMETRIA F1 */}
+        {activeTab === 'clients' && (
+          <div className="animate-fadeIn">
+            <ClientPortfolioViewer 
+              userRole={currentUser?.role}
+              onOpenMedicalRecord={(pool) => setInspectingPool(pool)}
+            />
           </div>
         )}
 
