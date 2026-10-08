@@ -66,6 +66,15 @@ Apresentar à Diretoria da **JHoston Pools** (Joabson e equipe) o sistema defini
      * Mostrar o pH, Cloro, Alcalinidade e o **Índice de Langelier (LSI)** calculado automaticamente.
      * Mostrar a ficha cadastral do ativo (volume em m³, vazão da bomba e tempo de recirculação).
 
+4. **Novo Módulo: Visão de Clientes & Cockpit de Telemetria F1 ("Pit Wall")**:
+   - Navegar para a aba **"Clientes & Telemetria F1"**.
+   - Mostrar como a Diretoria da JHoston pode filtrar por clientes corporativos específicos (*Resort Terravista, Fasano, Copacabana Palace*).
+   - Clicar no card de qualquer piscina para acionar o **Cockpit de Telemetria F1**:
+     * **Tacômetros Digitais**: Medidores estilo esportivo/Fórmula 1 de alta precisão para pH, Cloro Residual, Alcalinidade e Temperatura.
+     * **Mostrador LSI Dial**: Dial analógico colorido atestando a blindagem físico-química do monólito.
+     * **Gráfico de Séries Históricas**: Curvas de 7 e 14 dias com target bands seguras em verde e correlação com a meteorologia.
+     * **Pit Stop Químico**: Prescrição estequiométrica com cálculo exato de gramas/kg de insumos sem produtos corrosivos.
+
 ---
 
 ### ATO 2: A Agilidade Operacional — Disparo de Relatórios no WhatsApp

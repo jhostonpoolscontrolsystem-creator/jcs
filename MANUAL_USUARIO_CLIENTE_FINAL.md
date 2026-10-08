@@ -38,12 +38,18 @@ O sistema JHPCS funciona como o **Digital Twin (Gêmeo Digital)** da sua piscina
 - **Última Auditoria Registrada**:
   - Data, horário, nome do tratador responsável e coordenadas de GPS comprovando a presença física do profissional no local da piscina.
 
-### 3.2. Histórico de Telemetria e Parâmetros da Água
+### 3.2. Histórico de Telemetria e Séries Históricas em Gráfico
 No painel de telemetria, você visualiza em tempo real:
 - **pH**: Ideal entre 7.2 e 7.6 (previne ressecamento de pele nos hóspedes e protege o revestimento).
 - **Cloro Livre**: Entre 1.5 e 3.0 ppm (garante desinfecção completa da água).
 - **Alcalinidade Total**: Entre 80 e 120 ppm (estabilizador de pH).
-- **Dureza Cálcica**: Entre 200 e 400 ppm (previne corrosão ou incrustações).
+- **Índice LSI Langelier**: Medidor analógico que atesta equilíbrio perfeito (-0.3 a +0.3).
+- **Gráfico Interativo de Séries Históricas**: Curvas de 7 e 14 dias com faixas seguras sombreadas e correlação com a condição do tempo (sol, chuva, tempestade).
+
+### 3.3. Cockpit de Telemetria F1 ("Pit Wall")
+A Diretoria e Engenharia do cliente têm acesso à aba **"Clientes & Telemetria F1"**:
+- Visualização de todas as piscinas do seu condomínio/hotel em cards dinâmicos.
+- Clique no card da piscina para abrir o **Cockpit de Telemetria F1** com tacômetros ao vivo, prescrição de pit stop químico com cálculo de gramas para reposição e validação do monólito em tela cheia.
 
 ### 3.3. Monitoramento de Período de Cura (Para Piscinas Novas)
 Se a sua piscina foi construída ou reformada recentemente:

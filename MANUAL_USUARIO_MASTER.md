@@ -53,7 +53,17 @@ No painel principal de comando, o Master pode auditar os 4 grandes pilares do si
   3. *Nível 3 - Cliente Final (Gerente do Resort, Técnico Local e Tratadores)*
 - **Aba "Hierarquia (RBAC)"**: Matriz de visualização em tempo real das permissões de leitura, escrita e auditoria para cada perfil.
 
-### 3.4. Motor Químico & Regras JHostonTec
+### 3.4. Módulo Clientes & Telemetria Fórmula 1 ("Pit Wall")
+Acessível pela aba **"Clientes & Telemetria F1"**:
+- **Seletor de Clientes Soberano**: Permite ao Master alternar instantaneamente entre qualquer cliente cadastrado no país (ex.: Resort Terravista, Fasano, Copacabana Palace).
+- **Inspeção de Saúde do Ativo**: Health Score (0 a 100%), volume total monitorado e status contratual do revestimento.
+- **Cockpit F1 de Telemetria Contínua**:
+  - Tacômetros digitais ao vivo com faixas de tolerância estrita de engenharia.
+  - Medidor de Equilíbrio Langelier (LSI Dial) com apontamento em tempo real de tendências corrosivas ou incrustantes.
+  - Gráficos de séries históricas de medições físicas e químicas integrados à previsão do tempo (OpenWeather).
+  - Prescrição instantânea de Pit Stop Químico com dosagem estequiométrica em gramas e kg.
+
+### 3.5. Motor Químico & Regras JHostonTec
 - Visualização das constantes químicas adotadas pelo sistema:
   - Faixa ideal de pH: **7.2 a 7.6** (Alerta em 7.0 / Red Zone em < 6.8 ou > 8.0)
   - Cloro Livre: **1.5 a 3.0 ppm**

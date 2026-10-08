@@ -35,13 +35,23 @@ A Diretoria acompanha a saúde global dos revestimentos através dos 4 cartões 
 - **Em Período de Cura**: Obras entregues nos últimos 35 dias (7 dias de cura seca + 28 dias de cura submersa) que exigem regime especial de dosagem.
 - **SLA WhatsApp**: Desempenho dos disparos automáticos de avisos e laudos aos clientes.
 
-### 3.2. Central de Relatórios Executivos & WhatsApp
+### 3.2. Visão Centralizada de Clientes & Cockpit Telemetria F1
+Acessível pela aba **"Clientes & Telemetria F1"**:
+- **Seletor de Clientes no Topo**: A Diretoria e o Corpo Técnico podem selecionar clientes específicos (ex.: *Resort Terravista Trancoso*, *Hotel Fasano*, *Copacabana Palace*).
+- **Resumo do Portfólio**: Consulta imediata de volume total monitorado, total de ativos e Health Score médio.
+- **Cockpit Telemetria Fórmula 1**: Ao clicar em qualquer piscina, abre-se o painel de telemetria ("Pit Wall") com:
+  - **Tacômetros Digitais**: Medição instantânea de pH (faixa ideal 7.2 a 7.6), Cloro ppm (1.5 a 3.0), Alcalinidade (80 a 120 ppm), Termometria e Dureza Cálcica.
+  - **Mostrador Dinâmico de LSI (Langelier Saturation Index)**: Dial analógico colorido identificando risco corrosivo (< -0.3) ou incrustante (> +0.3).
+  - **Séries Históricas em Gráfico**: Curvas de estabilidade com target bands seguras dos últimos 7 ou 14 dias com correlação climática.
+  - **Pit Stop Químico**: Prescrição estequiométrica exata de dosagem para reequilíbrio sem produtos abrasivos.
+
+### 3.3. Central de Relatórios Executivos & WhatsApp
 Acessível pela aba **"Relatórios Diretoria (WhatsApp)"**:
 - **Disparo de Laudo Consolidado**: Permite selecionar um resort ou cliente residencial e emitir o Laudo Pericial Mensal com 1 clique.
 - **Agendamento de Envios**: O sistema dispara no 1º dia útil de cada mês o certificado de garantia e histórico químico diretamente no WhatsApp do síndico, gerente geral ou proprietário.
 - **Histórico de Logs**: Consulta de todos os envios realizados com confirmação de entrega via Evolution API.
 
-### 3.3. Gestão de Contas de Clientes e Tratadores
+### 3.4. Gestão de Contas de Clientes e Tratadores
 Pela aba **"Gestão de Usuários"**, a Diretoria pode:
 - Cadastrar novos clientes parceiros (Hotéis, Resorts, Condomínios e Casas de Alto Padrão).
 - Cadastrar os tratadores e piscineiros que atuam em cada localidade.

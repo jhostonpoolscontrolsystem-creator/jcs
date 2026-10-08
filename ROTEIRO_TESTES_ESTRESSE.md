@@ -19,6 +19,7 @@ Demonstrar na prática para a **Diretoria da JHoston Pools** que o sistema é **
 | **EX-05** | **Disparo em Massa de Relatórios WhatsApp** | Diretoria (Joabson) | Disparo consecutivo para diretoria e clientes | Renderização com preview idêntico ao celular; entrega em menos de 3.2 segundos via Evolution API oficial. |
 | **EX-06** | **Troca Obrigatória de Senha Provisória** | Novo Usuário | Usuário tenta manter senha padrão `123456` | **Barreira de segurança**: sistema exige senha forte com mínimo de 6 caracteres e caractere especial (`!@#$%^&*`). |
 | **EX-07** | **Tentativa de Fraude de Geolocalização** | Piscineiro (PWA) | Tratador tenta preencher visita longe da piscina | Coleta registra coordenadas reais de GPS do aparelho confrontando com o raio homologado do ativo. |
+| **EX-08** | **Cockpit de Telemetria F1 & LSI ao Vivo** | Diretoria / Master | Estresse de dados em tempo real e cálculo estequiométrico | Tacômetros digitais reagem instantaneamente aos dados; dial analógico acusa se o monólito está em zona corrosiva (< -0.3) ou seguro; séries históricas exibem curvas e correlação climática. |
 
 ---
 
@@ -81,11 +82,24 @@ Demonstrar na prática para a **Diretoria da JHoston Pools** que o sistema é **
 3. **O que Observar**:
    - O sistema detecta a senha padrão e abre compulsoriamente a tela de **"Redefinição Obrigatória de Senha"**.
    - Se o usuário tentar colocar uma senha fraca como `1234567`, o sistema rejeita: `A senha deve conter ao menos 1 caractere especial (ex: ! @ # $ %).`.
-   - Apenas ao digitar uma senha com símbolo (ex: `JHoston@2026!`), o acesso ao sistema é liberado.
-
----
-
-## 🎯 Conclusão da Demonstração Prática
+85:    - Apenas ao digitar uma senha com símbolo (ex: `JHoston@2026!`), o acesso ao sistema é liberado.
+86: 
+87: ---
+88: 
+89: ### EXERCÍCIO 6: Telemetria Estilo Fórmula 1 e Séries Históricas
+90: 1. **Onde Executar**: Acesse a aba **"Clientes & Telemetria F1"**.
+91: 2. **Ação**:
+92:    - Selecione o cliente `Resort Terravista Trancoso` e clique no card da piscina.
+93:    - Observe os **Tacômetros Digitais**: valores de pH, Cloro ppm e Alcalinidade respondem com ponteiros dinâmicos e barras graduadas.
+94:    - Veja o mostrador de **Índice LSI**: avalie se a água está neutra e protetora (-0.3 a +0.3) ou ácida/corrosiva.
+95:    - Mude para a aba **"Série Histórica & Curvas"** dentro do cockpit: observe o gráfico interativo de 7 e 14 dias com as faixas verdes seguras sombreadas e a previsão do tempo no tooltip.
+96:    - Mude para a aba **"Pit Stop Químico"**: confira a prescrição estequiométrica em gramas e kg de insumos sem nenhum ácido prejudicial.
+97: 3. **O que Observar**:
+98:    - A experiência visual simula com perfeição um *pit-wall* de Fórmula 1, permitindo tomar decisões periciais em segundos.
+99: 
+100: ---
+101: 
+102: ## 🎯 Conclusão da Demonstração Prática
 Ao término destes exercícios, a Diretoria da JHoston Pools constatará que:
 * **Nenhum tratador consegue burlar o processo sem ser detectado.**
 * **Nenhuma piscina fica sem histórico ou registro de garantia.**

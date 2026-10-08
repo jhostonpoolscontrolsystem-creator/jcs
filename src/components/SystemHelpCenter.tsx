@@ -262,6 +262,50 @@ export function SystemHelpCenter({ onNavigateTab }: { onNavigateTab: (tab: any) 
           tags: ['whatsapp', 'telefone', 'número', 'disparo']
         }
       ]
+    },
+    {
+      id: 'telemetria_f1_clientes',
+      title: 'Clientes & Cockpit Telemetria F1',
+      icon: Activity,
+      badge: 'Nova Funcionalidade v4.2',
+      summary: 'Visão centralizada de clientes, portfólios de piscinas e o cockpit de telemetria estilo Fórmula 1 com tacômetros digitais e LSI ao vivo.',
+      topics: [
+        {
+          title: 'Visão Centralizada de Portfólios por Cliente',
+          description: 'A Diretoria da JHoston Pools e o perfil MASTER podem acessar a aba "Clientes & Telemetria F1" para inspecionar clientes específicos (Resort Terravista, Fasano, Alphaville, Copacabana Palace). Cada card exibe o Health Score da piscina (0-100%), dados de volume, vazão e status do monólito.',
+          stepByStep: [
+            'Acesse a aba "Clientes & Telemetria F1" no menu superior.',
+            'Selecione o cliente desejado no seletor do topo.',
+            'Visualize o resumo do contrato: volume total de água monitorado e número de piscinas.',
+            'Clique no card de qualquer piscina para acionar o Cockpit de Telemetria F1.'
+          ]
+        },
+        {
+          title: 'Cockpit de Telemetria F1 ("Pit Wall")',
+          description: 'Painel imersivo de engenharia química com tacômetros digitais em tempo real (pH, Cloro ppm, Alcalinidade, Temperatura e Dureza Cálcica) e mostrador dinâmico da equação de equilíbrio LSI (Langelier Saturation Index).',
+          stepByStep: [
+            'Tacômetro de pH: Exibe a faixa de segurança (7.2 a 7.6) e acusa zona ácida corrosiva imediatamente.',
+            'Mostrador LSI Dial: Mostrador analógico colorido dividindo as zonas: Corrosiva (< -0.3), Equilíbrio (-0.3 a +0.3) e Incrustante (> +0.3).',
+            'Série Histórica Contínua: Gráfico dinâmico com curvas de 7 e 14 dias acoplado ao clima meteorológico diário.',
+            'Prescrição de Pit Stop Químico: Cálculo estequiométrico exato em gramas/kg para rebalancear a piscina sem produtos proibidos.'
+          ],
+          importantNotice: 'A Diretoria do Cliente Final também tem acesso a este cockpit para acompanhar sua própria piscina em tempo real.'
+        }
+      ],
+      faqs: [
+        {
+          id: 'faq-8',
+          question: 'O que significa o Índice LSI no Cockpit de Telemetria?',
+          answer: 'O LSI (Langelier Saturation Index) mede a tendência da água em corroer ou incrustar no revestimento monolítico. Se o LSI estiver entre -0.30 e +0.30, o monólito está 100% blindado contra desgaste.',
+          tags: ['lsi', 'telemetria', 'f1', 'química', 'langelier']
+        },
+        {
+          id: 'faq-9',
+          question: 'Como alternar entre as piscinas de um mesmo resort no Cockpit F1?',
+          answer: 'No canto superior direito da janela do Cockpit F1 há um seletor de piscinas que permite alternar instantaneamente entre os tanques do cliente sem fechar o painel.',
+          tags: ['f1', 'cockpit', 'seletor', 'piscinas']
+        }
+      ]
     }
   ];
 
