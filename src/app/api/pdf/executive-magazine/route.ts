@@ -3,9 +3,30 @@ import { generateExecutiveWelcomeKitPdf } from '@/lib/executive-magazine-pdf';
 import { supabase } from '@/lib/supabase';
 import { mockPools } from '@/lib/mock-data';
 
+export async function GET(request: Request) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const editionNumber = Number(searchParams.get('editionNumber')) || 1;
+    const editionMonth = searchParams.get('editionMonth') || 'Edição Especial de Lançamento';
+    const editionYear = Number(searchParams.get('editionYear')) || 2026;
+    const recipientName = searchParams.get('recipientName') || 'Diretoria JHoston Pools & Engenharia';
+    const targetRole = (searchParams.get('targetRole') as any) || 'DIRETORIA_JHOSTON';
+
+    return await buildAndReturnPdf({
+      editionNumber,
+      editionMonth,
+      editionYear,
+      recipientName,
+      targetRole,
+    });
+  } catch (err: any) {
+    return NextResponse.json({ error: err.message || 'Erro ao gerar PDF da Revista' }, { status: 500 });
+  }
+}
+
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
+    const body = await request.json().catch(() => ({}));
     const { 
       editionNumber = 1,
       editionMonth = 'Edição Especial de Lançamento',
@@ -13,6 +34,28 @@ export async function POST(request: Request) {
       recipientName = 'Diretoria JHoston Pools & Engenharia',
       targetRole = 'DIRETORIA_JHOSTON'
     } = body;
+
+    return await buildAndReturnPdf({
+      editionNumber,
+      editionMonth,
+      editionYear,
+      recipientName,
+      targetRole,
+    });
+  } catch (err: any) {
+    return NextResponse.json({ error: err.message || 'Erro ao gerar PDF da Revista' }, { status: 500 });
+  }
+}
+
+async function buildAndReturnPdf(params: {
+  editionNumber: number;
+  editionMonth: string;
+  editionYear: number;
+  recipientName: string;
+  targetRole: 'DIRETORIA_JHOSTON' | 'CLIENTE_FINAL';
+}) {
+  try {
+    const { editionNumber, editionMonth, editionYear, recipientName, targetRole } = params;
 
     // Busca métricas reais do banco Supabase
     let totalPools = 128;
