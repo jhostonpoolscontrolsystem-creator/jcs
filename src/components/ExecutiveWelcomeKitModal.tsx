@@ -55,6 +55,16 @@ export default function ExecutiveWelcomeKitModal({
   const [sending, setSending] = useState(false);
   const [dispatchStatus, setDispatchStatus] = useState<any>(null);
   const [copiedLink, setCopiedLink] = useState(false);
+  const [groups, setGroups] = useState<any[]>([]);
+
+  React.useEffect(() => {
+    fetch('/api/whatsapp-groups')
+      .then(res => res.json())
+      .then(data => {
+        if (data.groups) setGroups(data.groups);
+      })
+      .catch(() => {});
+  }, []);
 
   if (!isOpen) return null;
 
@@ -453,16 +463,56 @@ export default function ExecutiveWelcomeKitModal({
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">
-                    WhatsApp de Destino (com DDD):
-                  </label>
-                  <input
-                    type="text"
-                    value={targetPhone}
-                    onChange={(e) => setTargetPhone(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-500 font-mono"
-                    placeholder="5511999998888"
-                  />
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="text-xs font-bold text-slate-300 uppercase tracking-wider">
+                      {targetPhone.includes('@g.us') ? 'ID do Grupo WhatsApp (JID):' : 'WhatsApp de Destino (com DDD):'}
+                    </label>
+                    {groups.length > 0 && (
+                      <span className="text-[10px] text-cyan-400 font-semibold">
+                        {groups.length} Grupos Disponíveis
+                      </span>
+                    )}
+                  </div>
+                  <div className="relative">
+                    <input
+                      type="text"
+                      value={targetPhone}
+                      onChange={(e) => setTargetPhone(e.target.value)}
+                      className={`w-full bg-slate-950 border rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none font-mono ${
+                        targetPhone.includes('@g.us') ? 'border-emerald-500/70 text-emerald-300' : 'border-slate-800 focus:border-cyan-500'
+                      }`}
+                      placeholder="5511999998888 ou 120363023456789012@g.us"
+                    />
+                    {targetPhone.includes('@g.us') && (
+                      <span className="absolute right-3 top-2.5 text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30">
+                        GRUPO WHATSAPP
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Seletor Rápido de Grupos Cadastrados */}
+                  {groups.length > 0 && (
+                    <div className="mt-2 flex flex-wrap gap-1.5 items-center">
+                      <span className="text-[10px] text-slate-500">Ou selecione um grupo:</span>
+                      {groups.slice(0, 4).map((g) => (
+                        <button
+                          key={g.id}
+                          type="button"
+                          onClick={() => {
+                            setRecipientName(`Grupo: ${g.name}`);
+                            setTargetPhone(g.jid);
+                          }}
+                          className={`text-[10px] px-2 py-0.5 rounded-lg border transition cursor-pointer ${
+                            targetPhone === g.jid
+                              ? 'bg-emerald-500 text-slate-950 font-bold border-emerald-400'
+                              : 'bg-slate-950 hover:bg-slate-800 text-slate-400 border-slate-800'
+                          }`}
+                        >
+                          {g.name}
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
                 <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-400 space-y-1">

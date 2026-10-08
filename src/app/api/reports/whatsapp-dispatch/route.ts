@@ -20,8 +20,13 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Número de WhatsApp de destino é obrigatório.' }, { status: 400 });
     }
 
-    const cleanPhone = target_phone.replace(/\D/g, '');
-    const formattedPhone = cleanPhone.startsWith('55') ? cleanPhone : `55${cleanPhone}`;
+    const isGroup = target_phone.includes('@g.us');
+    let formattedPhone = target_phone.trim();
+
+    if (!isGroup) {
+      const cleanPhone = target_phone.replace(/\D/g, '');
+      formattedPhone = cleanPhone.startsWith('55') ? cleanPhone : `55${cleanPhone}`;
+    }
 
     // Consulta piscinas reais do Supabase
     const { data: dbPools } = await supabase.from('pools').select('*');

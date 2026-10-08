@@ -31,28 +31,30 @@ export async function POST(request: Request) {
     const instanceName = process.env.EVOLUTION_INSTANCE_NAME || 'jhoston_pools_oficial';
 
     // 1. Montagem da Mensagem Padronizada da JHostonTec
-    let textMessage = '';
+    let textMessage = details?.violation && alert_type === 'RELATORIO_MENSAL' ? details.violation : '';
 
-    switch (alert_type) {
-      case 'RED_ZONE_ALERT':
-        textMessage = `🚨 *JHoston Pools Informa*: Detectamos pH de risco (${details?.ph?.toFixed(1) || '6.8'}) na piscina *${pool_name}*. Orientamos intervenção imediata para proteção do revestimento monolítico.`;
-        break;
+    if (!textMessage) {
+      switch (alert_type) {
+        case 'RED_ZONE_ALERT':
+          textMessage = `🚨 *JHoston Pools Informa*: Detectamos pH de risco (${details?.ph?.toFixed(1) || '6.8'}) na piscina *${pool_name}*. Orientamos intervenção imediata para proteção do revestimento monolítico.`;
+          break;
 
-      case 'WARRANTY_SUSPENSION':
-        textMessage = `🚨 *RED ZONE CRÍTICA*: ${pool_name} | Tratador: ${maintainer_name} | Falha: ${details?.violation || 'Check-in de Limpa Pedras / Ácido'}. *Analisar perda de garantia do revestimento.*`;
-        break;
+        case 'WARRANTY_SUSPENSION':
+          textMessage = `🚨 *RED ZONE CRÍTICA*: ${pool_name} | Tratador: ${maintainer_name} | Falha: ${details?.violation || 'Check-in de Limpa Pedras / Ácido'}. *Analisar perda de garantia do revestimento.*`;
+          break;
 
-      case 'CHATBOT_QUERY':
-        textMessage = `🟢 Sua piscina encontra-se *EQUILIBRADA* (Health Score: ${details?.health_score || 98}/100). Última limpeza: hoje às 08:30. Seu estoque de cloro dura aprox. ${details?.stock_runway_days || 14} dias.`;
-        break;
+        case 'CHATBOT_QUERY':
+          textMessage = `🟢 Sua piscina encontra-se *EQUILIBRADA* (Health Score: ${details?.health_score || 98}/100). Última limpeza: hoje às 08:30. Seu estoque de cloro dura aprox. ${details?.stock_runway_days || 14} dias.`;
+          break;
 
-      case 'AI_MULTIMODAL_IMAGE':
-        textMessage = `🤖 *Auditor de IA JHostonTec (Análise de Imagem)*:\nRecebemos a fotografia da piscina *${pool_name}*.\n\n🔬 *Diagnóstico Multimodal Instantâneo*:\n• Turbidez da Água: Cristalina com perfeita refração\n• Eflorescência / Manchas: Nenhuma anomalia detectada\n• Estabilidade da Resina: 100% Protegida (Sem ataque ácido)\n\n💡 *Prescrição Preventiva*:\nManter a filtragem por 6h e checar a alcalinidade total com a fita de teste no app. Nunca utilize ácido muriático!`;
-        break;
+        case 'AI_MULTIMODAL_IMAGE':
+          textMessage = `🤖 *Auditor de IA JHostonTec (Análise de Imagem)*:\nRecebemos a fotografia da piscina *${pool_name}*.\n\n🔬 *Diagnóstico Multimodal Instantâneo*:\n• Turbidez da Água: Cristalina com perfeita refração\n• Eflorescência / Manchas: Nenhuma anomalia detectada\n• Estabilidade da Resina: 100% Protegida (Sem ataque ácido)\n\n💡 *Prescrição Preventiva*:\nManter a filtragem por 6h e checar a alcalinidade total com a fita de teste no app. Nunca utilize ácido muriático!`;
+          break;
 
-      case 'RELATORIO_MENSAL':
-        textMessage = `📄 *JHoston Pools*: O seu *Laudo Mensal de Garantia* do revestimento monolítico referente ao mês anterior foi consolidado e está pronto. Segue em anexo.`;
-        break;
+        case 'RELATORIO_MENSAL':
+          textMessage = `📄 *JHoston Pools*: O seu *Laudo Mensal de Garantia* do revestimento monolítico referente ao mês anterior foi consolidado e está pronto. Segue em anexo.`;
+          break;
+      }
     }
 
     // 2. Disparo para a Evolution API (instância Docker)

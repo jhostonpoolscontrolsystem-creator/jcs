@@ -83,3 +83,29 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: err.message || 'Erro ao persistir contato' }, { status: 500 });
   }
 }
+
+export async function DELETE(request: Request) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
+
+    if (!id) {
+      return NextResponse.json({ error: 'ID do contato é obrigatório' }, { status: 400 });
+    }
+
+    const { error } = await supabase.from('users').delete().eq('id', id);
+
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 400 });
+    }
+
+    return NextResponse.json({
+      success: true,
+      message: 'Contato excluído com sucesso!',
+      deleted_id: id
+    });
+  } catch (err: any) {
+    return NextResponse.json({ error: err.message || 'Erro ao excluir contato' }, { status: 500 });
+  }
+}
+
