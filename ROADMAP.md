@@ -21,7 +21,7 @@
 ```
        [FASE 1: ENTERPRISE MASTER & PWA ISOLADO] ────────── (100% CONCLUÍDO)
                           │
-       [FASE 2: IA MULTIMODAL & LEITURA DE FITAS] ───────── (Q4 / 2026)
+       [FASE 2: IA MULTIMODAL & LEITURA DE FITAS] ───────── (EM ANDAMENTO - ATIVO)
                           │
        [FASE 3: TELEMETRIA IoT & SONDAS EM TEMPO REAL] ──── (Q1 / 2027)
                           │
@@ -49,27 +49,33 @@
   - Compressão de fotos em WebP (~95% de economia) e carimbo de satélite GPS.
 - [x] **Controle de Término de Cura do Monólito**:
   - Exibição da data exata de liberação plena nos cards, tabelas e prontuários médicos.
+- [x] **Cockpit de Telemetria F1 & Portfólio de Clientes**:
+  - Tacômetros digitais, mostrador LSI Langelier, gráficos históricos e seletor de clientes.
 - [x] **4 Manuais de Usuários & Registro de Credenciais**:
   - [MANUAL_USUARIO_MASTER.md](file:///c:/JHPCS/MANUAL_USUARIO_MASTER.md)
   - [MANUAL_USUARIO_JHOSTON_POOLS.md](file:///c:/JHPCS/MANUAL_USUARIO_JHOSTON_POOLS.md)
   - [MANUAL_USUARIO_CLIENTE_FINAL.md](file:///c:/JHPCS/MANUAL_USUARIO_CLIENTE_FINAL.md)
   - [MANUAL_USUARIO_PISCINEIRO.md](file:///c:/JHPCS/MANUAL_USUARIO_PISCINEIRO.md)
   - [USUARIOS_LIBERADOS.md](file:///c:/JHPCS/USUARIOS_LIBERADOS.md)
+  - [APRESENTACAO_DIRETORIA_JHOSTON.md](file:///c:/JHPCS/APRESENTACAO_DIRETORIA_JHOSTON.md)
 
 ---
 
-## 🟡 FASE 2: Inteligência Artificial de Visão Computacional (Novembro / 2026)
-*Meta: Eliminar erros manuais de digitação do piscineiro e antecipar diagnósticos de superfície.*
+## 🟡 FASE 2: IA Multimodal & Visão Computacional (EM DESENVOLVIMENTO ATIVO)
+*Meta: Eliminar 100% dos erros manuais de digitação do tratador e auditar a superfície mineral por imagem.*
 
-* **Feature 2.1 — Leitura Automática da Fita Reagente por IA (Computer Vision)**:
-  - O tratador aponta a câmera para a fita de teste ao lado da tabela colorimétrica;
-  - A IA extrai e preenche instantaneamente os valores de **pH**, **Cloro Livre**, **Alcalinidade** e **Ácido Cianúrico** sem digitação manual.
-* **Feature 2.2 — Detecção Precoce de Manchas e Eflorescências**:
-  - Comparação de fotos panorâmicas sequenciais para detectar acúmulo mineral, algas ou perda de brilho da resina antes que o cliente perceba.
-* **Feature 2.3 — Assistente Técnico JHoston no WhatsApp (Chatbot Multimodal)**:
-  - O tratador ou gerente pode enviar uma foto da água ou áudio no WhatsApp oficial:
-    *"Choveu muito ontem e a água esbranquiçou, o que aplico?"*
-  - A IA processa o volume cadastrado da piscina e responde em menos de 10 segundos com a dosagem milimétrica de carbonato e barrilha.
+* [ ] **Feature 2.1 — Leitor Multimodal de Fita Reagente e Cubeta Colorimétrica (IA Computer Vision)**:
+  - Scanner de fita de teste/cubeta integrado à câmera nativa do PWA;
+  - IA analisa a imagem calibrando a iluminação e extrai automaticamente:
+    - **pH**: precisão de 0.1 com alerta instantâneo de zona ácida;
+    - **Cloro Livre**: leitura colorimétrica de 0 a 5.0 ppm;
+    - **Alcalinidade Total**: leitura em faixas (40, 80, 120, 180 ppm);
+    - **Ácido Cianúrico / Dureza Cálcica**;
+  - Preenchimento zero-clique dos campos no formulário com confirmação visual do tratador.
+* [ ] **Feature 2.2 — Scanner de Superfície & Detecção Precoce de Manchas/Algas**:
+  - Análise de foto panorâmica para detecção precoce de eflorescência, ataque químico localizado ou acúmulo de biofilme mineral.
+* [ ] **Feature 2.3 — Assistente Técnico JHoston Multimodal (Chatbot WhatsApp & Web)**:
+  - Processamento de fotos de água turva/leitosa e áudio com prescrição estequiométrica em segundos.
 
 ---
 

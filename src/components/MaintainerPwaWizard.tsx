@@ -16,11 +16,13 @@ import {
 } from 'lucide-react';
 import { mockPools } from '@/lib/mock-data';
 import { NativeCameraCapture } from '@/components/NativeCameraCapture';
+import AiStripScannerModal from '@/components/AiStripScannerModal';
 import { saveOfflineMaintenanceLog, getPendingOfflineLogs, removeOfflineLog } from '@/lib/offline-db';
 import { evaluateChemicalRules, calculateChemicalDose } from '@/lib/chemical-rules';
 
 export function MaintainerPwaWizard() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAiScanModalOpen, setIsAiScanModalOpen] = useState(false);
   const [cpf, setCpf] = useState('123.456.789-00');
   const [pin, setPin] = useState('');
   const [authError, setAuthError] = useState<string | null>(null);
@@ -403,13 +405,23 @@ export function MaintainerPwaWizard() {
 
         {/* 3. Coleta de Parâmetros com Sliders */}
         <div className="space-y-4 bg-slate-950/70 p-4 rounded-2xl border border-slate-800">
-          <div className="flex justify-between items-center">
-            <label className="text-xs font-bold text-slate-300 uppercase tracking-wider">
-              3. Parâmetros Químicos Coletados
-            </label>
-            <span className="text-[10px] text-cyan-400 bg-cyan-950 px-2 py-0.5 rounded border border-cyan-800/40">
-              Hard-Rules Ativas
-            </span>
+          <div className="flex flex-wrap justify-between items-center gap-2">
+            <div>
+              <label className="text-xs font-bold text-slate-300 uppercase tracking-wider block">
+                3. Parâmetros Químicos Coletados
+              </label>
+              <span className="text-[10px] text-slate-400">Insira manualmente ou use a IA de Visão Computacional</span>
+            </div>
+
+            {/* BOTÃO LEITURA IA DE FITA / CUBETA (FASE 2) */}
+            <button
+              type="button"
+              onClick={() => setIsAiScanModalOpen(true)}
+              className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-cyan-500 to-teal-400 text-slate-950 font-black text-xs flex items-center gap-1.5 shadow-md shadow-cyan-500/20 hover:scale-105 transition cursor-pointer"
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>Escanear Fita com IA</span>
+            </button>
           </div>
 
           {/* pH */}
@@ -608,6 +620,18 @@ export function MaintainerPwaWizard() {
           )}
         </div>
       )}
+
+      {/* MODAL IA LEITURA DE FITAS & CUBETAS (FASE 2) */}
+      <AiStripScannerModal
+        isOpen={isAiScanModalOpen}
+        onClose={() => setIsAiScanModalOpen(false)}
+        poolVolumeM3={activePool.volume_m3}
+        onApplyParameters={({ ph, chlorine, alkalinity }) => {
+          setPhInput(ph);
+          setChlorineInput(chlorine);
+          setAlkalinityInput(alkalinity);
+        }}
+      />
     </div>
   );
 }
