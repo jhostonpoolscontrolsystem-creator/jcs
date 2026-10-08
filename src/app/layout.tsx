@@ -1,20 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  display: "swap",
-  fallback: ["system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-mono",
-  subsets: ["latin"],
-  display: "swap",
-  fallback: ["monospace", "Courier New"],
-});
 
 export const viewport: Viewport = {
   themeColor: "#020617",
@@ -33,7 +18,7 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`${inter.variable} ${jetbrainsMono.variable} h-full antialiased dark`}
+      className="h-full antialiased dark"
     >
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
