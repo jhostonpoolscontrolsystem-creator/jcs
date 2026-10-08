@@ -1,88 +1,111 @@
-# 🗺️ Novo ROADMAP Estratégico & Auditoria Severa 2026/2027 — JHPCS
-### *JHoston Pools Control System — Plano de Expansão, Escala Enterprise e Novas Features*
+# 🗺️ ROADMAP Estratégico & Plano Diretor 2026/2027 — JHPCS
+### *JHoston Pools Control System — Monitoramento Contínuo, Proteção de Monólito e Escala Enterprise*
 
 ---
 
-## 🔍 1. Relatório da Auditoria Severa do Sistema Atual (Diagnóstico de Engenharia)
+## 📊 1. Resumo Executivo das Entregas Recentes (Ciclo Outubro / 2026)
 
-### 🟢 Pontos Fortes Consolidados (Status: Produção Ativa)
-1. **Infraestrutura Serverless & Edge**: Next.js 16 + Vercel com velocidade instantânea e sem custo fixo de servidor ocioso.
-2. **Banco Relacional & RLS Ativo**: Supabase PostgreSQL conectado com políticas multi-tenant e bypass seguro com chave service-role no backend.
-3. **Motor Químico de Proteção ao Monólito**: Regras químicas rigorosas que detectam pH ácido < 7.0, calculam LSI (Índice de Langelier) e bloqueiam terminantemente ácidos nocivos.
-4. **Mensageria com SLA < 3.2s**: Instância Evolution API (`ecostone`) disparando relatórios reais no WhatsApp.
-5. **App Tratador PWA & Flutter White Label**: Sistema offline-first (IndexedDB) para borda de piscina e projeto Flutter preparado.
-6. **Segurança & Governança**: Barreira de primeiro acesso com substituição obrigatória de senha e caractere especial; painel exclusivo do MASTER.
-
-### ⚠️ Oportunidades de Melhoria Identificadas na Auditoria
-1. **Inteligência Artificial na Leitura da Fita de Teste**: O piscineiro ainda digita os valores nos sliders; a câmera pode ler a fita de cores automaticamente via Visão Computacional.
-2. **Telemetria de Sensores IoT em Tempo Real**: Adicionar suporte a sondas eletrônicas flutuantes (pH/ORP/Temperatura via MQTT/LoRaWAN) para hotéis que não querem depender apenas de visitas manuais.
-3. **Módulo Financeiro & Faturamento Recorrente**: Integração de cobrança automática (Pix/Boleto Asaas/Stripe) na venda dos insumos químicos homologados.
-4. **Assinatura Biométrica / Facial do Tratador**: Garantir presença física incontestável do tratador na borda da piscina.
+| Módulo / Feature | Status | Escopo Entregue |
+|---|:---:|---|
+| **Hub de Governança MASTER** | 🟢 **Concluído** | Interface dedicada e soberana para Daniel Lopes e Patrícia com fila de aprovação e auditoria global. |
+| **Isolamento de Perfis (RBAC)** | 🟢 **Concluído** | Restrição rigorosa de abas: cada perfil só enxerga o que lhe compete (Diretoria, Técnicos, Clientes e Tratadores). |
+| **Cards de Métricas com Drilldown** | 🟢 **Concluído** | Os 4 cards do Dashboard (`Ativos`, `Red Zones`, `Cura`, `WhatsApp SLA`) tornaram-se 100% interativos com modais de busca e aprofundamento. |
+| **PWA Isolado do Piscineiro (`/pwa`)** | 🟢 **Concluído** | Rota independente, sem barras de menu corporativo, com manifesto standalone, botão de instalação em 1 toque e fila offline (IndexedDB). |
+| **Gestão do Fim do Período de Cura** | 🟢 **Concluído** | Cálculo dinâmico do ciclo completo (7d seco + 28d submersa = 35d), data exata de liberação plena (DD/MM/AAAA) e contagem regressiva em dias restantes. |
+| **Documentação & 4 Manuais Oficiais** | 🟢 **Concluído** | Manuais completos para Master, JHoston Pools, Clientes Finais e Piscineiros, além do documento de Usuários Liberados. |
 
 ---
 
-## 🚀 2. Novo ROADMAP de Evolução (Q4/2026 a Q2/2027)
+## 🧭 2. Linha do Tempo e Fases de Evolução
 
 ```
-       [FASE 1: ENTERPRISE MASTER & MULTI-TENANT] ──────────── (CONCLUÍDO)
+       [FASE 1: ENTERPRISE MASTER & PWA ISOLADO] ────────── (100% CONCLUÍDO)
                           │
-       [FASE 2: IA DE VISÃO COMPUTACIONAL & FITAS] ─────────── (Q4 / 2026)
+       [FASE 2: IA MULTIMODAL & LEITURA DE FITAS] ───────── (Q4 / 2026)
                           │
-       [FASE 3: HARDWARE IoT & TELEMETRIA CONTÍNUA] ────────── (Q1 / 2027)
+       [FASE 3: TELEMETRIA IoT & SONDAS EM TEMPO REAL] ──── (Q1 / 2027)
                           │
-       [FASE 4: E-COMMERCE B2B DE INSUMOS & RECORRÊNCIA] ───── (Q2 / 2027)
+       [FASE 4: E-COMMERCE B2B & RECORRÊNCIA QUÍMICA] ───── (Q2 / 2027)
 ```
 
 ---
 
-### 🟢 FASE 1: Enterprise Master & Governança de Acessos (100% Concluída)
-- [x] **Painel Exclusivo MASTER**: Visão soberana para Daniel Lopes e Patrícia com fila de homologação e atalhos globais.
-- [x] **Filtro Estrito por Papéis (RBAC)**:
-  * **Master**: Visão de Governança Suprema.
-  * **Diretoria JH**: Dashboard operacional, relatórios executivos WhatsApp e gestão de equipe.
-  * **Técnico JH**: Prontuários químicos, triagem Kanban de Red Zones e motor de regras LSI.
-  * **Gerência do Cliente**: Digital Twin da piscina, contador de cura e estoque.
-  * **Piscineiro**: Somente o app do tratador com câmera e sliders grandes.
-- [x] **Limpeza de Credenciais de Teste**: Login 100% limpo e seguro contra invasões.
-- [x] **Prontuário Médico & Técnico da Piscina**: Modal detalhado acessível do mapa e do kanban com telemetria LSI e disparo de laudo.
+## 🟢 FASE 1: Governança, Usabilidade de Campo e Drilldown (100% Concluída)
+- [x] **Painel Exclusivo MASTER**: Fila de homologação de usuários, resumo de telemetria e atalhos rápidos de controle.
+- [x] **Matriz RBAC Isolada por Perfil**:
+  - `MASTER`: Governança e auditoria irrestrita.
+  - `DIRETORIA_JH`: Gestão executiva, relatórios mensais automáticos via WhatsApp e catálogo de contatos.
+  - `TECNICO_JH`: Triagem Kanban de alertas, mapa de saúde Leaflet e motor de cálculo químico.
+  - `GERENCIA_CLI` / `TECNICO_CLI`: Portal do Cliente (Digital Twin), previsão do tempo (OpenWeather) e estoque de produtos.
+  - `PISCINEIRO`: Interface de campo limpa e focada em rotina.
+- [x] **Drilldown nos 4 Cards de Métricas**:
+  - *Ativos Monitorados*: Lista completa com busca instantânea e acesso ao prontuário médico.
+  - *Red Zones Ativas*: Filtro prioritário de tanques sob risco de ataque químico.
+  - *Em Período de Cura*: Relação das obras com data exata de término e dias restantes.
+  - *SLA WhatsApp Evolution*: Monitoramento de latência (< 3.2s) e instância `ecostone`.
+- [x] **Aplicativo do Piscineiro Standalone (`/pwa`)**:
+  - Manifesto dedicado `public/manifest-pwa.json` e Service Worker em cache local.
+  - Operação 100% offline com sincronização automática ao restabelecer conexão.
+  - Compressão de fotos em WebP (~95% de economia) e carimbo de satélite GPS.
+- [x] **Controle de Término de Cura do Monólito**:
+  - Exibição da data exata de liberação plena nos cards, tabelas e prontuários médicos.
+- [x] **4 Manuais de Usuários & Registro de Credenciais**:
+  - [MANUAL_USUARIO_MASTER.md](file:///c:/JHPCS/MANUAL_USUARIO_MASTER.md)
+  - [MANUAL_USUARIO_JHOSTON_POOLS.md](file:///c:/JHPCS/MANUAL_USUARIO_JHOSTON_POOLS.md)
+  - [MANUAL_USUARIO_CLIENTE_FINAL.md](file:///c:/JHPCS/MANUAL_USUARIO_CLIENTE_FINAL.md)
+  - [MANUAL_USUARIO_PISCINEIRO.md](file:///c:/JHPCS/MANUAL_USUARIO_PISCINEIRO.md)
+  - [USUARIOS_LIBERADOS.md](file:///c:/JHPCS/USUARIOS_LIBERADOS.md)
 
 ---
 
-### 🟡 FASE 2: Inteligência Artificial de Visão Computacional (Novembro / 2026)
-* **Feature 2.1 — Leitura Automática da Fita de Teste por IA**:
-  * Ao fotografar a fita reagente com a câmera do celular, um modelo de Visão Computacional (TensorFlow Lite / Gemini Multimodal) analisa os quadradinhos de cor da fita e preenche automaticamente o pH, Cloro e Alcalinidade, eliminando erro de digitação do piscineiro.
-* **Feature 2.2 — Detecção Precoce de Manchas no Revestimento**:
-  * Comparação da foto panorâmica atual com fotos históricas do monólito para identificar início de algas pretas, incrustações ou depósito de cálcio antes que o olho humano note.
-* **Feature 2.3 — Chatbot IA Especialista em Revestimentos Monolíticos**:
-  * O cliente final ou tratador pode enviar áudio ou foto no WhatsApp oficial da JHoston Pools perguntando: *"A água ficou turva depois da chuva, o que doso?"* — a IA responde com a dosagem matemática exata considerando o volume específico da piscina.
+## 🟡 FASE 2: Inteligência Artificial de Visão Computacional (Novembro / 2026)
+*Meta: Eliminar erros manuais de digitação do piscineiro e antecipar diagnósticos de superfície.*
+
+* **Feature 2.1 — Leitura Automática da Fita Reagente por IA (Computer Vision)**:
+  - O tratador aponta a câmera para a fita de teste ao lado da tabela colorimétrica;
+  - A IA extrai e preenche instantaneamente os valores de **pH**, **Cloro Livre**, **Alcalinidade** e **Ácido Cianúrico** sem digitação manual.
+* **Feature 2.2 — Detecção Precoce de Manchas e Eflorescências**:
+  - Comparação de fotos panorâmicas sequenciais para detectar acúmulo mineral, algas ou perda de brilho da resina antes que o cliente perceba.
+* **Feature 2.3 — Assistente Técnico JHoston no WhatsApp (Chatbot Multimodal)**:
+  - O tratador ou gerente pode enviar uma foto da água ou áudio no WhatsApp oficial:
+    *"Choveu muito ontem e a água esbranquiçou, o que aplico?"*
+  - A IA processa o volume cadastrado da piscina e responde em menos de 10 segundos com a dosagem milimétrica de carbonato e barrilha.
 
 ---
 
-### 🟠 FASE 3: Integração com Sensores IoT Flutuantes (Janeiro / 2027)
-* **Feature 3.1 — Conector IoT MQTT / LoRaWAN**:
-  * Criação de webhook e conector para boias inteligentes flutuantes comerciais (ex: Blue Connect, Ondilo, Waterair).
-* **Feature 3.2 — Telemetria de 15 em 15 Minutos**:
-  * O gráfico de pH, ORP e Temperatura é alimentado 24 horas por dia, 7 dias por semana.
-* **Feature 3.3 — Acionamento Automático de Dosadoras Peristálticas**:
-  * Se o pH cair de 7.2 durante a madrugada, o sistema comanda o dosador automático do resort para injetar alcalinizante sem precisar esperar o piscineiro acordar.
+## 🟠 FASE 3: Telemetria IoT & Sondas de Monitoramento Contínuo (Janeiro / 2027)
+*Meta: Monitoramento 24/7 sem depender exclusivamente de visitas humanas presenciais.*
+
+* **Feature 3.1 — Conector Universal IoT (MQTT / LoRaWAN)**:
+  - Integração com sensores de inserção na tubulação da casa de máquinas ou boias flutuantes comerciais (ex.: Blue Connect, Ondilo, pH/Redox industriais).
+* **Feature 3.2 — Gráficos de Telemetria Contínua (Intervalo de 15 Minutos)**:
+  - Alimentação de gráficos com curvas de temperatura, pH e potencial de oxirredução (ORP) dia e noite.
+* **Feature 3.3 — Bloqueio e Automação de Bombas Dosadoras**:
+  - Se o sensor acusar queda drástica de pH durante a noite, o sistema pode comandar dosadores automáticos ou desligar bombas de aquecimento para proteger o monólito.
 
 ---
 
-### 🔵 FASE 4: E-Commerce B2B de Insumos & Clube de Assinatura (Março / 2027)
-* **Feature 4.1 — Reposição Automática "Just-in-Time"**:
-  * Quando o cálculo preditivo indicar que o estoque do resort vai acabar em 4 dias, o sistema gera o pedido de compra automaticamente com aprovação em 1 clique via WhatsApp.
-* **Feature 4.2 — Gateway de Pagamento Integrado (Pix & Boleto Automático)**:
-  * Cobrança faturada ou Pix Copia e Cola gerado na hora para o cliente pagar os insumos químicos homologados da JHoston Pools.
-* **Feature 4.3 — Rastreamento Logístico do Balde de Insumos**:
-  * Notificação WhatsApp com status de despacho e entrega do caminhão de químicos na portaria do condomínio.
+## 🔵 FASE 4: E-Commerce B2B de Insumos & Clube de Garantia Vitalícia (Março / 2027)
+*Meta: Monetização recorrente e garantia de que o cliente só utilize produtos homologados pela JHostonTec.*
+
+* **Feature 4.1 — Reposição Automática de Insumos (Just-in-Time)**:
+  - Quando a estimativa preditiva de estoque acusar menos de 3 dias de cloro ou balanceadores, o sistema emite proposta de compra com 1 clique.
+* **Feature 4.2 — Checkout Integrado (Pix Automático e Faturamento)**:
+  - Emissão de QR Code Pix e boleto bancário direto para a administração do resort ou proprietário.
+* **Feature 4.3 — Rastreamento Logístico com Notificação no WhatsApp**:
+  - Envio de código de rastreio e aviso ao síndico quando o caminhão de químicos da JHoston chegar à portaria.
 
 ---
 
-## 📈 Tabela de Metas & KPIs de Negócio para a JHoston Pools
+## 📈 Tabela Comparativa de Impacto & Valor Gerado
 
-| Métrica / KPI | Cenário Atual (Sem Software) | Meta com JHPCS (Com Software) |
-| :--- | :---: | :---: |
-| **Custo de Garantias Indevidas** | R$ 40.000+ / ano em retrabalho | **R$ 0** (100% auditado e blindado) |
-| **Receita Recorrente de Insumos** | R$ 0 (cliente compra em loja genérica) | **R$ 15.000 / mês** em químicos homologados |
-| **Tempo de Diagnóstico de Anomalia** | 2 a 3 semanas após reclamação | **< 2 horas** com Red Zone e WhatsApp |
-| **Satisfação dos Clientes (NPS)** | 72 | **96+** (Percepção de tecnologia de luxo) |
+| Indicador Estratégico | Operação Antiga (Sem JHPCS) | Operação com JHPCS Ativo |
+|---|:---:|:---:|
+| **Custo de Garantias e Retrabalho** | R$ 40.000+ / ano em perícias e litígios | **R$ 0** (100% blindado com auditoria por foto e satélite) |
+| **Tempo de Resposta em Casos Críticos** | 1 a 3 semanas após estrago no revestimento | **< 3.2 segundos** via alerta no WhatsApp |
+| **Confiabilidade da Equipe de Campo** | Registros manuais em pranchetas de papel | **100% digitalizado**, câmera obrigatória e fila offline |
+| **Previsibilidade de Cura em Obras Novas** | Estimativas incertas de encarregados | **Data exata de conclusão** visível para o dono e diretoria |
+| **Monetização de Insumos Químicos** | Perda de vendas para lojas genéricas | **Venda homologada** garantida pelo contrato de garantia |
+
+---
+*JHoston Pools Control System • Plano Estratégico Atualizado em 08/10/2026*
