@@ -19,6 +19,7 @@ import {
 import { Pool, PoolInventory } from '@/types/database';
 import { mockPools, mockMaintenanceLogs } from '@/lib/mock-data';
 import { generateWarrantyCertificatePdf } from '@/lib/pdf-generator';
+import { HistoricalTelemetryChart } from '@/components/HistoricalTelemetryChart';
 
 export function ClientManagerDashboard() {
   const [selectedPool, setSelectedPool] = useState<Pool>(mockPools[0]);
@@ -135,6 +136,12 @@ export function ClientManagerDashboard() {
               </div>
             );
           })()}
+
+          {/* Gráfico da Série Histórica de Telemetria Físico-Química */}
+          <HistoricalTelemetryChart 
+            poolName={selectedPool.name}
+            volumeM3={selectedPool.volume_m3}
+          />
 
           {/* Integração Meteorológica Preventiva (OpenWeather) */}
           <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-4">

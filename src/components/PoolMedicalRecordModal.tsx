@@ -24,6 +24,7 @@ import {
 } from 'lucide-react';
 import { Pool, MaintenanceLog } from '@/types/database';
 import { mockMaintenanceLogs } from '@/lib/mock-data';
+import { HistoricalTelemetryChart } from '@/components/HistoricalTelemetryChart';
 
 interface PoolMedicalRecordModalProps {
   pool: Pool | null;
@@ -384,6 +385,9 @@ export function PoolMedicalRecordModal({
           {/* TAB 2: HISTÓRICO QUÍMICO */}
           {activeTab === 'HISTORICO_QUIMICO' && (
             <div className="space-y-4">
+              {/* Gráfico de Séries Históricas com Curvas, Bandas de Segurança e LSI */}
+              <HistoricalTelemetryChart poolName={pool.name} volumeM3={pool.volume_m3} />
+
               <div className="flex justify-between items-center text-xs">
                 <span className="text-slate-400">Tratamentos e auditorias registradas via PWA Offline-First</span>
                 <span className="font-mono text-cyan-400 font-bold">Total: {poolLogs.length + 1} medições</span>
