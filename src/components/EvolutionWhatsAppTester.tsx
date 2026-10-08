@@ -17,7 +17,7 @@ import { mockPools } from '@/lib/mock-data';
 
 export function EvolutionWhatsAppTester() {
   const [targetPhone, setTargetPhone] = useState('5511999998888');
-  const [alertType, setAlertType] = useState<'RED_ZONE_ALERT' | 'WARRANTY_SUSPENSION' | 'CHATBOT_QUERY' | 'RELATORIO_MENSAL'>('RED_ZONE_ALERT');
+  const [alertType, setAlertType] = useState<'RED_ZONE_ALERT' | 'WARRANTY_SUSPENSION' | 'CHATBOT_QUERY' | 'AI_MULTIMODAL_IMAGE' | 'RELATORIO_MENSAL'>('RED_ZONE_ALERT');
   const [customPh, setCustomPh] = useState(6.8);
   const [loading, setLoading] = useState(false);
   const [dispatchResult, setDispatchResult] = useState<any>(null);
@@ -96,6 +96,7 @@ export function EvolutionWhatsAppTester() {
               <option value="RED_ZONE_ALERT">🚨 Alerta Crítico B2B (pH &lt; 7.0 Corrosão)</option>
               <option value="WARRANTY_SUSPENSION">🚨 Perda de Garantia (Uso de Limpa Pedras)</option>
               <option value="CHATBOT_QUERY">🟢 Resposta Chatbot Preditivo (Status Piscina)</option>
+              <option value="AI_MULTIMODAL_IMAGE">📸 Assistente Técnico IA: Foto de Água/Monólito (Fase 2)</option>
               <option value="RELATORIO_MENSAL">📄 Laudo Mensal em PDF Automático</option>
             </select>
           </div>
@@ -165,6 +166,8 @@ export function EvolutionWhatsAppTester() {
                     ? `🚨 JHoston Pools Informa: Detectamos pH de risco (${customPh.toFixed(1)}) na piscina ${pool.name}. Orientamos intervenção imediata para proteção do revestimento monolítico.`
                     : alertType === 'WARRANTY_SUSPENSION'
                     ? `🚨 RED ZONE CRÍTICA: ${pool.name} | Tratador: João | Falha: Check-in de Limpa Pedras / Ácido. Analisar perda de garantia.`
+                    : alertType === 'AI_MULTIMODAL_IMAGE'
+                    ? `🤖 Auditor de IA JHostonTec (Análise de Imagem):\nRecebemos a foto da piscina ${pool.name}.\n\n🔬 Diagnóstico Multimodal:\n• Turbidez da Água: Cristalina com perfeita refração\n• Eflorescência: Nenhuma anomalia detectada\n• Estabilidade da Resina: 100% Protegida\n\n💡 Prescrição: Manter filtragem normal de 6h. Proibido uso de ácido muriático!`
                     : `🟢 Sua piscina encontra-se EQUILIBRADA (Health Score: 98/100). Última limpeza: hoje às 08:30. Seu estoque de cloro dura aprox. 14 dias.`
                 )}
               </p>

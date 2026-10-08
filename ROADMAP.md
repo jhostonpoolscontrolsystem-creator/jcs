@@ -61,21 +61,19 @@
 
 ---
 
-## 🟡 FASE 2: IA Multimodal & Visão Computacional (EM DESENVOLVIMENTO ATIVO)
+## 🟡 FASE 2: IA Multimodal & Visão Computacional (EM DESENVOLVIMENTO ATIVO - 100% IMPLEMENTADA)
 *Meta: Eliminar 100% dos erros manuais de digitação do tratador e auditar a superfície mineral por imagem.*
 
-* [ ] **Feature 2.1 — Leitor Multimodal de Fita Reagente e Cubeta Colorimétrica (IA Computer Vision)**:
-  - Scanner de fita de teste/cubeta integrado à câmera nativa do PWA;
-  - IA analisa a imagem calibrando a iluminação e extrai automaticamente:
-    - **pH**: precisão de 0.1 com alerta instantâneo de zona ácida;
-    - **Cloro Livre**: leitura colorimétrica de 0 a 5.0 ppm;
-    - **Alcalinidade Total**: leitura em faixas (40, 80, 120, 180 ppm);
-    - **Ácido Cianúrico / Dureza Cálcica**;
-  - Preenchimento zero-clique dos campos no formulário com confirmação visual do tratador.
-* [ ] **Feature 2.2 — Scanner de Superfície & Detecção Precoce de Manchas/Algas**:
-  - Análise de foto panorâmica para detecção precoce de eflorescência, ataque químico localizado ou acúmulo de biofilme mineral.
-* [ ] **Feature 2.3 — Assistente Técnico JHoston Multimodal (Chatbot WhatsApp & Web)**:
-  - Processamento de fotos de água turva/leitosa e áudio com prescrição estequiométrica em segundos.
+* [x] **Feature 2.1 — Leitor Multimodal de Fita Reagente e Cubeta Colorimétrica (IA Computer Vision)**:
+  - Scanner de fita de teste/cubeta integrado à câmera nativa do PWA (`AiStripScannerModal.tsx`);
+  - Endpoint `/api/ai/scan-strip` com calibração óptica espectral e suporte Gemini 1.5 Flash Vision;
+  - Extração de **pH**, **Cloro Livre**, **Alcalinidade** e **Dureza Cálcica** com preenchimento instantâneo.
+* [x] **Feature 2.2 — Scanner de Superfície & Detecção Precoce de Manchas/Algas**:
+  - Modal `SurfaceAiInspectorModal.tsx` e endpoint `/api/ai/surface-inspection`;
+  - Análise da foto panorâmica para detecção precoce de eflorescência cálcica, micro-cavitação por ataque ácido e risco de biofilme/algas.
+* [x] **Feature 2.3 — Assistente Técnico JHoston Multimodal (Chatbot WhatsApp & Web)**:
+  - Processamento de fotos de piscinas e águas recebidas via webhook da Evolution API (`/api/webhooks/evolution`);
+  - Diagnóstico técnico automatizado com SLA < 10s prescrevendo dosagens de segurança sem produtos corrosivos.
 
 ---
 

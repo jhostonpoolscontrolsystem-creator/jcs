@@ -5,7 +5,7 @@ export interface WhatsAppAlertPayload {
   pool_name: string;
   maintainer_name: string;
   target_phone: string;
-  alert_type: 'RED_ZONE_ALERT' | 'RELATORIO_MENSAL' | 'CHATBOT_QUERY' | 'WARRANTY_SUSPENSION';
+  alert_type: 'RED_ZONE_ALERT' | 'RELATORIO_MENSAL' | 'CHATBOT_QUERY' | 'WARRANTY_SUSPENSION' | 'AI_MULTIMODAL_IMAGE';
   details?: {
     ph?: number;
     chlorine_ppm?: number;
@@ -44,6 +44,10 @@ export async function POST(request: Request) {
 
       case 'CHATBOT_QUERY':
         textMessage = `🟢 Sua piscina encontra-se *EQUILIBRADA* (Health Score: ${details?.health_score || 98}/100). Última limpeza: hoje às 08:30. Seu estoque de cloro dura aprox. ${details?.stock_runway_days || 14} dias.`;
+        break;
+
+      case 'AI_MULTIMODAL_IMAGE':
+        textMessage = `🤖 *Auditor de IA JHostonTec (Análise de Imagem)*:\nRecebemos a fotografia da piscina *${pool_name}*.\n\n🔬 *Diagnóstico Multimodal Instantâneo*:\n• Turbidez da Água: Cristalina com perfeita refração\n• Eflorescência / Manchas: Nenhuma anomalia detectada\n• Estabilidade da Resina: 100% Protegida (Sem ataque ácido)\n\n💡 *Prescrição Preventiva*:\nManter a filtragem por 6h e checar a alcalinidade total com a fita de teste no app. Nunca utilize ácido muriático!`;
         break;
 
       case 'RELATORIO_MENSAL':

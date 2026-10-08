@@ -17,12 +17,14 @@ import {
 import { mockPools } from '@/lib/mock-data';
 import { NativeCameraCapture } from '@/components/NativeCameraCapture';
 import AiStripScannerModal from '@/components/AiStripScannerModal';
+import SurfaceAiInspectorModal from '@/components/SurfaceAiInspectorModal';
 import { saveOfflineMaintenanceLog, getPendingOfflineLogs, removeOfflineLog } from '@/lib/offline-db';
 import { evaluateChemicalRules, calculateChemicalDose } from '@/lib/chemical-rules';
 
 export function MaintainerPwaWizard() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isAiScanModalOpen, setIsAiScanModalOpen] = useState(false);
+  const [isSurfaceModalOpen, setIsSurfaceModalOpen] = useState(false);
   const [cpf, setCpf] = useState('123.456.789-00');
   const [pin, setPin] = useState('');
   const [authError, setAuthError] = useState<string | null>(null);
@@ -382,15 +384,27 @@ export function MaintainerPwaWizard() {
             2. Evidências Obrigatórias In-App
           </label>
 
-          <NativeCameraCapture
-            label="Foto 1: Espelho d'Água (Panorâmica)"
-            subLabel="Capture a superfície da água e integridade visual do monólito"
-            capturedPhoto={panoramicPhoto}
-            onPhotoCaptured={(photo, coords) => {
-              setPanoramicPhoto(photo);
-              setCurrentGps(coords);
-            }}
-          />
+          <div>
+            <NativeCameraCapture
+              label="Foto 1: Espelho d'Água (Panorâmica)"
+              subLabel="Capture a superfície da água e integridade visual do monólito"
+              capturedPhoto={panoramicPhoto}
+              onPhotoCaptured={(photo, coords) => {
+                setPanoramicPhoto(photo);
+                setCurrentGps(coords);
+              }}
+            />
+            {panoramicPhoto && (
+              <button
+                type="button"
+                onClick={() => setIsSurfaceModalOpen(true)}
+                className="mt-2 w-full py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-cyan-500/30 text-cyan-300 font-bold text-xs flex items-center justify-center gap-1.5 transition"
+              >
+                <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+                <span>Auditar Superfície com IA (Detecção de Eflorescência & Algas)</span>
+              </button>
+            )}
+          </div>
 
           <NativeCameraCapture
             label="Foto 2: Teste Químico (Estojo de Comparação)"
@@ -631,6 +645,15 @@ export function MaintainerPwaWizard() {
           setChlorineInput(chlorine);
           setAlkalinityInput(alkalinity);
         }}
+      />
+
+      {/* MODAL IA AUDITORIA DE SUPERFÍCIE & EFLORESCÊNCIA (FASE 2) */}
+      <SurfaceAiInspectorModal
+        isOpen={isSurfaceModalOpen}
+        onClose={() => setIsSurfaceModalOpen(false)}
+        imageUrl={panoramicPhoto}
+        poolName={activePool.name}
+        currentPh={phInput}
       />
     </div>
   );
