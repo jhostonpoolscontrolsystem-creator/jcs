@@ -318,6 +318,54 @@ export function PoolMedicalRecordModal({
                 </div>
               </div>
 
+              {/* Informações de Período e Previsão de Término da Cura (Se aplicável) */}
+              {(pool.status === 'DRY_CURE' || pool.status === 'SUBMERGED_CURE') && (() => {
+                const appDate = new Date(pool.application_date);
+                const today = new Date();
+                const daysElapsed = Math.max(0, Math.floor((today.getTime() - appDate.getTime()) / (1000 * 3600 * 24)));
+                const endDate = new Date(appDate);
+                endDate.setDate(endDate.getDate() + 35);
+                const totalDaysRemaining = Math.max(0, 35 - daysElapsed);
+                const isSubmerged = daysElapsed >= 7;
+
+                return (
+                  <div className="p-5 rounded-2xl bg-gradient-to-r from-amber-950/40 via-slate-900 to-sky-950/30 border border-amber-800/60 space-y-3">
+                    <div className="flex flex-wrap items-center justify-between gap-3">
+                      <div className="flex items-center gap-2.5">
+                        <Calendar className="w-5 h-5 text-amber-400" />
+                        <div>
+                          <h4 className="font-bold text-white text-sm">
+                            {isSubmerged 
+                              ? `Protocolo de Cura Submersa (Dia ${Math.min(28, daysElapsed - 7 + 1)} de 28)` 
+                              : `Protocolo de Cura Seca (Dia ${daysElapsed + 1} de 7)`}
+                          </h4>
+                          <p className="text-xs text-slate-300">
+                            Previsão de Conclusão e Liberação Plena: <strong className="text-amber-300">{endDate.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' })}</strong>
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs bg-amber-950 text-amber-300 border border-amber-800/80 px-3 py-1.5 rounded-xl font-bold font-mono">
+                          {totalDaysRemaining === 0 ? 'Cura Concluída ✓' : `Restam ${totalDaysRemaining} dias`}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="w-full bg-slate-950 rounded-full h-2.5 border border-slate-800 overflow-hidden">
+                      <div 
+                        className="bg-gradient-to-r from-amber-500 to-emerald-400 h-full rounded-full transition-all"
+                        style={{ width: `${Math.min(100, (daysElapsed / 35) * 100)}%` }}
+                      />
+                    </div>
+
+                    <p className="text-[11px] text-slate-400">
+                      Durante este período, a escovação diária é mandatória e a adição de ácidos muriáticos ou cloração de choque é terminantemente proibida sob pena de perda imediata da garantia JHostonTec.
+                    </p>
+                  </div>
+                );
+              })()}
+
               {/* Alerta de Auditoria Específico se Red Zone */}
               {pool.status === 'RED_ZONE' && (
                 <div className="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs space-y-2">

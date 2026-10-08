@@ -101,30 +101,40 @@ export function ClientManagerDashboard() {
         {/* Coluna 1 & 2: Digital Twin & Clima */}
         <div className="lg:col-span-2 space-y-6">
           {/* Contador de Cura de 28 Dias (Se aplicável) */}
-          {isCureActive && (
-            <div className="bg-slate-900 border border-amber-900/60 rounded-2xl p-6 relative overflow-hidden bg-gradient-to-br from-amber-950/30 to-transparent space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2.5 text-amber-300 font-bold text-sm">
-                  <Clock className="w-5 h-5 text-amber-400" />
-                  <span>Protocolo de Cura Submersa em Andamento (28 Dias)</span>
+          {isCureActive && (() => {
+            const endDate = new Date(appDate);
+            endDate.setDate(endDate.getDate() + 35);
+
+            return (
+              <div className="bg-slate-900 border border-amber-900/60 rounded-2xl p-6 relative overflow-hidden bg-gradient-to-br from-amber-950/30 to-transparent space-y-4">
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <div className="flex items-center gap-2.5 text-amber-300 font-bold text-sm">
+                    <Clock className="w-5 h-5 text-amber-400" />
+                    <div>
+                      <span>Protocolo de Cura Submersa em Andamento (Dia {Math.min(28, Math.max(1, diffDays - 7 + 1))} de 28)</span>
+                      <p className="text-xs text-slate-400 font-normal mt-0.5">
+                        Término da Cura: <strong className="text-amber-300">{endDate.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' })}</strong>
+                      </p>
+                    </div>
+                  </div>
+                  <span className="text-xs bg-amber-950 text-amber-300 px-3 py-1.5 rounded-full font-bold border border-amber-800 font-mono">
+                    Faltam {submergedDaysRemaining} dias
+                  </span>
                 </div>
-                <span className="text-xs bg-amber-950 text-amber-300 px-3 py-1 rounded-full font-bold border border-amber-800">
-                  Faltam {submergedDaysRemaining} dias
-                </span>
-              </div>
 
-              <div className="w-full bg-slate-950 rounded-full h-3 border border-slate-800 overflow-hidden">
-                <div 
-                  className="bg-gradient-to-r from-amber-500 to-emerald-400 h-full rounded-full transition-all"
-                  style={{ width: `${Math.min(100, (diffDays / 28) * 100)}%` }}
-                ></div>
-              </div>
+                <div className="w-full bg-slate-950 rounded-full h-3 border border-slate-800 overflow-hidden">
+                  <div 
+                    className="bg-gradient-to-r from-amber-500 to-emerald-400 h-full rounded-full transition-all"
+                    style={{ width: `${Math.min(100, (diffDays / 28) * 100)}%` }}
+                  ></div>
+                </div>
 
-              <p className="text-xs text-slate-300 leading-relaxed">
-                Durante a fase de cura submersa, a escovação diária e a ausência de cloro em excesso são vitais para a maturação da resina monolítica. O sistema está auditando as evidências do tratador diariamente.
-              </p>
-            </div>
-          )}
+                <p className="text-xs text-slate-300 leading-relaxed">
+                  Durante a fase de cura submersa, a escovação diária e a ausência de cloro em excesso são vitais para a maturação da resina monolítica. O sistema está auditando as evidências do tratador diariamente até a data de término prevista.
+                </p>
+              </div>
+            );
+          })()}
 
           {/* Integração Meteorológica Preventiva (OpenWeather) */}
           <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-4">

@@ -212,55 +212,113 @@ export function MetricDrilldownModal({
                       <th className="p-3.5">Nome da Piscina</th>
                       <th className="p-3.5">Tipo</th>
                       <th className="p-3.5">Volume (m³)</th>
-                      <th className="p-3.5">Status do Monólito</th>
-                      <th className="p-3.5">Coordenadas GPS</th>
+                      {type === 'CURE_POOLS' ? (
+                        <>
+                          <th className="p-3.5">Fase Atual</th>
+                          <th className="p-3.5">Término da Cura</th>
+                          <th className="p-3.5">Dias Restantes</th>
+                        </>
+                      ) : (
+                        <>
+                          <th className="p-3.5">Status do Monólito</th>
+                          <th className="p-3.5">Coordenadas GPS</th>
+                        </>
+                      )}
                       <th className="p-3.5 text-right">Ação</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-800/80 text-slate-200">
                     {filteredPools.length > 0 ? (
-                      filteredPools.map((pool) => (
-                        <tr key={pool.id} className="hover:bg-slate-900/50 transition">
-                          <td className="p-3.5 font-bold text-white flex items-center gap-2">
-                            <span className={`w-2 h-2 rounded-full ${
-                              pool.status === 'RED_ZONE' 
-                                ? 'bg-rose-500 animate-pulse' 
-                                : pool.status === 'NORMAL' 
-                                ? 'bg-emerald-400' 
-                                : 'bg-amber-400'
-                            }`} />
-                            {pool.name}
-                          </td>
-                          <td className="p-3.5 text-slate-300">{pool.facility_type}</td>
-                          <td className="p-3.5 font-mono text-cyan-400 font-bold">{pool.volume_m3} m³</td>
-                          <td className="p-3.5">
-                            <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                              pool.status === 'RED_ZONE'
-                                ? 'bg-rose-950 text-rose-400 border border-rose-800/60'
-                                : pool.status === 'NORMAL'
-                                ? 'bg-emerald-950 text-emerald-400 border border-emerald-800/60'
-                                : 'bg-amber-950 text-amber-300 border border-amber-800/60'
-                            }`}>
-                              {pool.status}
-                            </span>
-                          </td>
-                          <td className="p-3.5 font-mono text-[11px] text-slate-400">
-                            {pool.gps_lat.toFixed(4)}, {pool.gps_lng.toFixed(4)}
-                          </td>
-                          <td className="p-3.5 text-right">
-                            <button
-                              onClick={() => {
-                                onClose();
-                                onSelectPoolToInspect(pool);
-                              }}
-                              className="px-3 py-1.5 bg-cyan-600 hover:bg-cyan-500 text-white font-bold rounded-lg text-xs transition cursor-pointer flex items-center gap-1.5 ml-auto shadow-sm"
-                            >
-                              <Eye className="w-3.5 h-3.5" />
-                              <span>Ver Prontuário</span>
-                            </button>
-                          </td>
-                        </tr>
-                      ))
+                      filteredPools.map((pool) => {
+                        const appDate = new Date(pool.application_date);
+                        const today = new Date();
+                        const daysElapsed = Math.max(0, Math.floor((today.getTime() - appDate.getTime()) / (1000 * 3600 * 24)));
+                        const endDate = new Date(appDate);
+                        endDate.setDate(endDate.getDate() + 35);
+                        const totalDaysRemaining = Math.max(0, 35 - daysElapsed);
+                        const isSubmerged = daysElapsed >= 7;
+                        const phaseName = daysElapsed < 7 
+                          ? `Cura Seca (Dia ${daysElapsed + 1}/7)` 
+                          : `Cura Submersa (Dia ${Math.min(28, daysElapsed - 7 + 1)}/28)`;
+
+                        return (
+                          <tr key={pool.id} className="hover:bg-slate-900/50 transition">
+                            <td className="p-3.5 font-bold text-white flex items-center gap-2">
+                              <span className={`w-2 h-2 rounded-full ${
+                                pool.status === 'RED_ZONE' 
+                                  ? 'bg-rose-500 animate-pulse' 
+                                  : pool.status === 'NORMAL' 
+                                  ? 'bg-emerald-400' 
+                                  : 'bg-amber-400'
+                              }`} />
+                              {pool.name}
+                            </td>
+                            <td className="p-3.5 text-slate-300">{pool.facility_type}</td>
+                            <td className="p-3.5 font-mono text-cyan-400 font-bold">{pool.volume_m3} m³</td>
+                            
+                            {type === 'CURE_POOLS' ? (
+                              <>
+                                <td className="p-3.5">
+                                  <span className={`px-2 py-0.5 rounded text-[10px] font-bold border ${
+                                    isSubmerged
+                                      ? 'bg-sky-950/80 text-sky-300 border-sky-800/60'
+                                      : 'bg-amber-950/80 text-amber-300 border-amber-800/60'
+                                  }`}>
+                                    {phaseName}
+                                  </span>
+                                </td>
+                                <td className="p-3.5">
+                                  <div className="flex flex-col">
+                                    <span className="font-bold text-white text-[11px]">
+                                      {endDate.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' })}
+                                    </span>
+                                    <span className="text-[10px] text-slate-400">Liberação Plena</span>
+                                  </div>
+                                </td>
+                                <td className="p-3.5 font-mono">
+                                  <span className={`px-2 py-0.5 rounded font-black text-xs ${
+                                    totalDaysRemaining === 0 
+                                      ? 'bg-emerald-950 text-emerald-400 border border-emerald-800' 
+                                      : 'bg-amber-950 text-amber-300 border border-amber-800/60'
+                                  }`}>
+                                    {totalDaysRemaining === 0 ? 'Concluída ✓' : `Faltam ${totalDaysRemaining} dias`}
+                                  </span>
+                                </td>
+                              </>
+                            ) : (
+                              <>
+                                <td className="p-3.5">
+                                  <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                                    pool.status === 'RED_ZONE'
+                                      ? 'bg-rose-950 text-rose-400 border border-rose-800/60'
+                                      : pool.status === 'NORMAL'
+                                      ? 'bg-emerald-950 text-emerald-400 border border-emerald-800/60'
+                                      : 'bg-amber-950 text-amber-300 border border-amber-800/60'
+                                  }`}>
+                                    {pool.status}
+                                  </span>
+                                </td>
+                                <td className="p-3.5 font-mono text-[11px] text-slate-400">
+                                  {pool.gps_lat.toFixed(4)}, {pool.gps_lng.toFixed(4)}
+                                </td>
+                              </>
+                            )}
+
+                            <td className="p-3.5 text-right">
+                              <button
+                                onClick={() => {
+                                  onClose();
+                                  onSelectPoolToInspect(pool);
+                                }}
+                                className="px-3 py-1.5 bg-cyan-600 hover:bg-cyan-500 text-white font-bold rounded-lg text-xs transition cursor-pointer flex items-center gap-1.5 ml-auto shadow-sm"
+                              >
+                                <Eye className="w-3.5 h-3.5" />
+                                <span>Ver Prontuário</span>
+                              </button>
+                            </td>
+                          </tr>
+                        );
+                      })
                     ) : (
                       <tr>
                         <td colSpan={6} className="p-6 text-center text-slate-400 text-xs">
