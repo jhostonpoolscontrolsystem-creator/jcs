@@ -37,6 +37,7 @@ import { MetricDrilldownModal, MetricDrilldownType } from '@/components/MetricDr
 import { DocumentDownloadCenter } from '@/components/DocumentDownloadCenter';
 import { ChemicalSuppliesStore } from '@/components/ChemicalSuppliesStore';
 import ClientPortfolioViewer from '@/components/ClientPortfolioViewer';
+import ExecutiveWelcomeKitModal, { WelcomeKitAudience } from '@/components/ExecutiveWelcomeKitModal';
 import { UserRole, Pool } from '@/types/database';
 import { LogIn, LogOut, Users, UserCheck, GraduationCap, HelpCircle, Crown, Download, ShoppingBag, Building2 } from 'lucide-react';
 
@@ -44,6 +45,8 @@ export default function JHPCSApp() {
   const [activeTab, setActiveTab] = useState<'master' | 'dashboard' | 'clients' | 'client_portal' | 'pwa' | 'whatsapp' | 'rbac' | 'audit_live' | 'users' | 'executive_reports' | 'training' | 'help' | 'downloads' | 'store'>('master');
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isWelcomeKitOpen, setIsWelcomeKitOpen] = useState(false);
+  const [welcomeKitAudience, setWelcomeKitAudience] = useState<WelcomeKitAudience>('DIRETORIA_JHOSTON');
   const [inspectingPool, setInspectingPool] = useState<Pool | null>(null);
   const [activeDrilldown, setActiveDrilldown] = useState<MetricDrilldownType>(null);
 
@@ -175,6 +178,22 @@ export default function JHPCSApp() {
 
         {/* User Profile / Auth Button */}
         <div className="flex items-center gap-3">
+          {/* BOTÃO EXCLUSIVO DE BOAS-VINDAS: MASTER ou DIRETORIA_JH */}
+          {(currentUser?.role === 'MASTER' || currentUser?.role === 'DIRETORIA_JH') && (
+            <button
+              onClick={() => {
+                setWelcomeKitAudience(currentUser?.role === 'MASTER' ? 'DIRETORIA_JHOSTON' : 'CLIENTE_FINAL');
+                setIsWelcomeKitOpen(true);
+              }}
+              className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 font-black text-xs flex items-center gap-1.5 shadow-md shadow-amber-500/20 hover:scale-105 transition cursor-pointer"
+              title="Disparador de Boas-Vindas & Revista Digital (WhatsApp)"
+            >
+              <Crown className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Kit Boas-Vindas (Revista VIP)</span>
+              <span className="sm:hidden">Kit VIP</span>
+            </button>
+          )}
+
           {currentUser ? (
             <div className="flex items-center gap-2.5 bg-slate-950 border border-slate-800 py-1.5 px-3 rounded-xl">
               <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-cyan-500 to-sky-400 flex items-center justify-center text-slate-950 font-black text-xs">
@@ -864,6 +883,14 @@ export default function JHPCSApp() {
         onClose={() => setActiveDrilldown(null)}
         onSelectPoolToInspect={(pool) => setInspectingPool(pool)}
         onNavigateToWhatsAppReports={() => setActiveTab('executive_reports')}
+      />
+
+      {/* Modal do Disparador Executivo de Boas-Vindas & Revista Digital */}
+      <ExecutiveWelcomeKitModal
+        isOpen={isWelcomeKitOpen}
+        onClose={() => setIsWelcomeKitOpen(false)}
+        currentUserRole={currentUser?.role}
+        defaultAudience={welcomeKitAudience}
       />
 
       {/* Footer */}

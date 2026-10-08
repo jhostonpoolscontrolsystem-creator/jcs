@@ -3,9 +3,14 @@
 
 ---
 
+![JHoston Pools Luxury Resort](https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=1400&q=80)
+*Figura 1: A excelência do Revestimento Monolítico JHoston com proteção por telemetria e garantia ativa.*
+
+---
+
 ## 🌟 Bem-vindo ao Portal de Inteligência da Sua Piscina JHoston
 Parabéns pela aquisição ou contratação do **revestimento monolítico JHoston Pools**. 
-Diferente de piscinas convencionais de vinil, azulejo ou fibra, o revestimento monolítico é uma obra de engenharia de alta resistência, atérmica e contínua, desenvolvida para durar décadas.
+Diferente de piscinas convencionais de vinil, azulejo ou fibra, o revestimento monolítico é uma obra de arte da engenharia mineral: alta resistência mecânica, atérmica e contínua, desenvolvida para durar décadas.
 
 Para assegurar que o seu investimento permaneça impecável e que o seu **Certificado de Garantia de 5 Anos** seja mantido com 100% de conformidade técnica, você tem acesso exclusivo ao **Portal do Cliente JHPCS**.
 
@@ -22,6 +27,9 @@ Para assegurar que o seu investimento permaneça impecável e que o seu **Certif
 ---
 
 ### 2. ⏳ Acompanhar o Protocolo de Cura Submersa (Contador de 28 Dias)
+![Cura Submersa Monolítica](https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&w=1200&q=80)
+*Figura 2: Maturação controlada dos agregados minerais e polímeros no período de cura submersa.*
+
 * Se a sua piscina foi finalizada recentemente, os primeiros **28 dias de imersão em água** são vitais para a polimerização e cura profunda da resina monolítica.
 * O seu portal exibe uma **Barra de Progresso Dinâmica** mostrando:
   * Exatamente quantos dias faltam para a conclusão da cura;
@@ -57,7 +65,7 @@ Para assegurar que o seu investimento permaneça impecável e que o seu **Certif
 
 ## 🚪 Como Acessar o Seu Portal?
 
-1. Acesse o link oficial enviado pela JHoston Pools: `https://jcs-pools.vercel.app` (ou o endereço fornecido no seu contrato).
+1. Acesse o link oficial enviado pela JHoston Pools: `https://jcs-delta.vercel.app` (ou o endereço fornecido no seu contrato).
 2. Clique no canto superior direito em **Entrar**.
 3. Insira o seu e-mail cadastrado e sua senha pessoal.
 4. Você será direcionado diretamente para a aba **"Portal Gerência / Cliente"**.

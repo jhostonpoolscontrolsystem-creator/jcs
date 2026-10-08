@@ -306,6 +306,48 @@ export function SystemHelpCenter({ onNavigateTab }: { onNavigateTab: (tab: any) 
           tags: ['f1', 'cockpit', 'seletor', 'piscinas']
         }
       ]
+    },
+    {
+      id: 'kit_boas_vindas_vip',
+      title: 'Disparador de Boas-Vindas & Revista VIP',
+      icon: Sparkles,
+      badge: 'Exclusivo Master & Diretoria',
+      summary: 'Envio de onboarding de alto luxo em modelo de revista digital e disparador WhatsApp para a Diretoria JHoston e Clientes Finais.',
+      topics: [
+        {
+          title: 'O que é a Revista Digital VIP JHPCS?',
+          description: 'Um modelo de apresentação editorial interativa de 3 páginas de alta definição: Capa Institucional de Luxo, Cockpit de Telemetria F1 com IA Multimodal e Manual Ilustrado com Regras de Ouro de Garantia.',
+          stepByStep: [
+            'Clique no botão dourado "Kit Boas-Vindas (Revista VIP)" no cabeçalho superior.',
+            'Navegue entre as 3 páginas clicando nos botões de paginação no rodapé da revista.',
+            'Alterne para a aba "Disparador WhatsApp" para configurar o destinatário e enviar o material.'
+          ]
+        },
+        {
+          title: 'Regras de Permissão Hierárquica do Disparador',
+          description: 'A ferramenta implementa governança estrita de envio:',
+          stepByStep: [
+            'Usuário MASTER (Daniel & Patrícia): Pode disparar para a Diretoria da JHoston Pools e também para os Clientes Finais.',
+            'DIRETORIA JHOSTON (Joabson): Pode disparar exclusivamente para os Clientes Finais (Hotéis, Resorts e Proprietários). O envio para a diretoria fica desabilitado.',
+            'Clientes e Piscineiros: Não visualizam o botão do disparador no cabeçalho.'
+          ],
+          importantNotice: 'A mensagem de WhatsApp é despachada via Evolution API oficial com garantia de entrega em menos de 3.2 segundos.'
+        }
+      ],
+      faqs: [
+        {
+          id: 'faq-10',
+          question: 'A Diretoria da JHoston pode enviar o kit para qualquer cliente?',
+          answer: 'Sim! A Diretoria pode selecionar o público "Cliente Final", digitar o WhatsApp do cliente ou síndico e disparar a apresentação acompanhada do manual ilustrado.',
+          tags: ['revista', 'boas-vindas', 'whatsapp', 'diretoria', 'cliente']
+        },
+        {
+          id: 'faq-11',
+          question: 'Posso copiar o texto da revista para enviar manualmente?',
+          answer: 'Sim! Na aba "Disparador WhatsApp" existe o botão "Copiar Mensagem", permitindo colar o texto formatado diretamente no seu aplicativo WhatsApp Web ou celular.',
+          tags: ['copiar', 'whatsapp', 'manual', 'revista']
+        }
+      ]
     }
   ];
 
