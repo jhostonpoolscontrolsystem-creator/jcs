@@ -1,0 +1,81 @@
+# Manual Operacional do Usuário Master (Soberano)
+**JHoston Pools Control System (JHPCS)**
+*Documento de Governança Estratégica, Segurança e Auditoria Global*
+
+---
+
+## 1. Perfil e Responsabilidades do Master
+O perfil **MASTER** detém a autoridade máxima do sistema JHPCS, reservado aos fundadores e gestores supremos da plataforma (**Daniel Souto Lopes** e **Patrícia Souto Lopes**). 
+
+Suas responsabilidades englobam:
+- **Governança de Acessos e Usuários**: Aprovação final de novos cadastros de Diretores, Técnicos e Clientes Corporativos.
+- **Auditoria de Integridade**: Monitoramento das travas antifraude de fotos e registros com geolocalização por satélite (GPS).
+- **Controle de Telecomunicações**: Supervisão das instâncias da **Evolution API (WhatsApp)** e garantia do SLA de resposta (< 3.2 segundos).
+- **Gestão de Garantias e Red Zones**: Arbitragem de disputas técnicas e auditoria dos laudos periciais de perda de garantia de revestimentos monolíticos JHostonTec.
+
+---
+
+## 2. Como Acessar o Sistema
+
+### 2.1. Endereço de Acesso
+- **Ambiente Web / Nuvem**: Acesse o link oficial do sistema através de qualquer navegador moderno (Chrome, Edge, Safari, Firefox):
+  `https://jcs-delta.vercel.app` (ou `http://localhost:3000` em ambiente local).
+
+### 2.2. Credenciais de Acesso
+1. Na tela inicial, clique no botão **"Entrar / Cadastrar"** no topo superior direito da barra de comando.
+2. Insira suas credenciais corporativas:
+   - **E-mail**: `danielsoutolopes@gmail.com` (ou `patriciasoutolopes@gmail.com`)
+   - **Senha**: Sua senha mestra definida.
+3. Clique em **"Entrar no Sistema"**.
+4. O sistema identificará automaticamente seu nível de acesso hierárquico e carregará a interface dourada do **Painel MASTER**.
+
+---
+
+## 3. Navegação e Módulos Exclusivos do Master
+
+### 3.1. Hub de Governança Master (`Painel MASTER`)
+Localizado na primeira aba da barra de navegação, este painel reúne:
+- **Resumo Executivo do Ecossistema**: Quantidade total de piscinas monitoradas, ativos em risco químico imediato (Red Zones), obras em período crítico de cura e tempo médio de entrega dos alertas WhatsApp.
+- **Fila de Aprovação de Novos Usuários**: Visualização de cadastros pendentes com opção de aprovação ou recusa com um clique.
+- **Painel de Acesso Rápido**: Atalhos para cadastro de novas piscinas com geocodificação automática via CEP/GPS, gestão de usuários e motor químico.
+
+### 3.2. Dashboard JHostonTec & Cards de Métricas Interativos
+No painel principal de comando, o Master pode auditar os 4 grandes pilares do sistema clicando diretamente nos cards de métricas:
+1. **Ativos Monitorados**: Abre o resumo consolidado de todos os parques aquáticos. Permite buscar por nome/cidade e clicar em **"Ver Prontuário"** para inspecionar histórico, gráficos de dispersão química e dados contratuais.
+2. **Red Zones Ativas**: Filtra imediatamente os tanques que sofreram agressão química (ex.: pH < 7.0 em revestimento novo).
+3. **Em Período de Cura**: Acompanha o cronômetro dia a dia das obras em **Cura Seca (7 dias)** e **Cura Submersa (28 dias)** com laudos e bloqueios preventivos.
+4. **SLA WhatsApp Evolution**: Aponta a saúde da conexão com a instância da Evolution API, latência de entrega e status do webhook na Vercel/Render.
+
+### 3.3. Gestão Central de Usuários & Matriz RBAC
+- **Aba "Gestão de Usuários"**: Permite criar, editar, resetar senhas ou revogar credenciais de qualquer operador em 3 níveis hierárquicos:
+  1. *Nível 1 - Master*
+  2. *Nível 2 - JHoston Pools (Diretoria e Corpo Técnico)*
+  3. *Nível 3 - Cliente Final (Gerente do Resort, Técnico Local e Tratadores)*
+- **Aba "Hierarquia (RBAC)"**: Matriz de visualização em tempo real das permissões de leitura, escrita e auditoria para cada perfil.
+
+### 3.4. Motor Químico & Regras JHostonTec
+- Visualização das constantes químicas adotadas pelo sistema:
+  - Faixa ideal de pH: **7.2 a 7.6** (Alerta em 7.0 / Red Zone em < 6.8 ou > 8.0)
+  - Cloro Livre: **1.5 a 3.0 ppm**
+  - Alcalinidade Total: **80 a 120 ppm**
+  - Dureza Cálcica: **200 a 400 ppm**
+- Regra de Cura Submersa: Bloqueio estrito de aplicação de ácido clorídrico (muriático) e cloração de choque nas primeiras 4 semanas de preenchimento da piscina.
+
+### 3.5. Relatórios Executivos & WhatsApp
+- Central de despacho e agendamento de relatórios periciais mensais em PDF com selo de integridade digital.
+- Catálogo corporativo de telefones da diretoria e dos clientes para notificações instantâneas em caso de não-conformidade.
+
+---
+
+## 4. Procedimentos de Emergência e Boas Práticas
+1. **Quando uma Red Zone é disparada**:
+   - Inspecione a notificação automática no WhatsApp ou abra o card "Red Zones Ativas".
+   - Acesse o prontuário da piscina e verifique a foto do teste da fita/reagente e as coordenadas de GPS do tratador.
+   - Entre em contato com o corpo técnico da JHoston Pools para orientar a dosagem corretiva antes que ocorra descoloração ou ataque ao monólito.
+2. **Aprovação de Novos Colaboradores**:
+   - Nunca aprove um usuário com cargo de Técnico ou Diretor sem validação prévia de CPF e vínculo com a empresa.
+3. **Segurança de Acesso**:
+   - Mantenha a autenticação por senha forte (letras, números e caracteres especiais) e utilize o botão de logout ao sair de computadores compartilhados.
+
+---
+*JHoston Pools Control System • Garantia de Revestimentos Monolíticos & Digital Twin*
