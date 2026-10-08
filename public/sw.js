@@ -2,7 +2,9 @@
 const CACHE_NAME = 'jhpcs-cache-v1';
 const STATIC_ASSETS = [
   '/',
+  '/pwa',
   '/manifest.json',
+  '/manifest-pwa.json',
   '/favicon.ico',
   '/globe.svg'
 ];

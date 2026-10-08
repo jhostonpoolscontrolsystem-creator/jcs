@@ -607,7 +607,28 @@ export default function JHPCSApp() {
 
         {/* TAB 2: PWA PISCINEIRO (WIZARD OPERACIONAL OFFLINE-FIRST) */}
         {activeTab === 'pwa' && (
-          <div className="animate-fadeIn">
+          <div className="space-y-4 animate-fadeIn">
+            {/* Banner de Acesso Direto Isolado para Celular */}
+            <div className="max-w-2xl mx-auto p-4 rounded-2xl bg-gradient-to-r from-cyan-950/60 to-slate-900 border border-cyan-800/60 flex items-center justify-between gap-4 shadow-lg">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping" />
+                  <span className="text-xs font-bold text-white uppercase tracking-wider">PWA 100% Isolado & Independente</span>
+                </div>
+                <p className="text-[11px] text-slate-300">
+                  Para o tratador instalar direto no celular sem menus do sistema: envie o link direto <strong className="text-cyan-400 font-mono">/pwa</strong>
+                </p>
+              </div>
+              <a
+                href="/pwa"
+                target="_blank"
+                rel="noreferrer"
+                className="px-4 py-2 bg-gradient-to-r from-cyan-500 to-sky-500 text-slate-950 font-black rounded-xl text-xs hover:opacity-95 transition-all shadow-md shadow-cyan-500/20 whitespace-nowrap cursor-pointer"
+              >
+                Abrir App Isolado ↗
+              </a>
+            </div>
+
             <MaintainerPwaWizard />
           </div>
         )}
