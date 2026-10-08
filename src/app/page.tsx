@@ -34,11 +34,13 @@ import { SystemHelpCenter } from '@/components/SystemHelpCenter';
 import { PoolMedicalRecordModal } from '@/components/PoolMedicalRecordModal';
 import { MasterGovernanceHub } from '@/components/MasterGovernanceHub';
 import { MetricDrilldownModal, MetricDrilldownType } from '@/components/MetricDrilldownModal';
+import { DocumentDownloadCenter } from '@/components/DocumentDownloadCenter';
+import { ChemicalSuppliesStore } from '@/components/ChemicalSuppliesStore';
 import { UserRole, Pool } from '@/types/database';
-import { LogIn, LogOut, Users, UserCheck, GraduationCap, HelpCircle, Crown } from 'lucide-react';
+import { LogIn, LogOut, Users, UserCheck, GraduationCap, HelpCircle, Crown, Download, ShoppingBag } from 'lucide-react';
 
 export default function JHPCSApp() {
-  const [activeTab, setActiveTab] = useState<'master' | 'dashboard' | 'client_portal' | 'pwa' | 'whatsapp' | 'rbac' | 'audit_live' | 'users' | 'executive_reports' | 'training' | 'help'>('master');
+  const [activeTab, setActiveTab] = useState<'master' | 'dashboard' | 'client_portal' | 'pwa' | 'whatsapp' | 'rbac' | 'audit_live' | 'users' | 'executive_reports' | 'training' | 'help' | 'downloads' | 'store'>('master');
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [inspectingPool, setInspectingPool] = useState<Pool | null>(null);
@@ -328,6 +330,34 @@ export default function JHPCSApp() {
               Motor Químico & Regras
             </button>
           )}
+
+          {/* LOJA DE INSUMOS B2B (FASE 4): Master, Diretoria JH e Clientes */}
+          {(!currentUser || currentUser.role === 'MASTER' || currentUser.role === 'DIRETORIA_JH' || currentUser.role === 'GERENCIA_CLI' || currentUser.role === 'TECNICO_CLI') && (
+            <button
+              onClick={() => setActiveTab('store')}
+              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+                activeTab === 'store'
+                  ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 shadow-md shadow-emerald-500/30'
+                  : 'text-emerald-400 hover:text-white hover:bg-slate-900'
+              }`}
+            >
+              <ShoppingBag className="w-4 h-4" />
+              Loja de Insumos B2B
+            </button>
+          )}
+
+          {/* CENTRAL DE DOWNLOADS (RBAC): Universal */}
+          <button
+            onClick={() => setActiveTab('downloads')}
+            className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+              activeTab === 'downloads'
+                ? 'bg-gradient-to-r from-sky-500 to-blue-500 text-white shadow-md shadow-sky-500/30'
+                : 'text-sky-300 hover:text-white hover:bg-slate-900'
+            }`}
+          >
+            <Download className="w-4 h-4" />
+            Central de Downloads
+          </button>
 
           {/* ACADEMIA & CURSO DO SISTEMA: Universal */}
           <button
@@ -730,6 +760,20 @@ export default function JHPCSApp() {
         {activeTab === 'training' && (
           <div className="space-y-6 animate-fadeIn">
             <SystemTrainingAcademy onSelectTab={(tab) => setActiveTab(tab)} />
+          </div>
+        )}
+
+        {/* TAB: CENTRAL DE DOWNLOADS (RBAC) */}
+        {activeTab === 'downloads' && (
+          <div className="space-y-6 animate-fadeIn">
+            <DocumentDownloadCenter currentUserRole={currentUser?.role || 'MASTER'} />
+          </div>
+        )}
+
+        {/* TAB: LOJA DE INSUMOS B2B (FASE 4) */}
+        {activeTab === 'store' && (
+          <div className="space-y-6 animate-fadeIn">
+            <ChemicalSuppliesStore currentUserRole={currentUser?.role || 'MASTER'} />
           </div>
         )}
 
