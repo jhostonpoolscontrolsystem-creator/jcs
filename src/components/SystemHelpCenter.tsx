@@ -324,28 +324,39 @@ export function SystemHelpCenter({ onNavigateTab }: { onNavigateTab: (tab: any) 
           ]
         },
         {
-          title: 'Regras de Permissão Hierárquica do Disparador',
+          title: 'Regras de Permissão Hierárquica & Envio para Grupos',
           description: 'A ferramenta implementa governança estrita de envio:',
           stepByStep: [
-            'Usuário MASTER (Daniel & Patrícia): Pode disparar para a Diretoria da JHoston Pools e também para os Clientes Finais.',
-            'DIRETORIA JHOSTON (Joabson): Pode disparar exclusivamente para os Clientes Finais (Hotéis, Resorts e Proprietários). O envio para a diretoria fica desabilitado.',
+            'Usuário MASTER (Daniel & Patrícia): Pode disparar para a Diretoria da JHoston Pools, Clientes Finais e Grupos Oficiais do WhatsApp (@g.us).',
+            'DIRETORIA JHOSTON (Joabson): Pode disparar exclusivamente para contatos individuais de Clientes Finais (Hotéis, Resorts e Proprietários). O envio para GRUPOS de WhatsApp fica bloqueado temporariamente.',
             'Clientes e Piscineiros: Não visualizam o botão do disparador no cabeçalho.'
           ],
-          importantNotice: 'A mensagem de WhatsApp é despachada via Evolution API oficial com garantia de entrega em menos de 3.2 segundos.'
+          importantNotice: 'O kit entrega o exemplar completo em PDF com 4 páginas, capa em alta resolução, brasão da JHoston Pools e certificado de garantia decenal assinado.'
+        },
+        {
+          title: 'Motor Mensal Autônomo da Revista (Sem IA Externa)',
+          description: 'Todo dia 1º de cada mês, um cron job autônomo consolida os dados reais de todos os resorts monitorados, calcula a média estequiométrica de LSI, gera uma nova edição numerada da revista e despacha o exemplar completo em PDF para a Diretoria e grupos de engenharia sem depender de serviços ou IAs externas.',
+          importantNotice: 'A automação é 100% nativa do JHPCS e não gera custos adicionais de tokens ou APIs de terceiros.'
         }
       ],
       faqs: [
         {
           id: 'faq-10',
-          question: 'A Diretoria da JHoston pode enviar o kit para qualquer cliente?',
-          answer: 'Sim! A Diretoria pode selecionar o público "Cliente Final", digitar o WhatsApp do cliente ou síndico e disparar a apresentação acompanhada do manual ilustrado.',
-          tags: ['revista', 'boas-vindas', 'whatsapp', 'diretoria', 'cliente']
+          question: 'A Diretoria da JHoston pode enviar o kit para grupos do WhatsApp?',
+          answer: 'No momento, a autorização de envio para GRUPOS de WhatsApp (@g.us) está restrita apenas ao usuário MASTER para evitar envios em massa não homologados. A Diretoria pode enviar individualmente para qualquer cliente parceiro.',
+          tags: ['grupos', 'whatsapp', 'master', 'diretoria', 'permissão']
         },
         {
           id: 'faq-11',
-          question: 'Posso copiar o texto da revista para enviar manualmente?',
-          answer: 'Sim! Na aba "Disparador WhatsApp" existe o botão "Copiar Mensagem", permitindo colar o texto formatado diretamente no seu aplicativo WhatsApp Web ou celular.',
-          tags: ['copiar', 'whatsapp', 'manual', 'revista']
+          question: 'Como a revista é entregue ao destinatário?',
+          answer: 'O destinatário recebe a mensagem formal no WhatsApp acompanhada do link direto para download do PDF oficial de alta qualidade da revista, diagramada em 4 páginas com o brasão oficial da JHoston Pools.',
+          tags: ['pdf', 'revista', 'download', 'logo', 'kit']
+        },
+        {
+          id: 'faq-12',
+          question: 'A geração mensal da nova edição da revista consome créditos de IA?',
+          answer: 'Não! O motor editorial do JHPCS é 100% autônomo e matemático. Ele lê diretamente as métricas do banco de dados (piscinas ativas, curas, LSI) e compõe a edição mensal sem necessidade de qualquer inteligência artificial externa.',
+          tags: ['ia', 'autonomo', 'mensal', 'cron', 'custo']
         }
       ]
     }

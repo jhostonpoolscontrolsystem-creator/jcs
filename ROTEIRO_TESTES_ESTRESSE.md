@@ -99,19 +99,32 @@ Demonstrar na prática para a **Diretoria da JHoston Pools** que o sistema é **
 
 ---
 
-### EXERCÍCIO 7: Disparador do Kit Boas-Vindas & Revista Digital VIP
+### EXERCÍCIO 7: Disparador do Kit Boas-Vindas & Revista Digital VIP em PDF
 1. **Onde Executar**: No botão dourado **"Kit Boas-Vindas (Revista VIP)"** na barra superior.
 2. **Ação**:
    - Logado como **MASTER** (`danielsoutolopes@gmail.com`):
      - Clique em "Kit Boas-Vindas (Revista VIP)".
      - Note que a opção **"Diretoria da JHoston Pools"** está habilitada.
-     - Navegue pelas 3 páginas da Revista Digital VIP (Capa de Luxo, Telemetria F1 e Manual Ilustrado).
-     - Alterne para a aba "Disparador WhatsApp", confira a prévia no smartphone e dispare o teste.
+     - Navegue pelas páginas da Revista Digital VIP (Capa com brasão oficial, Telemetria F1 e Manual Ilustrado).
+     - Alterne para a aba "Disparador WhatsApp", selecione um dos grupos da lista e dispare o teste.
    - Alterne para o perfil **DIRETORIA_JH** (`joabson@jhostonpools.com.br`):
      - Abra o modal: note que a opção "Diretoria JHoston Pools" está bloqueada com o aviso: `(Apenas Master)`.
-     - Selecione **"Cliente Final (Hotéis & Resorts)"** e teste o disparo para um cliente parceiro.
+     - Tente digitar ou selecionar um ID de Grupo (`@g.us`) e clicar em disparar:
+     - **Barreira de Segurança Ativada**: o sistema bloqueia o envio com aviso de que disparo em grupos está autorizado apenas para o Master.
+     - Selecione um número individual de cliente e confirme o envio regular.
 3. **O que Observar**:
-   - Controle estrito de alçada e mensagem com formatação editorial de revista de alto padrão entregue no WhatsApp em menos de 3.2s via Evolution API.
+   - Bloqueio imediato da alçada de grupos para a Diretoria e entrega da mensagem acompanhada do link do PDF de 4 páginas de alta fidelidade com brasão da JHoston Pools.
+
+---
+
+### EXERCÍCIO 8: Motor Mensal Autônomo da Revista (Simulação do Cron)
+1. **Onde Executar**: No navegador ou terminal, chame o endpoint `GET /api/cron/monthly-magazine`.
+2. **Ação**:
+   - O cron lê em milissegundos todas as métricas reais do banco Supabase (volume total, curas ativas, LSI médio).
+   - Sem usar nenhuma IA externa, calcula e gera a edição do mês com capa oficial, tacômetros e certificado com chave SHA-256.
+   - Despacha o exemplar com link direto para download do PDF (`/api/pdf/executive-magazine`) para a Diretoria da JHoston e grupos de engenharia via Evolution API com SLA < 3.2s.
+3. **O que Observar**:
+   - Resposta com status `200 OK`, `success: true`, `delivered_direct: true` e `delivered_group: true`, garantindo automação mensal perpétua sem custos de tokens.
 
 ---
 
@@ -120,4 +133,4 @@ Ao término destes exercícios, a Diretoria da JHoston Pools constatará que:
 * **Nenhum tratador consegue burlar o processo sem ser detectado.**
 * **Nenhuma piscina fica sem histórico ou registro de garantia.**
 * **A diretoria tem controle absoluto sem depender de telefonemas ou planilhas de papel.**
-* **A apresentação de boas-vindas coloca a JHoston Pools no ápice da sofisticação e profissionalismo perante o mercado.**
+* **A entrega em PDF de luxo e a revista mensal posicionam a JHoston Pools no mais alto nível de engenharia internacional.**

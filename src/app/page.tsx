@@ -808,7 +808,7 @@ export default function JHPCSApp() {
         {/* TAB: RELATÓRIOS EXECUTIVOS & WHATSAPP (MASTER E DIRETORIA) */}
         {activeTab === 'executive_reports' && (
           <div className="space-y-6 animate-fadeIn">
-            <ExecutiveReportsWhatsAppPanel />
+            <ExecutiveReportsWhatsAppPanel currentUserRole={currentUser?.role} />
           </div>
         )}
 

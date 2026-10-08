@@ -39,14 +39,19 @@ interface WhatsAppGroup {
   description?: string;
 }
 
-export function ExecutiveReportsWhatsAppPanel() {
+interface ExecutiveReportsWhatsAppPanelProps {
+  currentUserRole?: string;
+}
+
+export function ExecutiveReportsWhatsAppPanel({ currentUserRole = 'MASTER' }: ExecutiveReportsWhatsAppPanelProps) {
+  const isMaster = currentUserRole === 'MASTER';
   const [reportType, setReportType] = useState<'EXECUTIVE_SUMMARY' | 'RED_ZONE_AUDIT' | 'WARRANTY_MONTHLY' | 'INVENTORY_RUNWAY'>('EXECUTIVE_SUMMARY');
   const [recipientName, setRecipientName] = useState('');
   const [targetPhone, setTargetPhone] = useState('');
   const [customNotes, setCustomNotes] = useState('');
   
-  // Abas do catálogo de contatos: Pessoas vs Grupos
-  const [addressBookTab, setAddressBookTab] = useState<'CONTACTS' | 'GROUPS'>('GROUPS');
+  // Abas do catálogo de contatos: Pessoas vs Grupos (Default: GROUPS para Master, CONTACTS para outros)
+  const [addressBookTab, setAddressBookTab] = useState<'CONTACTS' | 'GROUPS'>(isMaster ? 'GROUPS' : 'CONTACTS');
 
   // Agenda Telefônica (Pessoas)
   const [contacts, setContacts] = useState<Contact[]>([]);
@@ -224,6 +229,11 @@ export function ExecutiveReportsWhatsAppPanel() {
     e.preventDefault();
     if (!targetPhone) {
       setErrorMsg('Por favor, informe ou selecione o telefone ou grupo de destino.');
+      return;
+    }
+
+    if (targetPhone.includes('@g.us') && !isMaster) {
+      setErrorMsg('Permissão Restrita: O disparo de relatórios para GRUPOS de WhatsApp está autorizado temporariamente apenas para o usuário MASTER.');
       return;
     }
 

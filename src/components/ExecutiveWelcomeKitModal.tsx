@@ -18,7 +18,10 @@ import {
   Copy,
   Clock,
   Image,
-  Award
+  Award,
+  ArrowLeft,
+  ArrowRight,
+  Download
 } from 'lucide-react';
 import { mockPools } from '@/lib/mock-data';
 
@@ -78,6 +81,11 @@ export default function ExecutiveWelcomeKitModal({
   };
 
   const handleSendWhatsApp = async () => {
+    if (targetPhone.includes('@g.us') && !isMaster) {
+      alert('Permissão Restrita: O disparo do Kit de Boas-Vindas para GRUPOS de WhatsApp está autorizado no momento apenas para o usuário MASTER.');
+      return;
+    }
+
     setSending(true);
     setDispatchStatus(null);
 
@@ -434,139 +442,215 @@ export default function ExecutiveWelcomeKitModal({
                     </div>
                   </div>
                 )}
+
+                  {magazinePage < 3 ? (
+                    <div className="pt-6 border-t border-slate-800/80 flex items-center justify-between">
+                      <span className="text-xs text-slate-400">
+                        Página {magazinePage} de 3
+                      </span>
+                      <button
+                        onClick={() => setMagazinePage(magazinePage + 1)}
+                        className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs flex items-center gap-2 border border-slate-700 transition cursor-pointer"
+                      >
+                        <span>Próxima Página</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="pt-6 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-3">
+                      <a
+                        href="/api/pdf/executive-magazine"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-bold text-xs flex items-center gap-2 border border-amber-500/40 transition cursor-pointer shadow-sm hover:shadow-amber-500/20"
+                      >
+                        <Download className="w-3.5 h-3.5 text-amber-400" />
+                        <span>Baixar Edição em PDF Oficial (4 Páginas)</span>
+                      </a>
+
+                      <button
+                        onClick={() => setActiveTab('DISPATCH_WHATSAPP')}
+                        className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-black text-xs flex items-center gap-2 shadow-lg shadow-emerald-500/20 hover:scale-[1.02] transition cursor-pointer"
+                      >
+                        <span>Avançar para Disparo no WhatsApp</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </button>
+                    </div>
+                  )}
               </div>
             </div>
           )}
 
           {activeTab === 'DISPATCH_WHATSAPP' && (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {/* Formulário de Configuração do Disparo */}
-              <div className="space-y-4 bg-slate-900/60 p-5 rounded-3xl border border-slate-800">
-                <div className="flex items-center gap-2 pb-3 border-b border-slate-800">
-                  <Send className="w-4 h-4 text-emerald-400" />
-                  <h4 className="font-bold text-white text-xs uppercase tracking-wider">
-                    Configurar Disparo via Evolution API
-                  </h4>
-                </div>
+            <div className="space-y-4">
+              {/* BARRA SUPERIOR DE RETORNO E AÇÕES RÁPIDAS */}
+              <div className="flex flex-wrap items-center justify-between gap-2 p-3 bg-slate-900/90 rounded-2xl border border-slate-800">
+                <button
+                  type="button"
+                  onClick={() => setActiveTab('REVISTA_PREVIEW')}
+                  className="px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white text-xs font-bold flex items-center gap-2 border border-slate-700 transition cursor-pointer"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Voltar para Edição da Revista</span>
+                </button>
 
-                <div>
-                  <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">
-                    Nome do Destinatário:
-                  </label>
-                  <input
-                    type="text"
-                    value={recipientName}
-                    onChange={(e) => setRecipientName(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-500 font-medium"
-                    placeholder="Ex: Joabson / Dr. Roberto"
-                  />
+                <div className="flex items-center gap-2">
+                  <a
+                    href="/api/pdf/executive-magazine"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-3 py-1.5 rounded-xl bg-slate-950 hover:bg-slate-800 text-amber-300 font-bold text-xs flex items-center gap-1.5 border border-amber-500/30 transition cursor-pointer"
+                  >
+                    <Download className="w-3.5 h-3.5 text-amber-400" />
+                    <span>Baixar PDF Oficial</span>
+                  </a>
+                  <span className="text-[11px] font-mono text-emerald-400 bg-emerald-950/80 px-2.5 py-1 rounded-lg border border-emerald-800/80">
+                    SLA &lt; 3.2s
+                  </span>
                 </div>
+              </div>
 
-                <div>
-                  <div className="flex items-center justify-between mb-1">
-                    <label className="text-xs font-bold text-slate-300 uppercase tracking-wider">
-                      {targetPhone.includes('@g.us') ? 'ID do Grupo WhatsApp (JID):' : 'WhatsApp de Destino (com DDD):'}
-                    </label>
-                    {groups.length > 0 && (
-                      <span className="text-[10px] text-cyan-400 font-semibold">
-                        {groups.length} Grupos Disponíveis
-                      </span>
-                    )}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+                {/* Formulário de Configuração do Disparo */}
+                <div className="space-y-4 bg-slate-900/60 p-5 rounded-3xl border border-slate-800">
+                  <div className="flex items-center gap-2 pb-3 border-b border-slate-800">
+                    <Send className="w-4 h-4 text-emerald-400" />
+                    <h4 className="font-bold text-white text-xs uppercase tracking-wider">
+                      Configurar Disparo via Evolution API
+                    </h4>
                   </div>
-                  <div className="relative">
+
+                  <div>
+                    <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">
+                      Nome do Destinatário:
+                    </label>
                     <input
                       type="text"
-                      value={targetPhone}
-                      onChange={(e) => setTargetPhone(e.target.value)}
-                      className={`w-full bg-slate-950 border rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none font-mono ${
-                        targetPhone.includes('@g.us') ? 'border-emerald-500/70 text-emerald-300' : 'border-slate-800 focus:border-cyan-500'
-                      }`}
-                      placeholder="5511999998888 ou 120363023456789012@g.us"
+                      value={recipientName}
+                      onChange={(e) => setRecipientName(e.target.value)}
+                      className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-500 font-medium"
+                      placeholder="Ex: Joabson / Dr. Roberto"
                     />
-                    {targetPhone.includes('@g.us') && (
-                      <span className="absolute right-3 top-2.5 text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30">
-                        GRUPO WHATSAPP
-                      </span>
+                  </div>
+
+                  <div>
+                    <div className="flex items-center justify-between mb-1">
+                      <label className="text-xs font-bold text-slate-300 uppercase tracking-wider">
+                        {targetPhone.includes('@g.us') ? 'ID do Grupo WhatsApp (JID):' : 'WhatsApp de Destino (com DDD):'}
+                      </label>
+                      {groups.length > 0 && (
+                        <span className="text-[10px] text-cyan-400 font-semibold">
+                          {groups.length} Grupos Disponíveis
+                        </span>
+                      )}
+                    </div>
+                    <div className="relative">
+                      <input
+                        type="text"
+                        value={targetPhone}
+                        onChange={(e) => setTargetPhone(e.target.value)}
+                        className={`w-full bg-slate-950 border rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none font-mono ${
+                          targetPhone.includes('@g.us') ? 'border-emerald-500/70 text-emerald-300' : 'border-slate-800 focus:border-cyan-500'
+                        }`}
+                        placeholder="5511999998888 ou 120363023456789012@g.us"
+                      />
+                      {targetPhone.includes('@g.us') && (
+                        <span className="absolute right-3 top-2.5 text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30">
+                          GRUPO WHATSAPP
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Seletor Rápido de Grupos Cadastrados */}
+                    {groups.length > 0 && (
+                      <div className="mt-2 flex flex-wrap gap-1.5 items-center">
+                        <span className="text-[10px] text-slate-500">Ou selecione um grupo:</span>
+                        {groups.slice(0, 4).map((g) => (
+                          <button
+                            key={g.id}
+                            type="button"
+                            onClick={() => {
+                              setRecipientName(`Grupo: ${g.name}`);
+                              setTargetPhone(g.jid);
+                            }}
+                            className={`text-[10px] px-2 py-0.5 rounded-lg border transition cursor-pointer ${
+                              targetPhone === g.jid
+                                ? 'bg-emerald-500 text-slate-950 font-bold border-emerald-400'
+                                : 'bg-slate-950 hover:bg-slate-800 text-slate-400 border-slate-800'
+                            }`}
+                          >
+                            {g.name}
+                          </button>
+                        ))}
+                      </div>
                     )}
                   </div>
 
-                  {/* Seletor Rápido de Grupos Cadastrados */}
-                  {groups.length > 0 && (
-                    <div className="mt-2 flex flex-wrap gap-1.5 items-center">
-                      <span className="text-[10px] text-slate-500">Ou selecione um grupo:</span>
-                      {groups.slice(0, 4).map((g) => (
-                        <button
-                          key={g.id}
-                          type="button"
-                          onClick={() => {
-                            setRecipientName(`Grupo: ${g.name}`);
-                            setTargetPhone(g.jid);
-                          }}
-                          className={`text-[10px] px-2 py-0.5 rounded-lg border transition cursor-pointer ${
-                            targetPhone === g.jid
-                              ? 'bg-emerald-500 text-slate-950 font-bold border-emerald-400'
-                              : 'bg-slate-950 hover:bg-slate-800 text-slate-400 border-slate-800'
-                          }`}
-                        >
-                          {g.name}
-                        </button>
-                      ))}
+                  <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-400 space-y-1">
+                    <span className="font-bold text-slate-300 block">SLA Garantido:</span>
+                    <p className="text-[11px]">
+                      A mensagem formatada com emojis, links da revista e credenciais é entregue em menos de <strong>3.2 segundos</strong> na instância oficial <code>ecostone</code>.
+                    </p>
+                  </div>
+
+                  <div className="pt-2 flex flex-col gap-2">
+                    <button
+                      disabled={sending}
+                      onClick={handleSendWhatsApp}
+                      className="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-black text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 hover:scale-[1.02] transition cursor-pointer"
+                    >
+                      <Send className="w-4 h-4" />
+                      <span>{sending ? 'Disparando no WhatsApp...' : 'Disparar Kit Boas-Vindas Agora'}</span>
+                    </button>
+
+                    <button
+                      onClick={handleCopyLink}
+                      className="w-full py-2.5 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-800 text-slate-300 font-bold text-xs flex items-center justify-center gap-2 transition cursor-pointer"
+                    >
+                      <Copy className="w-3.5 h-3.5" />
+                      <span>{copiedLink ? 'Texto Copiado para Área de Transferência!' : 'Copiar Texto Completo'}</span>
+                    </button>
+                  </div>
+
+                  {dispatchStatus && (
+                    <div className="p-3 rounded-xl bg-emerald-950/60 border border-emerald-800 text-xs text-emerald-300 flex items-center gap-2 animate-in fade-in">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                      <span>Disparo concluído com sucesso! SLA: {dispatchStatus.sla_seconds}s</span>
                     </div>
                   )}
                 </div>
 
-                <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-400 space-y-1">
-                  <span className="font-bold text-slate-300 block">SLA Garantido:</span>
-                  <p className="text-[11px]">
-                    A mensagem formatada com emojis, links da revista e credenciais é entregue em menos de <strong>3.2 segundos</strong> na instância oficial <code>ecostone</code>.
-                  </p>
-                </div>
-
-                <div className="pt-2 flex flex-col gap-2">
-                  <button
-                    disabled={sending}
-                    onClick={handleSendWhatsApp}
-                    className="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-black text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 hover:scale-[1.02] transition cursor-pointer"
-                  >
-                    <Send className="w-4 h-4" />
-                    <span>{sending ? 'Disparando no WhatsApp...' : 'Disparar Kit Boas-Vindas Agora'}</span>
-                  </button>
-
-                  <button
-                    onClick={handleCopyLink}
-                    className="w-full py-2.5 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-800 text-slate-300 font-bold text-xs flex items-center justify-center gap-2 transition"
-                  >
-                    <Copy className="w-3.5 h-3.5" />
-                    <span>{copiedLink ? 'Texto Copiado para Área de Transferência!' : 'Copiar Texto Completo'}</span>
-                  </button>
-                </div>
-
-                {dispatchStatus && (
-                  <div className="p-3 rounded-xl bg-emerald-950/60 border border-emerald-800 text-xs text-emerald-300 flex items-center gap-2 animate-in fade-in">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
-                    <span>Disparo concluído com sucesso! SLA: {dispatchStatus.sla_seconds}s</span>
-                  </div>
-                )}
-              </div>
-
-              {/* Prévia da Mensagem (Smartphone Preview) */}
-              <div className="space-y-3 bg-slate-900/60 p-5 rounded-3xl border border-slate-800 flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center gap-2 pb-3 border-b border-slate-800 mb-3">
-                    <Smartphone className="w-4 h-4 text-cyan-400" />
-                    <h4 className="font-bold text-white text-xs uppercase tracking-wider">
-                      Prévia do WhatsApp (Visualização no Celular)
-                    </h4>
+                {/* Prévia da Mensagem (Smartphone Preview com Scroll Suave) */}
+                <div className="space-y-3 bg-slate-900/60 p-5 rounded-3xl border border-slate-800 flex flex-col h-full">
+                  <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                    <div className="flex items-center gap-2">
+                      <Smartphone className="w-4 h-4 text-cyan-400" />
+                      <h4 className="font-bold text-white text-xs uppercase tracking-wider">
+                        Prévia do WhatsApp (Visualização no Celular)
+                      </h4>
+                    </div>
+                    <span className="text-[10px] text-slate-500">Role para ler tudo</span>
                   </div>
 
-                  <div className="bg-emerald-950/30 border border-emerald-800/50 rounded-2xl p-4 text-xs font-sans text-slate-200 space-y-2 whitespace-pre-wrap leading-relaxed shadow-inner max-h-[360px] overflow-y-auto">
+                  <div 
+                    tabIndex={0}
+                    className="bg-emerald-950/30 border border-emerald-800/50 rounded-2xl p-4 text-xs font-sans text-slate-200 space-y-2 whitespace-pre-wrap leading-relaxed shadow-inner h-[400px] max-h-[480px] overflow-y-auto overscroll-contain focus:outline-none focus:ring-1 focus:ring-emerald-500/40 select-text"
+                  >
                     {generateWhatsAppMessage()}
                   </div>
-                </div>
 
-                <span className="text-[10px] text-slate-500 text-center font-mono">
-                  Evolution API • Instância 'ecostone' • Vercel Serverless Hook
-                </span>
+                  <div className="pt-2 flex items-center justify-between text-[10px] text-slate-500 font-mono">
+                    <span>Evolution API • 'ecostone'</span>
+                    <button
+                      type="button"
+                      onClick={() => setActiveTab('REVISTA_PREVIEW')}
+                      className="text-amber-400 hover:text-amber-300 font-sans font-bold flex items-center gap-1 cursor-pointer"
+                    >
+                      <ArrowLeft className="w-3 h-3" />
+                      Voltar à Revista
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           )}
@@ -574,15 +658,38 @@ export default function ExecutiveWelcomeKitModal({
 
         {/* FOOTER */}
         <div className="p-4 bg-slate-950 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
-          <span className="font-mono text-[11px]">
-            JHPCS EXECUTIVE VIP SUITE • AUTORIZADO POR MASTER DANIEL LOPES
-          </span>
-          <button
-            onClick={onClose}
-            className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl border border-slate-800 transition"
-          >
-            Fechar Janela
-          </button>
+          <div className="flex items-center gap-3">
+            <span className="font-mono text-[11px] hidden sm:inline">
+              JHPCS EXECUTIVE VIP SUITE • AUTORIZADO POR MASTER DANIEL LOPES
+            </span>
+            <a
+              href="/api/pdf/executive-magazine"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-amber-400 hover:text-amber-300 font-bold flex items-center gap-1.5 cursor-pointer underline decoration-amber-500/30"
+            >
+              <Download className="w-3.5 h-3.5" />
+              <span>Baixar Kit em PDF</span>
+            </a>
+          </div>
+          <div className="flex items-center gap-2">
+            {activeTab === 'DISPATCH_WHATSAPP' && (
+              <button
+                type="button"
+                onClick={() => setActiveTab('REVISTA_PREVIEW')}
+                className="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-bold rounded-xl border border-slate-800 transition flex items-center gap-1 cursor-pointer"
+              >
+                <ArrowLeft className="w-3.5 h-3.5 text-amber-400" />
+                <span>Voltar</span>
+              </button>
+            )}
+            <button
+              onClick={onClose}
+              className="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl border border-slate-800 transition cursor-pointer"
+            >
+              Fechar Janela
+            </button>
+          </div>
         </div>
       </div>
     </div>

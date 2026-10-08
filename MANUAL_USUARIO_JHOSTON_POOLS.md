@@ -72,20 +72,26 @@ Localizado no botão de ouro **"Kit Boas-Vindas (Revista VIP)"** na barra superi
 | **DIRETORIA JH (Joabson)** | ❌ *Bloqueado pelo sistema* | ✅ **SIM** |
 | **Clientes & Piscineiros** | ❌ *Sem acesso ao módulo* | ❌ *Sem acesso ao módulo* |
 
-#### Funcionalidades da Revista Digital VIP:
-1. **Layout Editorial de Alta Qualidade (3 Páginas Interativas)**:
-   - **Página 1 (Capa & Visão Estratégica)**: Apresentação de luxo, padrão editorial, blindagem jurídica e credenciais da engenharia.
-   - **Página 2 (Telemetria F1 & IA Multimodal)**: Visão dos tacômetros digitais, dial LSI e leitura de fitas por visão computacional.
-   - **Página 3 (Manual Ilustrado & Garantia Decenal)**: Regras de ouro contra o ácido e mockups do Certificado Digital.
-2. **Disparador WhatsApp Integrado**:
-   - Pré-visualização ao vivo na tela de um smartphone mockup.
-   - Disparo direto via **Evolution API** com SLA de entrega inferior a **3.2 segundos**.
-   - Botão para **Copiar Mensagem Formatada** para envio manual caso necessário.
+#### Funcionalidades da Revista Digital VIP & Kit de Boas-Vindas Completo em PDF:
+1. **Entrega Completa em PDF de Luxo (Sem Apenas Links)**:
+   - O destinatário recebe o **Kit de Boas-Vindas Completo em arquivo PDF de 4 páginas** de altíssima definição, gerado diretamente pelo motor nativo de diagramação do JHPCS:
+     - **Página 1 (Capa de Luxo)**: Brasão oficial JHoston Pools, título metalizado, nome do destinatário e resumo dos indicadores de conformidade.
+     - **Página 2 (Caderno de Telemetria F1)**: Tacômetros digitais de pH, Cloro e Alcalinidade, mostrador de equilíbrio LSI e correlação climática OpenWeather.
+     - **Página 3 (Manual Ilustrado de Preservação)**: As 3 Regras de Ouro contra o ácido muriático, cronograma da cura submersa e insumos 100% homologados.
+     - **Página 4 (Certificado Oficial de Garantia Decenal)**: Termo jurídico formal com assinaturas digitais da diretoria executiva e chancela criptográfica SHA-256.
+2. **Motor Mensal Autônomo para a Diretoria (Sem IA Externa)**:
+   - Todo dia 1º de cada mês, um cron job autônomo consolida os dados reais de todos os resorts e piscinas monitoradas.
+   - Gera automaticamente uma nova edição numerada da revista e despacha o laudo com o PDF completo para a Diretoria da JHoston Pools e grupos de engenharia, sem qualquer custo de API de inteligência artificial de terceiros.
+3. **Disparador com Catálogo de Grupos de WhatsApp & Regra de Alçada**:
+   - **Autorização para Envio em Grupos**: No momento, o envio direto para **Grupos de WhatsApp (`@g.us`)** está restrito **exclusivamente ao usuário MASTER**, prevenindo transmissões acidentais em canais amplos.
+   - A Diretoria da JHoston pode enviar individualmente para qualquer cliente, síndico ou gerente geral.
+   - Inclusão e exclusão de grupos gerenciada dinamicamente pelo catálogo do sistema.
 
 ---
 
 ### 3.4. Central de Relatórios Executivos & WhatsApp
 Acessível pela aba **"Relatórios Diretoria (WhatsApp)"**:
+- **Catálogo Unificado (Grupos vs Contatos)**: Permite alternar entre o envio para contatos individuais ou grupos oficiais (exclusivo Master).
 - **Disparo de Laudo Consolidado**: Permite selecionar um resort ou cliente residencial e emitir o Laudo Pericial Mensal com 1 clique.
 - **Agendamento de Envios**: O sistema dispara no 1º dia útil de cada mês o certificado de garantia e histórico químico diretamente no WhatsApp do síndico, gerente geral ou proprietário.
 - **Histórico de Logs**: Consulta de todos os envios realizados com confirmação de entrega via Evolution API.
