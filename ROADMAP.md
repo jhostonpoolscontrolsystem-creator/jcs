@@ -85,15 +85,46 @@
 
 ---
 
-## 🔵 FASE 4: E-Commerce B2B de Insumos & Clube de Garantia Vitalícia (Março / 2027)
-*Meta: Monetização recorrente e garantia de que o cliente só utilize produtos homologados pela JHostonTec.*
+## 🔵 FASE 4: E-Commerce B2B Preditivo, Logística Nacional & Gestão Sazonal (Março / 2027)
+*Meta: Garantir que nenhuma piscina fique desprotegida por falta de químicos, antecipando fretes interestaduais, sazonalidades de pico e feriados prolongados.*
 
-* **Feature 4.1 — Reposição Automática de Insumos (Just-in-Time)**:
-  - Quando a estimativa preditiva de estoque acusar menos de 3 dias de cloro ou balanceadores, o sistema emite proposta de compra com 1 clique.
-* **Feature 4.2 — Checkout Integrado (Pix Automático e Faturamento)**:
-  - Emissão de QR Code Pix e boleto bancário direto para a administração do resort ou proprietário.
-* **Feature 4.3 — Rastreamento Logístico com Notificação no WhatsApp**:
-  - Envio de código de rastreio e aviso ao síndico quando o caminhão de químicos da JHoston chegar à portaria.
+### 📦 4.1. Engenharia de Supply Chain & Janelas Logísticas no Brasil
+O Brasil possui dimensões continentais e o frete de produtos químicos homologados (materiais pesados e controlados) opera via transporte rodoviário fracionado ou dedicado.
+* **Lead Time de Envio Estimado**: **7 a 10 dias úteis** entre despacho da fábrica JHoston e recebimento na casa de máquinas do resort/condomínio.
+* **Margem de Segurança (Buffer de Trânsito)**: O gatilho de compra não pode ser disparado em "3 dias restantes", mas sim com um **lead time mínimo de 12 a 15 dias de autonomia**.
+
+---
+
+### ☀️ 4.2. Matriz de Sazonalidade & Multiplicadores Dinâmicos de Consumo
+O algoritmo preditivo ajusta o cálculo de runway diário de insumos multiplicando a taxa base de consumo pelos seguintes coeficientes:
+
+$$\text{Consumo Preditivo Diário} = \text{Consumo Base}(m^3) \times \mathbf{Fator_{\text{Sazonal}}} \times \mathbf{Fator_{\text{Ocupação}}}$$
+
+1. **Alta Temporada / Verão (Dezembro a Fevereiro)**:
+   - **Multiplicador: 1.8x a 2.5x**: Radiação UV intensa degrada o cloro livre rapidamente e a temperatura da água elevada acelera a proliferação bacteriana.
+   - **Ação do Sistema**: Antecipação do pedido de reposição em **21 dias**, dobrando o lote mínimo recomendado.
+2. **Período de Férias Escolares & Feriados Prolongados (Carnaval, Semana Santa, Réveillon, Julho)**:
+   - **Multiplicador de Ocupação: 2.0x**: Carga orgânica elevada (protetor solar, suor, frequência contínua de banhistas).
+   - **Alerta "Holiday Buffer"**: 15 dias antes de feriados nacionais ou paralisações de transportadoras, o JHPCS emite sugestão de reforço preventivo de estoque.
+3. **Época de Chuvas Fortes / Monções Tropicais**:
+   - **Aumento de Alcalinizante / Bicarbonato (+60%)**: Chuvas ácidas frequentes exigem correção imediata para estabilizar o pH antes de atingir a Red Zone.
+4. **Baixa Temporada / Inverno (Maio a Agosto)**:
+   - **Multiplicador: 0.6x**: Redução da evaporação e menor frequência, espaçando os ciclos de reposição para evitar estocagem excessiva de produtos perto da data de validade.
+
+---
+
+### 🛠️ 4.3. Features Integradas na Fase 4
+
+* **Feature 4.1 — Algoritmo Preditivo de Reposição "Smart Runway"**:
+  - Cruza o volume da piscina ($m^3$), média móvel de consumo dos últimos 14 dias, previsão meteorológica dos próximos 10 dias e o calendário de feriados.
+  - Gatilho Inteligente: dispara a proposta de compra exatamente no **Ponto de Reposição Crítico (ROP)** considerando o frete de 7 dias úteis.
+* **Feature 4.2 — Checkout B2B com 1 Clique (WhatsApp & Portal do Cliente)**:
+  - O gestor recebe no WhatsApp: *"Seu estoque de Cloro e Alcalinizante atingirá o nível de segurança em 12 dias. Para o feriado do Carnaval, sugerimos o Lote Especial Verão. Deseja aprovar o pedido de R$ 890,00?"*
+  - Opções imediatas: **[Aprovar com Pix Copia-e-Cola]** ou **[Faturar no Boleto 28 Dias]**.
+* **Feature 4.3 — Rastreamento Logístico Integrado com Transportadora**:
+  - Webhook de tracking com despacho, nota fiscal eletrônica (NF-e) emitida, previsão de chegada do caminhão e aviso ao tratador para conferência na casa de máquinas.
+* **Feature 4.4 — Seguro de Garantia Vinculado à Cadeia de Suprimentos**:
+  - Piscina que mantém compras contínuas de químicos homologados JHostonTec ganha extensão automática do **Selo de Garantia Vitalícia**, eliminando qualquer risco de contaminação por cloro genérico com excesso de ácido cianúrico.
 
 ---
 
