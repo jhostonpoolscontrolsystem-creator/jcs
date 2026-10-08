@@ -145,20 +145,31 @@ export default function JHPCSApp() {
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-cyan-500 selection:text-black">
       {/* Top Header / Brand */}
       <header className="border-b border-slate-800 bg-slate-900/80 backdrop-blur-md sticky top-0 z-50 px-6 py-4 flex flex-wrap items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
-          <div className="h-10 w-10 rounded-xl bg-gradient-to-tr from-cyan-600 via-sky-500 to-emerald-400 p-[2px] shadow-lg shadow-cyan-500/20">
-            <div className="h-full w-full bg-slate-950 rounded-[10px] flex items-center justify-center">
-              <Droplet className="w-5 h-5 text-cyan-400" />
+        <div className="flex items-center gap-3.5">
+          <div className="relative group cursor-pointer">
+            <div className="h-12 w-12 rounded-2xl bg-slate-900/90 border border-cyan-500/40 p-1 flex items-center justify-center shadow-lg shadow-cyan-950/60 overflow-hidden group-hover:border-cyan-400 group-hover:shadow-cyan-500/20 transition-all">
+              <img 
+                src="/logo.png" 
+                alt="JHPCS Logo" 
+                className="h-full w-full object-contain filter drop-shadow-[0_0_8px_rgba(6,182,212,0.4)]" 
+              />
             </div>
+            {/* Efeito de halo neon dinâmico */}
+            <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-emerald-400 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-500 -z-10" />
           </div>
+
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-extrabold text-lg tracking-wider text-white">JHPCS</span>
-              <span className="text-[10px] uppercase font-bold tracking-widest px-2 py-0.5 rounded bg-cyan-950/80 text-cyan-300 border border-cyan-800/60">
-                Auditoria & Revestimentos Monolíticos
+              <span className="font-black text-xl tracking-wider text-white bg-gradient-to-r from-white via-cyan-100 to-cyan-400 bg-clip-text text-transparent">
+                JHPCS
+              </span>
+              <span className="text-[10px] uppercase font-mono font-black tracking-widest px-2.5 py-0.5 rounded-full bg-cyan-950/80 text-cyan-300 border border-cyan-700/60 shadow-sm">
+                AUDITORIA & REVESTIMENTOS MONOLÍTICOS
               </span>
             </div>
-            <p className="text-xs text-slate-400">JHoston Pools Control System • Garantia & Digital Twin</p>
+            <p className="text-xs text-slate-400 font-medium">
+              JHoston Pools Control System • Garantia Decenal & Digital Twin F1
+            </p>
           </div>
         </div>
 
