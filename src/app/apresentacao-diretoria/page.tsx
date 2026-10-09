@@ -152,25 +152,30 @@ export default function ApresentacaoDiretoriaPage() {
             </p>
           </div>
 
-          <div className="p-6 rounded-2xl bg-slate-900/60 border border-amber-500/30 space-y-3 flex flex-col justify-between">
+          <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-3 flex flex-col justify-between">
             <div>
-              <div className="w-10 h-10 rounded-xl bg-amber-950 border border-amber-800 flex items-center justify-center text-amber-400 mb-3">
+              <div className="w-10 h-10 rounded-xl bg-purple-950 border border-purple-800 flex items-center justify-center text-purple-400 mb-3">
                 <FileText className="w-5 h-5" />
               </div>
-              <h3 className="font-bold text-white text-base">Revista Executiva Oficial</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                Baixe agora a edição completa de 5 páginas diagramada no modelo executivo de luxo com expediente de Daniel Lopes.
+              <h3 className="font-bold text-white text-base">Manuais Oficiais (MD)</h3>
+              <p className="text-xs text-slate-400 leading-relaxed mb-3">
+                Acesse a documentação técnica, fluxos de uso e regras de negócio para todos os perfis.
               </p>
+              <div className="flex flex-col gap-2">
+                <a href="/manuais/MANUAL_USUARIO_MASTER.md" target="_blank" className="text-[11px] font-bold text-slate-300 hover:text-white flex items-center gap-1.5 bg-slate-950 p-2 rounded-lg border border-slate-800 transition">
+                  <ExternalLink className="w-3 h-3 text-cyan-400" />
+                  Manual do Master
+                </a>
+                <a href="/manuais/MANUAL_USUARIO_PISCINEIRO.md" target="_blank" className="text-[11px] font-bold text-slate-300 hover:text-white flex items-center gap-1.5 bg-slate-950 p-2 rounded-lg border border-slate-800 transition">
+                  <ExternalLink className="w-3 h-3 text-emerald-400" />
+                  Manual do Piscineiro
+                </a>
+                <a href="/manuais/MANUAL_USUARIO_CLIENTE_FINAL.md" target="_blank" className="text-[11px] font-bold text-slate-300 hover:text-white flex items-center gap-1.5 bg-slate-950 p-2 rounded-lg border border-slate-800 transition">
+                  <ExternalLink className="w-3 h-3 text-amber-400" />
+                  Manual do Cliente Final
+                </a>
+              </div>
             </div>
-            <a
-              href="/api/pdf/executive-magazine"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full py-2.5 rounded-xl bg-slate-950 hover:bg-slate-800 border border-amber-500/40 text-amber-300 font-bold text-xs flex items-center justify-center gap-1.5 transition"
-            >
-              <Download className="w-3.5 h-3.5" />
-              <span>Abrir Revista em PDF</span>
-            </a>
           </div>
         </div>
       </section>
