@@ -100,19 +100,21 @@ export async function POST(request: Request) {
     const userId = user?.id || 'unknown';
     const userName = user?.name || cleanEmail;
 
-    // Log the audit event
-    const { logAudit } = require('@/lib/audit-logger');
-    const ip = request.headers.get('x-forwarded-for') || 'unknown';
-    const userAgent = request.headers.get('user-agent') || 'unknown';
+    // Log the audit event (except for MASTER)
+    if (user?.role !== 'MASTER') {
+      const { logAudit } = require('@/lib/audit-logger');
+      const ip = request.headers.get('x-forwarded-for') || 'unknown';
+      const userAgent = request.headers.get('user-agent') || 'unknown';
 
-    await logAudit({
-      user_id: userId,
-      user_email: cleanEmail,
-      action: 'USER_LOGIN',
-      details: `User ${userName} logged in successfully.`,
-      ip_address: ip,
-      user_agent: userAgent,
-    });
+      await logAudit({
+        user_id: userId,
+        user_email: cleanEmail,
+        action: 'USER_LOGIN',
+        details: `User ${userName} logged in successfully.`,
+        ip_address: ip,
+        user_agent: userAgent,
+      });
+    }
 
     return NextResponse.json({
       success: true,
