@@ -76,7 +76,53 @@ export async function POST(request: Request) {
       pool.volume_m3
     );
 
-    // 6. Insere o Log na tabela maintenance_logs
+    // 6. Upload de Imagens em Base64 para o Supabase Storage (FASE 2)
+    const processedEvidences = [];
+    if (evidences && Array.isArray(evidences)) {
+      for (const ev of evidences) {
+        if (ev.photo_base64 && ev.photo_base64.startsWith('data:image')) {
+          try {
+            // Extrai o conteúdo base64 e a extensão (jpg/png)
+            const matches = ev.photo_base64.match(/^data:image\/([a-zA-Z0-9+]+);base64,(.+)$/);
+            if (matches && matches.length === 3) {
+              const extension = matches[1] === 'jpeg' ? 'jpg' : matches[1];
+              const buffer = Buffer.from(matches[2], 'base64');
+              const fileName = `${pool_id}/${Date.now()}-${ev.evidence_type}.${extension}`;
+
+              // Faz o upload real da foto para o Supabase
+              const { data: uploadData, error: uploadError } = await supabase.storage
+                .from('service_evidences')
+                .upload(fileName, buffer, {
+                  contentType: `image/${extension}`,
+                  upsert: false,
+                });
+
+              if (!uploadError && uploadData) {
+                // Recupera a URL pública definitiva
+                const { data: publicUrlData } = supabase.storage
+                  .from('service_evidences')
+                  .getPublicUrl(fileName);
+
+                processedEvidences.push({
+                  ...ev,
+                  photo_base64: null, // Limpa o base64 para não pesar o BD
+                  photo_url: publicUrlData.publicUrl,
+                });
+                continue; // Sucesso
+              } else {
+                console.error('Storage Upload Error:', uploadError);
+              }
+            }
+          } catch (e) {
+            console.error('Failed to process image:', e);
+          }
+        }
+        // Fallback: Salva sem imagem pesada caso falhe
+        processedEvidences.push({ ...ev, photo_base64: null, photo_url: null });
+      }
+    }
+
+    // 7. Insere o Log na tabela maintenance_logs
     const newLog = {
       pool_id,
       maintainer_id,
@@ -90,7 +136,7 @@ export async function POST(request: Request) {
       is_audit_flagged: chemicalAudit.isRedZone || chemicalAudit.isWarrantySuspended,
       flag_reason: chemicalAudit.flags.length > 0 ? chemicalAudit.flags.join(' | ') : null,
       calculation_memory: doseCalc,
-      evidences: evidences || [],
+      evidences: processedEvidences,
       audit_result: chemicalAudit,
     };
 
