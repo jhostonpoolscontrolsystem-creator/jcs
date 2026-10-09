@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import { evaluateChemicalRules, calculateChemicalDose } from '@/lib/chemical-rules';
-import { mockPools } from '@/lib/mock-data';
-
+import { supabase } from '@/lib/supabase';
 export async function POST(request: Request) {
   try {
     const body = await request.json();
@@ -28,15 +27,16 @@ export async function POST(request: Request) {
       );
     }
 
-    // 2. Busca a piscina
-    const pool = mockPools.find((p) => p.id === pool_id) || {
-      id: pool_id,
-      name: 'Piscina em Auditoria',
-      volume_m3: 100,
-      status: 'NORMAL' as const,
-      gps_lat: gps_lat || -16.4251,
-      gps_lng: gps_lng || -39.0624,
-    };
+    // 2. Busca a piscina no Supabase
+    const { data: pool, error: poolError } = await supabase
+      .from('pools')
+      .select('*')
+      .eq('id', pool_id)
+      .single();
+
+    if (poolError || !pool) {
+      return NextResponse.json({ error: 'Piscina não encontrada no sistema.' }, { status: 404 });
+    }
 
     // 3. Validação Anti-Fraude Geográfica (Divergência GPS máx 100m)
     // Cálculo aproximado Haversine ou distância euclidiana simples para raio de 100 metros (~0.001 graus)
@@ -76,25 +76,40 @@ export async function POST(request: Request) {
       pool.volume_m3
     );
 
-    // 6. Preparação do Log consolidado
+    // 6. Insere o Log na tabela maintenance_logs
     const newLog = {
-      id: `log-${Date.now()}`,
       pool_id,
       maintainer_id,
-      log_date: new Date().toISOString(),
       ph: Number(ph),
       chlorine_ppm: Number(chlorine_ppm),
-      alkalinity_ppm: alkalinity_ppm ? Number(alkalinity_ppm) : undefined,
+      alkalinity_ppm: alkalinity_ppm ? Number(alkalinity_ppm) : null,
       acid_product_used: Boolean(acid_product_used),
       brushed_surface: Boolean(brushed_surface),
       backwashed_filter: Boolean(backwashed_filter),
       liability_accepted: true,
       is_audit_flagged: chemicalAudit.isRedZone || chemicalAudit.isWarrantySuspended,
-      flag_reason: chemicalAudit.flags.join(' | '),
+      flag_reason: chemicalAudit.flags.length > 0 ? chemicalAudit.flags.join(' | ') : null,
       calculation_memory: doseCalc,
       evidences: evidences || [],
       audit_result: chemicalAudit,
     };
+
+    const { data: insertedLog, error: insertError } = await supabase
+      .from('maintenance_logs')
+      .insert(newLog)
+      .select()
+      .single();
+
+    if (insertError) {
+      console.error('Error inserting maintenance log:', insertError);
+      return NextResponse.json({ error: 'Falha ao salvar a manutenção no banco de dados.' }, { status: 500 });
+    }
+
+    // Atualiza o status da piscina se necessário (RED_ZONE ou NORMAL)
+    const newPoolStatus = chemicalAudit.isRedZone ? 'RED_ZONE' : 'NORMAL';
+    if (pool.status !== newPoolStatus) {
+      await supabase.from('pools').update({ status: newPoolStatus }).eq('id', pool_id);
+    }
 
     // Simulação de Disparo Imediato via Evolution API (WhatsApp) caso haja violação
     let evolutionDispatch = null;
@@ -125,7 +140,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({
       success: true,
-      log: newLog,
+      log: insertedLog,
       audit: chemicalAudit,
       evolution_dispatch: evolutionDispatch,
     });

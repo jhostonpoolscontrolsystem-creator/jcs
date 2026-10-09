@@ -9,12 +9,12 @@ export async function GET() {
       .select('*')
       .order('created_at', { ascending: false });
 
-    if (!error && data && data.length > 0) {
-      return NextResponse.json({ success: true, pools: data, source: 'supabase_live' });
+    if (error) {
+      return NextResponse.json({ success: false, error: error.message }, { status: 500 });
     }
 
-    return NextResponse.json({ success: true, pools: mockPools, source: 'fallback_mock' });
+    return NextResponse.json({ success: true, pools: data, source: 'supabase_live' });
   } catch (err: any) {
-    return NextResponse.json({ success: true, pools: mockPools, source: 'fallback_mock' });
+    return NextResponse.json({ success: false, error: err.message }, { status: 500 });
   }
 }
