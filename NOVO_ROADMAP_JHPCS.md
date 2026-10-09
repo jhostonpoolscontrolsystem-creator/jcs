@@ -10,10 +10,10 @@ Aqui está o que falta, dividido por fases de prioridade:
 
 ## 🟡 FASE 1: Substituição de Dados Fictícios (Mocks) por Dados Reais
 Atualmente, o sistema usa arquivos locais (`mock-data.ts`) para simular usuários e piscinas. Precisamos passar isso para o Supabase.
-- [ ] **Criar Tabela `pools` (Piscinas):** Armazenar nome do cliente, volume em m³, endereço, coordenadas GPS oficiais, flag de "Garantia Suspensa".
-- [ ] **Criar Tabela `users` (Usuários):** Mover todos os Diretores, Clientes e Piscineiros para o Supabase, com suporte a RLS (Row Level Security).
-- [ ] **Gestão de Desligamentos (Kill Switch):** Adicionar campo `status` (ATIVO/BLOQUEADO) no banco. Apenas MASTER, Diretoria JHoston e Cliente Final poderão bloquear instantaneamente o acesso de funcionários demitidos.
-- [ ] **Criar Tabela `maintenance_logs` (Telemetria):** Salvar os relatórios de pH e Cloro para popular os gráficos da Diretoria com dados reais do banco.
+- [x] **Criar Tabela `pools` (Piscinas):** Armazenar nome do cliente, volume em m³, endereço, coordenadas GPS oficiais, flag de "Garantia Suspensa".
+- [x] **Criar Tabela `users` (Usuários):** Mover todos os Diretores, Clientes e Piscineiros para o Supabase, com suporte a RLS (Row Level Security).
+- [x] **Gestão de Desligamentos (Kill Switch):** Adicionar campo `status` (ATIVO/BLOQUEADO) no banco. Apenas MASTER, Diretoria JHoston e Cliente Final poderão bloquear instantaneamente o acesso de funcionários demitidos.
+- [ ] **Refatorar APIs de Telemetria:** Substituir leitura e gravação falsa (`mock-data.ts`) para acessar diretamente a tabela `maintenance_logs` e `pools` no banco oficial.
 
 ## 🟠 FASE 2: Upload de Evidências (Fotos Reais)
 Os piscineiros precisam bater foto da piscina limpa. Hoje isso está simulado.
