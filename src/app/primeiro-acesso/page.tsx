@@ -120,13 +120,18 @@ export default function PrimeiroAcessoPage() {
           <div className="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 mt-6 space-y-4">
             <h3 className="text-sm font-bold text-white flex items-center gap-2">
               <BookOpen className="w-4 h-4 text-cyan-400" />
-              Resumo do Termo de Responsabilidade Técnica e Penal
+              Termo de Responsabilidade, LGPD e Propriedade Intelectual
             </h3>
-            <div className="text-xs text-slate-400 space-y-2 h-40 overflow-y-auto pr-2 custom-scrollbar">
-              <p>1. Ao acessar este sistema, você reconhece que todas as suas ações, logins e inserções de dados químicos (telemetria) são <strong>gravados de forma inviolável</strong> e rastreados pelo seu IP e dispositivo.</p>
-              <p>2. A senha cadastrada é de uso pessoal e intransferível. Qualquer ação realizada com ela é de sua total e exclusiva responsabilidade, servindo como assinatura eletrônica perante a Lei.</p>
-              <p>3. É terminantemente proibida a adulteração de parâmetros, como pH e Cloro, bem como a ocultação do uso de ácido muriático nas piscinas monitoradas.</p>
-              <p>4. Os dados aqui imputados servem como laudo pericial para a blindagem jurídica e manutenção da Garantia Decenal das piscinas da JHoston Pools.</p>
+            <div className="text-xs text-slate-400 space-y-3 h-48 overflow-y-auto pr-2 custom-scrollbar text-justify leading-relaxed">
+              <p><strong className="text-slate-300">1. Auditoria e Rastreabilidade:</strong> Ao acessar este sistema, você reconhece que todas as suas ações (logins, submissões de telemetria e configurações) são permanentemente gravadas e rastreadas através do seu IP, User-Agent e Dispositivo, formando um laudo pericial inviolável.</p>
+              
+              <p><strong className="text-slate-300">2. Assinatura Eletrônica e Intransferibilidade:</strong> A senha por você cadastrada possui validade de assinatura eletrônica. Seu uso é estritamente pessoal e intransferível. Acessos simultâneos (compartilhamento de senha) poderão configurar infração passível de bloqueio.</p>
+              
+              <p><strong className="text-slate-300">3. Consentimento LGPD (Geolocalização e Imagens):</strong> Você autoriza expressamente a coleta e o armazenamento de suas coordenadas GPS e do horário exato exclusivamente durante o envio das manutenções (Telemetria), como medida antifraude. Autoriza, ainda, o armazenamento das fotos tiradas da piscina para composição do laudo técnico, garantindo não capturar imagens inapropriadas ou de cunho estritamente íntimo de terceiros.</p>
+              
+              <p><strong className="text-slate-300">4. Retenção Legal de Dados:</strong> O usuário está ciente de que, para garantir a segurança jurídica da Garantia Decenal das obras da JHoston Pools (Lei Civil) e para defesas trabalhistas/cíveis, os logs de auditoria e métricas não poderão ser apagados, representando uma exceção legal ao direito de exclusão previsto na LGPD.</p>
+              
+              <p><strong className="text-slate-300">5. Propriedade Intelectual e Anti-Espionagem:</strong> O código-fonte, arquitetura de banco de dados, motor químico, layout visual e fluxos deste sistema pertencem EXCLUSIVAMENTE à JHoston Pools. O ato de copiar fluxos, realizar captura de telas (prints) para fornecimento a concorrentes ou tentativa de engenharia reversa constitui crime de Violação de Segredo Industrial e Concorrência Desleal, sujeito à imediata persecução cível e criminal.</p>
             </div>
           </div>
         </div>
