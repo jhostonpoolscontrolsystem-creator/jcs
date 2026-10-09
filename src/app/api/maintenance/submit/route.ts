@@ -157,15 +157,59 @@ export async function POST(request: Request) {
       await supabase.from('pools').update({ status: newPoolStatus }).eq('id', pool_id);
     }
 
-    // Simulação de Disparo Imediato via Evolution API (WhatsApp) caso haja violação
+    // Disparo Imediato via Evolution API (WhatsApp) APENAS em casos especiais (Red Zone)
     let evolutionDispatch = null;
     if (chemicalAudit.shouldNotifyWhatsApp) {
+      const evolutionUrl = process.env.EVOLUTION_API_URL || 'https://whatsapp-ecostone.onrender.com';
+      const evolutionApiKey = process.env.EVOLUTION_API_KEY || 'Gabriel2006!';
+      const instanceName = process.env.EVOLUTION_INSTANCE_NAME || 'ecostone';
+      
+      // O número de alerta da diretoria deve ser configurado no .env
+      const adminPhone = process.env.ADMIN_WHATSAPP_NUMBER || '5511999999999';
+
+      const dispatchStartTime = Date.now();
+      let evolutionError = null;
+      let delivered = false;
+
+      try {
+        const evoRes = await fetch(`${evolutionUrl}/message/sendText/${instanceName}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            apikey: evolutionApiKey,
+          },
+          body: JSON.stringify({
+            number: adminPhone,
+            text: chemicalAudit.messagePreview,
+            textMessage: {
+              text: chemicalAudit.messagePreview,
+            },
+            options: {
+              delay: 800,
+              presence: 'composing',
+            },
+          }),
+        });
+
+        if (evoRes.ok) {
+          delivered = true;
+        } else {
+          evolutionError = await evoRes.text();
+          console.error('Evolution API Error:', evolutionError);
+        }
+      } catch (err: any) {
+        evolutionError = err.message;
+        console.error('Evolution API Network Error:', err);
+      }
+
       evolutionDispatch = {
         dispatched_at: new Date().toISOString(),
         target_channel: 'Evolution API (Docker)',
-        sla_seconds: 2.1, // Critério SRS: < 10 segundos
+        sla_seconds: ((Date.now() - dispatchStartTime) / 1000).toFixed(2),
         message: chemicalAudit.messagePreview,
-        recipients: ['JHostonTec Diretoria/Triage', 'Cliente/Gerente'],
+        recipients: [adminPhone],
+        delivered,
+        error: evolutionError
       };
     }
 

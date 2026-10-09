@@ -22,8 +22,8 @@ Os piscineiros precisam bater foto da piscina limpa. Hoje isso está simulado.
 
 ## 🔴 FASE 3: Integração com WhatsApp (Evolution API Real)
 A instância da Evolution API já está rodando (`whatsapp-ecostone.onrender.com`) e configurada no `.env`. Precisamos plugar as chamadas reais.
-- [ ] **Integração Real (POST HTTP):** Substituir o `console.log` atual pela requisição real enviando as mensagens para o WhatsApp.
-- [ ] **Regra de Notificações Inteligentes:** Apenas eventos "RED ZONE" devem gerar alertas instantâneos no WhatsApp, tanto para a JHoston quanto para o Cliente Final (evitando spam de manutenções normais).
+- [x] **Integração Real (POST HTTP):** Substituir o `console.log` atual pela requisição real enviando as mensagens para o WhatsApp.
+- [x] **Regra de Notificações Inteligentes:** Apenas eventos "RED ZONE" devem gerar alertas instantâneos no WhatsApp, tanto para a JHoston quanto para o Cliente Final (evitando spam de manutenções normais).
 - [ ] **Novo Modelo de Negócio (Upsell de Laudos):** Construir a lógica de envio de Laudos Gerenciais (PDF). O padrão gratuito é 1 envio Mensal. Planos premium (pagos) podem habilitar relatórios Semanais ou Quinzenais.
 
 ## 🔵 FASE 4: Geração Automática de Laudos (PDF)
