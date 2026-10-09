@@ -23,7 +23,8 @@ Os piscineiros precisam bater foto da piscina limpa. Hoje isso está simulado.
 ## 🔴 FASE 3: Integração com WhatsApp (Evolution API Real)
 A instância da Evolution API já está rodando (`whatsapp-ecostone.onrender.com`) e configurada no `.env`. Precisamos plugar as chamadas reais.
 - [ ] **Integração Real (POST HTTP):** Substituir o `console.log` atual pela requisição real enviando as mensagens para o WhatsApp.
-- [ ] **Regra Anti-Spam (Foco em Anomalias):** Como o piscineiro é do cliente, a JHoston Pools **NÃO** deve receber alertas de "manutenção concluída com sucesso" (para evitar inundação de mensagens). A JHoston só será notificada no WhatsApp em caso de **RED ZONE** (risco químico ou perda de garantia). O Cliente Final pode receber um laudo gerencial, se desejar.
+- [ ] **Regra de Notificações Inteligentes:** Apenas eventos "RED ZONE" devem gerar alertas instantâneos no WhatsApp, tanto para a JHoston quanto para o Cliente Final (evitando spam de manutenções normais).
+- [ ] **Novo Modelo de Negócio (Upsell de Laudos):** Construir a lógica de envio de Laudos Gerenciais (PDF). O padrão gratuito é 1 envio Mensal. Planos premium (pagos) podem habilitar relatórios Semanais ou Quinzenais.
 
 ## 🔵 FASE 4: Geração Automática de Laudos (PDF)
 - [ ] **Módulo de PDF (ex: `pdfmake` ou `puppeteer`):** Toda vez que uma manutenção for concluída, o sistema deve compilar os dados (Nome, Data, pH, Cloro, Foto, e Consumo de Produto) em um arquivo `.pdf` timbrado com a logo da JHoston Pools.
