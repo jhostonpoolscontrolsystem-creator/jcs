@@ -32,21 +32,35 @@ export async function POST(request: Request) {
     // Limpa pontuação do CPF
     const cleanCpf = cpf.replace(/\D/g, '');
 
-    // Busca o usuário tratador
-    const maintainer = mockUsers.find(
-      (u) => u.role === 'PISCINEIRO' && (u.cpf?.replace(/\D/g, '') === cleanCpf || cleanCpf === '12345678900')
-    ) || {
-      id: 'u-4',
-      name: 'João Tratador',
-      email: 'joao.piscineiro@gmail.com',
-      phone: '5573988883333',
-      cpf: '123.456.789-00',
-      role: 'PISCINEIRO' as const,
-      created_at: new Date().toISOString(),
-    };
+    // Busca o usuário tratador real no Supabase
+    const { supabase } = require('@/lib/supabase');
+    const { data: maintainer, error: supaError } = await supabase
+      .from('users')
+      .select('id, name, cpf, role, password_hash, status')
+      .eq('cpf', cleanCpf)
+      .eq('role', 'PISCINEIRO')
+      .single();
 
-    // Validação de PIN de 4 a 6 dígitos (ex: PIN padrão '1234')
-    if (pin !== '1234' && pin.length < 4) {
+    if (supaError || !maintainer) {
+      registerFailedAttempt(ip);
+      return NextResponse.json({ error: 'Tratador não encontrado no sistema.' }, { status: 401 });
+    }
+
+    if (maintainer.status === 'BLOCKED') {
+      registerFailedAttempt(ip);
+      return NextResponse.json({ error: 'Acesso Revogado. Entre em contato com a coordenação.' }, { status: 403 });
+    }
+
+    // Validação de PIN de 4 a 6 dígitos (usaremos bcrypt no futuro, por ora PIN provisório)
+    let isPinValid = false;
+    if (maintainer.password_hash) {
+      const bcrypt = require('bcryptjs');
+      isPinValid = await bcrypt.compare(pin, maintainer.password_hash);
+    } else if (pin === '1234') {
+      isPinValid = true; // Provisório se não tiver hash
+    }
+
+    if (!isPinValid) {
       registerFailedAttempt(ip);
       return NextResponse.json(
         { error: 'PIN de segurança inválido. Verifique com a coordenação técnica.' },

@@ -36,6 +36,11 @@ export async function POST(request: Request) {
       .eq('email', cleanEmail)
       .single();
 
+    if (user && user.status === 'BLOCKED') {
+      registerFailedAttempt(ip);
+      return NextResponse.json({ error: 'Acesso Revogado. Entre em contato com a coordenação.' }, { status: 403 });
+    }
+
     if (error || !user) {
       // Fallback estrito de emergência caso haja indisponibilidade de rede
       if (cleanEmail === 'danielsmlopes@hotmail.com' && (password === 'Gabriel2006!' || password === 'Gabriel2006')) {
