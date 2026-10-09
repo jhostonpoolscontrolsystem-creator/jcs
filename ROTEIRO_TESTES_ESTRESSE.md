@@ -36,6 +36,7 @@ Demonstrar na prática para a **Diretoria da JHoston Pools** que o sistema é **
    - O motor químico calcula imediatamente a dosagem exata de **Carbonato de Sódio / Barrilha leve** necessária para os 180 m³ da piscina.
 4. **Impacto na Diretoria**:
    - Vá para o **"Dashboard JHostonTec"** ou **"Mapa Global"**: a piscina entra na coluna **Alerta Crítico (Red Zone)** na fila de triagem em tempo real!
+   - **WhatsApp Evolution API:** O sistema disparará uma mensagem real via WhatsApp para a Diretoria (configurado no `.env` como `ADMIN_WHATSAPP_NUMBER`) informando o pH crítico e recomendando ação imediata. O envio para parâmetros normais permanece silencioso.
 
 ---
 
@@ -125,6 +126,16 @@ Demonstrar na prática para a **Diretoria da JHoston Pools** que o sistema é **
    - Despacha o exemplar com link direto para download do PDF (`/api/pdf/executive-magazine`) para a Diretoria da JHoston e grupos de engenharia via Evolution API com SLA < 3.2s.
 3. **O que Observar**:
    - Resposta com status `200 OK`, `success: true`, `delivered_direct: true` e `delivered_group: true`, garantindo automação mensal perpétua sem custos de tokens.
+
+---
+
+### EXERCÍCIO 9: Geração do Laudo Técnico (PDF - jspdf)
+1. **Onde Executar**: No navegador ou via API REST.
+2. **Ação**:
+   - Faça uma chamada `POST /api/pdf/generate` passando o `log_id` da última manutenção e o `pool_id`.
+   - O servidor compilará em milissegundos os parâmetros químicos (pH, Cloro) e a Memória de Cálculo.
+3. **O que Observar**:
+   - O sistema retornará o arquivo codificado em Base64 para download instantâneo, timbrado com as cores da JHoston Pools e com a avaliação de Garantia Ativa ou Suspensa.
 
 ---
 

@@ -66,7 +66,7 @@ Marque as caixas de seleção obrigatórias:
 Para garantir que ninguém conteste a qualidade do seu trabalho:
 1. Toque em **"Tirar Foto Panorâmica da Piscina"**: A câmera do celular se abrirá. Enquadre a piscina limpa e tire a foto.
 2. Toque em **"Tirar Foto do Teste Químico"**: Tire uma foto nítida do tubo de ensaio ou da fita reagente ao lado da escala de cores.
-- *Nota de Tecnologia*: O aplicativo comprime a foto automaticamente em **WebP (redução de 95%)** para economizar sua internet móvel e carimba a latitude e longitude exatas via satélite. Fotos tiradas da galeria não são aceitas para sua própria proteção jurídica.
+3. **Validação Automática e Nuvem:** O aplicativo comprime a foto automaticamente em **WebP (redução de 95%)** para economizar sua internet móvel e carimba a latitude e longitude exatas via satélite. Essas imagens são enviadas invisivelmente e trancadas em nosso cofre digital na nuvem (**Supabase Storage**), garantindo validade jurídica e proteção absoluta para você e para a JHoston. Fotos tiradas da galeria não são aceitas.
 
 ### Passo 5: Enviar Registro
 1. Marque o termo: *"Declaro que as informações coletadas e fotos refletem a realidade operacional do ativo"*.
@@ -87,7 +87,7 @@ Para garantir que ninguém conteste a qualidade do seu trabalho:
   1. Leia atentamente a **Ação Recomendada** que aparecerá na tela.
   2. Siga as orientações da calculadora de dosagem homologada pela JHostonTec.
   3. Não adicione produtos químicos caseiros ou misturas não autorizadas.
-  4. O sistema já terá notificado o engenheiro responsável da JHoston Pools para dar suporte técnico a você.
+  4. **Acionamento Automático:** O sistema já terá disparado um alerta emergencial via **WhatsApp (Evolution API)** para o engenheiro responsável da JHoston Pools e para a Diretoria do Cliente Final para dar suporte técnico a você imediatamente. Em manutenções normais, o envio é silencioso e gera apenas o Laudo em PDF no fim do mês.
 
 ---
 *JHoston Pools Control System • O seu companheiro diário de trabalho e garantia de excelência!*
