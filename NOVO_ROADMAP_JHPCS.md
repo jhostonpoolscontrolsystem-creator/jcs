@@ -27,8 +27,8 @@ A instância da Evolution API já está rodando (`whatsapp-ecostone.onrender.com
 - [ ] **Novo Modelo de Negócio (Upsell de Laudos):** Construir a lógica de envio de Laudos Gerenciais (PDF). O padrão gratuito é 1 envio Mensal. Planos premium (pagos) podem habilitar relatórios Semanais ou Quinzenais.
 
 ## 🔵 FASE 4: Geração Automática de Laudos (PDF)
-- [ ] **Módulo de PDF (ex: `pdfmake` ou `puppeteer`):** Toda vez que uma manutenção for concluída, o sistema deve compilar os dados (Nome, Data, pH, Cloro, Foto, e Consumo de Produto) em um arquivo `.pdf` timbrado com a logo da JHoston Pools.
-- [ ] **Anexo no WhatsApp:** Enviar esse PDF gerado junto com a mensagem da Evolution API.
+- [x] **Módulo de PDF (ex: `pdfmake` ou `puppeteer`):** Toda vez que uma manutenção for concluída, o sistema deve compilar os dados (Nome, Data, pH, Cloro, Foto, e Consumo de Produto) em um arquivo `.pdf` timbrado com a logo da JHoston Pools. (Feito via `jspdf` para altíssima performance no servidor Edge).
+- [x] **Anexo no WhatsApp / Upsell:** Gerador base configurado. Próximo passo comercial é disparar como pacote Upsell para relatórios quinzenais/semanais.
 
 ## 🟢 FASE 5: Oficialização do PWA (Modo Offline)
 - [ ] **Manifesto e Ícones:** Adicionar o `manifest.json` e os ícones de Apple/Android para que o piscineiro consiga clicar em "Instalar App" no navegador e o sistema fique na tela inicial do celular como um app nativo.
