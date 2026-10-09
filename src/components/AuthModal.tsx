@@ -112,11 +112,11 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser }: Auth
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || 'Falha ao autenticar.');
 
-        // Se for a senha provisória padrão 123456, FORÇA a troca com caractere especial
+        // Se for a senha provisória padrão 123456, redireciona para a página de homologação de cadastro
         if (data.must_change_password) {
-          setPendingUser(data.user);
-          setMode('FORCE_CHANGE_PASSWORD');
-          setSuccessMsg('Primeiro acesso detectado (senha provisória). Crie sua senha definitiva agora com ao menos 1 caractere especial.');
+          sessionStorage.setItem('pending_user', JSON.stringify(data.user));
+          sessionStorage.setItem('pending_token', data.token);
+          window.location.href = '/primeiro-acesso';
           return;
         }
 
