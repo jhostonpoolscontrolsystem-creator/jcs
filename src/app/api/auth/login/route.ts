@@ -97,6 +97,23 @@ export async function POST(request: Request) {
     // Identifica se é o primeiro acesso com a senha provisória padrão "123456"
     const mustChangePassword = password === '123456';
 
+    const userId = user?.id || 'unknown';
+    const userName = user?.name || cleanEmail;
+
+    // Log the audit event
+    const { logAudit } = require('@/lib/audit-logger');
+    const ip = request.headers.get('x-forwarded-for') || 'unknown';
+    const userAgent = request.headers.get('user-agent') || 'unknown';
+
+    await logAudit({
+      user_id: userId,
+      user_email: cleanEmail,
+      action: 'USER_LOGIN',
+      details: `User ${userName} logged in successfully.`,
+      ip_address: ip,
+      user_agent: userAgent,
+    });
+
     return NextResponse.json({
       success: true,
       must_change_password: mustChangePassword,
