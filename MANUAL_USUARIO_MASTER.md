@@ -19,7 +19,7 @@ Suas responsabilidades englobam:
 
 ### 2.1. Endereço de Acesso
 - **Ambiente Web / Nuvem**: Acesse o link oficial do sistema através de qualquer navegador moderno (Chrome, Edge, Safari, Firefox):
-  `https://jcs-delta.vercel.app` (ou `http://localhost:3000` em ambiente local).
+  `https://jcs-pools.vercel.app` (ou `http://localhost:3000` em ambiente local).
 
 ### 2.2. Credenciais de Acesso
 1. Na tela inicial, clique no botão **"Entrar / Cadastrar"** no topo superior direito da barra de comando.

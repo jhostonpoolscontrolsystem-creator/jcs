@@ -17,10 +17,10 @@
 > 
 > Esta plataforma foi concebida sob medida para solucionar de forma definitiva o maior desafio da indústria de revestimentos monolíticos e piscinas de areia: **como blindar a JHoston Pools juridicamente contra garantias indevidas provocadas por tratadores despreparados, ao mesmo tempo em que entregamos aos clientes uma experiência de inteligência e telemetria comparável à Fórmula 1.**
 
-🔗 **Link Oficial do Sistema**: [https://jcs-delta.vercel.app](https://jcs-delta.vercel.app) *(ou endereço local http://localhost:3000)*  
+🔗 **Link Oficial do Sistema**: [https://jcs-pools.vercel.app](https://jcs-pools.vercel.app) *(ou endereço local http://localhost:3000)*  
 👤 **Credenciais Homologadas da Diretoria**:
-- **E-mail**: `joabson@jhostonpools.com.br` (ou `danielsoutolopes@gmail.com` para privilégios Master)
-- **Senha Inicial**: `JHoston@2026!` *(ou conforme cadastrada no painel)*
+- **E-mail**: `jhostontec@jhostontec.com.br` (ou `danielsoutolopes@gmail.com` para privilégios Master)
+- **Senha Inicial**: `123456` *(ou conforme cadastrada no painel)*
 
 ---
 
@@ -60,7 +60,7 @@ e Séries Históricas e Regra de Ácido  Evolution API    subsolos/remoto  calcu
 *Figura: Disparador executivo via WhatsApp com 3 páginas no modelo revista de luxo.*
 
 - **Exclusividade Master**: O usuário Master (`danielsoutolopes@gmail.com` / `patricia`) pode enviar as boas-vindas oficiais para a Diretoria da JHoston Pools.
-- **Poder da Diretoria**: A Diretoria da JHoston (`joabson@jhostonpools.com.br`) pode despachar o Kit de Boas-Vindas e o Manual Interativo enriquecido diretamente para o WhatsApp dos clientes e síndicos.
+- **Poder da Diretoria**: A Diretoria da JHoston (`jhostontec@jhostontec.com.br`) pode despachar o Kit de Boas-Vindas e o Manual Interativo enriquecido diretamente para o WhatsApp dos clientes e síndicos.
 - **Formatação de Revista**: Com 1 clique, o destinatário recebe o link e uma mensagem editorial polida com o resumo do patrimônio sob monitoramento.
 
 ---

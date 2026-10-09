@@ -65,7 +65,7 @@ Para assegurar que o seu investimento permaneça impecável e que o seu **Certif
 
 ## 🚪 Como Acessar o Seu Portal?
 
-1. Acesse o link oficial enviado pela JHoston Pools: `https://jcs-delta.vercel.app` (ou o endereço fornecido no seu contrato).
+1. Acesse o link oficial enviado pela JHoston Pools: `https://jcs-pools.vercel.app` (ou o endereço fornecido no seu contrato).
 2. Clique no canto superior direito em **Entrar**.
 3. Insira o seu e-mail cadastrado e sua senha pessoal.
 4. Você será direcionado diretamente para a aba **"Portal Gerência / Cliente"**.

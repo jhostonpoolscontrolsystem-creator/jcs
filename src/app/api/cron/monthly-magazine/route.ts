@@ -47,7 +47,7 @@ export async function GET(request: Request) {
 
     // 2. Destinatários Oficiais: Diretoria da JHoston & Grupo de Engenharia
     // Busca grupos cadastrados na tabela ou usa os oficiais
-    let targetPhone = '5511999998888'; // Joabson / Diretoria
+    let targetPhone = '5511999998888'; // Diretoria Executiva JHoston
     let targetGroupJid = '120363023456789012@g.us'; // Grupo Diretoria & Master
 
     try {
@@ -80,7 +80,7 @@ A nova edição mensal da **Revista Executiva & Kit de Boas-Vindas JHPCS** acaba
 [Pág 4] Certificado Mensal com Assinatura Criptográfica SHA-256
 
 📥 *Baixe o PDF Oficial da Edição Diretamente:*
-👉 https://jcs-delta.vercel.app/api/pdf/executive-magazine
+👉 https://jcs-pools.vercel.app/api/pdf/executive-magazine
 
 _JHoston Pools Control System • Motor Editorial Autônomo V4.3_`;
 
@@ -100,8 +100,9 @@ _JHoston Pools Control System • Motor Editorial Autônomo V4.3_`;
           headers: { 'Content-Type': 'application/json', apikey: evolutionApiKey },
           body: JSON.stringify({
             number: targetPhone,
-            options: { delay: 1000, presence: 'composing' },
-            textMessage: { text: textMessage }
+            text: textMessage,
+            textMessage: { text: textMessage },
+            options: { delay: 1000, presence: 'composing' }
           })
         });
         deliveredIndividual = true;
@@ -112,8 +113,9 @@ _JHoston Pools Control System • Motor Editorial Autônomo V4.3_`;
           headers: { 'Content-Type': 'application/json', apikey: evolutionApiKey },
           body: JSON.stringify({
             number: targetGroupJid,
-            options: { delay: 1200, presence: 'composing' },
-            textMessage: { text: textMessage }
+            text: textMessage,
+            textMessage: { text: textMessage },
+            options: { delay: 1200, presence: 'composing' }
           })
         });
         deliveredGroup = true;
@@ -133,7 +135,7 @@ _JHoston Pools Control System • Motor Editorial Autônomo V4.3_`;
       delivered_direct: deliveredIndividual,
       delivered_group: deliveredGroup,
       message_preview: textMessage,
-      pdf_download_url: 'https://jcs-delta.vercel.app/api/pdf/executive-magazine'
+      pdf_download_url: 'https://jcs-pools.vercel.app/api/pdf/executive-magazine'
     });
   } catch (error: any) {
     return NextResponse.json({ error: error.message || 'Falha ao processar edição mensal da revista' }, { status: 500 });

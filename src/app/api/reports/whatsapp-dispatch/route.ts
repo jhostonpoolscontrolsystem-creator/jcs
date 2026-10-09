@@ -158,12 +158,13 @@ _JHoston Pools Inventory Intelligence_`;
           },
           body: JSON.stringify({
             number: formattedPhone,
+            text: messageText,
+            textMessage: {
+              text: messageText,
+            },
             options: {
               delay: 800,
               presence: 'composing',
-            },
-            textMessage: {
-              text: messageText,
             },
           }),
         });

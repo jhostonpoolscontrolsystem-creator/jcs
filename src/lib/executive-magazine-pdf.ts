@@ -18,15 +18,19 @@ export interface MagazineEditionData {
 
 /**
  * Gerador de Alta Fidelidade: Revista Digital VIP & Kit de Boas-Vindas JHPCS em PDF
- * Diagramação estilo revista executiva premium de 4 páginas com capa de luxo,
- * cockpit de telemetria F1, manual ilustrado e certificado de garantia decenal.
+ * Diagramação estilo revista executiva premium:
+ * Pág 1: Capa de Luxo com Destaques e Métricas em Tempo Real
+ * Pág 2: Sumário Executivo & Editorial Oficial (Daniel Lopes - Responsável Editorial)
+ * Pág 3: Cockpit de Telemetria F1 & Predição Meteorológica
+ * Pág 4: Manual Ilustrado de Engenharia & 3 Regras de Ouro
+ * Pág 5: Certificado Oficial de Garantia Decenal & Validação Criptográfica
  */
 export function generateExecutiveWelcomeKitPdf(data: MagazineEditionData = {}): jsPDF {
   const {
     editionNumber = 1,
     editionMonth = 'Edição Especial de Lançamento',
     editionYear = 2026,
-    recipientName = 'Diretoria JHoston Pools & Engenharia',
+    recipientName = 'Diretoria Executiva JHoston Pools',
     targetRole = 'DIRETORIA_JHOSTON',
     metrics = {
       totalPools: 128,
@@ -45,6 +49,43 @@ export function generateExecutiveWelcomeKitPdf(data: MagazineEditionData = {}): 
 
   const pageWidth = 210;
   const pageHeight = 297;
+  const officialDomain = 'jcs-pools.vercel.app';
+
+  // Helper para desenhar cabeçalho padronizado em páginas internas
+  const drawPageHeader = (categoryTitle: string, pageNumStr: string) => {
+    doc.setFillColor(30, 41, 59);
+    doc.rect(0, 0, pageWidth, 20, 'F');
+
+    doc.setFillColor(217, 119, 6); // amber-600
+    doc.rect(0, 0, pageWidth, 3, 'F');
+
+    doc.setTextColor(245, 158, 11); // amber-500
+    doc.setFontSize(8.5);
+    doc.setFont('helvetica', 'bold');
+    doc.text(`JHOSTON POOLS • ${categoryTitle}`, 20, 13);
+
+    doc.setTextColor(148, 163, 184); // slate-400
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'normal');
+    doc.text(pageNumStr, pageWidth - 20, 13, { align: 'right' });
+  };
+
+  // Helper para desenhar rodapé padronizado em páginas internas
+  const drawPageFooter = (footerSubject: string) => {
+    doc.setDrawColor(30, 41, 59);
+    doc.setLineWidth(0.3);
+    doc.line(20, 282, pageWidth - 20, 282);
+
+    doc.setFontSize(7.5);
+    doc.setTextColor(100, 116, 139);
+    doc.setFont('helvetica', 'normal');
+    doc.text(
+      `JHoston Pools Control System • ${footerSubject} • ${officialDomain}`,
+      105,
+      288,
+      { align: 'center' }
+    );
+  };
 
   // ==========================================
   // PÁGINA 1: CAPA DA REVISTA EXECUTIVA DE LUXO
@@ -53,62 +94,70 @@ export function generateExecutiveWelcomeKitPdf(data: MagazineEditionData = {}): 
   doc.setFillColor(11, 15, 25);
   doc.rect(0, 0, pageWidth, pageHeight, 'F');
 
+  // Moldura sutil perimetral
+  doc.setDrawColor(30, 41, 59);
+  doc.setLineWidth(0.5);
+  doc.rect(8, 8, pageWidth - 16, pageHeight - 16);
+
   // Barra de Destaque Dourada no Topo
   doc.setFillColor(217, 119, 6); // amber-600
-  doc.rect(0, 0, pageWidth, 5, 'F');
+  doc.rect(8, 8, pageWidth - 16, 4, 'F');
 
-  // Cabeçalho Editorial
+  // Cabeçalho Editorial da Capa (sem sobreposição)
   doc.setTextColor(245, 158, 11); // amber-500
-  doc.setFontSize(9);
+  doc.setFontSize(8.5);
   doc.setFont('helvetica', 'bold');
-  doc.text(`JHOSTON POOLS MAGAZINE • EDIÇÃO VIP Nº ${String(editionNumber).padStart(2, '0')} • ${editionYear}`, 20, 18);
+  doc.text(`JHOSTON POOLS MAGAZINE • EDIÇÃO VIP Nº ${String(editionNumber).padStart(2, '0')} • ${editionYear}`, 16, 20);
+
   doc.setTextColor(148, 163, 184); // slate-400
+  doc.setFontSize(7.5);
   doc.setFont('helvetica', 'normal');
-  doc.text('PUBLICAÇÃO EXECUTIVA DE ENGENHARIA DE REVESTIMENTOS MONOLÍTICOS', pageWidth - 20, 18, { align: 'right' });
+  doc.text('PUBLICAÇÃO EXECUTIVA DE ENGENHARIA DE REVESTIMENTOS MONOLÍTICOS', pageWidth - 16, 20, { align: 'right' });
 
   // Linha separadora fina
   doc.setDrawColor(51, 65, 85);
   doc.setLineWidth(0.3);
-  doc.line(20, 22, pageWidth - 20, 22);
+  doc.line(16, 24, pageWidth - 16, 24);
 
   // Logo Oficial no Centro da Capa
   try {
-    doc.addImage(JHPCS_LOGO_BASE64, 'PNG', 55, 30, 100, 50);
+    doc.addImage(JHPCS_LOGO_BASE64, 'PNG', 65, 30, 80, 40);
   } catch (e) {
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(26);
-    doc.text('JHPCS', 105, 55, { align: 'center' });
+    doc.text('JHPCS', 105, 52, { align: 'center' });
   }
 
   // Título Principal da Edição
   doc.setTextColor(255, 255, 255);
-  doc.setFontSize(26);
+  doc.setFontSize(24);
   doc.setFont('helvetica', 'bold');
-  doc.text('KIT DE BOAS-VINDAS', 105, 95, { align: 'center' });
+  doc.text('KIT DE BOAS-VINDAS', 105, 80, { align: 'center' });
 
   doc.setTextColor(56, 189, 248); // sky-400
-  doc.setFontSize(14);
-  doc.text('& REVISTA EXECUTIVA DIGITAL', 105, 104, { align: 'center' });
+  doc.setFontSize(13);
+  doc.text('& REVISTA EXECUTIVA DIGITAL', 105, 88, { align: 'center' });
 
   doc.setTextColor(203, 213, 225); // slate-300
-  doc.setFontSize(10);
+  doc.setFontSize(9);
   doc.setFont('helvetica', 'italic');
-  doc.text(`Exemplar Oficial Preparado Especialmente para:`, 105, 116, { align: 'center' });
+  doc.text('Exemplar Oficial Preparado Especialmente para:', 105, 98, { align: 'center' });
+
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(245, 158, 11);
-  doc.setFontSize(12);
-  doc.text(`${recipientName}`, 105, 123, { align: 'center' });
+  doc.setFontSize(11.5);
+  doc.text(`${recipientName}`, 105, 105, { align: 'center' });
 
   // Bloco de Destaque Editorial Central
   doc.setFillColor(15, 23, 42); // slate-900
   doc.setDrawColor(245, 158, 11); // borda âmbar
-  doc.setLineWidth(0.8);
-  doc.roundedRect(20, 135, pageWidth - 40, 75, 4, 4, 'FD');
+  doc.setLineWidth(0.7);
+  doc.roundedRect(18, 116, pageWidth - 36, 78, 3, 3, 'FD');
 
   doc.setTextColor(245, 158, 11);
-  doc.setFontSize(11);
+  doc.setFontSize(10.5);
   doc.setFont('helvetica', 'bold');
-  doc.text('DESTAQUES DESTA EDIÇÃO:', 28, 146);
+  doc.text('DESTAQUES DESTA EDIÇÃO:', 26, 126);
 
   const features = [
     { title: 'TELEMETRIA ESTILO FÓRMULA 1', desc: 'Tacômetros de precisão ao vivo, monitoramento contínuo de pH, cloro e balanço LSI.' },
@@ -117,95 +166,231 @@ export function generateExecutiveWelcomeKitPdf(data: MagazineEditionData = {}): 
     { title: 'AUTONOMIA DE ALMOXARIFADO', desc: 'Cálculo estequiométrico por m³ e reabastecimento automático de insumos homologados.' }
   ];
 
-  let currentY = 156;
+  let currentY = 136;
   features.forEach((feat, idx) => {
     doc.setTextColor(56, 189, 248);
-    doc.setFontSize(9);
+    doc.setFontSize(8.5);
     doc.setFont('helvetica', 'bold');
-    doc.text(`[0${idx + 1}] ${feat.title}`, 28, currentY);
+    doc.text(`[0${idx + 1}] ${feat.title}`, 26, currentY);
 
     doc.setTextColor(203, 213, 225);
-    doc.setFontSize(8.5);
+    doc.setFontSize(8);
     doc.setFont('helvetica', 'normal');
-    doc.text(feat.desc, 28, currentY + 4.5);
+    doc.text(feat.desc, 26, currentY + 4.5);
     currentY += 12;
   });
 
   // Métricas do Mês (Preview na Capa)
   doc.setFillColor(30, 41, 59);
-  doc.roundedRect(20, 220, 40, 28, 3, 3, 'F');
-  doc.roundedRect(65, 220, 40, 28, 3, 3, 'F');
-  doc.roundedRect(110, 220, 40, 28, 3, 3, 'F');
-  doc.roundedRect(155, 220, 35, 28, 3, 3, 'F');
+  doc.roundedRect(18, 206, 40, 26, 3, 3, 'F');
+  doc.roundedRect(63, 206, 40, 26, 3, 3, 'F');
+  doc.roundedRect(108, 206, 40, 26, 3, 3, 'F');
+  doc.roundedRect(153, 206, 39, 26, 3, 3, 'F');
 
-  doc.setFontSize(16);
+  doc.setFontSize(15);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(56, 189, 248);
-  doc.text(`${metrics.totalPools}`, 40, 232, { align: 'center' });
+  doc.text(`${metrics.totalPools}`, 38, 218, { align: 'center' });
   doc.setTextColor(52, 211, 153);
-  doc.text(`${metrics.conformityRate}%`, 85, 232, { align: 'center' });
+  doc.text(`${metrics.conformityRate}%`, 83, 218, { align: 'center' });
   doc.setTextColor(251, 191, 36);
-  doc.text(`${metrics.activeCures}`, 130, 232, { align: 'center' });
+  doc.text(`${metrics.activeCures}`, 128, 218, { align: 'center' });
   doc.setTextColor(248, 113, 113);
-  doc.text(`${metrics.redZones}`, 172.5, 232, { align: 'center' });
+  doc.text(`${metrics.redZones}`, 172.5, 218, { align: 'center' });
 
   doc.setFontSize(7.5);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(148, 163, 184);
-  doc.text('Total Ativos', 40, 241, { align: 'center' });
-  doc.text('Conformidade', 85, 241, { align: 'center' });
-  doc.text('Curas Ativas', 130, 241, { align: 'center' });
-  doc.text('Red Zones', 172.5, 241, { align: 'center' });
+  doc.text('Total Ativos', 38, 226, { align: 'center' });
+  doc.text('Conformidade', 83, 226, { align: 'center' });
+  doc.text('Curas Ativas', 128, 226, { align: 'center' });
+  doc.text('Red Zones', 172.5, 226, { align: 'center' });
+
+  // Bloco de Identificação Editorial (Apenas Daniel Lopes e Responsável Editorial)
+  doc.setFillColor(15, 23, 42);
+  doc.setDrawColor(51, 65, 85);
+  doc.setLineWidth(0.4);
+  doc.roundedRect(18, 242, pageWidth - 36, 18, 3, 3, 'FD');
+
+  doc.setTextColor(245, 158, 11);
+  doc.setFontSize(7.5);
+  doc.setFont('helvetica', 'bold');
+  doc.text('EXPEDIENTE EDITORIAL & AUDITORIA OFICIAL:', 24, 249);
+
+  doc.setTextColor(226, 232, 240);
+  doc.setFontSize(7.5);
+  doc.setFont('helvetica', 'normal');
+  doc.text(
+    'Daniel Lopes (Responsável Editorial & Engenharia JHPCS) • Emissão Direta pelo Sistema Autônomo',
+    24,
+    254
+  );
 
   // Rodapé da Capa
-  doc.setFontSize(8);
+  doc.setFontSize(7.5);
   doc.setTextColor(100, 116, 139);
-  doc.text('Engenharia de Revestimentos Monolíticos • Joabson & Diretoria JHoston • Master Daniel Lopes & Patrícia Grübel', 105, 275, { align: 'center' });
-  doc.text('jcs-delta.vercel.app • Proteção Termodinâmica em Tempo Real', 105, 280, { align: 'center' });
+  doc.text(
+    'Engenharia de Revestimentos Monolíticos • Blindagem Decenal & Telemetria em Tempo Real',
+    105,
+    273,
+    { align: 'center' }
+  );
+  doc.setTextColor(56, 189, 248);
+  doc.text(officialDomain, 105, 278, { align: 'center' });
 
   // ========================================================
-  // PÁGINA 2: COCKPIT TELEMETRIA F1 & MONITORAMENTO CONTÍNUO
+  // PÁGINA 2: ÍNDICE GERAL & EDITORIAL
+  // ========================================================
+  doc.addPage();
+  doc.setFillColor(11, 15, 25);
+  doc.rect(0, 0, pageWidth, pageHeight, 'F');
+  drawPageHeader('SUMÁRIO & EDITORIAL OFICIAL', 'PÁGINA 02');
+
+  // Título da Seção
+  doc.setTextColor(255, 255, 255);
+  doc.setFontSize(18);
+  doc.setFont('helvetica', 'bold');
+  doc.text('SUMÁRIO EXECUTIVO & EDITORIAL', 20, 34);
+
+  doc.setTextColor(148, 163, 184);
+  doc.setFontSize(9);
+  doc.setFont('helvetica', 'normal');
+  doc.text('Guia estrutural da edição e diretrizes da engenharia de preservação contínua.', 20, 41);
+
+  // Bloco 1: Sumário / Índice
+  doc.setFillColor(15, 23, 42);
+  doc.setDrawColor(51, 65, 85);
+  doc.setLineWidth(0.5);
+  doc.roundedRect(20, 48, pageWidth - 40, 78, 3, 3, 'FD');
+
+  doc.setTextColor(245, 158, 11);
+  doc.setFontSize(10);
+  doc.setFont('helvetica', 'bold');
+  doc.text('ÍNDICE DA PUBLICAÇÃO', 28, 58);
+
+  const indexItems = [
+    { page: '01', title: 'Capa da Revista Executiva Digital', desc: 'Kit de Boas-Vindas, Destaques Tecnológicos e Indicadores Consolidados.' },
+    { page: '02', title: 'Sumário & Editorial Oficial', desc: 'Mensagem de abertura editorial, governança e arquitetura de proteção.' },
+    { page: '03', title: 'Cockpit de Telemetria F1 & Predição Meteorológica', desc: 'Tacômetros em tempo real, Índice Langelier (LSI) e inteligência OpenWeather.' },
+    { page: '04', title: 'Manual do Usuário & As 3 Regras de Ouro', desc: 'Diretrizes de campo, cura de 28 dias e insumos químicos homologados.' },
+    { page: '05', title: 'Certificado de Garantia Decenal & Laudo Pericial', desc: 'Atestado de conformidade jurídica com assinatura digital SHA-256.' },
+  ];
+
+  let indexY = 67;
+  indexItems.forEach((item) => {
+    // Tag da Página
+    doc.setFillColor(30, 41, 59);
+    doc.roundedRect(28, indexY - 3.5, 11, 7, 1.5, 1.5, 'F');
+    doc.setTextColor(56, 189, 248);
+    doc.setFontSize(7.5);
+    doc.setFont('helvetica', 'bold');
+    doc.text(item.page, 33.5, indexY + 1.2, { align: 'center' });
+
+    // Título e Descrição
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(8.5);
+    doc.setFont('helvetica', 'bold');
+    doc.text(item.title, 44, indexY);
+
+    // Linha pontilhada estética
+    doc.setDrawColor(51, 65, 85);
+    doc.setLineWidth(0.2);
+    doc.line(140, indexY, pageWidth - 32, indexY);
+
+    doc.setTextColor(148, 163, 184);
+    doc.setFontSize(7.5);
+    doc.setFont('helvetica', 'normal');
+    doc.text(item.desc, 44, indexY + 4.5);
+
+    indexY += 12;
+  });
+
+  // Bloco 2: Breve Editorial
+  doc.setFillColor(15, 23, 42);
+  doc.setDrawColor(245, 158, 11);
+  doc.setLineWidth(0.6);
+  doc.roundedRect(20, 134, pageWidth - 40, 140, 3, 3, 'FD');
+
+  doc.setTextColor(245, 158, 11);
+  doc.setFontSize(11);
+  doc.setFont('helvetica', 'bold');
+  doc.text('EDITORIAL: A PRECISÃO CIENTÍFICA A SERVIÇO DA GARANTIA', 28, 146);
+
+  doc.setTextColor(203, 213, 225);
+  doc.setFontSize(8.5);
+  doc.setFont('helvetica', 'normal');
+  const editorialText =
+    'A durabilidade e o refinamento estético de um revestimento monolítico não decorrem do acaso, ' +
+    'mas de rigor científico inegociável. Ao longo dos anos, constatou-se que a quase totalidade das patologias ' +
+    'precoces registradas na construção civil especializada decorre de intervenções inadequadas, sobretudo ' +
+    'o uso clandestino de ácido muriático, desequilíbrio termodinâmico contínuo e negligência nos ciclos de cura.\n\n' +
+    'O JHPCS (JHoston Pools Control System) foi concebido para transformar a gestão de piscinas em uma ' +
+    'operação de alta precisão, operando como um verdadeiro pit wall da Fórmula 1. Cada dado coletado via satélite ' +
+    'e auditado por inteligência artificial multimodal alimenta o gêmeo digital do ativo, gerando histórico pericial ' +
+    'inviolável e assegurando que o padrão decenal seja cumprido em sua plenitude.\n\n' +
+    'Esta publicação executiva condensa os princípios técnicos essenciais, os índices de saturação química e ' +
+    'as rotinas obrigatórias para os tratadores e gestores. Nosso compromisso é entregar clareza absoluta, ' +
+    'proteção patrimonial inabalável e inovação de ponta a ponta em cada metro cúbico sob nossa guarda.';
+
+  const splitEditorial = doc.splitTextToSize(editorialText, pageWidth - 56);
+  doc.text(splitEditorial, 28, 155);
+
+  // Assinatura do Editorial (Apenas Daniel Lopes e Responsável Editorial)
+  doc.setDrawColor(51, 65, 85);
+  doc.setLineWidth(0.4);
+  doc.line(28, 238, 110, 238);
+
+  doc.setTextColor(255, 255, 255);
+  doc.setFontSize(9);
+  doc.setFont('helvetica', 'bold');
+  doc.text('DANIEL LOPES', 28, 244);
+
+  doc.setTextColor(245, 158, 11);
+  doc.setFontSize(8);
+  doc.setFont('helvetica', 'bold');
+  doc.text('Responsável Editorial & Engenharia JHPCS', 28, 249);
+
+  doc.setTextColor(148, 163, 184);
+  doc.setFontSize(7.5);
+  doc.setFont('helvetica', 'normal');
+  doc.text('Auditoria de Software, Governança e Inteligência Termodinâmica', 28, 254);
+  doc.text(`Acesso e Validação Online: ${officialDomain}`, 28, 259);
+
+  drawPageFooter('Caderno Editorial & Diretrizes');
+
+  // ========================================================
+  // PÁGINA 3: COCKPIT TELEMETRIA F1 & MONITORAMENTO CONTÍNUO
   // ========================================================
   doc.addPage();
   doc.setFillColor(15, 23, 42);
   doc.rect(0, 0, pageWidth, pageHeight, 'F');
-
-  // Cabeçalho da Página 2
-  doc.setFillColor(30, 41, 59);
-  doc.rect(0, 0, pageWidth, 22, 'F');
-  doc.setTextColor(245, 158, 11);
-  doc.setFontSize(9);
-  doc.setFont('helvetica', 'bold');
-  doc.text('JHOSTON POOLS • CADERNO DE ENGENHARIA & TELEMETRIA', 20, 14);
-  doc.setTextColor(148, 163, 184);
-  doc.setFontSize(8);
-  doc.text('PÁGINA 02', pageWidth - 20, 14, { align: 'right' });
+  drawPageHeader('CADERNO DE ENGENHARIA & TELEMETRIA', 'PÁGINA 03');
 
   // Título do Artigo
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(18);
   doc.setFont('helvetica', 'bold');
-  doc.text('COCKPIT DE TELEMETRIA F1: A PRECISÃO DO PIT WALL', 20, 36);
+  doc.text('COCKPIT DE TELEMETRIA F1: A PRECISÃO DO PIT WALL', 20, 34);
 
   doc.setTextColor(148, 163, 184);
-  doc.setFontSize(9.5);
+  doc.setFontSize(9);
   doc.setFont('helvetica', 'normal');
   doc.text(
     'Assim como uma equipe de ponta monitora cada milissegundo de um monolugar na Fórmula 1, o JHPCS analisa\n' +
     'a termodinâmica mineral de cada piscina para garantir que a resina e os cristais nunca sofram ataque químico.',
-    20, 44
+    20, 42
   );
 
   // Painel Estilo Tacômetros
   doc.setFillColor(2, 6, 23);
   doc.setDrawColor(56, 189, 248);
   doc.setLineWidth(0.6);
-  doc.roundedRect(20, 60, pageWidth - 40, 80, 4, 4, 'FD');
+  doc.roundedRect(20, 58, pageWidth - 40, 80, 4, 4, 'FD');
 
   doc.setTextColor(56, 189, 248);
-  doc.setFontSize(11);
+  doc.setFontSize(10.5);
   doc.setFont('helvetica', 'bold');
-  doc.text('TACÔMETROS DIGITAIS EM TEMPO REAL (AMOSTRAGEM AUDITADA)', 28, 70);
+  doc.text('TACÔMETROS DIGITAIS EM TEMPO REAL (AMOSTRAGEM AUDITADA)', 28, 68);
 
   // 4 Caixas de Sensores
   const gauges = [
@@ -219,7 +404,7 @@ export function generateExecutiveWelcomeKitPdf(data: MagazineEditionData = {}): 
     const col = idx % 2;
     const row = Math.floor(idx / 2);
     const boxX = 26 + col * 82;
-    const boxY = 76 + row * 28;
+    const boxY = 74 + row * 28;
 
     doc.setFillColor(15, 23, 42);
     doc.roundedRect(boxX, boxY, 78, 24, 3, 3, 'F');
@@ -242,9 +427,9 @@ export function generateExecutiveWelcomeKitPdf(data: MagazineEditionData = {}): 
 
   // Seção Explicativa LSI
   doc.setTextColor(245, 158, 11);
-  doc.setFontSize(12);
+  doc.setFontSize(11.5);
   doc.setFont('helvetica', 'bold');
-  doc.text('O Que é o Índice LSI e Por Que Ele Blindará a JHoston?', 20, 155);
+  doc.text('O Que é o Índice LSI e Por Que Ele Blindará a JHoston?', 20, 152);
 
   doc.setTextColor(203, 213, 225);
   doc.setFontSize(8.5);
@@ -254,17 +439,17 @@ export function generateExecutiveWelcomeKitPdf(data: MagazineEditionData = {}): 
     '(corrosiva) ou saturada (incrustante). Piscinas de areia e revestimentos de quartzo perdem a garantia quando\n' +
     'o piscineiro descuida e o LSI cai abaixo de -0.30. O JHPCS calcula esse número automaticamente todos os dias,\n' +
     'impedindo que qualquer defeito seja atribuído incorretamente à aplicação da JHoston Pools.';
-  doc.text(lsiExplanation, 20, 163);
+  doc.text(lsiExplanation, 20, 160);
 
   // Quadro de Conexão Climática Preditiva
   doc.setFillColor(2, 6, 23);
   doc.setDrawColor(30, 41, 59);
-  doc.roundedRect(20, 190, pageWidth - 40, 48, 4, 4, 'FD');
+  doc.roundedRect(20, 188, pageWidth - 40, 48, 4, 4, 'FD');
 
   doc.setTextColor(56, 189, 248);
   doc.setFontSize(10.5);
   doc.setFont('helvetica', 'bold');
-  doc.text('INTELIGÊNCIA METEOROLÓGICA ACOPLADA (OPENWEATHER LIVE)', 28, 200);
+  doc.text('INTELIGÊNCIA METEOROLÓGICA ACOPLADA (OPENWEATHER LIVE)', 28, 198);
 
   doc.setTextColor(203, 213, 225);
   doc.setFontSize(8.5);
@@ -273,97 +458,84 @@ export function generateExecutiveWelcomeKitPdf(data: MagazineEditionData = {}): 
     '• Previsão de Chuvas Fortes com 72 Horas de Antecedência: Alerta antecipado para elevação de cloro.\n' +
     '• Radiação UV e Temperatura: Compensação térmica para evitar degradação de polímeros da resina.\n' +
     '• Pit Stop Químico Pré-Tempestade: O cliente recebe a prescrição exata para o tratador agir antes da chuva.',
-    28, 208
+    28, 206
   );
 
-  // Rodapé da Página 2
-  doc.setFontSize(8);
-  doc.setTextColor(100, 116, 139);
-  doc.text('JHoston Pools Control System • Caderno de Engenharia Química • jcs-delta.vercel.app', 105, 285, { align: 'center' });
+  drawPageFooter('Caderno de Engenharia Química & Telemetria');
 
   // ========================================================
-  // PÁGINA 3: MANUAL ILUSTRADO & AS REGRAS DE OURO DA GARANTIA
+  // PÁGINA 4: MANUAL ILUSTRADO & AS REGRAS DE OURO DA GARANTIA
   // ========================================================
   doc.addPage();
   doc.setFillColor(15, 23, 42);
   doc.rect(0, 0, pageWidth, pageHeight, 'F');
-
-  // Cabeçalho da Página 3
-  doc.setFillColor(30, 41, 59);
-  doc.rect(0, 0, pageWidth, 22, 'F');
-  doc.setTextColor(245, 158, 11);
-  doc.setFontSize(9);
-  doc.setFont('helvetica', 'bold');
-  doc.text('JHOSTON POOLS • MANUAL ILUSTRADO DO USUÁRIO & REGRAS DE GARANTIA', 20, 14);
-  doc.setTextColor(148, 163, 184);
-  doc.setFontSize(8);
-  doc.text('PÁGINA 03', pageWidth - 20, 14, { align: 'right' });
+  drawPageHeader('MANUAL DO USUÁRIO & REGRAS DE GARANTIA', 'PÁGINA 04');
 
   doc.setTextColor(255, 255, 255);
-  doc.setFontSize(18);
+  doc.setFontSize(17);
   doc.setFont('helvetica', 'bold');
-  doc.text('AS 3 REGRAS DE OURO DA PRESERVAÇÃO DO REVESTIMENTO', 20, 36);
+  doc.text('AS 3 REGRAS DE OURO DA PRESERVAÇÃO DO REVESTIMENTO', 20, 34);
 
   // Card 1: Regra do Ácido
   doc.setFillColor(69, 10, 10); // red-950
   doc.setDrawColor(239, 68, 68);
-  doc.roundedRect(20, 46, pageWidth - 40, 36, 3, 3, 'FD');
+  doc.roundedRect(20, 44, pageWidth - 40, 36, 3, 3, 'FD');
   doc.setTextColor(254, 202, 202);
-  doc.setFontSize(11);
+  doc.setFontSize(10.5);
   doc.setFont('helvetica', 'bold');
-  doc.text('REGRA 1: PROIBIÇÃO ABSOLUTA DE ÁCIDO MURIÁTICO & LIMPA PEDRAS', 28, 56);
-  doc.setFontSize(8.5);
+  doc.text('REGRA 1: PROIBIÇÃO ABSOLUTA DE ÁCIDO MURIÁTICO & LIMPA PEDRAS', 28, 54);
+  doc.setFontSize(8);
   doc.setFont('helvetica', 'normal');
   doc.text(
     'O ácido clorídrico dissolve a matriz de cimento Portland e quartzo selecionado, causando rugosidade precoce,\n' +
     'descolamento e manchas irreversíveis. A detecção do uso de produtos corrosivos acarreta perda imediata da\n' +
     'garantia decenal e registro compulsório no prontuário pericial do JHPCS.',
-    28, 63
+    28, 61
   );
 
   // Card 2: Cura Submersa
   doc.setFillColor(19, 78, 74); // teal-900
   doc.setDrawColor(20, 184, 166);
-  doc.roundedRect(20, 88, pageWidth - 40, 36, 3, 3, 'FD');
+  doc.roundedRect(20, 86, pageWidth - 40, 36, 3, 3, 'FD');
   doc.setTextColor(204, 251, 241);
-  doc.setFontSize(11);
+  doc.setFontSize(10.5);
   doc.setFont('helvetica', 'bold');
-  doc.text('REGRA 2: CRONOGRAMA DE CURA SUBMERSA DOS 28 DIAS', 28, 98);
-  doc.setFontSize(8.5);
+  doc.text('REGRA 2: CRONOGRAMA DE CURA SUBMERSA DOS 28 DIAS', 28, 96);
+  doc.setFontSize(8);
   doc.setFont('helvetica', 'normal');
   doc.text(
     'Nos primeiros 28 dias após a conclusão do monólito, a piscina exige escovação suave diária com vassoura de cerdas\n' +
     'macias (sem esfregar com força) para remover o pó de hidratação mineral. É terminantemente proibido jogar cloro\n' +
     'concentrado diretamente no piso da piscina durante este intervalo sensível.',
-    28, 105
+    28, 103
   );
 
   // Card 3: PWA Mobile e Geolocalização
   doc.setFillColor(30, 27, 75); // indigo-950
   doc.setDrawColor(99, 102, 241);
-  doc.roundedRect(20, 130, pageWidth - 40, 36, 3, 3, 'FD');
+  doc.roundedRect(20, 128, pageWidth - 40, 36, 3, 3, 'FD');
   doc.setTextColor(224, 231, 255);
-  doc.setFontSize(11);
+  doc.setFontSize(10.5);
   doc.setFont('helvetica', 'bold');
-  doc.text('REGRA 3: CHECK-IN COM CARIMBO DE GPS E FOTOGRAFIA EM TEMPO REAL', 28, 140);
-  doc.setFontSize(8.5);
+  doc.text('REGRA 3: CHECK-IN COM CARIMBO DE GPS E FOTOGRAFIA EM TEMPO REAL', 28, 138);
+  doc.setFontSize(8);
   doc.setFont('helvetica', 'normal');
   doc.text(
     'O tratador deve registrar o checklist na borda da piscina pelo aplicativo PWA. O sistema não aceita fotos da galeria\n' +
     'do celular (apenas câmera ao vivo) e cruza as coordenadas de GPS com o raio de 100m da piscina cadastrada,\n' +
     'eliminando qualquer chance de fraude por visitas não realizadas.',
-    28, 147
+    28, 145
   );
 
   // Seção Produtos Homologados
   doc.setFillColor(2, 6, 23);
   doc.setDrawColor(51, 65, 85);
-  doc.roundedRect(20, 175, pageWidth - 40, 55, 4, 4, 'FD');
+  doc.roundedRect(20, 172, pageWidth - 40, 56, 4, 4, 'FD');
 
   doc.setTextColor(245, 158, 11);
   doc.setFontSize(10.5);
   doc.setFont('helvetica', 'bold');
-  doc.text('INSUMOS QUÍMICOS 100% HOMOLOGADOS PELA JHOSTONTEC', 28, 186);
+  doc.text('INSUMOS QUÍMICOS 100% HOMOLOGADOS PELA JHOSTONTEC', 28, 183);
 
   const products = [
     { name: 'Barrilha Leve (Carbonato de Sódio)', use: 'Elevação de pH sem agredir a resina', unit: 'Sacos de 25kg' },
@@ -372,10 +544,10 @@ export function generateExecutiveWelcomeKitPdf(data: MagazineEditionData = {}): 
     { name: 'Sequestrante de Metais & Anti-Manchas', use: 'Prevenção de manchas de cobre e ferro', unit: 'Frascos 1L' },
   ];
 
-  let pY = 194;
+  let pY = 191;
   products.forEach((prod) => {
     doc.setTextColor(56, 189, 248);
-    doc.setFontSize(8.5);
+    doc.setFontSize(8);
     doc.setFont('helvetica', 'bold');
     doc.text(`• ${prod.name}:`, 28, pY);
 
@@ -385,13 +557,10 @@ export function generateExecutiveWelcomeKitPdf(data: MagazineEditionData = {}): 
     pY += 7.5;
   });
 
-  // Rodapé Página 3
-  doc.setFontSize(8);
-  doc.setTextColor(100, 116, 139);
-  doc.text('JHoston Pools • Manual do Usuário Homologado • jcs-delta.vercel.app', 105, 285, { align: 'center' });
+  drawPageFooter('Manual Operacional Homologado');
 
   // ========================================================
-  // PÁGINA 4: CERTIFICADO DE GARANTIA DECENAL & LAUDO PERICIAL
+  // PÁGINA 5: CERTIFICADO DE GARANTIA DECENAL & LAUDO PERICIAL
   // ========================================================
   doc.addPage();
   doc.setFillColor(11, 15, 25);
@@ -412,16 +581,16 @@ export function generateExecutiveWelcomeKitPdf(data: MagazineEditionData = {}): 
   } catch (e) {}
 
   doc.setTextColor(245, 158, 11);
-  doc.setFontSize(10);
+  doc.setFontSize(9.5);
   doc.setFont('helvetica', 'bold');
   doc.text('CERTIFICADO OFICIAL DE CONFORMIDADE & PROTEÇÃO JURÍDICA', 105, 48, { align: 'center' });
 
   doc.setTextColor(255, 255, 255);
-  doc.setFontSize(18);
+  doc.setFontSize(17);
   doc.text('TERMO DE VALIDADE DA GARANTIA DECENAL', 105, 57, { align: 'center' });
 
   doc.setTextColor(148, 163, 184);
-  doc.setFontSize(9);
+  doc.setFontSize(8.5);
   doc.setFont('helvetica', 'normal');
   doc.text(`Documento emitido pelo JHoston Pools Control System (JHPCS) em ${new Date().toLocaleDateString('pt-BR')}`, 105, 64, { align: 'center' });
 
@@ -430,7 +599,7 @@ export function generateExecutiveWelcomeKitPdf(data: MagazineEditionData = {}): 
   doc.roundedRect(24, 72, pageWidth - 48, 115, 3, 3, 'F');
 
   doc.setTextColor(226, 232, 240);
-  doc.setFontSize(9.5);
+  doc.setFontSize(9);
   doc.setFont('helvetica', 'normal');
   const certificateText = 
     `Certificamos para todos os fins jurídicos, periciais e comerciais que a carteira de revestimentos\n` +
@@ -441,30 +610,28 @@ export function generateExecutiveWelcomeKitPdf(data: MagazineEditionData = {}): 
     `• Rastreabilidade de Campo: Coletas assinadas via PWA Mobile com GPS de precisão.\n` +
     `• Estoque e Insumos: Produtos químicos homologados com controle de dosagem por metro cúbico.\n\n` +
     `Este documento assegura a plena validade da GARANTIA DECENAL sobre o revestimento monolítico,\n` +
-    `protegendo o cliente final e a JHoston Pools contra qualquer sinistro de origem operacional.`;
+    `protegendo o cliente final e a JHoston Pools contra qualquer sinistro de origem operacional.\n\n` +
+    `Validação do documento em tempo real no portal: https://${officialDomain}`;
 
   doc.text(certificateText, 30, 84);
 
-  // Assinaturas Digitais Criptográficas
+  // Assinatura Oficial (Apenas Daniel Lopes e Responsável Editorial)
   doc.setDrawColor(100, 116, 139);
   doc.setLineWidth(0.5);
+  doc.line(65, 228, 145, 228);
 
-  doc.line(30, 230, 95, 230);
-  doc.line(115, 230, 180, 230);
-
-  doc.setFontSize(8.5);
+  doc.setFontSize(9);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(255, 255, 255);
-  doc.text('JOABSON • DIRETORIA EXECUTIVA', 62.5, 236, { align: 'center' });
-  doc.text('DANIEL LOPES • DIRETORIA MASTER & DEV', 147.5, 236, { align: 'center' });
+  doc.text('DANIEL LOPES • RESPONSÁVEL EDITORIAL', 105, 234, { align: 'center' });
 
   doc.setFontSize(7.5);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(148, 163, 184);
-  doc.text('JHoston Pools Revestimentos Monolíticos', 62.5, 241, { align: 'center' });
-  doc.text('Auditoria de Software e Governança JHPCS', 147.5, 241, { align: 'center' });
+  doc.text('Auditoria de Software, Governança & Engenharia JHPCS', 105, 239, { align: 'center' });
+  doc.text('Emissão Direta e Autônoma pelo JHoston Pools Control System', 105, 243, { align: 'center' });
 
-  // Carimbo Digital de Validação
+  // Carimbo Digital de Validação Criptográfica
   doc.setFillColor(2, 6, 23);
   doc.setDrawColor(245, 158, 11);
   doc.roundedRect(30, 252, pageWidth - 60, 16, 2, 2, 'FD');

@@ -42,7 +42,7 @@ export async function POST(request: Request) {
           const pool = mockPools[0]; // Terravista
           replyMessage = `🟢 *JHoston Pools*: Sua piscina encontra-se *EQUILIBRADA* (Health Score: 98/100).\nÚltima limpeza: hoje às 08:30.\nSeu estoque de cloro dura aprox. 14 dias.\nGarantia do revestimento monolítico: 100% Protegida.`;
         } else if (incomingText.includes('laudo') || incomingText.includes('garantia') || incomingText.includes('certificado')) {
-          replyMessage = `📄 *JHoston Pools*: O seu *Laudo de Garantia Monolítica* está ativo e em dia. Você pode visualizar e baixar o documento no portal: https://jcs-delta.vercel.app`;
+          replyMessage = `📄 *JHoston Pools*: O seu *Laudo de Garantia Monolítica* está ativo e em dia. Você pode visualizar e baixar o documento no portal: https://jcs-pools.vercel.app`;
         } else if (incomingText.includes('ajuda') || incomingText.includes('oi') || incomingText.includes('ola') || incomingText.includes('olá')) {
           replyMessage = `👋 Olá! Sou o *Assistente Técnico & Auditor Multimodal da JHoston Pools*.\n\nVocê pode:\n📸 *Enviar uma foto da água ou da piscina* para análise imediata por IA\n👉 Digitar *Status* para consultar a saúde da piscina\n👉 Digitar *Chuva* se choveu forte na sua região\n👉 Digitar *Laudo* para verificar a garantia do revestimento.`;
         }

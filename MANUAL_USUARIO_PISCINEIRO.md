@@ -17,7 +17,7 @@ O aplicativo do piscineiro é um **PWA Isolado e Independente**. Você não prec
 
 ### 2.1. Endereço Direto do Aplicativo
 - Abra o navegador de internet do celular (Google Chrome no Android ou Safari no iPhone) e acesse:
-  `https://jcs-delta.vercel.app/pwa` (ou o link direto enviado no seu WhatsApp).
+  `https://jcs-pools.vercel.app/pwa` (ou o link direto enviado no seu WhatsApp).
 
 ### 2.2. Como Instalar na Tela Inicial do Celular
 - **No Celular Android (Google Chrome)**:

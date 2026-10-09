@@ -17,7 +17,7 @@ O sistema JHPCS funciona como o **Digital Twin (Gêmeo Digital)** da sua piscina
 
 ### 2.1. Endereço de Acesso
 - Acesse através do seu computador, tablet ou celular:
-  `https://jcs-delta.vercel.app` (ou o link fornecido no seu contrato com a JHoston Pools).
+  `https://jcs-pools.vercel.app` (ou o link fornecido no seu contrato com a JHoston Pools).
 
 ### 2.2. Login
 1. Clique no botão **"Entrar / Cadastrar"** no topo da tela.

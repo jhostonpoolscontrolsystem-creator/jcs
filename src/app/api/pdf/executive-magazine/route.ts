@@ -9,7 +9,7 @@ export async function GET(request: Request) {
     const editionNumber = Number(searchParams.get('editionNumber')) || 1;
     const editionMonth = searchParams.get('editionMonth') || 'Edição Especial de Lançamento';
     const editionYear = Number(searchParams.get('editionYear')) || 2026;
-    const recipientName = searchParams.get('recipientName') || 'Diretoria JHoston Pools & Engenharia';
+    const recipientName = searchParams.get('recipientName') || 'Diretoria Executiva JHoston Pools';
     const targetRole = (searchParams.get('targetRole') as any) || 'DIRETORIA_JHOSTON';
 
     return await buildAndReturnPdf({
@@ -31,7 +31,7 @@ export async function POST(request: Request) {
       editionNumber = 1,
       editionMonth = 'Edição Especial de Lançamento',
       editionYear = 2026,
-      recipientName = 'Diretoria JHoston Pools & Engenharia',
+      recipientName = 'Diretoria Executiva JHoston Pools',
       targetRole = 'DIRETORIA_JHOSTON'
     } = body;
 

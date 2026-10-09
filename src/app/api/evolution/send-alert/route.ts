@@ -57,7 +57,14 @@ export async function POST(request: Request) {
       }
     }
 
-    // 2. Disparo para a Evolution API (instância Docker)
+    // 2. Formatação do Telefone (Garante DDI 55 para o Brasil)
+    let formattedPhone = target_phone.trim();
+    if (!formattedPhone.includes('@g.us')) {
+      const cleanDigits = formattedPhone.replace(/\D/g, '');
+      formattedPhone = cleanDigits.startsWith('55') ? cleanDigits : `55${cleanDigits}`;
+    }
+
+    // 3. Disparo para a Evolution API Oficial
     let evolutionResponse = null;
     let isDelivered = false;
 
@@ -70,13 +77,14 @@ export async function POST(request: Request) {
             apikey: evolutionApiKey,
           },
           body: JSON.stringify({
-            number: target_phone,
+            number: formattedPhone,
+            text: textMessage,
+            textMessage: {
+              text: textMessage,
+            },
             options: {
               delay: 1000,
               presence: 'composing',
-            },
-            textMessage: {
-              text: textMessage,
             },
           }),
         });
@@ -84,10 +92,13 @@ export async function POST(request: Request) {
         if (evoRes.ok) {
           evolutionResponse = await evoRes.json();
           isDelivered = true;
+        } else {
+          const errData = await evoRes.text();
+          console.warn('Erro resposta Evolution API:', errData);
         }
       }
     } catch (err: any) {
-      console.warn('Evolution API indisponível localmente, acionando fallback de simulação:', err.message);
+      console.warn('Evolution API indisponível, acionando fallback:', err.message);
     }
 
     const elapsedSeconds = ((Date.now() - startTime) / 1000).toFixed(2);

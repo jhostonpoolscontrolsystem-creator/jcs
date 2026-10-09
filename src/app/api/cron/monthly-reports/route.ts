@@ -35,6 +35,7 @@ export async function GET(request: Request) {
             headers: { 'Content-Type': 'application/json', apikey: evoKey },
             body: JSON.stringify({
               number: reportPayload.target_phone,
+              text: `📄 *JHoston Pools*: O seu *Laudo Mensal de Garantia* referente à piscina *${pool.name}* foi emitido e encontra-se com conformidade atestada.`,
               textMessage: {
                 text: `📄 *JHoston Pools*: O seu *Laudo Mensal de Garantia* referente à piscina *${pool.name}* foi emitido e encontra-se com conformidade atestada.`,
               },

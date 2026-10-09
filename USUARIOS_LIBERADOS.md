@@ -22,7 +22,7 @@ Destinado exclusivamente aos gestores supremos da plataforma, com acesso irrestr
 | **Daniel Lopes** | `MASTER` | `danielsmlopes@hotmail.com` | `Gabriel2006!` *(ou Gabriel2006)* | **Ativo / Liberado** | Acesso Global Total (Master Hub, Dashboard, Usuários, WhatsApp, RBAC, Motor Químico) |
 | **Patrícia Grübel** | `MASTER` | `patigrubel@gmail.com` | `Maraca132` | **Ativo / Liberado** | Acesso Global Total (Master Hub, Dashboard, Usuários, WhatsApp, RBAC, Motor Químico) |
 
-> **Como acessar**: Clicar em *"Entrar / Cadastrar"* no topo direito de `https://jcs-delta.vercel.app` (ou `localhost:3000`), inserir o e-mail e a senha correspondente.
+> **Como acessar**: Clicar em *"Entrar / Cadastrar"* no topo direito de `https://jcs-pools.vercel.app` (ou `localhost:3000`), inserir o e-mail e a senha correspondente.
 
 ---
 
@@ -60,7 +60,7 @@ Profissionais de campo credenciados responsáveis pela coleta diária físico-qu
 | **Tratador Homologado JHoston** | `PISCINEIRO` | Qualquer CPF de teste | `1234` | **App Isolado `/pwa`** | Modo de demonstração / homologação com validação por satélite |
 
 > **Como o Piscineiro acessa**: 
-> 1. Abre diretamente no celular: `https://jcs-delta.vercel.app/pwa`
+> 1. Abre diretamente no celular: `https://jcs-pools.vercel.app/pwa`
 > 2. Toca no botão **"Instalar no Celular"** para adicionar o ícone à tela inicial.
 > 3. Digita o **CPF** e o **PIN `1234`**. Não necessita de e-mail ou senha complexa.
 

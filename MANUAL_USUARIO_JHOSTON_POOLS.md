@@ -21,7 +21,7 @@ Este manual destina-se aos colaboradores internos da **JHoston Pools**:
 
 ### 2.1. Link de Acesso
 - Acesse via computador, notebook ou tablet pelo link institucional:
-  `https://jcs-delta.vercel.app` (ou endereço homologado pela diretoria da JHoston Pools).
+  `https://jcs-pools.vercel.app` (ou endereço homologado pela diretoria da JHoston Pools).
 
 ### 2.2. Login no Sistema
 1. Clique em **"Entrar / Cadastrar"** no canto superior direito da tela.
