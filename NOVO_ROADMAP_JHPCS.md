@@ -13,12 +13,12 @@ Atualmente, o sistema usa arquivos locais (`mock-data.ts`) para simular usuário
 - [x] **Criar Tabela `pools` (Piscinas):** Armazenar nome do cliente, volume em m³, endereço, coordenadas GPS oficiais, flag de "Garantia Suspensa".
 - [x] **Criar Tabela `users` (Usuários):** Mover todos os Diretores, Clientes e Piscineiros para o Supabase, com suporte a RLS (Row Level Security).
 - [x] **Gestão de Desligamentos (Kill Switch):** Adicionar campo `status` (ATIVO/BLOQUEADO) no banco. Apenas MASTER, Diretoria JHoston e Cliente Final poderão bloquear instantaneamente o acesso de funcionários demitidos.
-- [ ] **Refatorar APIs de Telemetria:** Substituir leitura e gravação falsa (`mock-data.ts`) para acessar diretamente a tabela `maintenance_logs` e `pools` no banco oficial.
+- [x] **Refatorar APIs de Telemetria:** Substituir leitura e gravação falsa (`mock-data.ts`) para acessar diretamente a tabela `maintenance_logs` e `pools` no banco oficial.
 
 ## 🟠 FASE 2: Upload de Evidências (Fotos Reais)
 Os piscineiros precisam bater foto da piscina limpa. Hoje isso está simulado.
-- [ ] **Configurar Supabase Storage:** Criar um "Bucket" (pasta na nuvem) chamado `pool-evidences`.
-- [ ] **Integração de Upload no PWA:** Fazer a câmera do celular do piscineiro enviar a foto real para o Storage e salvar a URL pública no laudo técnico.
+- [x] **Configurar Supabase Storage:** Criar um "Bucket" (pasta na nuvem) chamado `pool-evidences` (atualizado para `service_evidences`).
+- [x] **Integração de Upload no PWA:** Fazer a câmera do celular do piscineiro enviar a foto real para o Storage via buffer invisível e salvar a URL pública no laudo técnico do banco.
 
 ## 🔴 FASE 3: Integração com WhatsApp (Evolution API Real)
 A instância da Evolution API já está rodando (`whatsapp-ecostone.onrender.com`) e configurada no `.env`. Precisamos plugar as chamadas reais.
