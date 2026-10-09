@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 import bcrypt from 'bcryptjs';
+import { checkRateLimit, registerFailedAttempt, registerSuccessfulLogin } from '@/lib/security';
 
 export async function POST(request: Request) {
   try {
@@ -11,6 +12,22 @@ export async function POST(request: Request) {
     }
 
     const cleanEmail = email.trim().toLowerCase();
+    
+    // Antifraude: Proteção contra Força Bruta
+    const ip = request.headers.get('x-forwarded-for') || 'unknown';
+    const rateLimit = checkRateLimit(ip);
+    if (!rateLimit.allowed) {
+      const { logAudit } = require('@/lib/audit-logger');
+      await logAudit({
+        user_id: 'unknown',
+        user_email: cleanEmail,
+        action: 'SECURITY_ALERT',
+        details: rateLimit.reason,
+        ip_address: ip,
+        user_agent: request.headers.get('user-agent') || 'unknown',
+      });
+      return NextResponse.json({ error: rateLimit.reason }, { status: 429 });
+    }
 
     // 1. Busca o usuário no Supabase
     const { data: user, error } = await supabase
@@ -70,6 +87,7 @@ export async function POST(request: Request) {
         });
       }
 
+      registerFailedAttempt(ip);
       return NextResponse.json({ error: 'Usuário não encontrado.' }, { status: 401 });
     }
 
@@ -91,8 +109,12 @@ export async function POST(request: Request) {
     }
 
     if (!isPasswordValid) {
+      registerFailedAttempt(ip);
       return NextResponse.json({ error: 'Senha incorreta.' }, { status: 401 });
     }
+
+    // Reset attempts on successful login
+    registerSuccessfulLogin(ip);
 
     // Identifica se é o primeiro acesso com a senha provisória padrão "123456"
     const mustChangePassword = password === '123456';

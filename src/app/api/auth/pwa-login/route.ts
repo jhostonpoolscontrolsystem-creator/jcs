@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { mockUsers } from '@/lib/mock-data';
+import { checkRateLimit, registerFailedAttempt, registerSuccessfulLogin } from '@/lib/security';
 
 export async function POST(request: Request) {
   try {
@@ -10,6 +11,22 @@ export async function POST(request: Request) {
         { error: 'CPF e PIN são obrigatórios.' },
         { status: 400 }
       );
+    }
+    
+    // Antifraude: Proteção contra Força Bruta
+    const ip = request.headers.get('x-forwarded-for') || 'unknown';
+    const rateLimit = checkRateLimit(ip);
+    if (!rateLimit.allowed) {
+      const { logAudit } = require('@/lib/audit-logger');
+      await logAudit({
+        user_id: 'unknown',
+        user_email: `cpf-${cpf}`,
+        action: 'SECURITY_ALERT',
+        details: `Brute Force PWA: ${rateLimit.reason}`,
+        ip_address: ip,
+        user_agent: request.headers.get('user-agent') || 'unknown',
+      });
+      return NextResponse.json({ error: rateLimit.reason }, { status: 429 });
     }
 
     // Limpa pontuação do CPF
@@ -30,11 +47,14 @@ export async function POST(request: Request) {
 
     // Validação de PIN de 4 a 6 dígitos (ex: PIN padrão '1234')
     if (pin !== '1234' && pin.length < 4) {
+      registerFailedAttempt(ip);
       return NextResponse.json(
         { error: 'PIN de segurança inválido. Verifique com a coordenação técnica.' },
         { status: 401 }
       );
     }
+
+    registerSuccessfulLogin(ip);
 
     return NextResponse.json({
       success: true,
