@@ -96,7 +96,7 @@ export async function POST(request: Request) {
       audit_result: chemicalAudit,
     };
 
-    // 7. Simulação de Disparo Imediato via Evolution API (WhatsApp) caso haja violação
+    // Simulação de Disparo Imediato via Evolution API (WhatsApp) caso haja violação
     let evolutionDispatch = null;
     if (chemicalAudit.shouldNotifyWhatsApp) {
       evolutionDispatch = {
@@ -107,6 +107,21 @@ export async function POST(request: Request) {
         recipients: ['JHostonTec Diretoria/Triage', 'Cliente/Gerente'],
       };
     }
+
+    // Log the audit event for telemetry
+    const { logAudit } = require('@/lib/audit-logger');
+    const ip = request.headers.get('x-forwarded-for') || 'unknown';
+    const userAgent = request.headers.get('user-agent') || 'unknown';
+
+    await logAudit({
+      user_id: maintainer_id,
+      user_email: `maintainer-${maintainer_id}`,
+      action: 'TELEMETRY_INSERTED',
+      details: `Telemetry reported for pool ${pool_id}. Flagged: ${chemicalAudit.isRedZone}`,
+      ip_address: ip,
+      user_agent: userAgent,
+      payload: newLog,
+    });
 
     return NextResponse.json({
       success: true,
