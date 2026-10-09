@@ -102,6 +102,7 @@ Acessível pela aba **"Relatórios Diretoria (WhatsApp)"**:
 Pela aba **"Gestão de Usuários"**, a Diretoria pode:
 - Cadastrar novos clientes parceiros (Hotéis, Resorts, Condomínios e Casas de Alto Padrão).
 - Cadastrar os tratadores e piscineiros que atuam em cada localidade.
+- **Kill Switch de Segurança**: Bloquear instantaneamente (Status: BLOQUEADO) o acesso de qualquer funcionário ou tratador terceirizado desligado, impedindo que acessem dados ou enviem manutenções falsas.
 
 ---
 
@@ -148,7 +149,7 @@ Pela aba **"Motor Químico & Regras"**:
 ## 5. Auditoria de Fraude e Perda de Garantia
 O sistema conta com um algoritmo pericial que invalida automaticamente a garantia nas seguintes hipóteses:
 - **Adição de Ácido Clorídrico/Muriático** durante os primeiros 28 dias de cura submersa.
-- **Tentativa de envio de fotos de galeria** ou duplicadas (o app só aceita câmera em tempo real).
+- **Tentativa de envio de fotos de galeria** ou duplicadas (o app só aceita câmera em tempo real). Todas as fotos válidas são armazenadas em cofre criptografado na nuvem (**Supabase Storage**) para uso jurídico.
 - **Divergência de GPS**: Coleta registrada a mais de 100 metros do perímetro cadastrado da piscina.
 - **Omissão de escovação diária** no período inicial de assentamento mineral.
 

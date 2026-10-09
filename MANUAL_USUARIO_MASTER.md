@@ -51,6 +51,7 @@ No painel principal de comando, o Master pode auditar os 4 grandes pilares do si
   1. *Nível 1 - Master*
   2. *Nível 2 - JHoston Pools (Diretoria e Corpo Técnico)*
   3. *Nível 3 - Cliente Final (Gerente do Resort, Técnico Local e Tratadores)*
+- **Kill Switch (Bloqueio Imediato)**: O Master possui o poder de alterar o status de qualquer funcionário ou cliente para `BLOQUEADO`. Isso revoga instantaneamente o acesso ao PWA e aos dashboards, garantindo a proteção dos dados em caso de desligamentos.
 - **Aba "Hierarquia (RBAC)"**: Matriz de visualização em tempo real das permissões de leitura, escrita e auditoria para cada perfil.
 
 ### 3.4. Módulo Clientes & Telemetria Fórmula 1 ("Pit Wall")

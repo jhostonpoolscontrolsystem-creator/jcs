@@ -66,10 +66,10 @@ Se a sua piscina foi construída ou reformada recentemente:
 
 ---
 
-## 4. Recebimento de Relatórios e Alertas via WhatsApp
-- Você não precisa entrar no portal todos os dias. O sistema envia automaticamente alertas e relatórios no seu WhatsApp cadastrado:
-  - **Alerta de Emergência (Red Zone)**: Caso um teste indique risco de agressão ao monólito (ex.: pH < 6.8), você e seu tratador recebem aviso em menos de 5 segundos com a orientação técnica correta.
-  - **Laudo Mensal de Garantia**: No primeiro dia útil de cada mês, é enviado o arquivo com resumo das medições e atestado de validade da garantia.
+## 4. Recebimento de Relatórios e Alertas via WhatsApp (Evolution API)
+- O sistema trabalha de forma inteligente enviando alertas em tempo real no seu WhatsApp cadastrado apenas em exceções (evitando spam):
+  - **Alerta de Emergência (Red Zone)**: Caso um teste indique risco de agressão ao monólito (ex.: pH < 6.8), a automação via **Evolution API** alerta você e seu tratador em menos de 10 segundos com a orientação técnica correta.
+  - **Laudo Técnico em PDF**: Além do WhatsApp, o sistema agora permite gerar instantaneamente um Laudo Técnico (PDF) assinado eletronicamente e timbrado com a logo da JHoston Pools. O documento cruza o consumo exato e sela a validade da sua garantia patrimonial mês a mês.
 
 ---
 
