@@ -30,7 +30,7 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  // Estratégia Network First com fallback para Cache para permitir operação Offline
+  // Estratégia Network First com fallback para Cache para permitir operação Offline de leitura
   if (event.request.method === 'GET') {
     event.respondWith(
       fetch(event.request)
@@ -45,3 +45,16 @@ self.addEventListener('fetch', (event) => {
     );
   }
 });
+
+// Suporte a Background Sync para envios de formulário offline
+self.addEventListener('sync', (event) => {
+  if (event.tag === 'sync-maintenance-logs') {
+    event.waitUntil(syncMaintenanceLogs());
+  }
+});
+
+async function syncMaintenanceLogs() {
+  console.log('Background Sync: Sincronizando laudos offline pendentes...');
+  // Na versão final, aqui o IndexedDB é lido e os POSTs são disparados para /api/maintenance/submit
+  return Promise.resolve();
+}

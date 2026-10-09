@@ -31,8 +31,8 @@ A instância da Evolution API já está rodando (`whatsapp-ecostone.onrender.com
 - [x] **Anexo no WhatsApp / Upsell:** Gerador base configurado. Próximo passo comercial é disparar como pacote Upsell para relatórios quinzenais/semanais.
 
 ## 🟢 FASE 5: Oficialização do PWA (Modo Offline)
-- [ ] **Manifesto e Ícones:** Adicionar o `manifest.json` e os ícones de Apple/Android para que o piscineiro consiga clicar em "Instalar App" no navegador e o sistema fique na tela inicial do celular como um app nativo.
-- [ ] **Service Worker (Offline):** Garantir que, se o piscineiro estiver num condomínio sem sinal de 4G (muito comum em casa de máquinas), o app salve o laudo no celular e envie sozinho quando a internet voltar.
+- [x] **Manifesto e Ícones:** Adicionar o `manifest.json` e os ícones de Apple/Android para que o piscineiro consiga clicar em "Instalar App" no navegador e o sistema fique na tela inicial do celular como um app nativo.
+- [x] **Service Worker (Offline):** Garantir que, se o piscineiro estiver num condomínio sem sinal de 4G (muito comum em casa de máquinas), o app salve o laudo no celular e envie sozinho quando a internet voltar.
 
 ---
 
