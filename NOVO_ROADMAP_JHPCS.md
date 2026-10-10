@@ -26,8 +26,8 @@ A instância da Evolution API já está rodando (`whatsapp-ecostone.onrender.com
 - [x] **Regra de Notificações Inteligentes:** Apenas eventos "RED ZONE" devem gerar alertas instantâneos no WhatsApp, tanto para a JHoston quanto para o Cliente Final (evitando spam de manutenções normais).
 - [ ] **Modelo de Negócio Oficial: Planos de Assinatura Premium (JHPCS Analytics VIP):**
   - **Tier Gratuito (Standard Incluso):** 1 Laudo Mensal consolidado no WhatsApp no 1º dia útil de cada mês com validação básica de garantia decenal/trienal.
-  - **Tier Pro Executive (R$ 89/mês ou R$ 890/ano):** Despacho Quinzenal (dias 01 e 15) com gráficos de estabilidade F1, radar meteorológico antecipado e comparativo fotográfico de evolução mineral.
-  - **Tier Black Elite / Resort (R$ 249/mês):** Despacho Semanal toda segunda-feira às 08h, laudo pericial com hash SHA-256 e assinatura digital para síndicos e gerentes, cálculo de desperdício químico e botão de 1-toque para reabastecimento de estoque homologado.
+  - **Tier Pro Executive (R$ 29,90/mês ou R$ 299/ano):** Despacho Quinzenal (dias 01 e 15) com gráficos de estabilidade F1, radar meteorológico antecipado e comparativo fotográfico de evolução mineral.
+  - **Tier Black Elite / Resort (R$ 49,90/mês ou R$ 499/ano):** Despacho Semanal toda segunda-feira às 08h, laudo pericial com hash SHA-256 e assinatura digital para síndicos e gerentes, cálculo de desperdício químico e botão de 1-toque para reabastecimento de estoque homologado.
 
 ## 🔵 FASE 4: Geração Automática de Laudos (PDF) & Upsell Recorrente
 - [x] **Módulo de PDF (ex: `pdfmake` ou `puppeteer`):** Toda vez que uma manutenção for concluída, o sistema deve compilar os dados (Nome, Data, pH, Cloro, Foto, e Consumo de Produto) em um arquivo `.pdf` timbrado com a logo da JHoston Pools. (Feito via `jspdf` para altíssima performance no servidor Edge).

@@ -453,8 +453,8 @@ export function generateLuxuryCompendiumPdf(data: LuxuryCompendiumData = {}): js
   doc.setTextColor(226, 232, 240);
   const argComercialText = 
     `• Standard Incluso: 1 laudo mensal no WhatsApp (gratuito na compra da piscina).\n` +
-    `• Pro Executive (R$ 89/mês): Despacho quinzenal com gráficos F1 e alerta de compras de insumos.\n` +
-    `• Black Elite / Resort (R$ 249/mês): Auditoria semanal toda 2ª feira, radar de chuva ácida e laudo pericial com hash SHA-256.`;
+    `• Pro Executive (R$ 29,90/mês): Despacho quinzenal com gráficos F1 e alerta de compras de insumos.\n` +
+    `• Black Elite / Resort (R$ 49,90/mês): Auditoria semanal toda 2ª feira, radar de chuva ácida e laudo pericial com hash SHA-256.`;
   doc.text(doc.splitTextToSize(argComercialText, pageWidth - 44), 22, curY + 11);
 
   drawPageFooter(4);

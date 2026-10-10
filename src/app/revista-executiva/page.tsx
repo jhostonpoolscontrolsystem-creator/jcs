@@ -262,7 +262,7 @@ export default function RevistaExecutivaPage() {
               <div className="p-4 rounded-xl bg-slate-950 border border-cyan-500/40 space-y-2 text-xs relative overflow-hidden">
                 <div className="flex items-center justify-between">
                   <span className="font-bold text-cyan-300">Pro Executive</span>
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 font-bold">R$ 89/mês</span>
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 font-bold">R$ 29,90/mês</span>
                 </div>
                 <div className="text-slate-300 text-[11px] leading-relaxed space-y-1">
                   <p>• Despacho <strong>Quinzenal</strong> (dias 01 e 15) no WhatsApp</p>
@@ -276,7 +276,7 @@ export default function RevistaExecutivaPage() {
               <div className="p-4 rounded-xl bg-slate-950 border border-amber-500/50 space-y-2 text-xs relative overflow-hidden shadow-lg shadow-amber-500/5">
                 <div className="flex items-center justify-between">
                   <span className="font-bold text-amber-400">Black Elite / Resort</span>
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">R$ 249/mês</span>
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">R$ 49,90/mês</span>
                 </div>
                 <div className="text-slate-300 text-[11px] leading-relaxed space-y-1">
                   <p>• Despacho <strong>Semanal</strong> (segunda 08h) + On-Demand</p>
