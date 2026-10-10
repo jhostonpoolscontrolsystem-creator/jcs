@@ -26,6 +26,9 @@ export interface User {
   created_at: string;
 }
 
+export type SubscriptionTier = 'STANDARD' | 'PRO_EXECUTIVE' | 'BLACK_ELITE';
+export type SubscriptionStatus = 'TRIAL_ACTIVE' | 'TRIAL_ENDING' | 'ACTIVE_PAID' | 'EXTENSION_REQUESTED' | 'STANDARD_FREE';
+
 export interface Pool {
   id: string;
   name: string;
@@ -39,6 +42,16 @@ export interface Pool {
   status: PoolStatus;
   created_at: string;
   owner?: User;
+  // Campos de Assinatura & Degustação VIP
+  subscription_tier?: SubscriptionTier;
+  subscription_status?: SubscriptionStatus;
+  trial_started_at?: string;
+  trial_ends_at?: string;
+  trial_extension_months?: number; // 0 a 3 meses
+  trial_extension_reason?: string;
+  trial_approved_by_director?: boolean;
+  client_choice_plan?: SubscriptionTier;
+  client_choice_at?: string;
 }
 
 export interface Product {

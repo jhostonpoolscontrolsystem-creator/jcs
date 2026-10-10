@@ -22,7 +22,10 @@ import {
   FileSpreadsheet,
   ExternalLink,
   ChevronRight,
-  Sparkles
+  Sparkles,
+  DollarSign,
+  Users,
+  Calendar
 } from 'lucide-react';
 import { format } from 'date-fns';
 
@@ -41,13 +44,21 @@ interface MasterAuditReportsCockpitProps {
 }
 
 export function MasterAuditReportsCockpit({ onNavigateTab, onOpenWelcomeKit }: MasterAuditReportsCockpitProps) {
-  const [activeSubTab, setActiveSubTab] = useState<'audit_logs' | 'reports_catalog' | 'compliance_rules'>('audit_logs');
+  const [activeSubTab, setActiveSubTab] = useState<'audit_logs' | 'subscriptions' | 'reports_catalog' | 'compliance_rules'>('subscriptions');
   const [logs, setLogs] = useState<AuditLog[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [actionFilter, setActionFilter] = useState('ALL');
   const [exporting, setExporting] = useState(false);
+
+  // Estados de Assinatura & Degustação
+  const [subscriptionsData, setSubscriptionsData] = useState<any>(null);
+  const [loadingSubs, setLoadingSubs] = useState(false);
+  const [subsSearch, setSubsSearch] = useState('');
+  const [subsFilter, setSubsFilter] = useState('ALL');
+  const [notifyingMasters, setNotifyingMasters] = useState(false);
+  const [notifyFeedback, setNotifyFeedback] = useState<string | null>(null);
 
   // Carregar Logs da API
   const fetchLogs = async () => {
@@ -68,8 +79,42 @@ export function MasterAuditReportsCockpit({ onNavigateTab, onOpenWelcomeKit }: M
     }
   };
 
+  // Carregar Relatório de Assinaturas & Degustação da API
+  const fetchSubscriptions = async (notify: boolean = false) => {
+    setLoadingSubs(true);
+    setNotifyFeedback(null);
+    try {
+      const url = notify ? '/api/subscriptions/audit?notify=true' : '/api/subscriptions/audit';
+      const res = await fetch(url);
+      const data = await res.json();
+      if (data.success) {
+        setSubscriptionsData(data);
+        if (notify) {
+          setNotifyFeedback('Alerta personalizado despachado para Daniel Lopes (5511913192703) e Patrícia Grübel (551178543369) via WhatsApp!');
+        }
+      }
+    } catch (e) {
+      console.error('Falha ao buscar auditoria de assinaturas:', e);
+    } finally {
+      setLoadingSubs(false);
+      setNotifyingMasters(false);
+    }
+  };
+
+  // Exportar CSV de Assinaturas
+  const handleExportSubscriptionsCSV = () => {
+    window.open('/api/subscriptions/audit?format=csv', '_blank');
+  };
+
+  // Disparar Notificação aos MASTERs
+  const handleNotifyMastersNow = async () => {
+    setNotifyingMasters(true);
+    await fetchSubscriptions(true);
+  };
+
   useEffect(() => {
     fetchLogs();
+    fetchSubscriptions(false);
   }, []);
 
   // Filtros de Logs
@@ -169,12 +214,24 @@ export function MasterAuditReportsCockpit({ onNavigateTab, onOpenWelcomeKit }: M
       </div>
 
       {/* 2. Sub-abas de Navegação Rápida */}
-      <div className="flex items-center gap-2 p-1.5 bg-slate-950/80 rounded-2xl border border-slate-800/80 w-fit">
+      <div className="flex flex-wrap items-center gap-2 p-1.5 bg-slate-950/80 rounded-2xl border border-slate-800/80 w-fit">
+        <button
+          onClick={() => setActiveSubTab('subscriptions')}
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+            activeSubTab === 'subscriptions'
+              ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 shadow-md shadow-amber-500/20 font-black'
+              : 'text-amber-400 hover:text-white hover:bg-slate-900 border border-amber-500/20'
+          }`}
+        >
+          <Crown className="w-4 h-4 text-amber-400" />
+          <span>Gestão de Assinaturas & Degustação 6M</span>
+        </button>
+
         <button
           onClick={() => setActiveSubTab('audit_logs')}
           className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
             activeSubTab === 'audit_logs'
-              ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 shadow-md shadow-amber-500/20'
+              ? 'bg-gradient-to-r from-cyan-500 to-blue-500 text-slate-950 shadow-md shadow-cyan-500/20'
               : 'text-slate-400 hover:text-white hover:bg-slate-900'
           }`}
         >
@@ -198,7 +255,7 @@ export function MasterAuditReportsCockpit({ onNavigateTab, onOpenWelcomeKit }: M
           onClick={() => setActiveSubTab('compliance_rules')}
           className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
             activeSubTab === 'compliance_rules'
-              ? 'bg-gradient-to-r from-cyan-500 to-blue-500 text-slate-950 shadow-md shadow-cyan-500/20'
+              ? 'bg-gradient-to-r from-purple-500 to-indigo-500 text-slate-950 shadow-md shadow-purple-500/20'
               : 'text-slate-400 hover:text-white hover:bg-slate-900'
           }`}
         >
@@ -206,6 +263,225 @@ export function MasterAuditReportsCockpit({ onNavigateTab, onOpenWelcomeKit }: M
           <span>Regras de Blindagem & Termo de Garantia</span>
         </button>
       </div>
+
+      {/* 2.5 CONTEÚDO DA SUB-ABA: GESTÃO DE ASSINATURAS & DEGUSTAÇÃO 6 MESES */}
+      {activeSubTab === 'subscriptions' && (
+        <div className="space-y-6 animate-fadeIn">
+          {/* Feedback de notificação */}
+          {notifyFeedback && (
+            <div className="p-4 rounded-2xl bg-emerald-950/40 border border-emerald-500/40 text-emerald-300 flex items-center justify-between gap-3 text-xs shadow-lg">
+              <div className="flex items-center gap-2.5">
+                <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
+                <span className="font-semibold">{notifyFeedback}</span>
+              </div>
+              <button 
+                onClick={() => setNotifyFeedback(null)} 
+                className="text-slate-400 hover:text-white font-mono text-xs cursor-pointer"
+              >
+                ✕
+              </button>
+            </div>
+          )}
+
+          {/* Cards de Métricas de ARR e Período de Cortesia */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="p-5 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-2">
+              <div className="flex items-center justify-between text-slate-400">
+                <span className="text-xs font-bold uppercase tracking-wider">Ativos Monitorados</span>
+                <Users className="w-4 h-4 text-cyan-400" />
+              </div>
+              <div className="text-2xl font-black text-white">
+                {subscriptionsData?.summary?.total_pools || 3} <span className="text-xs text-slate-500 font-normal">piscinas</span>
+              </div>
+              <p className="text-[11px] text-slate-400">Total de bases sob governança pericial</p>
+            </div>
+
+            <div className="p-5 rounded-2xl bg-slate-900/80 border border-amber-500/30 space-y-2">
+              <div className="flex items-center justify-between text-amber-400">
+                <span className="text-xs font-bold uppercase tracking-wider">Finalizando Degustação</span>
+                <Clock className="w-4 h-4 text-amber-400" />
+              </div>
+              <div className="text-2xl font-black text-amber-400">
+                {subscriptionsData?.summary?.ending_soon || 1} <span className="text-xs text-amber-300/60 font-normal">nos próx. 30 dias</span>
+              </div>
+              <p className="text-[11px] text-slate-400">Clientes na régua de transição comercial</p>
+            </div>
+
+            <div className="p-5 rounded-2xl bg-slate-900/80 border border-purple-500/30 space-y-2">
+              <div className="flex items-center justify-between text-purple-400">
+                <span className="text-xs font-bold uppercase tracking-wider">Extensões Técnicas</span>
+                <ShieldCheck className="w-4 h-4 text-purple-400" />
+              </div>
+              <div className="text-2xl font-black text-purple-300">
+                {subscriptionsData?.summary?.extended_approved || 1} <span className="text-xs text-purple-300/60 font-normal">homologadas</span>
+              </div>
+              <p className="text-[11px] text-slate-400">Até +3 meses com chancela da Diretoria</p>
+            </div>
+
+            <div className="p-5 rounded-2xl bg-gradient-to-br from-emerald-950/40 to-slate-900 border border-emerald-500/40 space-y-2 shadow-lg shadow-emerald-500/5">
+              <div className="flex items-center justify-between text-emerald-400">
+                <span className="text-xs font-bold uppercase tracking-wider">Potencial ARR Mensal</span>
+                <DollarSign className="w-4 h-4 text-emerald-400" />
+              </div>
+              <div className="text-2xl font-black text-emerald-400">
+                R$ {(subscriptionsData?.summary?.potential_monthly_arr_brl || 79.8).toFixed(2).replace('.', ',')}
+              </div>
+              <p className="text-[11px] text-slate-300">Receita recorrente contratada/projetada</p>
+            </div>
+          </div>
+
+          {/* Barra de Ações Rápidas: Notificar WhatsApp dos Master e Exportar CSV */}
+          <div className="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 flex flex-wrap items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400">
+                <Crown className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="text-sm font-black text-white">Central de Alertas dos Fundadores MASTER</h3>
+                <p className="text-xs text-slate-400">
+                  Notifica <strong>Daniel Lopes</strong> (5511913192703) e <strong>Patrícia Grübel</strong> (551178543369) com o resumo executivo.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2.5">
+              <button
+                onClick={handleNotifyMastersNow}
+                disabled={notifyingMasters || loadingSubs}
+                className="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-xs flex items-center gap-2 shadow-lg shadow-emerald-500/20 transition cursor-pointer disabled:opacity-50"
+              >
+                <Send className={`w-3.5 h-3.5 ${notifyingMasters ? 'animate-spin' : ''}`} />
+                <span>{notifyingMasters ? 'Disparando...' : 'Avisar MASTERs via WhatsApp'}</span>
+              </button>
+
+              <button
+                onClick={handleExportSubscriptionsCSV}
+                className="px-4 py-2 rounded-xl bg-slate-950 border border-emerald-500/40 hover:border-emerald-400 text-emerald-400 font-bold text-xs flex items-center gap-2 shadow-sm transition cursor-pointer"
+              >
+                <FileSpreadsheet className="w-4 h-4" />
+                <span>Exportar Relatório (.CSV)</span>
+              </button>
+
+              <button
+                onClick={() => fetchSubscriptions(false)}
+                className="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 transition cursor-pointer"
+                title="Atualizar dados"
+              >
+                <RefreshCw className={`w-4 h-4 ${loadingSubs ? 'animate-spin text-cyan-400' : ''}`} />
+              </button>
+            </div>
+          </div>
+
+          {/* Tabela Pericial de Acompanhamento */}
+          <div className="rounded-2xl border border-slate-800 bg-slate-950 overflow-hidden shadow-xl">
+            <div className="p-4 border-b border-slate-800 flex flex-wrap items-center justify-between gap-4 bg-slate-900/60">
+              <div className="flex items-center gap-2">
+                <Calendar className="w-4 h-4 text-amber-400" />
+                <h4 className="text-xs font-bold text-white uppercase tracking-wider">
+                  Relação de Piscinas, Vencimento da Degustação & Planos Escolhidos
+                </h4>
+              </div>
+              <span className="text-[10px] font-mono text-slate-400">
+                Padrão: 6 meses cortesia • Extensão técnica máxima: +3 meses homologados
+              </span>
+            </div>
+
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs">
+                <thead className="bg-slate-900/80 text-slate-400 text-[11px] font-mono uppercase border-b border-slate-800">
+                  <tr>
+                    <th className="p-3.5">Piscina / Estabelecimento</th>
+                    <th className="p-3.5">Cliente / Contato</th>
+                    <th className="p-3.5">Período Gratuito</th>
+                    <th className="p-3.5">Dias Restantes</th>
+                    <th className="p-3.5">Status Cortesia</th>
+                    <th className="p-3.5">Opção de Plano</th>
+                    <th className="p-3.5">Valor Mensal</th>
+                    <th className="p-3.5">Extensão Técnica</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-800/60 font-sans">
+                  {(subscriptionsData?.items || []).map((item: any) => (
+                    <tr key={item.pool_id} className="hover:bg-slate-900/40 transition">
+                      <td className="p-3.5 font-bold text-white">
+                        <div>{item.pool_name}</div>
+                        <span className="text-[10px] font-mono text-cyan-400">{item.facility_type}</span>
+                      </td>
+                      <td className="p-3.5 text-slate-300">
+                        <div className="font-semibold text-slate-200">{item.client_name}</div>
+                        <div className="text-[11px] text-slate-500 font-mono">{item.client_phone}</div>
+                      </td>
+                      <td className="p-3.5 text-slate-400 font-mono text-[11px]">
+                        <div>Início: {new Date(item.trial_started_at).toLocaleDateString('pt-BR')}</div>
+                        <div className="text-amber-400/80">Término: {new Date(item.trial_ends_at).toLocaleDateString('pt-BR')}</div>
+                      </td>
+                      <td className="p-3.5 font-mono">
+                        <span className={`px-2 py-0.5 rounded font-bold text-xs ${
+                          item.days_remaining_trial <= 15
+                            ? 'bg-rose-500/20 text-rose-300 border border-rose-500/40'
+                            : item.days_remaining_trial <= 45
+                            ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40'
+                            : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
+                        }`}>
+                          {item.days_remaining_trial > 0 ? `${item.days_remaining_trial} dias` : 'Expirado'}
+                        </span>
+                      </td>
+                      <td className="p-3.5">
+                        {item.trial_state === 'EXTENDED_APPROVED' && (
+                          <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-purple-500/20 text-purple-300 border border-purple-500/40">
+                            Extensão Aprovada
+                          </span>
+                        )}
+                        {item.trial_state === 'ENDING_SOON' && (
+                          <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40">
+                            Aviso (30/15d)
+                          </span>
+                        )}
+                        {item.trial_state === 'ACTIVE' && (
+                          <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                            Degustação Ativa
+                          </span>
+                        )}
+                        {item.trial_state === 'EXPIRED' && (
+                          <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-800 text-slate-400">
+                            Encerrado
+                          </span>
+                        )}
+                      </td>
+                      <td className="p-3.5">
+                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                          item.client_chosen_tier === 'BLACK_ELITE'
+                            ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40'
+                            : item.client_chosen_tier === 'PRO_EXECUTIVE'
+                            ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40'
+                            : 'bg-slate-800 text-slate-300'
+                        }`}>
+                          {item.client_chosen_tier === 'BLACK_ELITE' ? 'Black Elite (Semanal)' : item.client_chosen_tier === 'PRO_EXECUTIVE' ? 'Pro (Quinzenal)' : 'Standard (Mensal)'}
+                        </span>
+                      </td>
+                      <td className="p-3.5 font-bold text-emerald-400 font-mono">
+                        {item.monthly_value_brl > 0 ? `R$ ${item.monthly_value_brl.toFixed(2).replace('.', ',')}/mês` : 'Incluso (R$ 0)'}
+                      </td>
+                      <td className="p-3.5 text-xs text-slate-400 max-w-xs">
+                        {item.extension_months > 0 ? (
+                          <div className="space-y-0.5">
+                            <span className="text-[10px] font-bold text-purple-300 block">
+                              +{item.extension_months} meses ({item.extension_approved_by_director ? 'Aprovado Joabson' : 'Pendente'})
+                            </span>
+                            <p className="text-[10px] text-slate-500 line-clamp-2 italic">{item.extension_reason}</p>
+                          </div>
+                        ) : (
+                          <span className="text-slate-600 font-mono text-[11px]">—</span>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* 3. CONTEÚDO DA SUB-ABA 1: LOGS DE AUDITORIA */}
       {activeSubTab === 'audit_logs' && (
