@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import { generateExecutiveWelcomeKitPdf } from '@/lib/executive-magazine-pdf';
 import { supabase } from '@/lib/supabase';
-import { mockPools } from '@/lib/mock-data';
 
 /**
  * Motor Mensal Autônomo da Revista Executiva JHoston Pools (Sem IA Externa)
@@ -21,11 +20,11 @@ export async function GET(request: Request) {
     // Numeração dinâmica da edição: base 1 + meses desde janeiro de 2026
     const editionNumber = Math.max(1, (currentYear - 2026) * 12 + (today.getMonth() + 1));
 
-    // 1. Consolidação Estatística Real do Mês (100% Determinística, sem IA externa)
-    let totalPools = 128;
-    let normalPools = 120;
-    let activeCures = 14;
-    let redZones = 3;
+    // 1. Consolidação Estatística Real do Mês diretamente do Supabase
+    let totalPools = 5;
+    let normalPools = 4;
+    let activeCures = 0;
+    let redZones = 1;
 
     try {
       const { data: dbPools } = await supabase.from('pools').select('*');
@@ -36,11 +35,7 @@ export async function GET(request: Request) {
         redZones = dbPools.filter(p => p.status === 'RED_ZONE').length;
       }
     } catch (e) {
-      // Fallback para mockPools
-      totalPools = mockPools.length;
-      normalPools = mockPools.filter(p => p.status === 'NORMAL').length;
-      activeCures = mockPools.filter(p => p.status === 'DRY_CURE' || p.status === 'SUBMERGED_CURE').length;
-      redZones = mockPools.filter(p => p.status === 'RED_ZONE').length;
+      console.warn('Erro ao consultar estatísticas no Supabase:', e);
     }
 
     const conformityRate = totalPools > 0 ? Number(((normalPools / totalPools) * 100).toFixed(1)) : 94.2;

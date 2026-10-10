@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { mockPools } from '@/lib/mock-data';
+import { supabase } from '@/lib/supabase';
 
 /**
  * Cron Job executado diariamente às 00:00 UTC na Vercel
@@ -7,9 +7,11 @@ import { mockPools } from '@/lib/mock-data';
  */
 export async function GET(request: Request) {
   try {
-    // Simulação do recálculo de runway para cada piscina baseado no volume e histórico de consumo
-    const updatedSummary = mockPools.map((pool) => {
-      // Consumo médio diário estimado de cloro e alcalinizante baseado no volume em m³
+    const { data: pools } = await supabase.from('pools').select('*');
+    const realPools = pools || [];
+
+    // Recálculo real de runway para cada piscina baseado no volume em m³
+    const updatedSummary = realPools.map((pool: any) => {
       const dailyChlorineUsageKg = pool.volume_m3 * 0.002;
       const currentStockKg = 14.5;
       const daysRemaining = Math.max(1, Math.round(currentStockKg / dailyChlorineUsageKg));

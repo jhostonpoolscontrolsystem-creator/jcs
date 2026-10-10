@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import { generateClientMagazinePdf, ClientMagazineData } from '@/lib/client-magazine-pdf';
 import { supabase } from '@/lib/supabase';
-import { mockPools } from '@/lib/mock-data';
 
 export async function GET(request: Request) {
   try {
@@ -11,12 +10,15 @@ export async function GET(request: Request) {
     const editionNumber = Number(searchParams.get('editionNumber')) || 1;
     const clientName = searchParams.get('clientName') || (clientType === 'B2B_HOTEL' ? 'Resort Terravista Trancoso' : 'Família Oliveira & Amigos');
 
-    // Busca detalhes da piscina
-    let pool = mockPools.find(p => p.id === poolId) || mockPools[0];
+    // Busca detalhes da piscina no Supabase
+    let pool: any = { name: 'Piscina Principal Resort Terravista', volume_m3: 350 };
     try {
       const { data: dbPool } = await supabase.from('pools').select('*').eq('id', poolId).single();
       if (dbPool) {
         pool = dbPool;
+      } else {
+        const { data: anyPool } = await supabase.from('pools').select('*').limit(1).single();
+        if (anyPool) pool = anyPool;
       }
     } catch (e) {}
 

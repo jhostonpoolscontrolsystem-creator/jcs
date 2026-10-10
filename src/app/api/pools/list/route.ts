@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
-import { mockPools } from '@/lib/mock-data';
 
 export async function GET(request: Request) {
   try {

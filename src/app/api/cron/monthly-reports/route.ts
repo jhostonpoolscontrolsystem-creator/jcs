@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import { mockPools, mockUsers } from '@/lib/mock-data';
 import { supabase } from '@/lib/supabase';
 
 /**
@@ -10,14 +9,24 @@ export async function GET(request: Request) {
   try {
     const dispatchResults = [];
 
-    for (const pool of mockPools) {
-      // Simula a consolidação mensal de auditoria
+    // Coleta todas as piscinas reais cadastradas no Supabase com os dados do cliente
+    const { data: pools } = await supabase
+      .from('pools')
+      .select('*, client:users!client_id(*)');
+
+    const activePools = pools || [];
+
+    for (const pool of activePools) {
+      const client = (pool as any).client || {};
+      const targetPhone = client.phone || '5511999998888';
+
+      // Consolidação mensal de auditoria
       const reportPayload = {
         pool_id: pool.id,
         pool_name: pool.name,
-        target_phone: '5511999998888',
+        target_phone: targetPhone,
         alert_type: 'RELATORIO_MENSAL',
-        period: `${new Date().getMonth()}/${new Date().getFullYear()}`,
+        period: `${new Date().getMonth() + 1}/${new Date().getFullYear()}`,
         status: pool.status === 'NORMAL' ? 'GARANTIA_VALIDADA' : 'EM_ANALISE_TECNICA',
       };
 

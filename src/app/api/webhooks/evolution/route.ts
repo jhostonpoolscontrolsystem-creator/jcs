@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { mockPools } from '@/lib/mock-data';
+import { supabase } from '@/lib/supabase';
 
 /**
  * Webhook Receptor da Evolution API (OnRender)
@@ -39,8 +39,10 @@ export async function POST(request: Request) {
         } else if (incomingText.includes('chuva') || incomingText.includes('choveu') || incomingText.includes('verde') || incomingText.includes('turva') || incomingText.includes('leitosa')) {
           replyMessage = `🚨 *Assistente Técnico de Emergência JHoston*:\nApós chuvas fortes ou água esbranquiçada:\n1. ⛔ *PROIBIDO* aplicar ácido muriático ou limpa pedras.\n2. Meça o pH imediatamente com a fita no app do piscineiro.\n3. Se o pH estiver < 7.0, dose *Bicarbonato de Sódio Puro* (1.5 kg / 100 m³) para elevar a alcalinidade sem agredir o monólito.\n4. Mantenha a bomba recirculando por 8 horas.`;
         } else if (incomingText.includes('status') || incomingText.includes('saude') || incomingText.includes('saúde')) {
-          const pool = mockPools[0]; // Terravista
-          replyMessage = `🟢 *JHoston Pools*: Sua piscina encontra-se *EQUILIBRADA* (Health Score: 98/100).\nÚltima limpeza: hoje às 08:30.\nSeu estoque de cloro dura aprox. 14 dias.\nGarantia do revestimento monolítico: 100% Protegida.`;
+          const { data: dbPool } = await supabase.from('pools').select('name, status').limit(1).single();
+          const poolName = dbPool?.name || 'Piscina Principal Resort Terravista';
+          const poolStatus = dbPool?.status === 'NORMAL' ? 'EQUILIBRADA' : 'EM ATENÇÃO TÉCNICA';
+          replyMessage = `🟢 *JHoston Pools*: Sua piscina *${poolName}* encontra-se *${poolStatus}* (Health Score: 98/100).\nÚltima limpeza: hoje às 08:30.\nSeu estoque de cloro dura aprox. 14 dias.\nGarantia do revestimento monolítico: 100% Protegida.`;
         } else if (incomingText.includes('laudo') || incomingText.includes('garantia') || incomingText.includes('certificado')) {
           replyMessage = `📄 *JHoston Pools*: O seu *Laudo de Garantia Monolítica* está ativo e em dia. Você pode visualizar e baixar o documento no portal: https://jcs-pools.vercel.app`;
         } else if (incomingText.includes('ajuda') || incomingText.includes('oi') || incomingText.includes('ola') || incomingText.includes('olá')) {

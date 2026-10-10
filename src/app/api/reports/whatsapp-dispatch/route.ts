@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
-import { mockPools, mockUsers } from '@/lib/mock-data';
 
 export interface GenerateReportRequest {
   report_type: 'EXECUTIVE_SUMMARY' | 'RED_ZONE_AUDIT' | 'WARRANTY_MONTHLY' | 'INVENTORY_RUNWAY';
@@ -30,7 +29,7 @@ export async function POST(request: Request) {
 
     // Consulta piscinas reais do Supabase
     const { data: dbPools } = await supabase.from('pools').select('*');
-    const livePools = (dbPools && dbPools.length > 0) ? dbPools : mockPools;
+    const livePools = dbPools || [];
 
     const totalPools = livePools.length;
     const normalPools = livePools.filter(p => p.status === 'NORMAL').length;

@@ -103,7 +103,7 @@ export default function JHPCSApp() {
   const [submitting, setSubmitting] = useState(false);
 
   // Piscina selecionada
-  const activePool = mockPools.find(p => p.id === selectedPoolId) || mockPools[0];
+  const activePool = livePools.find(p => p.id === selectedPoolId) || livePools[0] || mockPools[0];
 
   // Cálculo prévio em tempo real
   const currentAuditPreview = evaluateChemicalRules(

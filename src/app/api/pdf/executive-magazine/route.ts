@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import { generateExecutiveWelcomeKitPdf } from '@/lib/executive-magazine-pdf';
 import { supabase } from '@/lib/supabase';
-import { mockPools } from '@/lib/mock-data';
 
 export async function GET(request: Request) {
   try {

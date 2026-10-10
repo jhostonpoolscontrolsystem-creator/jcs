@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import { mockUsers } from '@/lib/mock-data';
 import { checkRateLimit, registerFailedAttempt, registerSuccessfulLogin } from '@/lib/security';
 
 export async function POST(request: Request) {
