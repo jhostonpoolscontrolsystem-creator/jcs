@@ -122,6 +122,33 @@ export default function RevistaExecutivaPage() {
               <p className="text-xs text-slate-400">Garantia Ativa (3 Anos) Homologada</p>
             </div>
           </div>
+
+          {/* Fotografia Editorial Principal: Piscina de Areia Monolítica */}
+          <div className="relative rounded-3xl overflow-hidden border border-amber-500/30 shadow-2xl group max-w-6xl">
+            <img 
+              src="/editorial/hero_sand_pool.jpg" 
+              alt="Piscina de Areia Monolítica JHoston Pools com Acabamento em Quartzo Natural" 
+              className="w-full h-[320px] sm:h-[480px] object-cover object-center group-hover:scale-[1.02] transition-transform duration-700"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
+            <div className="absolute bottom-6 left-6 right-6 flex flex-wrap items-end justify-between gap-4">
+              <div className="space-y-1 max-w-xl">
+                <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-300 font-mono text-[10px] uppercase font-bold tracking-widest">
+                  Engenharia de Alto Luxo • Resina Vítrea & Quartzo Compactado
+                </span>
+                <h3 className="text-lg sm:text-xl font-black text-white drop-shadow-md">
+                  Piscina de Areia Monolítica com Entrada Suave & Borda Infinita
+                </h3>
+                <p className="text-xs text-slate-300 drop-shadow">
+                  A blindagem molecular do JHPCS garante que o quartzo permaneça intacto, preservando a textura aveludada e prevenindo o desgaste ácido provocado por tratadores despreparados.
+                </p>
+              </div>
+              <div className="text-right hidden sm:block">
+                <span className="text-[10px] font-mono text-slate-400 uppercase tracking-widest block">Certificação Forense</span>
+                <span className="text-xs font-mono text-emerald-400 font-bold">LSI Alvo: +0.08 • Protegido</span>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -150,7 +177,54 @@ export default function RevistaExecutivaPage() {
           ))}
         </div>
 
-        {/* CAPÍTULO 2 & 3: ROTEIRO DE APRESENTAÇÃO */}
+        {/* CAPÍTULO 2: CARTA ABERTA EDITORIAL DOS FUNDADORES MASTER */}
+        <section id="cap-2" className="space-y-6 pt-6">
+          <div className="flex items-center gap-3 border-b border-slate-800 pb-4">
+            <span className="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 font-mono font-black flex items-center justify-center text-sm border border-amber-500/40">
+              02
+            </span>
+            <div>
+              <span className="text-[10px] font-mono uppercase text-amber-400 font-bold tracking-widest">Capítulo I da Revista • Carta Aberta</span>
+              <h2 className="text-2xl font-black text-white">A Blindagem Científica da Engenharia Mineral</h2>
+              <p className="text-xs text-amber-400 font-mono">Carta Aberta de Daniel Lopes & Patrícia Grübel à Diretoria da JHoston Pools</p>
+            </div>
+          </div>
+
+          <div className="p-8 rounded-3xl bg-slate-900/90 border border-amber-500/30 space-y-5 text-slate-200 leading-relaxed text-sm md:text-base relative overflow-hidden shadow-2xl">
+            <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
+            <div className="space-y-4 relative z-10 font-serif italic text-slate-300">
+              <p className="font-sans not-italic font-bold text-white text-base">
+                &ldquo;Prezada Diretoria e Parceiros da JHoston Pools,
+              </p>
+              <p>
+                Quando a JHoston Pools nos trouxe o desafio de criar o JHPCS, a dor central era evidente: durante anos, o maior pesadelo dos aplicadores de revestimentos monolíticos e piscinas de areia foi o pós-obra. Após investir meses em projetos arquitetônicos impecáveis e acabamento mineral de padrão internacional, as obras ficavam à mercê de tratadores desqualificados, chuvas torrenciais e produtos químicos clandestinos como ácido muriático e limpa pedras.
+              </p>
+              <p className="text-amber-200 not-italic font-sans font-medium bg-amber-500/10 p-4 rounded-xl border border-amber-500/30">
+                Quando surgiam manchas ou delaminação provocadas por pura imperícia, a culpa recaía injustamente sobre a empresa que implantava ou revitalizava a piscina, gerando custos de garantias indevidas e desgaste de marca.
+              </p>
+              <p>
+                O JHPCS (JHoston Pools Control System) nasceu para colocar um ponto final definitivo nessa vulnerabilidade. Nós não desenvolvemos apenas um software de gestão: nós criamos uma blindagem termodinâmica, operacional e forense. Com Digital Twin em tempo real, inteligência de geolocalização e automação via WhatsApp em menos de 3.2 segundos, transformamos o cumprimento da garantia em um ativo incontestável perante o Código Civil.
+              </p>
+              <p>
+                Este Compêndio reúne tudo o que a liderança precisa para apresentar, auditar, estressar e proteger cada metro quadrado de piscina construído sob a bandeira JHoston Pools.&rdquo;
+              </p>
+            </div>
+
+            <div className="pt-4 border-t border-slate-800 flex flex-wrap items-center justify-between gap-4 font-sans not-italic">
+              <div>
+                <span className="text-white font-black text-sm block">Daniel Lopes & Patrícia Grübel</span>
+                <span className="text-xs text-amber-400 font-mono">Desenvolvedores do JHPCS • Fundadores & Gestores MASTER</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono font-bold">
+                  Documento Oficial Homologado
+                </span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* CAPÍTULO 3: ROTEIRO DE APRESENTAÇÃO */}
         <section id="cap-3" className="space-y-6 pt-6">
           <div className="flex items-center gap-3 border-b border-slate-800 pb-4">
             <span className="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 font-mono font-black flex items-center justify-center text-sm border border-amber-500/40">
@@ -328,6 +402,25 @@ export default function RevistaExecutivaPage() {
                 </div>
               </div>
             </div>
+
+            {/* Fotografia Editorial: Pit Wall de Telemetria F1 */}
+            <div className="relative rounded-2xl overflow-hidden border border-cyan-500/30 shadow-xl group">
+              <img 
+                src="/editorial/pitwall_telemetry.jpg" 
+                alt="Cockpit Pit Wall de Telemetria e Balanço LSI JHPCS" 
+                className="w-full h-[240px] sm:h-[360px] object-cover object-center group-hover:scale-[1.01] transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
+              <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
+                <div>
+                  <span className="text-[10px] font-mono text-cyan-400 font-bold uppercase tracking-wider block">Telemetria Preditiva & Inteligência Climática</span>
+                  <p className="text-xs text-slate-200">Cruzamento de radar meteorológico com balanço de Langelier para antecipar chuvas ácidas.</p>
+                </div>
+                <span className="px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 font-mono text-[10px] font-bold border border-cyan-500/30 hidden sm:block">
+                  SLA &lt; 3.2s
+                </span>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -340,6 +433,25 @@ export default function RevistaExecutivaPage() {
             <div>
               <span className="text-[10px] font-mono uppercase text-emerald-400 font-bold tracking-widest">Capítulo III da Revista</span>
               <h2 className="text-2xl font-black text-white">Manual do Usuário JHoston Pools (Engenharia de Cura)</h2>
+            </div>
+          </div>
+
+          {/* Fotografia Editorial Macro: Revestimento Mineral Monolítico em Cura */}
+          <div className="relative rounded-2xl overflow-hidden border border-amber-500/30 shadow-xl group">
+            <img 
+              src="/editorial/monolithic_cure.jpg" 
+              alt="Macro da Textura Mineral Monolítica e Resina Vítrea em Cura Submersa" 
+              className="w-full h-[220px] sm:h-[300px] object-cover object-center group-hover:scale-[1.01] transition-transform duration-500"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
+            <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
+              <div>
+                <span className="text-[10px] font-mono text-amber-400 font-bold uppercase tracking-wider block">Macroestrutura Mineral • Areia Compactada & Quartzo</span>
+                <p className="text-xs text-slate-200">Matriz mineral de carbonato e quartzo protegida por resina vítrea: sensível a pH ácido e protegida pelo JHPCS.</p>
+              </div>
+              <span className="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono text-[10px] font-bold border border-amber-500/30 hidden sm:block">
+                Cura 28 Dias
+              </span>
             </div>
           </div>
 

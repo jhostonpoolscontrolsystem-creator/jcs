@@ -235,14 +235,14 @@ export function generateLuxuryCompendiumPdf(data: LuxuryCompendiumData = {}): js
   doc.setTextColor(226, 232, 240);
   const editorialText = 
     `"Prezada Diretoria e Parceiros da JHoston Pools,\n\n` +
-    `Durante anos, o maior pesadelo dos aplicadores de revestimentos monolíticos e piscinas de areia foi o pós-obra. Após investir meses em projetos arquitetônicos impecáveis e acabamento mineral de padrão internacional, as obras ficavam à mercê de tratadores desqualificados, chuvas torrenciais e produtos químicos clandestinos como ácido muriático e limpa pedras.\n\n` +
-    `Quando surgiam manchas ou delaminação provocadas por pura imperícia, a culpa recaía injustamente sobre a JHoston Pools, gerando custos de garantias indevidas e desgaste de marca.\n\n` +
+    `Quando a JHoston Pools nos trouxe o desafio de conceber o JHPCS, o diagnóstico da dor era contundente: durante anos, o maior pesadelo dos aplicadores de revestimentos monolíticos e piscinas de areia foi o pós-obra. Após investir meses em projetos arquitetônicos impecáveis e acabamento mineral de padrão internacional, as obras ficavam à mercê de tratadores desqualificados, chuvas torrenciais e produtos químicos clandestinos como ácido muriático e limpa pedras.\n\n` +
+    `Quando surgiam manchas ou delaminação provocadas por pura imperícia, a culpa recaía injustamente sobre a empresa que implantava ou revitalizava a piscina, gerando custos de garantias indevidas e desgaste de marca.\n\n` +
     `O JHPCS (JHoston Pools Control System) nasceu para colocar um ponto final definitivo nessa vulnerabilidade. Nós não desenvolvemos apenas um software de gestão: nós criamos uma blindagem termodinâmica, operacional e forense. Com Digital Twin em tempo real, inteligência de geolocalização e automação via WhatsApp em menos de 3.2 segundos, transformamos o cumprimento da garantia em um ativo incontestável perante o Código Civil.\n\n` +
     `Este Compêndio reúne tudo o que a liderança precisa para apresentar, auditar, estressar e proteger cada metro quadrado de piscina construído sob a bandeira JHoston Pools."\n\n` +
-    `— Daniel Lopes & Patrícia Grübel (Fundadores & Gestores MASTER JHPCS)`;
+    `— Daniel Lopes & Patrícia Grübel (Desenvolvedores do JHPCS • Fundadores & Gestores MASTER)`;
 
   const splitEditorial = doc.splitTextToSize(editorialText, pageWidth - 44);
-  doc.text(splitEditorial, 22, curY + 8);
+  doc.text(splitEditorial, 22, curY + 7);
 
   // Bloco de Índice / Sumário
   curY += 97;
