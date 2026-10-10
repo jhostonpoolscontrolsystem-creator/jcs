@@ -25,12 +25,31 @@ const Popup = dynamic(
   { ssr: false }
 );
 
-export function GlobalHealthMap() {
-  const [pools, setPools] = useState<Pool[]>(mockPools);
+interface GlobalHealthMapProps {
+  pools?: Pool[];
+}
+
+export function GlobalHealthMap({ pools: propPools }: GlobalHealthMapProps) {
+  const [pools, setPools] = useState<Pool[]>(propPools && propPools.length > 0 ? propPools : mockPools);
   const [selectedPool, setSelectedPool] = useState<Pool | null>(null);
   const [isRecordModalOpen, setIsRecordModalOpen] = useState(false);
   const [leafletLoaded, setLeafletLoaded] = useState(false);
   const [customIcons, setCustomIcons] = useState<any>(null);
+
+  useEffect(() => {
+    if (propPools && propPools.length > 0) {
+      setPools(propPools);
+    } else {
+      fetch('/api/pools/list')
+        .then(res => res.json())
+        .then(data => {
+          if (data.success && data.pools && data.pools.length > 0) {
+            setPools(data.pools);
+          }
+        })
+        .catch(() => {});
+    }
+  }, [propPools]);
 
   useEffect(() => {
     // Carrega o CSS do Leaflet e define ícones SVG coloridos

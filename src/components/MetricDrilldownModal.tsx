@@ -30,6 +30,7 @@ interface MetricDrilldownModalProps {
   onClose: () => void;
   onSelectPoolToInspect: (pool: Pool) => void;
   onNavigateToWhatsAppReports: () => void;
+  pools?: Pool[];
 }
 
 export function MetricDrilldownModal({
@@ -38,10 +39,13 @@ export function MetricDrilldownModal({
   onClose,
   onSelectPoolToInspect,
   onNavigateToWhatsAppReports,
+  pools,
 }: MetricDrilldownModalProps) {
   const [searchTerm, setSearchTerm] = useState('');
 
   if (!isOpen || !type) return null;
+
+  const currentPools = pools && pools.length > 0 ? pools : mockPools;
 
   // Filtra dados contextuais baseado no card clicado
   let title = '';
@@ -55,13 +59,13 @@ export function MetricDrilldownModal({
   switch (type) {
     case 'TOTAL_POOLS':
       title = 'Resumo Executivo: Todos os Ativos Monitorados';
-      subtitle = '128 Piscinas Homologadas na Rede JHoston Pools (94.2% em Conformidade Química)';
+      subtitle = `${currentPools.length} Piscinas Cadastradas no Supabase Live`;
       icon = <Droplet className="w-6 h-6 text-cyan-400" />;
       headerColor = 'from-cyan-500 via-sky-400 to-blue-500';
       badgeColor = 'bg-cyan-950/80 text-cyan-400 border-cyan-800';
-      filteredPools = mockPools.filter(p => 
+      filteredPools = currentPools.filter(p => 
         p.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-        p.facility_type.toLowerCase().includes(searchTerm.toLowerCase())
+        (p.facility_type || '').toLowerCase().includes(searchTerm.toLowerCase())
       );
       break;
 
@@ -71,7 +75,7 @@ export function MetricDrilldownModal({
       icon = <ShieldAlert className="w-6 h-6 text-rose-400" />;
       headerColor = 'from-rose-500 via-amber-500 to-red-600';
       badgeColor = 'bg-rose-950/80 text-rose-400 border-rose-800';
-      filteredPools = mockPools.filter(p => p.status === 'RED_ZONE');
+      filteredPools = currentPools.filter(p => p.status === 'RED_ZONE' || (p.status as any) === 'CRITICAL');
       break;
 
     case 'CURE_POOLS':
@@ -80,7 +84,7 @@ export function MetricDrilldownModal({
       icon = <Calendar className="w-6 h-6 text-amber-400" />;
       headerColor = 'from-amber-500 via-yellow-400 to-orange-500';
       badgeColor = 'bg-amber-950/80 text-amber-400 border-amber-800';
-      filteredPools = mockPools.filter(p => p.status === 'DRY_CURE' || p.status === 'SUBMERGED_CURE');
+      filteredPools = currentPools.filter(p => p.status === 'DRY_CURE' || p.status === 'SUBMERGED_CURE' || (p.status as any) === 'WARNING');
       break;
 
     case 'WHATSAPP_SLA':

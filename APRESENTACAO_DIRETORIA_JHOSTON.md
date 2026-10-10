@@ -19,7 +19,7 @@
 
 🔗 **Link Oficial do Sistema**: [https://jcs-pools.vercel.app](https://jcs-pools.vercel.app) *(ou endereço local http://localhost:3000)*  
 👤 **Credenciais Homologadas da Diretoria**:
-- **E-mail**: `jhostontec@jhostontec.com.br` (ou `danielsoutolopes@gmail.com` para privilégios Master)
+- **E-mail**: `jhostontec@jhostontec.com.br` (ou `danielsmlopes@hotmail.com` para privilégios Master)
 - **Senha Inicial**: `123456` *(ou conforme cadastrada no painel)*
 
 ---
@@ -33,9 +33,9 @@
                                          │
      ┌──────────────────┬────────────────┼─────────────────┬──────────────────┐
      ▼                  ▼                ▼                 ▼                  ▼
-[Digital Twin F1]  [Escudo Jurídico] [WhatsApp Auto]  [PWA Offline]    [Loja de Insumos]
-Tacômetros ao vivo  Fotos + GPS live  SLA < 3.2s via   IndexedDB para   Reposição direta
-e Séries Históricas e Regra de Ácido  Evolution API    subsolos/remoto  calculada por m³
+[Digital Twin F1]  [Escudo Jurídico] [WhatsApp Auto]  [PWA por QR Code] [Loja de Insumos]
+Tacômetros ao vivo  Fotos + GPS live  SLA < 3.2s via   Isolamento por    Reposição direta
+e Séries Históricas e Regra de Ácido  Evolution API    cliente + Offline calculada por m³
 ```
 
 ### 1. Cockpit de Telemetria F1 & Digital Twin dos Tanques
@@ -55,26 +55,25 @@ e Séries Históricas e Regra de Ácido  Evolution API    subsolos/remoto  calcu
 
 ---
 
-### 3. Disparador de Boas-Vindas & Revista Digital VIP
-![Revista Digital VIP](https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=1200&q=80)
-*Figura: Disparador executivo via WhatsApp com 3 páginas no modelo revista de luxo.*
-
-- **Exclusividade Master**: O usuário Master (`danielsoutolopes@gmail.com` / `patricia`) pode enviar as boas-vindas oficiais para a Diretoria da JHoston Pools.
-- **Poder da Diretoria**: A Diretoria da JHoston (`jhostontec@jhostontec.com.br`) pode despachar o Kit de Boas-Vindas e o Manual Interativo enriquecido diretamente para o WhatsApp dos clientes e síndicos.
-- **Formatação de Revista**: Com 1 clique, o destinatário recebe o link e uma mensagem editorial polida com o resumo do patrimônio sob monitoramento.
+### 3. PWA de Campo Descomplicado: O Piscineiro como Funcionário do Cliente
+- **Isolamento de Segurança (Boundary de Cliente)**: O tratador visualiza estritamente as piscinas do cliente que o contratou, sem nenhum risco de vazamento de dados de concorrentes.
+- **Instalação em 1 Toque via QR Code**: Basta colar o adesivo impermeável na casa de máquinas. O tratador aponta a câmera do celular e instala o app imediatamente, sem precisar digitar URLs complicadas.
+- **Operação Offline-First**: Salva coletas em modo contingência no subsolo ou fazenda e sincroniza assim que conectar ao Wi-Fi/4G.
 
 ---
 
 ### 4. Comunicação Ativa via WhatsApp (Evolution API)
 - A Diretoria da JHoston não precisa se preocupar em cobrar ninguém:
-  - Disparos automáticos no WhatsApp dos clientes no 1º dia útil de cada mês com o **Certificado Mensal de Garantia**.
+  - Disparos automáticos no WhatsApp dos clientes com o **Certificado Mensal de Garantia**.
   - Alertas instantâneos de **Red Zone (Crítico)** enviados aos gerentes gerais e técnicos em menos de 3.2 segundos sempre que houver desvio químico.
 
 ---
 
-### 5. PWA Offline-First para o Piscineiro (Sem Complicação)
-- Aplicativo simples, intuitivo e com botões grandes pensado para a borda da piscina.
-- Funciona mesmo em piscinas de subsolo ou áreas rurais sem sinal de celular (salva localmente no aparelho e sincroniza assim que o 4G/Wi-Fi voltar).
+### 5. Disparador de Boas-Vindas & Revista Digital VIP
+![Revista Digital VIP](https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=1200&q=80)
+*Figura: Disparador executivo via WhatsApp com edição de luxo em alta fidelidade.*
+
+- Envio com 1 clique da edição oficial com 4 páginas em PDF (`/api/pdf/executive-magazine`) para onboarding institucional da diretoria dos novos clientes.
 
 ---
 
@@ -86,7 +85,7 @@ e Séries Históricas e Regra de Ácido  Evolution API    subsolos/remoto  calcu
    - Selecione o cliente *Resort Terravista Trancoso* ou *Hotel Fasano*.
    - Clique no card da piscina e explore o **Cockpit de Telemetria F1**, alternando entre tacômetros ao vivo, séries históricas e pit stop químico.
 3. **Clique no botão `Kit Boas-Vindas (Revista VIP)` no topo**:
-   - Visualize a edição revista interativa de 3 páginas e envie uma cópia de teste para o WhatsApp de um cliente.
+   - Visualize a edição revista interativa e envie uma cópia de teste para o WhatsApp de um cliente.
 4. **Acesse a aba `Relatórios Diretoria (WhatsApp)`**:
    - Selecione um relatório executivo, confira a prévia na tela do smartphone virtual e clique para testar o envio para o seu próprio WhatsApp.
 5. **Acesse a aba `Portal do Cliente (Digital Twin)`**:
@@ -95,10 +94,5 @@ e Séries Históricas e Regra de Ácido  Evolution API    subsolos/remoto  calcu
 ---
 
 ## 📞 Suporte Técnico e Engenharia de Software
-- **Responsáveis pelo Desenvolvimento & Governança**: Daniel Souto Lopes & Patrícia Souto Lopes
+- **Responsáveis pelo Desenvolvimento & Governança**: Daniel Lopes & Patrícia Grübel
 - **Versão Homologada**: JHPCS v4.3 — Engine Especializada em Revestimentos Monolíticos
-
-- **Versão da Plataforma**: JHPCS v4.2 Enterprise Edition
-- **Infraestrutura**: Vercel Serverless • Supabase PostgreSQL • Evolution API • OpenWeather Live
-
-*JHoston Pools Control System — Protegendo o seu investimento gota a gota.*

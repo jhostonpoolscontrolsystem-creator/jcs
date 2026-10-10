@@ -14,17 +14,34 @@ import {
   TrendingUp, 
   Thermometer, 
   Calendar,
-  Sparkles
+  Sparkles,
+  QrCode
 } from 'lucide-react';
 import { Pool, PoolInventory } from '@/types/database';
 import { mockPools, mockMaintenanceLogs } from '@/lib/mock-data';
 import { generateWarrantyCertificatePdf } from '@/lib/pdf-generator';
 import { HistoricalTelemetryChart } from '@/components/HistoricalTelemetryChart';
+import ActiveWarrantyPlanHub from '@/components/ActiveWarrantyPlanHub';
 
 export function ClientManagerDashboard() {
+  const [pools, setPools] = useState<Pool[]>(mockPools);
   const [selectedPool, setSelectedPool] = useState<Pool>(mockPools[0]);
   const [weatherData, setWeatherData] = useState<any>(null);
   const [orderApproved, setOrderApproved] = useState(false);
+  const [activeSection, setActiveSection] = useState<'TELEMETRIA' | 'PLANO_ATIVO'>('TELEMETRIA');
+
+  // Carrega piscinas reais do Supabase
+  useEffect(() => {
+    fetch('/api/pools/list')
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.success && data.pools && data.pools.length > 0) {
+          setPools(data.pools);
+          setSelectedPool(data.pools[0]);
+        }
+      })
+      .catch((e) => console.warn(e));
+  }, []);
 
   // Inventário preditivo de estoque
   const [inventory, setInventory] = useState<Array<{ name: string; category: string; balance: number; days: number; unit: string }>>([
@@ -36,10 +53,12 @@ export function ClientManagerDashboard() {
 
   // Carrega previsão do tempo preditiva da OpenWeather
   useEffect(() => {
-    fetch(`/api/weather?lat=${selectedPool.gps_lat}&lon=${selectedPool.gps_lng}`)
-      .then((r) => r.json())
-      .then((data) => setWeatherData(data))
-      .catch((e) => console.warn(e));
+    if (selectedPool?.gps_lat && selectedPool?.gps_lng) {
+      fetch(`/api/weather?lat=${selectedPool.gps_lat}&lon=${selectedPool.gps_lng}`)
+        .then((r) => r.json())
+        .then((data) => setWeatherData(data))
+        .catch((e) => console.warn(e));
+    }
   }, [selectedPool]);
 
   // Cálculo da Cura da Piscina (7 dias a seco, 28 dias submersa)
@@ -65,14 +84,14 @@ export function ClientManagerDashboard() {
             <select
               value={selectedPool.id}
               onChange={(e) => {
-                const found = mockPools.find(p => p.id === e.target.value);
+                const found = pools.find(p => p.id === e.target.value);
                 if (found) setSelectedPool(found);
               }}
               className="bg-slate-950 border border-slate-800 text-xs text-cyan-400 font-bold rounded-xl px-3 py-1.5 focus:outline-none focus:border-cyan-500 cursor-pointer"
             >
-              {mockPools.map((pool) => (
+              {pools.map((pool) => (
                 <option key={pool.id} value={pool.id}>
-                  {pool.name} ({pool.facility_type})
+                  {pool.name} ({pool.facility_type || 'PISCINA'})
                 </option>
               ))}
             </select>
@@ -86,18 +105,55 @@ export function ClientManagerDashboard() {
 
         {/* Status de Garantia */}
         <div className="flex items-center gap-3 bg-slate-950/80 px-4 py-3 rounded-2xl border border-slate-800">
-          <div className="h-10 w-10 rounded-xl bg-emerald-950 border border-emerald-800/60 flex items-center justify-center text-emerald-400">
+          <div className="h-10 w-10 rounded-xl bg-amber-950 border border-amber-800/60 flex items-center justify-center text-amber-400">
             <ShieldCheck className="w-6 h-6" />
           </div>
           <div>
-            <span className="text-[10px] uppercase font-bold text-slate-400 block tracking-wider">Status do Monólito</span>
-            <span className="text-sm font-extrabold text-emerald-400 flex items-center gap-1.5">
-              Garantia 100% Protegida
-            </span>
+            <span className="text-[10px] uppercase font-bold text-slate-400 block tracking-wider">Pós-Venda JHöston</span>
+            <button 
+              onClick={() => setActiveSection('PLANO_ATIVO')}
+              className="text-sm font-extrabold text-amber-400 hover:text-amber-300 flex items-center gap-1.5 cursor-pointer underline decoration-amber-500/50"
+            >
+              Plano de Manutenção Ativo (3 Anos) ↗
+            </button>
           </div>
         </div>
       </div>
 
+      {/* Seletor de Sub-Abas do Portal do Cliente */}
+      <div className="flex items-center gap-2 border-b border-slate-800 pb-3">
+        <button
+          onClick={() => setActiveSection('TELEMETRIA')}
+          className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer ${
+            activeSection === 'TELEMETRIA'
+              ? 'bg-gradient-to-r from-cyan-500 to-sky-500 text-slate-950 font-black shadow-md shadow-cyan-500/20'
+              : 'text-slate-400 hover:text-white hover:bg-slate-900'
+          }`}
+        >
+          <Droplets className="w-4 h-4" />
+          <span>Telemetria do Tanque & Digital Twin</span>
+        </button>
+
+        <button
+          onClick={() => setActiveSection('PLANO_ATIVO')}
+          className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 cursor-pointer ${
+            activeSection === 'PLANO_ATIVO'
+              ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 font-black shadow-md shadow-amber-500/20'
+              : 'text-amber-400 hover:text-white hover:bg-slate-900 border border-amber-500/20'
+          }`}
+        >
+          <ShieldCheck className="w-4 h-4" />
+          <span>Plano de Manutenção Ativo (Garantia de 3 Anos)</span>
+        </button>
+      </div>
+
+      {activeSection === 'PLANO_ATIVO' ? (
+        <ActiveWarrantyPlanHub 
+          poolName={selectedPool.name}
+          applicationDate={selectedPool.application_date}
+          onDownloadTerm={() => generateWarrantyCertificatePdf(selectedPool, mockMaintenanceLogs)}
+        />
+      ) : (
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Coluna 1 & 2: Digital Twin & Clima */}
         <div className="lg:col-span-2 space-y-6">
@@ -203,6 +259,32 @@ export function ClientManagerDashboard() {
               Baixar Laudo Mensal (PDF)
             </button>
           </div>
+
+          {/* Adesivo QR Code da Casa de Máquinas para o Tratador */}
+          <div className="bg-gradient-to-r from-cyan-950/40 to-slate-900 border border-cyan-800/50 rounded-2xl p-6 flex flex-wrap items-center justify-between gap-4 shadow-lg">
+            <div className="flex items-center gap-3">
+              <div className="h-10 w-10 rounded-xl bg-cyan-500/20 border border-cyan-500/50 flex items-center justify-center text-cyan-300">
+                <QrCode className="w-5 h-5" />
+              </div>
+              <div>
+                <h4 className="font-bold text-sm text-white">Etiqueta Oficial com QR Code (Casa de Máquinas)</h4>
+                <p className="text-xs text-slate-300">Gere a placa adesiva impermeável para seu tratador apontar a câmera e instalar o app sem digitação</p>
+              </div>
+            </div>
+
+            <a
+              href="#machine-room-tag"
+              onClick={(e) => {
+                e.preventDefault();
+                window.location.hash = 'machine_room_tag';
+                window.dispatchEvent(new HashChangeEvent('hashchange'));
+              }}
+              className="px-4 py-2 bg-gradient-to-r from-cyan-500 to-sky-500 hover:from-cyan-400 hover:to-sky-400 text-slate-950 rounded-xl text-xs font-black flex items-center gap-2 shadow-lg shadow-cyan-500/20 transition-all cursor-pointer"
+            >
+              <QrCode className="w-3.5 h-3.5" />
+              Ver e Imprimir Etiqueta (PDF)
+            </a>
+          </div>
         </div>
 
         {/* Coluna 3: Gestão Preditiva de Estoque (Runway) */}
@@ -268,6 +350,7 @@ export function ClientManagerDashboard() {
           </div>
         </div>
       </div>
+      )}
     </div>
   );
 }

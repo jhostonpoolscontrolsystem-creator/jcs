@@ -133,29 +133,29 @@ export function MasterGovernanceHub({
           </div>
         </div>
 
-        {/* Pilar 3: Auditoria do Motor Químico */}
+        {/* Pilar 3: Central Integrada de Auditoria & Relatórios */}
         <div 
-          onClick={() => onNavigateTab('audit_live')}
-          className="glass-panel shimmer-border rounded-2xl p-5 border border-slate-800 hover:border-cyan-500/50 transition cursor-pointer group space-y-3"
+          onClick={() => onNavigateTab('master_audit')}
+          className="glass-panel shimmer-border rounded-2xl p-5 border border-amber-500/30 hover:border-amber-400 transition cursor-pointer group space-y-3 bg-gradient-to-b from-amber-950/20 to-transparent"
         >
           <div className="flex justify-between items-start">
-            <div className="p-3 rounded-xl bg-cyan-950/60 border border-cyan-800/60 text-cyan-400 group-hover:scale-105 transition">
-              <Activity className="w-5 h-5" />
+            <div className="p-3 rounded-xl bg-amber-950/60 border border-amber-800/60 text-amber-400 group-hover:scale-105 transition">
+              <ShieldCheck className="w-5 h-5" />
             </div>
-            <span className="text-[10px] font-bold uppercase tracking-wider text-cyan-400 bg-cyan-950/40 px-2 py-0.5 rounded border border-cyan-800/40">
-              LSI Engine
+            <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400 bg-amber-950/40 px-2 py-0.5 rounded border border-amber-800/40">
+              Inviolável
             </span>
           </div>
           <div>
-            <h4 className="font-bold text-sm text-white group-hover:text-cyan-400 transition">
-              Diretrizes de Garantia & Langelier
+            <h4 className="font-bold text-sm text-white group-hover:text-amber-400 transition">
+              Auditoria & Relatórios MASTER
             </h4>
             <p className="text-xs text-slate-400 mt-1">
-              Calibração das fórmulas de saturação para proteção anti-corrosão dos monólitos.
+              Livro-razão de acessos, IPs, exportação de CSV e catálogo consolidado de laudos.
             </p>
           </div>
-          <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-cyan-400 font-semibold">
-            <span>Ver Especificações</span>
+          <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-amber-400 font-semibold">
+            <span>Abrir Cockpit Pericial</span>
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition" />
           </div>
         </div>
@@ -197,7 +197,20 @@ export function MasterGovernanceHub({
           </span>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
+          <button
+            onClick={() => onNavigateTab('master_audit')}
+            className="p-4 rounded-2xl bg-slate-950 border border-amber-500/30 hover:border-amber-400 text-left transition cursor-pointer group"
+          >
+            <div className="text-xs font-bold text-amber-400 group-hover:text-amber-300 flex items-center justify-between">
+              <span>Auditoria Forense (Logs & Laudos)</span>
+              <ShieldCheck className="w-3.5 h-3.5" />
+            </div>
+            <p className="text-[11px] text-slate-400 mt-1">
+              Rastreamento de operadores, IPs e download de relatórios executivos.
+            </p>
+          </button>
+
           <button
             onClick={() => onNavigateTab('dashboard')}
             className="p-4 rounded-2xl bg-slate-950 border border-slate-800 hover:border-cyan-500/50 text-left transition cursor-pointer group"

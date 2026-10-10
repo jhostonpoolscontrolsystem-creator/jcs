@@ -8,17 +8,18 @@ Apresentar à Diretoria da **JHoston Pools** (Joabson e equipe) o sistema defini
 1. **Blindagem Jurídica da Garantia**: Elimina custos com garantias indevidas provocadas por tratadores que usam produtos errados (ácido muriático, limpa pedras, falta de escovação).
 2. **Receita Recorrente & Fidelização**: Venda contínua de insumos químicos homologados com cálculo preditivo de reposição antes do cliente ficar sem produto.
 3. **Controle Total na Palma da Mão**: Visibilidade 360° da carteira de piscinas em tempo real, com laudos e alertas automáticos via WhatsApp oficial em menos de 3.2 segundos.
+4. **Isolamento de Tenants & Adoção de Campo Descomplicada**: O piscineiro (funcionário do cliente final) acessa estritamente as piscinas do seu contratante e instala o aplicativo com **1 toque através de QR Code adesivado na casa de máquinas**, disponível em aba exclusiva para a gerência do cliente gerar e imprimir em PDF.
 
 ---
 
 ## 🎭 Os 5 Personagens da Apresentação
 | Personagem | Papel no Sistema | O que ele busca? |
 | :--- | :--- | :--- |
-| **1. Daniel / Patrícia (MASTER)** | Donos da Tecnologia & Franqueadores | Controle total, homologação de contas, governança e segurança dos dados. |
+| **1. Daniel / Patrícia (MASTER)** | Donos da Tecnologia & Franqueadores | Controle total, governança soberana, cockpit forense inviolável e blindagem multi-tenant. |
 | **2. Joabson (Diretoria JHoston Pools)** | Diretor Executivo & Comercial | Visão macro da carteira, relatórios executivos no WhatsApp, reputação da marca e redução de retrabalho. |
 | **3. Carlos Oliveira (Responsável Técnico JH)** | Gerente Técnico & Engenharia | Prontuário químico das piscinas, LSI (Langelier), triagem de Red Zones e fiscalização do período de cura de 28 dias. |
-| **4. Gerente do Resort / Cliente** | Proprietário do Ativo Monolítico | Certificado digital de garantia, Digital Twin, previsão de chuva e estoque de produtos. |
-| **5. João Tratador (Piscineiro de Campo)** | Operador na Borda da Piscina | App super simples no celular (PWA/APK White Label), sem complicação, que calcula a dosagem certa e registra fotos. |
+| **4. Gerente do Resort / Cliente** | Proprietário do Ativo Monolítico | Certificado digital de garantia, Digital Twin, emissão da etiqueta com QR Code para a casa de máquinas e supervisão do tratador. |
+| **5. João Tratador (Piscineiro de Campo)** | Funcionário do Cliente na Borda da Piscina | App super simples no celular ativado por QR Code na casa de máquinas, sem senhas difíceis, operando 100% offline. |
 
 ---
 
@@ -37,12 +38,13 @@ Apresentar à Diretoria da **JHoston Pools** (Joabson e equipe) o sistema defini
        [4. RELATÓRIOS VIA WHATSAPP (SLA < 3.2s)]
         └── Disparo Real de Laudo Executivo
                      │
-       [5. PORTAL DO CLIENTE (DIGITAL TWIN)]
+       [5. PORTAL DO CLIENTE & ETIQUETAS QR]
         ├── Contador de Cura de 28 Dias
-        └── Estoque Preditivo de Produtos
+        ├── Impressão da Placa da Casa de Máquinas (PDF)
+        └── Disparo de Convite WhatsApp para o Tratador
                      │
-       [6. APP DO PISCINEIRO (CAMPO)]
-        └── Registro Simples em 4 Passos + Foto
+       [6. APP DO PISCINEIRO (PWA ISOLADO)]
+        └── Ativação por QR Code + Acesso Restrito ao Cliente
 ```
 
 ---
@@ -52,92 +54,68 @@ Apresentar à Diretoria da **JHoston Pools** (Joabson e equipe) o sistema defini
 > *"Joabson, hoje quando um revestimento monolítico apresenta mancha ou corrosão aos 8 meses, o cliente culpa a aplicação da JHoston Pools. Como provar que o piscineiro dele jogou ácido ou deixou o pH em 6.2 sem escovar a piscina durante a cura submersa de 28 dias? O JHPCS é o escudo técnico e jurídico da JHoston Pools."*
 
 1. **Acesso Seguro**:
-   - Abrir a aplicação em `http://localhost:3000` (ou `https://jcs-pools.vercel.app`).
+   - Abrir a aplicação em `https://jcs-pools.vercel.app` (ou `http://localhost:3000`).
    - Clicar no botão de Login e demonstrar o ambiente blindado (sem senhas expostas, política de senha forte e hierarquia RBAC).
 2. **Dashboard Geral de Saúde**:
    - Mostrar os 4 cards executivos:
      * **Ativos Monitorados**: Quantidade de piscinas ativas e % em conformidade.
      * **Red Zones Críticas**: Piscinas em risco imediato de ataque químico.
      * **Em Período de Cura**: Piscinas nos primeiros 7 dias (cura a seco) ou até 28 dias (cura submersa).
-     * **SLA WhatsApp Evolution**: Confirmação da infraestrutura conectada.
+     * **SLA WhatsApp Evolution**: Confirmação da infraestrutura conectada (< 3.2s).
 3. **Mapa Global Interativo com Georreferenciamento**:
    - Mostrar os marcadores coloridos no mapa (Verde = Garantia Conforme, Amarelo = Cura, Vermelho = Alerta Crítico).
-   - Clicar em uma piscina e abrir o **Prontuário Médico Completo**:
-     * Mostrar o pH, Cloro, Alcalinidade e o **Índice de Langelier (LSI)** calculado automaticamente.
-     * Mostrar a ficha cadastral do ativo (volume em m³, vazão da bomba e tempo de recirculação).
-
+   - Abrir o **Prontuário Médico Completo**: pH, Cloro, Alcalinidade e o **Índice de Langelier (LSI)** calculado automaticamente.
 4. **Novo Módulo: Visão de Clientes & Cockpit de Telemetria F1 ("Pit Wall")**:
    - Navegar para a aba **"Clientes & Telemetria F1"**.
-   - Mostrar como a Diretoria da JHoston pode filtrar por clientes corporativos específicos (*Resort Terravista, Fasano, Copacabana Palace*).
-   - Clicar no card de qualquer piscina para acionar o **Cockpit de Telemetria F1**:
-     * **Tacômetros Digitais**: Medidores estilo esportivo/Fórmula 1 de alta precisão para pH, Cloro Residual, Alcalinidade e Temperatura.
-     * **Mostrador LSI Dial**: Dial analógico colorido atestando a blindagem físico-química do monólito.
-     * **Gráfico de Séries Históricas**: Curvas de 7 e 14 dias com target bands seguras em verde e correlação com a meteorologia.
-     * **Pit Stop Químico**: Prescrição estequiométrica com cálculo exato de gramas/kg de insumos sem produtos corrosivos.
+   - Demonstrar o filtro por clientes corporativos específicos (*Resort Terravista, Fasano, Copacabana Palace*).
+   - Acionar o **Cockpit de Telemetria F1**: tacômetros digitais, dial analógico LSI e pit stop químico.
 
 ---
 
 ### ATO 2: A Agilidade Operacional — Disparo de Relatórios no WhatsApp
-> **Narrativa:**  
-> *"A Diretoria não tem tempo de ficar navegando em telas complexas. Você recebe e compartilha relatórios executivos no WhatsApp com 1 toque."*
-
 1. **Navegar para a aba "Relatórios Diretoria (WhatsApp)"**:
 2. **Apresentar os 4 Relatórios Estratégicos**:
    - 📊 *Panorama Geral & Saúde da Carteira*
    - 🚨 *Auditoria Crítica (Red Zone & Risco de Corrosão)*
    - 🛡️ *Certificado Mensal de Garantia Jurídica*
    - 🧪 *Balanço Químico & Previsão de Estoque*
-3. **Demonstrar o "Smartphone Preview ao Vivo"**:
-   - Ao clicar em cada relatório, o balão verde do simulador WhatsApp renderiza o texto formatado idêntico ao que chega no celular.
-4. **Disparo Real em Segundos**:
-   - Selecionar um contato na **Agenda Integrada** ou digitar o número de celular do Diretor Joabson.
-   - Clicar em **"Disparar Relatório no WhatsApp"**.
-   - Mostrar a notificação real chegando no aparelho celular em menos de 3.2 segundos via Evolution API (`ecostone`).
+3. **Demonstrar o "Smartphone Preview ao Vivo"** e o disparo real via Evolution API em menos de 3.2 segundos.
 
 ---
 
-### ATO 3: A Experiência do Cliente (Portal do Proprietário & Gerente)
+### ATO 3: A Experiência do Cliente & A Nova Aba de Etiquetas da Casa de Máquinas
 > **Narrativa:**  
-> *"O cliente da JHoston Pools (seja um Hotel, Resort ou Residencial de Luxo) sente que contratou uma empresa de engenharia de ponta, não um simples prestador."*
+> *"O cliente da JHoston Pools recebe tudo mastigado. A diretoria do hotel ou condomínio abre a aba 'Etiqueta Casa de Máquinas (QR)', clica em imprimir e cola a placa adesiva no filtro. O tratador aponta a câmera e o app se instala sozinho!"*
 
-1. **Navegar para a aba "Portal Gerência / Cliente"**:
-2. **Demonstrar o Seletor Multiativos**:
-   - Alternar entre *Resort Terravista*, *Hotel Fasano* e *Alphaville*.
-3. **Contador de Cura Submersa (28 Dias)**:
-   - Mostrar a barra de progresso visual informando quantos dias faltam para a maturação total do revestimento monolítico.
-4. **Inteligência Meteorológica Preditiva**:
-   - Integração com a API da OpenWeather conectada ao GPS da piscina alertando sobre chuvas iminentes e sugerindo elevação preventiva do pH.
-5. **Estoque Preditivo de Produtos Homologados**:
-   - Tabela informando dias restantes de estoque de Cloro, Alcalinizante e Sequestrante de Metais.
-   - Botão **"Comprar Insumos Homologados"** gerando receita recorrente direta para a JHoston Pools.
+1. **Navegar para a aba "Portal do Cliente (Digital Twin)"**:
+   - Mostrar o contador de cura de 28 dias, a previsão meteorológica OpenWeather e o runway de estoque.
+2. **Apresentar a Nova Aba "Etiqueta Casa de Máquinas (QR)"**:
+   - Demonstrar a prévia da **Placa Técnica Oficial ABNT / JHostonTec** com QR Code de alta resolução.
+   - Clicar no botão **"Imprimir Etiqueta (PDF)"** mostrando a facilidade para o condomínio gerar a placa em adesivo vinílico.
+   - Demonstrar o campo de **"Disparar Link no WhatsApp"**, permitindo enviar o convite mágico com 1 clique para o celular do tratador.
 
 ---
 
-### ATO 4: A Ponta de Campo — O App Simples do Piscineiro (White Label)
-> **Narrativa:**  
-> *"Se o app for difícil, o piscineiro não usa. Fizemos um aplicativo com botões grandes, contraste para sol forte e funcionamento 100% offline."*
-
-1. **Navegar para a aba "PWA Tratador (Mobile)"**:
-2. **Simular a Operação de Borda de Piscina em 4 Passos**:
-   - **Passo 1 (Piscina)**: Selecionar a piscina da visita.
-   - **Passo 2 (Água)**: Ajustar os sliders de pH, Cloro e Alcalinidade. Se o tratador puxar o pH para 6.8, a tela fica **vermelha** alertando sobre o risco corrosivo!
-   - **Passo 3 (Checklist de Ouro)**:
-     * Marcar *"Escovação do Revestimento"* (Sim).
-     * Marcar *"Retrolavagem do Filtro"* (Sim).
-     * Trava de segurança: Se tentar marcar *"Uso de Ácido Muriático / Limpa Pedras"*, o sistema bloqueia e emite alerta de perda de garantia.
-   - **Passo 4 (Evidência Fotográfica)**: Anexar a foto da piscina e da fita reagente com carimbo GPS.
-3. **Instalação White Label em Qualquer Celular**:
-   - Demonstrar que o app pode ser instalado na tela inicial de qualquer Android ou iPhone sem precisar de loja, ou compilado como APK nativo.
+### ATO 4: A Ponta de Campo — O App Descomplicado do Piscineiro (Isolado por Cliente)
+1. **Ativação Instantânea**:
+   - Mostrar o tratador apontando a câmera para a placa gerada no Ato 3.
+2. **Login com CPF + PIN**:
+   - Tratador digita seu CPF e PIN de 4 dígitos (ex.: `1234`), sem senhas longas.
+3. **Isolamento de Segurança (Boundary de Cliente)**:
+   - O dropdown do tratador exibe **exclusivamente as piscinas do cliente contratante**, sem risco de vazamento de dados de outros estabelecimentos.
+4. **Rotina de Campo em 4 Passos**:
+   - Lançamento de pH, Cloro e Alcalinidade.
+   - Checklist de escovação e trava anti-ácido.
+   - Fotos da piscina e do teste com carimbo GPS por satélite e compressão WebP nativa.
+   - Operação 100% offline garantida por 72 horas em áreas remotas ou subsolos.
 
 ---
 
-### ATO 5: Governança, Central de Ajuda & Academia
-1. **Gestão de Usuários com Homologação MASTER**:
-   - Mostrar a fila onde o Master aprova ou recusa novos operadores.
-2. **Academia JHPCS**:
-   - Mostrar os 5 módulos de treinamento oficial divididos por perfil (Master, Diretoria, Técnico, Cliente e Piscineiro) com emissão de certificado digital.
-3. **Central de Ajuda & FAQ**:
-   - Base de conhecimento pronta com dúvidas comuns sobre dosagens, prazos de cura e manutenção preventiva.
+### ATO 5: Governança Suprema & Cockpit Forense MASTER
+1. **Cockpit Forense de Auditoria MASTER**:
+   - Demonstrar o Livro-Razão inviolável (`Audit Logs`), filtros por IP e botão de **Exportação CSV** para instrução de laudos periciais.
+2. **Kit Boas-Vindas da Diretoria (Revista VIP)**:
+   - Demonstrar o disparo da edição executiva de 4 páginas em PDF de alta resolução com 1 clique.
 
 ---
 

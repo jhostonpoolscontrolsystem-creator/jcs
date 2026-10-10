@@ -119,6 +119,16 @@ export function SystemHelpCenter({ onNavigateTab }: { onNavigateTab: (tab: any) 
           title: 'Fila de Homologação MASTER',
           description: 'Na aba "Gestão de Usuários", os administradores Master possuem uma fila em destaque indicando usuários pendentes com botões de "Aprovar" e "Recusar".',
           importantNotice: 'Usuários pendentes não conseguem logar nem consultar relatórios até receberem o status APROVADO.'
+        },
+        {
+          title: 'Cockpit de Auditoria Forense & Matriz de Relatórios MASTER',
+          description: 'Localizado no menu superior e no Painel MASTER na aba "Auditoria & Relatórios MASTER":',
+          stepByStep: [
+            'Livro-Razão de Auditoria: Visualização pericial de logs de logins, endereços IP, alterações cadastrais e envios com filtros avançados.',
+            'Exportação CSV: Botão "Exportar CSV Pericial" para gerar laudo pericial pronto para anexar em defesas contratuais e conformidade LGPD.',
+            'Matriz de Relatórios: Disparo e download em 1 clique dos 4 laudos executivos (Panorama Geral, Boletim Red Zone, Revista VIP em PDF e Laudo de Garantia).'
+          ],
+          importantNotice: 'Os logs de auditoria do JHPCS são invioláveis e garantem a blindagem jurídica e técnica durante todo o ciclo do Plano de Manutenção Ativo (3 Anos), comprovando a isenção de mão de obra e o histórico químico inalterável.'
         }
       ],
       faqs: [
@@ -127,6 +137,12 @@ export function SystemHelpCenter({ onNavigateTab }: { onNavigateTab: (tab: any) 
           question: 'Por que o piscineiro cadastrado pelo hotel não consegue logar imediatamente?',
           answer: 'Porque todo usuário cadastrado por terceiros exige homologação expressa do MASTER no painel de governança para prevenir acessos não autorizados.',
           tags: ['cadastro', 'piscineiro', 'homologação', 'master']
+        },
+        {
+          id: 'faq-3-master-audit',
+          question: 'Onde o MASTER pode exportar a lista de acessos e ações para auditoria externa?',
+          answer: 'Acesse a aba "Auditoria & Relatórios MASTER" no menu superior e clique no botão "Exportar CSV Pericial". Uma planilha completa com data, operador, ação, detalhes e IP será gerada instantaneamente.',
+          tags: ['auditoria', 'logs', 'csv', 'relatórios', 'master', 'ip']
         }
       ]
     },
@@ -170,17 +186,31 @@ export function SystemHelpCenter({ onNavigateTab }: { onNavigateTab: (tab: any) 
       title: 'PWA Mobile do Piscineiro (Offline-First)',
       icon: Smartphone,
       badge: 'Operação de Campo',
-      summary: 'Manual de uso do aplicativo de campo do tratador: check-in por GPS, fotos de fita de teste e operação sem internet.',
+      summary: 'Manual de uso do aplicativo de campo do tratador: instalação fácil por QR Code, isolamento por cliente e operação sem internet.',
       topics: [
         {
+          title: 'Isolamento de Segurança: O Piscineiro é Funcionário do Cliente',
+          description: 'O tratador tem acesso estrito e exclusivo às piscinas do cliente/estabelecimento que o contratou. O sistema bloqueia a visualização de qualquer piscina de terceiros para garantir privacidade absoluta.',
+          importantNotice: 'O piscineiro vê apenas as piscinas do seu condomínio/hotel, sem risco de vazamento de dados de concorrentes.'
+        },
+        {
+          title: 'Como Instalar o Aplicativo no Celular com Facilidade?',
+          description: 'Para evitar que o tratador precise digitar links longos no navegador:',
+          stepByStep: [
+            'Método 1 (QR Code Físico): Aponte a câmera do celular para o adesivo oficial colado na casa de máquinas. O link abre e o botão de instalação aparece imediatamente.',
+            'Método 2 (Link WhatsApp): A administração do cliente envia o link direto com 1 toque no WhatsApp do tratador.',
+            'Método 3 (PWA Direto): Acesse /pwa e toque em "Instalar no Celular" (Android ou iPhone).'
+          ]
+        },
+        {
           title: 'Como o Piscineiro Acessa o Sistema?',
-          description: 'O tratador de campo não precisa de senhas complexas. Ele acessa através da aba PWA Tratador inserindo seu CPF e um PIN numérico simples de 4 a 6 dígitos cadastrado previamente.'
+          description: 'O tratador de campo não precisa de senhas complexas. Ele acessa inserindo seu CPF e um PIN numérico simples de 4 a 6 dígitos cadastrado pela administração.'
         },
         {
           title: 'Passo a Passo do Checklist Diário',
           description: 'Rotina de 2 minutos na borda da piscina:',
           stepByStep: [
-            'Etapa 1: Check-in com captura automática de GPS.',
+            'Etapa 1: Seleção da piscina do seu cliente e check-in com captura automática de GPS.',
             'Etapa 2: Captura das fotos (Panorâmica da Piscina e Fita de Medição da Água). O sistema comprime as imagens em WebP nativo no próprio celular economizando 95% do plano de dados.',
             'Etapa 3: Lançamento dos dados de pH, Cloro e Alcalinidade.',
             'Etapa 4: Confirmação de escovação e aspiração sem uso de ácidos.',
@@ -198,6 +228,12 @@ export function SystemHelpCenter({ onNavigateTab }: { onNavigateTab: (tab: any) 
           question: 'O piscineiro pode fraudar a foto pegando uma imagem da internet?',
           answer: 'Não. O sistema registra o timestamp, as coordenadas de GPS do momento exato do clique e bloqueia o checklist se a localização divergir do raio da piscina cadastrada.',
           tags: ['fraude', 'foto', 'gps', 'segurança']
+        },
+        {
+          id: 'faq-5-install',
+          question: 'O piscineiro precisa baixar o aplicativo na Google Play ou Apple Store?',
+          answer: 'Não! O app funciona como PWA moderno. Basta apontar a câmera para o QR Code colado na casa de máquinas da piscina ou abrir o link recebido no WhatsApp e tocar em "Instalar no Celular".',
+          tags: ['instalação', 'qr code', 'app', 'pwa', 'whatsapp']
         }
       ]
     },
@@ -220,6 +256,17 @@ export function SystemHelpCenter({ onNavigateTab }: { onNavigateTab: (tab: any) 
             'Quando o estoque estiver baixo, o sistema sugere o lote exato de reposição.',
             'O gerente clica no botão "Aprovar Compra de Insumos" para despachar o pedido diretamente à JHoston Pools.'
           ]
+        },
+        {
+          title: 'Etiqueta Oficial da Casa de Máquinas (QR Code de Ativação)',
+          description: 'A aba "Etiqueta Casa de Máquinas (QR)" permite à diretoria do cliente final gerar a placa técnica oficial impermeável para impressão e fixação no filtro ou casa de máquinas.',
+          stepByStep: [
+            'Acesse a aba "Etiqueta Casa de Máquinas (QR)" no menu superior.',
+            'Selecione a piscina correspondente do seu estabelecimento.',
+            'Clique em "Imprimir Etiqueta (PDF)" para gerar a placa com instruções ABNT e QR Code de alta resolução.',
+            'Ou utilize o campo "Enviar Convite no WhatsApp do Tratador" para disparar o link mágico de ativação diretamente no celular do seu piscineiro.'
+          ],
+          importantNotice: 'A etiqueta é vinculada exclusivamente ao seu condomínio/hotel. Nenhum dado de outros clientes é acessível pelo seu tratador.'
         }
       ],
       faqs: [
@@ -228,6 +275,12 @@ export function SystemHelpCenter({ onNavigateTab }: { onNavigateTab: (tab: any) 
           question: 'Onde encontro o certificado de garantia mensal da minha piscina?',
           answer: 'Na aba do Portal do Cliente existe a seção de "Certificado de Garantia Contratual", onde é possível emitir ou baixar o relatório mensal em PDF com carimbo de conformidade.',
           tags: ['certificado', 'garantia', 'pdf', 'cliente']
+        },
+        {
+          id: 'faq-6-tag',
+          question: 'Como imprimir a etiqueta com QR Code para colar na casa de máquinas?',
+          answer: 'Acesse a aba "Etiqueta Casa de Máquinas (QR)", selecione o tanque e clique em "Imprimir Etiqueta (PDF)". Você pode imprimir em papel adesivo vinílico ou plastificar para fixar no local.',
+          tags: ['etiqueta', 'qr code', 'adesivo', 'casa de máquinas', 'impressão']
         }
       ]
     },

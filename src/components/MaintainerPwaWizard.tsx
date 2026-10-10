@@ -14,6 +14,7 @@ import {
   RotateCcw,
   Sparkles
 } from 'lucide-react';
+import { Pool } from '@/types/database';
 import { mockPools } from '@/lib/mock-data';
 import { NativeCameraCapture } from '@/components/NativeCameraCapture';
 import AiStripScannerModal from '@/components/AiStripScannerModal';
@@ -57,10 +58,31 @@ export function MaintainerPwaWizard() {
   const [submitting, setSubmitting] = useState(false);
   const [resultFeedback, setResultFeedback] = useState<any>(null);
 
-  const activePool = mockPools.find((p) => p.id === selectedPoolId) || mockPools[0];
+  const [authenticatedMaintainer, setAuthenticatedMaintainer] = useState<{ id: string; name: string } | null>(null);
+
+  // Piscinas dinâmicas (Supabase Live com escopo estrito do tratador)
+  const [pools, setPools] = useState<Pool[]>(mockPools);
+  const activePool = pools.find((p) => p.id === selectedPoolId) || pools[0] || mockPools[0];
+
+  // Busca piscinas restritas ao tratador autenticado
+  const fetchMaintainerPools = async (maintainerId?: string) => {
+    try {
+      const url = maintainerId ? `/api/pools/list?maintainer_id=${maintainerId}` : '/api/pools/list';
+      const res = await fetch(url);
+      const data = await res.json();
+      if (data.success && data.pools && data.pools.length > 0) {
+        setPools(data.pools);
+        setSelectedPoolId(data.pools[0].id);
+      }
+    } catch (e) {
+      console.warn('Usando lista local de piscinas:', e);
+    }
+  };
 
   // Monitoramento de conexão online/offline
   useEffect(() => {
+    fetchMaintainerPools();
+
     setIsOnline(navigator.onLine);
     const handleOnline = () => {
       setIsOnline(true);
@@ -112,10 +134,12 @@ export function MaintainerPwaWizard() {
     setSubmitting(true);
     setResultFeedback(null);
 
+    const maintainerId = authenticatedMaintainer?.id || '22222222-2222-2222-2222-222222222222';
+
     const logPayload = {
       id: `log-${Date.now()}`,
       pool_id: activePool.id,
-      maintainer_id: 'u-4', // João Tratador
+      maintainer_id: maintainerId,
       ph: phInput,
       chlorine_ppm: chlorineInput,
       alkalinity_ppm: alkalinityInput,
@@ -196,6 +220,10 @@ export function MaintainerPwaWizard() {
       if (!res.ok) {
         setAuthError(data.error || 'Credenciais inválidas.');
       } else {
+        if (data.user) {
+          setAuthenticatedMaintainer(data.user);
+          await fetchMaintainerPools(data.user.id);
+        }
         setIsAuthenticated(true);
       }
     } catch (err: any) {
@@ -289,8 +317,15 @@ export function MaintainerPwaWizard() {
               <Smartphone className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="font-bold text-white text-base">PWA do Tratador (Campo)</h3>
-              <p className="text-xs text-slate-400">Coleta com Georreferenciamento & Trava Anti-Fraude</p>
+              <div className="flex items-center gap-2">
+                <h3 className="font-bold text-white text-base">PWA do Tratador (Campo)</h3>
+                {authenticatedMaintainer && (
+                  <span className="text-[10px] bg-cyan-950 text-cyan-300 border border-cyan-800/80 px-2 py-0.5 rounded-full font-bold">
+                    Tratador: {authenticatedMaintainer.name}
+                  </span>
+                )}
+              </div>
+              <p className="text-xs text-slate-400">Roteiro Restrito ao Cliente • Georreferenciamento & Trava Anti-Fraude</p>
             </div>
           </div>
 
@@ -363,9 +398,9 @@ export function MaintainerPwaWizard() {
             onChange={(e) => setSelectedPoolId(e.target.value)}
             className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 font-medium"
           >
-            {mockPools.map((pool) => (
+            {pools.map((pool) => (
               <option key={pool.id} value={pool.id}>
-                [{pool.facility_type}] {pool.name} - Volume: {pool.volume_m3}m³
+                [{pool.facility_type || 'PISCINA'}] {pool.name} - Volume: {pool.volume_m3}m³
               </option>
             ))}
           </select>

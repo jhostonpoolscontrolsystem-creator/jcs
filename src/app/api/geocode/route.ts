@@ -32,6 +32,10 @@ export async function GET(request: Request) {
           lat: parseFloat(data[0].lat).toFixed(6),
           lng: parseFloat(data[0].lon).toFixed(6),
           display_name: data[0].display_name,
+        }, {
+          headers: {
+            'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=604800',
+          },
         });
       }
     }

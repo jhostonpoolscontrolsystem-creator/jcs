@@ -63,20 +63,20 @@ export function generateWarrantyCertificatePdf(pool: Pool, logs: MaintenanceLog[
 
   // Cláusula de Validação Jurídica / Termo de Responsabilidade
   doc.setFillColor(248, 250, 252);
-  doc.rect(15, 175, 180, 45, 'F');
+  doc.rect(15, 175, 180, 52, 'F');
   doc.setDrawColor(203, 213, 225);
-  doc.rect(15, 175, 180, 45, 'S');
+  doc.rect(15, 175, 180, 52, 'S');
 
   doc.setFontSize(10);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(15, 23, 42);
-  doc.text('DECLARAÇÃO DE VALIDADE DA GARANTIA MONOLÍTICA', 20, 185);
+  doc.text('DECLARAÇÃO DE CONFORMIDADE • PLANO DE MANUTENÇÃO ATIVO (3 ANOS)', 20, 184);
 
   doc.setFontSize(8);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(71, 85, 105);
-  const legalText = `Certificamos que as manutenções registradas ao longo do período atenderam estritamente ao protocolo químico JHostonTec. A integridade do revestimento monolítico encontra-se assegurada nos termos contratuais. Todas as coletas foram autenticadas por georreferenciamento (< 100m) e evidências fotográficas in-app inalteráveis.`;
-  doc.text(doc.splitTextToSize(legalText, 170), 20, 192);
+  const legalText = `Certificamos que as manutenções registradas atenderam estritamente ao protocolo químico do Plano de Manutenção Ativo JHoston Pools. O cliente goza de monitoramento remoto semanal sem mensalidade e intervenções presenciais anuais (esvaziamento, lavagem técnica e aplicação de resina preventiva) com mão de obra técnica 100% isenta durante o ciclo de 3 anos, cabendo ao cliente apenas o deslocamento e insumos de resina. Todas as leituras foram autenticadas por georreferenciamento e fotos in-app.`;
+  doc.text(doc.splitTextToSize(legalText, 170), 20, 191);
 
   // Assinatura Digital
   doc.setTextColor(15, 23, 42);

@@ -43,6 +43,10 @@ interface ExecutiveReportsWhatsAppPanelProps {
   currentUserRole?: string;
 }
 
+// Cache persistente na sessão do cliente para eliminar chamadas duplicadas
+let cachedContacts: Contact[] | null = null;
+let cachedGroups: WhatsAppGroup[] | null = null;
+
 export function ExecutiveReportsWhatsAppPanel({ currentUserRole = 'MASTER' }: ExecutiveReportsWhatsAppPanelProps) {
   const isMaster = currentUserRole === 'MASTER';
   const [reportType, setReportType] = useState<'EXECUTIVE_SUMMARY' | 'RED_ZONE_AUDIT' | 'WARRANTY_MONTHLY' | 'INVENTORY_RUNWAY'>('EXECUTIVE_SUMMARY');
@@ -77,18 +81,24 @@ export function ExecutiveReportsWhatsAppPanel({ currentUserRole = 'MASTER' }: Ex
   const [newGroupCategory, setNewGroupCategory] = useState('CLIENTE');
   const [newGroupDescription, setNewGroupDescription] = useState('');
 
+  // Cache em memória para evitar requisições repetidas ao alternar abas
   // Estado de Envio
   const [sending, setSending] = useState(false);
   const [sendResult, setSendResult] = useState<any>(null);
   const [errorMsg, setErrorMsg] = useState('');
 
-  // Carrega contatos
-  const fetchContacts = async () => {
+  // Carrega contatos com cache
+  const fetchContacts = async (force: boolean = false) => {
+    if (!force && cachedContacts && cachedContacts.length > 0) {
+      setContacts(cachedContacts);
+      return;
+    }
     setLoadingContacts(true);
     try {
       const res = await fetch('/api/phonebook');
       const data = await res.json();
       if (data.contacts) {
+        cachedContacts = data.contacts;
         setContacts(data.contacts);
       }
     } catch (e) {
@@ -98,13 +108,18 @@ export function ExecutiveReportsWhatsAppPanel({ currentUserRole = 'MASTER' }: Ex
     }
   };
 
-  // Carrega Grupos de WhatsApp
-  const fetchGroups = async () => {
+  // Carrega Grupos de WhatsApp com cache
+  const fetchGroups = async (force: boolean = false) => {
+    if (!force && cachedGroups && cachedGroups.length > 0) {
+      setGroups(cachedGroups);
+      return;
+    }
     setLoadingGroups(true);
     try {
       const res = await fetch('/api/whatsapp-groups');
       const data = await res.json();
       if (data.groups) {
+        cachedGroups = data.groups;
         setGroups(data.groups);
       }
     } catch (e) {

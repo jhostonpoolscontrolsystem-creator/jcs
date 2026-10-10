@@ -53,7 +53,7 @@ export default function ExecutiveWelcomeKitModal({
     audience === 'DIRETORIA_JHOSTON' ? 'Diretoria Executiva JHoston Pools' : 'Dr. Roberto (Gerente Geral Terravista)'
   );
 
-  const [activeTab, setActiveTab] = useState<'REVISTA_PREVIEW' | 'DISPATCH_WHATSAPP'>('REVISTA_PREVIEW');
+  const [activeTab, setActiveTab] = useState<'REVISTA_PREVIEW' | 'FLYER_PREVIEW' | 'DISPATCH_WHATSAPP'>('REVISTA_PREVIEW');
   const [magazinePage, setMagazinePage] = useState<number>(1);
   const [sending, setSending] = useState(false);
   const [dispatchStatus, setDispatchStatus] = useState<any>(null);
@@ -74,10 +74,10 @@ export default function ExecutiveWelcomeKitModal({
   // Texto formatado para disparo no WhatsApp
   const generateWhatsAppMessage = () => {
     if (audience === 'DIRETORIA_JHOSTON') {
-      return `🌟 *BEM-VINDO AO JHPCS • EDIÇÃO EXECUTIVA PREMIUM* 🌟\n\nOlá, *${recipientName}*!\n\nÉ com enorme satisfação que disponibilizamos o acesso oficial ao *JHoston Pools Control System (JHPCS)* — a plataforma definitiva de Engenharia, Digital Twin & Auditoria Forense para Blindagem da Garantia Decenal.\n\n📖 *Acesse a Revista Digital de Apresentação & Manuais Ilustrados:*\n👉 https://jcs-pools.vercel.app/apresentacao-diretoria\n\n📥 *Baixar o PDF Oficial da Revista (5 Páginas):*\n👉 https://jcs-pools.vercel.app/api/pdf/executive-magazine\n\n🛡️ *O que a Diretoria tem em mãos agora:*\n1. *Cockpit de Telemetria F1*: Tacômetros digitais de pH, Cloro e Langelier (LSI) em tempo real dos seus clientes.\n2. *Blindagem Jurídica*: Laudo forense automático contra uso de ácidos não homologados.\n3. *Central WhatsApp*: Mensagens e alertas automáticos com SLA < 3.2s via Evolution API.\n4. *PWA Offline do Piscineiro*: Com câmera inviolável e geolocalização por satélite.\n\n🔑 *Link Direto de Acesso ao Sistema:*\n🔗 https://jcs-pools.vercel.app\n👤 Login: jhostontec@jhostontec.com.br\n🔒 Senha Provisória: 123456\n\n_JHoston Pools Control System • Responsável Editorial: Daniel Lopes_`;
+      return `🌟 *BEM-VINDO AO JHPCS • EDIÇÃO EXECUTIVA PREMIUM* 🌟\n\nOlá, *${recipientName}*!\n\nÉ com enorme satisfação que disponibilizamos o acesso oficial ao *JHoston Pools Control System (JHPCS)* — a plataforma definitiva de Engenharia, Digital Twin & Auditoria Forense para Blindagem da Garantia Decenal.\n\n👑 *Baixar a Revista Executiva de Alto Padrão (Edição Única • 8 Páginas PDF):*\n👉 https://jcs-pools.vercel.app/api/pdf/luxury-compendium?download=true\n\n📖 *Consultar Revista Online e Interativa:* \n👉 https://jcs-pools.vercel.app/revista-executiva\n\n📄 *Baixar o Flyer Executivo Sintético (1 Página):*\n👉 https://jcs-pools.vercel.app/api/pdf/presentation-flyer?type=DIRETORIA_JHOSTON\n\n🎭 *Roteiro de Apresentação & Personagens:* \n👉 https://jcs-pools.vercel.app/apresentacao-diretoria\n\n🛡️ *O que a Diretoria tem em mãos agora:*\n1. *Cockpit de Telemetria F1*: Tacômetros digitais de pH, Cloro e LSI em tempo real.\n2. *Blindagem Jurídica*: Laudo forense automático contra uso de ácidos não homologados.\n3. *Central WhatsApp*: Mensagens e alertas automáticos com SLA < 3.2s via Evolution API.\n4. *PWA Offline com QR Code*: Instalação em 1 toque na casa de máquinas e operação 100% offline.\n\n🔑 *Link Direto de Acesso ao Sistema:*\n🔗 https://jcs-pools.vercel.app\n👤 Login: jhostontec@jhostontec.com.br\n🔒 Senha Provisória: 123456\n\n_JHoston Pools Control System • Responsável Editorial: Daniel Lopes & Patrícia Grübel_`;
     }
 
-    return `💎 *JHoston Pools • Kit Boas-Vindas do Proprietário & Digital Twin* 💎\n\nPrezado(a) *${recipientName}*,\n\nParabéns pela escolha do revestimento monolítico JHoston Pools! A partir de hoje, sua piscina conta com uma réplica digital (*Digital Twin*) monitorando a garantia decenal do seu patrimônio.\n\n📖 *Consulte o Guia de Boas-Vindas & Manual do Proprietário Ilustrado:*\n👉 https://jcs-pools.vercel.app/guia-cliente\n\n📥 *Baixar o PDF do Guia & Certificado Oficial:*\n👉 https://jcs-pools.vercel.app/api/pdf/client-magazine\n\n🌊 *Vantagens do Seu Portal Exclusivo:*\n• *Garantia 100% Protegida*: Acompanhamento contínuo da estabilidade mineral da água.\n• *Contador de Cura Submersa (28 Dias)*: Cronômetro dia a dia com bloqueios de segurança.\n• *Previsão Meteorológica Live*: Alertas contra chuvas fortes e tempestades.\n• *Certificado Mensal em PDF*: Laudo assinado pelos auditores da JHoston Pools.\n\n🔑 *Seu Acesso Exclusivo ao Portal:*\n🔗 https://jcs-pools.vercel.app\n\n_JHoston Pools • Engenharia de Revestimentos Monolíticos_`;
+    return `💎 *JHoston Pools • Kit Boas-Vindas do Proprietário & Digital Twin* 💎\n\nPrezado(a) *${recipientName}*,\n\nParabéns pela escolha do revestimento monolítico JHoston Pools! A partir de hoje, sua piscina conta com uma réplica digital (*Digital Twin*) monitorando a garantia decenal do seu patrimônio.\n\n👑 *Revista Executiva Colecionável JHPCS 2026 (PDF Completo):*\n👉 https://jcs-pools.vercel.app/api/pdf/luxury-compendium?download=true\n\n📄 *Baixar o Flyer VIP de Apresentação (1 Página):*\n👉 https://jcs-pools.vercel.app/api/pdf/presentation-flyer?type=CLIENTE_FINAL\n\n📖 *Consulte o Guia de Boas-Vindas & Manual Web do Proprietário:*\n👉 https://jcs-pools.vercel.app/guia-cliente\n\n🌊 *Vantagens do Seu Portal Exclusivo:*\n• *Garantia 100% Protegida*: Acompanhamento contínuo da estabilidade mineral da água.\n• *Etiqueta da Casa de Máquinas (QR)*: Instalação fácil do app pelo seu tratador sem digitar links.\n• *Contador de Cura Submersa (28 Dias)*: Cronômetro dia a dia com bloqueios de segurança.\n• *Previsão Meteorológica Live*: Alertas contra chuvas fortes e tempestades.\n\n🔑 *Seu Acesso Exclusivo ao Portal:*\n🔗 https://jcs-pools.vercel.app\n\n_JHoston Pools • Engenharia de Revestimentos Monolíticos_`;
   };
 
   const handleSendWhatsApp = async () => {
@@ -205,29 +205,40 @@ export default function ExecutiveWelcomeKitModal({
             )}
           </div>
 
-          {/* Abas: Revista x WhatsApp */}
+          {/* Abas: Revista x Flyer x WhatsApp */}
           <div className="flex items-center gap-2">
             <button
               onClick={() => setActiveTab('REVISTA_PREVIEW')}
-              className={`px-3.5 py-1.5 rounded-xl font-bold flex items-center gap-1.5 transition ${
+              className={`px-3 py-1.5 rounded-xl font-bold flex items-center gap-1.5 transition text-xs ${
                 activeTab === 'REVISTA_PREVIEW'
                   ? 'bg-slate-800 text-white border border-slate-700'
                   : 'text-slate-400 hover:text-white'
               }`}
             >
               <BookOpen className="w-3.5 h-3.5 text-amber-400" />
-              Edição Revista Digital (5 Páginas)
+              <span>Revista Digital</span>
+            </button>
+            <button
+              onClick={() => setActiveTab('FLYER_PREVIEW')}
+              className={`px-3 py-1.5 rounded-xl font-bold flex items-center gap-1.5 transition text-xs ${
+                activeTab === 'FLYER_PREVIEW'
+                  ? 'bg-gradient-to-r from-cyan-500 to-sky-500 text-slate-950 font-black shadow-md'
+                  : 'text-cyan-400 hover:text-white border border-cyan-500/30'
+              }`}
+            >
+              <FileText className="w-3.5 h-3.5" />
+              <span>Flyer de Apresentação (1 Pág)</span>
             </button>
             <button
               onClick={() => setActiveTab('DISPATCH_WHATSAPP')}
-              className={`px-3.5 py-1.5 rounded-xl font-bold flex items-center gap-1.5 transition ${
+              className={`px-3 py-1.5 rounded-xl font-bold flex items-center gap-1.5 transition text-xs ${
                 activeTab === 'DISPATCH_WHATSAPP'
                   ? 'bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/20'
                   : 'text-slate-400 hover:text-white'
               }`}
             >
               <Send className="w-3.5 h-3.5" />
-              Disparar via WhatsApp Oficial
+              <span>Disparar WhatsApp</span>
             </button>
           </div>
         </div>
@@ -617,25 +628,168 @@ export default function ExecutiveWelcomeKitModal({
                     </div>
                   ) : (
                     <div className="pt-6 border-t border-slate-800/80 flex flex-wrap items-center justify-between gap-3">
-                      <a
-                        href="/api/pdf/executive-magazine"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-bold text-xs flex items-center gap-2 border border-amber-500/40 transition cursor-pointer shadow-sm hover:shadow-amber-500/20"
+                      <div className="flex flex-wrap items-center gap-2">
+                        <a
+                          href="/api/pdf/luxury-compendium?download=true"
+                          className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-slate-950 font-black text-xs flex items-center gap-2 shadow-lg shadow-amber-500/20 transition cursor-pointer"
+                        >
+                          <Crown className="w-3.5 h-3.5 text-slate-950" />
+                          <span>Baixar Revista Edição Única (PDF 8 Págs)</span>
+                        </a>
+
+                        <a
+                          href="/revista-executiva"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-3.5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-bold text-xs flex items-center gap-2 border border-amber-500/40 transition cursor-pointer"
+                        >
+                          <BookOpen className="w-3.5 h-3.5 text-amber-400" />
+                          <span>Consultar Revista Online</span>
+                          <ExternalLink className="w-3 h-3 text-slate-500" />
+                        </a>
+                      </div>
+
+                      <button
+                        onClick={() => setActiveTab('FLYER_PREVIEW')}
+                        className="px-4 py-2.5 rounded-xl bg-cyan-950 border border-cyan-800 text-cyan-300 hover:bg-cyan-900 font-bold text-xs flex items-center gap-2 transition cursor-pointer"
                       >
-                        <Download className="w-3.5 h-3.5 text-amber-400" />
-                        <span>Baixar Edição em PDF Oficial (5 Páginas)</span>
-                      </a>
+                        <FileText className="w-3.5 h-3.5" />
+                        <span>Ver Flyer Sintético (1 Pág)</span>
+                      </button>
 
                       <button
                         onClick={() => setActiveTab('DISPATCH_WHATSAPP')}
                         className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-black text-xs flex items-center gap-2 shadow-lg shadow-emerald-500/20 hover:scale-[1.02] transition cursor-pointer"
                       >
-                        <span>Avançar para Disparo no WhatsApp</span>
+                        <span>Avançar para WhatsApp</span>
                         <ArrowRight className="w-4 h-4" />
                       </button>
                     </div>
                   )}
+              </div>
+            </div>
+          )}
+
+          {/* ABA: FLYER DE APRESENTAÇÃO (1 PÁGINA) */}
+          {activeTab === 'FLYER_PREVIEW' && (
+            <div className="space-y-6 animate-fadeIn">
+              {/* Barra Superior do Flyer */}
+              <div className="flex flex-wrap items-center justify-between gap-4 p-4 rounded-2xl bg-gradient-to-r from-slate-900 to-cyan-950/40 border border-slate-800">
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-cyan-950 text-cyan-300 border border-cyan-800">
+                      Flyer Executivo Sintético (1 Página A4)
+                    </span>
+                    <span className="text-xs text-slate-400 font-bold">
+                      {audience === 'DIRETORIA_JHOSTON' ? 'Para a Diretoria Executiva JH' : 'Para o Cliente Final / Gerência'}
+                    </span>
+                  </div>
+                  <h3 className="text-base font-black text-white">
+                    {audience === 'DIRETORIA_JHOSTON' 
+                      ? 'Flyer Corporativo: Blindagem, F1 & Garantia Decenal' 
+                      : 'Flyer VIP: Digital Twin & Proteção do Revestimento'}
+                  </h3>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <a
+                    href={`/api/pdf/presentation-flyer?type=${audience}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2 bg-gradient-to-r from-cyan-500 to-sky-500 hover:from-cyan-400 hover:to-sky-400 text-slate-950 font-black rounded-xl text-xs flex items-center gap-1.5 shadow-lg shadow-cyan-500/20 transition cursor-pointer"
+                  >
+                    <Download className="w-3.5 h-3.5" />
+                    <span>Baixar Flyer em PDF (1 Pág)</span>
+                  </a>
+                </div>
+              </div>
+
+              {/* Visualizador Simulador da Página do Flyer */}
+              <div className="max-w-2xl mx-auto bg-slate-950 rounded-3xl border-2 border-slate-800 p-6 md:p-8 space-y-6 shadow-2xl relative overflow-hidden">
+                <div className={`h-1.5 w-full -mt-6 -mx-6 mb-4 ${audience === 'DIRETORIA_JHOSTON' ? 'bg-amber-500' : 'bg-cyan-500'}`} />
+
+                <div className="flex items-start justify-between border-b border-slate-800 pb-4">
+                  <div className="space-y-1">
+                    <span className="font-black text-sm uppercase tracking-wider text-white">
+                      JHOSTON POOLS CONTROL SYSTEM
+                    </span>
+                    <p className="text-[11px] text-slate-400 font-mono">
+                      ENGENHARIA MINERAL • DIGITAL TWIN • AUDITORIA FORENSE
+                    </p>
+                  </div>
+                  <span className={`text-[10px] font-black uppercase px-2 py-0.5 rounded font-mono ${
+                    audience === 'DIRETORIA_JHOSTON' ? 'bg-amber-950 text-amber-300 border border-amber-800' : 'bg-cyan-950 text-cyan-300 border border-cyan-800'
+                  }`}>
+                    {audience === 'DIRETORIA_JHOSTON' ? 'DIRETORIA EXECUTIVA' : 'CLIENTE VIP'}
+                  </span>
+                </div>
+
+                <div className="space-y-2">
+                  <h4 className="text-xl font-black text-white leading-tight">
+                    {audience === 'DIRETORIA_JHOSTON'
+                      ? 'A Blindagem Definitiva da Garantia Decenal de Revestimentos'
+                      : 'A Proteção Inteligente da Sua Piscina Monolítica JHoston'}
+                  </h4>
+                  <p className="text-xs text-slate-300">
+                    {audience === 'DIRETORIA_JHOSTON'
+                      ? 'Eliminação de custos com garantias indevidas provocadas por tratadores, aliada à telemetria ao vivo estilo Fórmula 1 e alertas em < 3.2s via WhatsApp oficial.'
+                      : 'Digital Twin com monitoramento termodinâmico contínuo, laudos periciais mensais em PDF e facilidade máxima de instalação do app do tratador via QR Code.'}
+                  </p>
+                </div>
+
+                {/* 4 Destaques do Flyer */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                  <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
+                    <span className="text-[11px] font-black text-cyan-400 uppercase">01 • {audience === 'DIRETORIA_JHOSTON' ? 'Escudo Jurídico' : 'Garantia 100% Protegida'}</span>
+                    <p className="text-[11px] text-slate-300">
+                      {audience === 'DIRETORIA_JHOSTON'
+                        ? 'Trava letal contra ácidos muriáticos e comprovação com fotos carimbadas por satélite (GPS).'
+                        : 'Estabilidade físico-química diária que mantém a garantia decenal ativa sem riscos de manchas.'}
+                    </p>
+                  </div>
+
+                  <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
+                    <span className="text-[11px] font-black text-cyan-400 uppercase">02 • {audience === 'DIRETORIA_JHOSTON' ? 'Telemetria F1' : 'Etiqueta QR da Casa de Máquinas'}</span>
+                    <p className="text-[11px] text-slate-300">
+                      {audience === 'DIRETORIA_JHOSTON'
+                        ? 'Tacômetros ao vivo de pH, Cloro e LSI com target bands sombreadas e correlação climática.'
+                        : 'Placa impressa em PDF para colar no filtro. O tratador apenas aponta a câmera e instala o app.'}
+                    </p>
+                  </div>
+
+                  <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
+                    <span className="text-[11px] font-black text-cyan-400 uppercase">03 • {audience === 'DIRETORIA_JHOSTON' ? 'WhatsApp Evolution' : 'Isolamento Multi-Tenant'}</span>
+                    <p className="text-[11px] text-slate-300">
+                      {audience === 'DIRETORIA_JHOSTON'
+                        ? 'Alertas instantâneos e certificados mensais automáticos com entrega abaixo de 3.2s.'
+                        : 'O tratador enxerga exclusivamente as piscinas do seu condomínio, com privacidade e LGPD.'}
+                    </p>
+                  </div>
+
+                  <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
+                    <span className="text-[11px] font-black text-cyan-400 uppercase">04 • {audience === 'DIRETORIA_JHOSTON' ? 'Adoção Sem Atrito' : 'Estoque & Meteorologia Live'}</span>
+                    <p className="text-[11px] text-slate-300">
+                      {audience === 'DIRETORIA_JHOSTON'
+                        ? 'Adesivo QR Code na casa de máquinas e PWA operando 100% offline em subsolos.'
+                        : 'Previsão de tempestades com dias de antecedência e cálculo automático de estoque.'}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="pt-4 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs">
+                  <span className="text-slate-400 text-[11px]">
+                    Documento Oficial de Apresentação Sintética • 1 Página A4
+                  </span>
+                  <a
+                    href={`/api/pdf/presentation-flyer?type=${audience}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-3.5 py-1.5 rounded-xl bg-cyan-950 border border-cyan-800 text-cyan-300 font-bold hover:bg-cyan-900 transition flex items-center gap-1.5"
+                  >
+                    <Download className="w-3.5 h-3.5" />
+                    <span>Download PDF</span>
+                  </a>
+                </div>
               </div>
             </div>
           )}

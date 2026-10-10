@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ShieldCheck, Activity, Search, RefreshCw, AlertTriangle, UserCheck } from 'lucide-react';
 import { format } from 'date-fns';
-import ptBR from 'date-fns/locale/pt-BR';
 
 export default function AuditoriaPage() {
   const [logs, setLogs] = useState<any[]>([]);

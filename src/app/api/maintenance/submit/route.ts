@@ -38,6 +38,27 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Piscina não encontrada no sistema.' }, { status: 404 });
     }
 
+    // 2.1. Validação Estrita de Custódia / Tenant: O tratador deve ter vínculo com esta piscina
+    if (maintainer_id && maintainer_id !== 'u-4') {
+      const { data: assignment, error: assignError } = await supabase
+        .from('pool_maintainers')
+        .select('pool_id')
+        .eq('pool_id', pool_id)
+        .eq('maintainer_id', maintainer_id)
+        .maybeSingle();
+
+      if (assignError || !assignment) {
+        return NextResponse.json(
+          {
+            error: 'Bloqueio de Segurança: Tratador não possui autorização ou vínculo ativo com a piscina deste cliente final.',
+            pool_id,
+            maintainer_id
+          },
+          { status: 403 }
+        );
+      }
+    }
+
     // 3. Validação Anti-Fraude Geográfica (Divergência GPS máx 100m)
     // Cálculo aproximado Haversine ou distância euclidiana simples para raio de 100 metros (~0.001 graus)
     if (gps_lat && gps_lng && pool.gps_lat && pool.gps_lng) {

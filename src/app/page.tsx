@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   ShieldAlert, 
   Activity, 
@@ -16,7 +16,8 @@ import {
   Camera,
   Calendar,
   Clock,
-  Sparkles
+  Sparkles,
+  RefreshCw
 } from 'lucide-react';
 import { mockPools, mockMaintenanceLogs } from '@/lib/mock-data';
 import { evaluateChemicalRules, calculateChemicalDose } from '@/lib/chemical-rules';
@@ -33,22 +34,28 @@ import { SystemTrainingAcademy } from '@/components/SystemTrainingAcademy';
 import { SystemHelpCenter } from '@/components/SystemHelpCenter';
 import { PoolMedicalRecordModal } from '@/components/PoolMedicalRecordModal';
 import { MasterGovernanceHub } from '@/components/MasterGovernanceHub';
+import { MasterAuditReportsCockpit } from '@/components/MasterAuditReportsCockpit';
 import { MetricDrilldownModal, MetricDrilldownType } from '@/components/MetricDrilldownModal';
 import { DocumentDownloadCenter } from '@/components/DocumentDownloadCenter';
 import { ChemicalSuppliesStore } from '@/components/ChemicalSuppliesStore';
 import ClientPortfolioViewer from '@/components/ClientPortfolioViewer';
 import ExecutiveWelcomeKitModal, { WelcomeKitAudience } from '@/components/ExecutiveWelcomeKitModal';
+import { PoolMachineRoomTagHub } from '@/components/PoolMachineRoomTagHub';
 import { UserRole, Pool } from '@/types/database';
-import { LogIn, LogOut, Users, UserCheck, GraduationCap, HelpCircle, Crown, Download, ShoppingBag, Building2 } from 'lucide-react';
+import { LogIn, LogOut, Users, UserCheck, GraduationCap, HelpCircle, Crown, Download, ShoppingBag, Building2, ShieldCheck, QrCode } from 'lucide-react';
 
 export default function JHPCSApp() {
-  const [activeTab, setActiveTab] = useState<'master' | 'dashboard' | 'clients' | 'client_portal' | 'pwa' | 'whatsapp' | 'rbac' | 'audit_live' | 'users' | 'executive_reports' | 'training' | 'help' | 'downloads' | 'store'>('master');
+  const [activeTab, setActiveTab] = useState<'master' | 'master_audit' | 'dashboard' | 'clients' | 'client_portal' | 'machine_room_tag' | 'pwa' | 'whatsapp' | 'rbac' | 'audit_live' | 'users' | 'executive_reports' | 'training' | 'help' | 'downloads' | 'store'>('master');
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isWelcomeKitOpen, setIsWelcomeKitOpen] = useState(false);
   const [welcomeKitAudience, setWelcomeKitAudience] = useState<WelcomeKitAudience>('DIRETORIA_JHOSTON');
   const [inspectingPool, setInspectingPool] = useState<Pool | null>(null);
   const [activeDrilldown, setActiveDrilldown] = useState<MetricDrilldownType>(null);
+
+  // Dados Reais Carregados do Supabase
+  const [livePools, setLivePools] = useState<Pool[]>(mockPools);
+  const [isLoadingPools, setIsLoadingPools] = useState(false);
 
   // Usuário Autenticado (Inicia como Master Daniel Lopes por conveniência)
   const [currentUser, setCurrentUser] = useState<{
@@ -62,6 +69,26 @@ export default function JHPCSApp() {
     email: 'danielsmlopes@hotmail.com',
     role: 'MASTER',
   });
+
+  // Busca dados reais do banco
+  const fetchLivePools = async () => {
+    setIsLoadingPools(true);
+    try {
+      const res = await fetch('/api/pools/list');
+      const data = await res.json();
+      if (data.success && data.pools && data.pools.length > 0) {
+        setLivePools(data.pools);
+      }
+    } catch (err) {
+      console.warn('Falha ao buscar piscinas reais:', err);
+    } finally {
+      setIsLoadingPools(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchLivePools();
+  }, []);
 
   // Estado da Simulação Operacional do PWA do Piscineiro
   const [selectedPoolId, setSelectedPoolId] = useState('p-2');
@@ -229,17 +256,31 @@ export default function JHPCSApp() {
         <div className="w-full flex items-center gap-1.5 bg-slate-950/80 p-1.5 rounded-xl border border-slate-800 overflow-x-auto">
           {/* EXCLUSIVO MASTER: Centro de Comando e Governança */}
           {currentUser?.role === 'MASTER' && (
-            <button
-              onClick={() => setActiveTab('master')}
-              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-black whitespace-nowrap transition-all ${
-                activeTab === 'master'
-                  ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 shadow-md shadow-amber-500/30'
-                  : 'text-amber-400 hover:text-white hover:bg-slate-900'
-              }`}
-            >
-              <Crown className="w-4 h-4" />
-              Painel MASTER
-            </button>
+            <>
+              <button
+                onClick={() => setActiveTab('master')}
+                className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-black whitespace-nowrap transition-all ${
+                  activeTab === 'master'
+                    ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 shadow-md shadow-amber-500/30'
+                    : 'text-amber-400 hover:text-white hover:bg-slate-900'
+                }`}
+              >
+                <Crown className="w-4 h-4" />
+                Painel MASTER
+              </button>
+
+              <button
+                onClick={() => setActiveTab('master_audit')}
+                className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all ${
+                  activeTab === 'master_audit'
+                    ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 shadow-md shadow-amber-500/30 font-black'
+                    : 'text-amber-300 hover:text-white hover:bg-slate-900 border border-amber-500/20'
+                }`}
+              >
+                <ShieldCheck className="w-4 h-4 text-amber-400" />
+                Auditoria & Relatórios MASTER
+              </button>
+            </>
           )}
 
           {/* MASTER ou DIRETORIA_JH ou TECNICO_JH: Centro Operacional */}
@@ -273,18 +314,32 @@ export default function JHPCSApp() {
           )}
 
           {/* MASTER, GERENCIA_CLI ou TECNICO_CLI: Portal do Cliente */}
-          {(!currentUser || currentUser.role === 'MASTER' || currentUser.role === 'GERENCIA_CLI' || currentUser.role === 'TECNICO_CLI') && (
-            <button
-              onClick={() => setActiveTab('client_portal')}
-              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
-                activeTab === 'client_portal'
-                  ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/30'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'
-              }`}
-            >
-              <Layers className="w-4 h-4" />
-              Portal do Cliente (Digital Twin)
-            </button>
+          {(!currentUser || currentUser.role === 'MASTER' || currentUser.role === 'GERENCIA_CLI' || currentUser.role === 'TECNICO_CLI' || (currentUser.role as any) === 'CLIENTE_FINAL') && (
+            <>
+              <button
+                onClick={() => setActiveTab('client_portal')}
+                className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+                  activeTab === 'client_portal'
+                    ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/30 font-bold'
+                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'
+                }`}
+              >
+                <Layers className="w-4 h-4" />
+                Portal do Cliente (Digital Twin)
+              </button>
+
+              <button
+                onClick={() => setActiveTab('machine_room_tag')}
+                className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all ${
+                  activeTab === 'machine_room_tag'
+                    ? 'bg-gradient-to-r from-cyan-500 to-sky-500 text-slate-950 shadow-md shadow-cyan-500/30'
+                    : 'text-cyan-400 hover:text-white hover:bg-slate-900 border border-cyan-500/30'
+                }`}
+              >
+                <QrCode className="w-4 h-4 text-cyan-400" />
+                Etiqueta Casa de Máquinas (QR)
+              </button>
+            </>
           )}
 
           {/* MASTER ou PISCINEIRO (Piscineiro enxerga apenas este app) */}
@@ -445,25 +500,53 @@ export default function JHPCSApp() {
           />
         )}
 
+        {/* TAB 0.1: EXCLUSIVO MASTER (Central Integrada de Auditoria & Relatórios) */}
+        {activeTab === 'master_audit' && (
+          <MasterAuditReportsCockpit
+            onNavigateTab={(tab) => setActiveTab(tab)}
+            onOpenWelcomeKit={() => {
+              setWelcomeKitAudience('DIRETORIA_JHOSTON');
+              setIsWelcomeKitOpen(true);
+            }}
+          />
+        )}
+
         {/* TAB 1: DASHBOARD JHOSTONTEC */}
         {activeTab === 'dashboard' && (
           <div className="space-y-8 animate-fadeIn">
             {/* Top Metric Cards & Botão Cadastrar Ativo */}
             <div className="flex justify-between items-center">
               <div>
-                <h2 className="text-xl font-black text-white">Centro de Comando & Auditoria</h2>
+                <div className="flex items-center gap-2">
+                  <h2 className="text-xl font-black text-white">Centro de Comando & Auditoria</h2>
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-950/80 border border-emerald-800 text-emerald-400 font-bold flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    Supabase Live (Tempo Real)
+                  </span>
+                </div>
                 <p className="text-xs text-slate-400">Monitoramento Contínuo e Gestão da Garantia de Revestimentos</p>
               </div>
 
-              <button
-                onClick={() => setIsRegisterModalOpen(true)}
-                className="px-4 py-2.5 bg-gradient-to-r from-cyan-500 to-sky-500 text-slate-950 font-black rounded-xl text-xs flex items-center gap-2 shadow-lg shadow-cyan-500/20 hover:opacity-95 transition-all cursor-pointer"
-              >
-                <span>+ Cadastrar Nova Piscina</span>
-              </button>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={fetchLivePools}
+                  disabled={isLoadingPools}
+                  className="p-2.5 bg-slate-900 border border-slate-700 hover:bg-slate-800 text-slate-300 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer"
+                  title="Atualizar dados do Supabase"
+                >
+                  <RefreshCw className={`w-3.5 h-3.5 ${isLoadingPools ? 'animate-spin text-cyan-400' : ''}`} />
+                  <span className="hidden sm:inline">Sincronizar</span>
+                </button>
+                <button
+                  onClick={() => setIsRegisterModalOpen(true)}
+                  className="px-4 py-2.5 bg-gradient-to-r from-cyan-500 to-sky-500 text-slate-950 font-black rounded-xl text-xs flex items-center gap-2 shadow-lg shadow-cyan-500/20 hover:opacity-95 transition-all cursor-pointer"
+                >
+                  <span>+ Cadastrar Nova Piscina</span>
+                </button>
+              </div>
             </div>
 
-            {/* Top Metric Cards Grid (4 Cards com Drilldown) */}
+            {/* Top Metric Cards Grid (4 Cards com Dados Reais do Banco) */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               {/* CARD 1: ATIVOS MONITORADOS */}
               <div 
@@ -473,7 +556,7 @@ export default function JHPCSApp() {
                 <div className="flex justify-between items-start">
                   <div>
                     <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider group-hover:text-cyan-400 transition">Ativos Monitorados</p>
-                    <h3 className="text-2xl font-black text-white mt-1">128 Piscinas</h3>
+                    <h3 className="text-2xl font-black text-white mt-1">{livePools.length} Piscinas</h3>
                   </div>
                   <div className="p-2.5 rounded-xl bg-cyan-950/80 border border-cyan-800/60 text-cyan-400 shadow-md shadow-cyan-950/40 group-hover:scale-110 transition">
                     <Droplet className="w-5 h-5" />
@@ -482,7 +565,11 @@ export default function JHPCSApp() {
                 <div className="mt-4 flex items-center justify-between text-xs">
                   <div className="flex items-center gap-2 text-emerald-400 font-medium">
                     <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                    <span className="font-bold">94.2%</span> em conformidade
+                    <span className="font-bold">
+                      {livePools.length > 0
+                        ? `${Math.round(((livePools.filter(p => p.status === 'NORMAL').length) / livePools.length) * 100)}%`
+                        : '100%'}
+                    </span> em conformidade
                   </div>
                   <span className="text-[10px] text-cyan-400 font-bold group-hover:underline">Ver Detalhes →</span>
                 </div>
@@ -496,7 +583,9 @@ export default function JHPCSApp() {
                 <div className="flex justify-between items-start">
                   <div>
                     <p className="text-[11px] font-bold text-rose-300 uppercase tracking-wider group-hover:text-rose-400 transition">Red Zones Ativas</p>
-                    <h3 className="text-2xl font-black text-rose-400 mt-1">3 Críticas</h3>
+                    <h3 className="text-2xl font-black text-rose-400 mt-1">
+                      {livePools.filter(p => p.status === 'RED_ZONE' || (p.status as any) === 'CRITICAL').length} Críticas
+                    </h3>
                   </div>
                   <div className="p-2.5 rounded-xl bg-rose-950/80 border border-rose-800/60 text-rose-400 shadow-md shadow-rose-950/40 animate-pulse group-hover:scale-110 transition">
                     <ShieldAlert className="w-5 h-5" />
@@ -519,7 +608,9 @@ export default function JHPCSApp() {
                 <div className="flex justify-between items-start">
                   <div>
                     <p className="text-[11px] font-bold text-amber-300 uppercase tracking-wider group-hover:text-amber-400 transition">Em Período de Cura</p>
-                    <h3 className="text-2xl font-black text-amber-300 mt-1">14 Ativos</h3>
+                    <h3 className="text-2xl font-black text-amber-300 mt-1">
+                      {livePools.filter(p => p.status === 'DRY_CURE' || p.status === 'SUBMERGED_CURE' || (p.status as any) === 'WARNING').length} Ativos
+                    </h3>
                   </div>
                   <div className="p-2.5 rounded-xl bg-amber-950/80 border border-amber-800/60 text-amber-300 shadow-md shadow-amber-950/40 group-hover:scale-110 transition">
                     <Calendar className="w-5 h-5" />
@@ -578,27 +669,37 @@ export default function JHPCSApp() {
                         <span className="h-2 w-2 rounded-full bg-red-500 animate-pulse"></span>
                         Alerta Crítico (Red Zone)
                       </span>
-                      <span className="text-[11px] font-bold text-slate-400 bg-slate-900 px-2 py-0.5 rounded">1</span>
+                      <span className="text-[11px] font-bold text-slate-400 bg-slate-900 px-2 py-0.5 rounded">
+                        {livePools.filter(p => p.status === 'RED_ZONE' || (p.status as any) === 'CRITICAL').length}
+                      </span>
                     </div>
 
-                    <div className="bg-slate-900/90 border border-red-800/40 rounded-lg p-3 text-xs space-y-2">
-                      <div className="flex justify-between items-start">
-                        <span className="font-semibold text-white">Hotel Fasano - Areia</span>
-                        <span className="text-[10px] bg-red-950 text-red-300 px-1.5 py-0.5 rounded font-mono">pH 6.8</span>
-                      </div>
-                      <p className="text-slate-400 text-[11px]">
-                        Risco iminente de ataque químico ao monólito. Tratador João realizou log há 1h.
-                      </p>
-                      <div className="pt-2 border-t border-slate-800 flex justify-between items-center text-[10px]">
-                        <span className="text-red-400 font-semibold">WhatsApp Notificado</span>
-                        <button 
-                          onClick={() => setInspectingPool(mockPools.find(p => p.status === 'RED_ZONE') || mockPools[1])}
-                          className="px-2 py-1 rounded bg-red-600/80 text-white font-bold hover:bg-red-500 transition cursor-pointer"
-                        >
-                          Ver Prontuário
-                        </button>
-                      </div>
-                    </div>
+                    {livePools.filter(p => p.status === 'RED_ZONE' || (p.status as any) === 'CRITICAL').length === 0 ? (
+                      <p className="text-[11px] text-slate-500 p-2 text-center">Nenhum alerta crítico ativo.</p>
+                    ) : (
+                      livePools
+                        .filter(p => p.status === 'RED_ZONE' || (p.status as any) === 'CRITICAL')
+                        .map(pool => (
+                          <div key={pool.id} className="bg-slate-900/90 border border-red-800/40 rounded-lg p-3 text-xs space-y-2">
+                            <div className="flex justify-between items-start">
+                              <span className="font-semibold text-white truncate max-w-[150px]">{pool.name}</span>
+                              <span className="text-[10px] bg-red-950 text-red-300 px-1.5 py-0.5 rounded font-mono">Crítico</span>
+                            </div>
+                            <p className="text-slate-400 text-[11px]">
+                              Volume: {pool.volume_m3}m³ • Risco de corrosão ácida. Intervenção preventiva necessária.
+                            </p>
+                            <div className="pt-2 border-t border-slate-800 flex justify-between items-center text-[10px]">
+                              <span className="text-red-400 font-semibold">Alerta Ativo</span>
+                              <button 
+                                onClick={() => setInspectingPool(pool)}
+                                className="px-2 py-1 rounded bg-red-600/80 text-white font-bold hover:bg-red-500 transition cursor-pointer"
+                              >
+                                Ver Prontuário
+                              </button>
+                            </div>
+                          </div>
+                        ))
+                    )}
                   </div>
 
                   {/* Coluna 2: Em Análise */}
@@ -608,27 +709,37 @@ export default function JHPCSApp() {
                         <span className="h-2 w-2 rounded-full bg-amber-500"></span>
                         Em Análise Técnica
                       </span>
-                      <span className="text-[11px] font-bold text-slate-400 bg-slate-900 px-2 py-0.5 rounded">1</span>
+                      <span className="text-[11px] font-bold text-slate-400 bg-slate-900 px-2 py-0.5 rounded">
+                        {livePools.filter(p => p.status === 'DRY_CURE' || p.status === 'SUBMERGED_CURE' || (p.status as any) === 'WARNING').length}
+                      </span>
                     </div>
 
-                    <div className="bg-slate-900/90 border border-amber-800/30 rounded-lg p-3 text-xs space-y-2">
-                      <div className="flex justify-between items-start">
-                        <span className="font-semibold text-white">Resort Alphaville #4</span>
-                        <span className="text-[10px] bg-amber-950 text-amber-300 px-1.5 py-0.5 rounded font-mono">Dia 18 / 28</span>
-                      </div>
-                      <p className="text-slate-400 text-[11px]">
-                        Cura Submersa: Verificação de dosagem preventiva de cloreto e ausência de escovação.
-                      </p>
-                      <div className="pt-2 border-t border-slate-800 flex justify-between items-center text-[10px]">
-                        <span className="text-slate-400">Auditor: Carlos O.</span>
-                        <button 
-                          onClick={() => setInspectingPool(mockPools.find(p => p.status === 'SUBMERGED_CURE') || mockPools[2])}
-                          className="px-2 py-1 rounded bg-slate-800 text-slate-200 hover:bg-slate-700 transition cursor-pointer"
-                        >
-                          Ver Laudo
-                        </button>
-                      </div>
-                    </div>
+                    {livePools.filter(p => p.status === 'DRY_CURE' || p.status === 'SUBMERGED_CURE' || (p.status as any) === 'WARNING').length === 0 ? (
+                      <p className="text-[11px] text-slate-500 p-2 text-center">Nenhum tanque em análise.</p>
+                    ) : (
+                      livePools
+                        .filter(p => p.status === 'DRY_CURE' || p.status === 'SUBMERGED_CURE' || (p.status as any) === 'WARNING')
+                        .map(pool => (
+                          <div key={pool.id} className="bg-slate-900/90 border border-amber-800/30 rounded-lg p-3 text-xs space-y-2">
+                            <div className="flex justify-between items-start">
+                              <span className="font-semibold text-white truncate max-w-[150px]">{pool.name}</span>
+                              <span className="text-[10px] bg-amber-950 text-amber-300 px-1.5 py-0.5 rounded font-mono">Cura</span>
+                            </div>
+                            <p className="text-slate-400 text-[11px]">
+                              Volume: {pool.volume_m3}m³ • Monitoramento de cura mineral e dosagem estequiométrica.
+                            </p>
+                            <div className="pt-2 border-t border-slate-800 flex justify-between items-center text-[10px]">
+                              <span className="text-amber-400 font-semibold">Sob Observação</span>
+                              <button 
+                                onClick={() => setInspectingPool(pool)}
+                                className="px-2 py-1 rounded bg-slate-800 text-slate-200 hover:bg-slate-700 transition cursor-pointer"
+                              >
+                                Ver Laudo
+                              </button>
+                            </div>
+                          </div>
+                        ))
+                    )}
                   </div>
 
                   {/* Coluna 3: Aguardando Cliente / Resolvido */}
@@ -638,30 +749,41 @@ export default function JHPCSApp() {
                         <span className="h-2 w-2 rounded-full bg-emerald-500"></span>
                         Conformidade Garantida
                       </span>
-                      <span className="text-[11px] font-bold text-slate-400 bg-slate-900 px-2 py-0.5 rounded">24</span>
+                      <span className="text-[11px] font-bold text-slate-400 bg-slate-900 px-2 py-0.5 rounded">
+                        {livePools.filter(p => p.status === 'NORMAL').length}
+                      </span>
                     </div>
 
-                    <div className="bg-slate-900/90 border border-emerald-800/20 rounded-lg p-3 text-xs space-y-2">
-                      <div className="flex justify-between items-start">
-                        <span className="font-semibold text-white">Resort Terravista</span>
-                        <span className="text-[10px] bg-emerald-950 text-emerald-300 px-1.5 py-0.5 rounded font-mono">Score 98/100</span>
-                      </div>
-                      <p className="text-slate-400 text-[11px]">
-                        pH 7.4 | Cloro 2.2 ppm | Alcalinidade 100 ppm. Estoque com runway para 14 dias.
-                      </p>
-                      <div className="pt-2 border-t border-slate-800 flex justify-between items-center text-[10px] text-emerald-400">
-                        <div className="flex items-center gap-1">
-                          <CheckCircle2 className="w-3.5 h-3.5" />
-                          <span>Garantia 100% Protegida</span>
-                        </div>
-                        <button
-                          onClick={() => setInspectingPool(mockPools[0])}
-                          className="px-2 py-1 rounded bg-emerald-950 border border-emerald-800 text-emerald-300 hover:bg-emerald-900 transition cursor-pointer"
-                        >
-                          Prontuário
-                        </button>
-                      </div>
-                    </div>
+                    {livePools.filter(p => p.status === 'NORMAL').length === 0 ? (
+                      <p className="text-[11px] text-slate-500 p-2 text-center">Nenhuma piscina em conformidade.</p>
+                    ) : (
+                      livePools
+                        .filter(p => p.status === 'NORMAL')
+                        .slice(0, 3)
+                        .map(pool => (
+                          <div key={pool.id} className="bg-slate-900/90 border border-emerald-800/20 rounded-lg p-3 text-xs space-y-2">
+                            <div className="flex justify-between items-start">
+                              <span className="font-semibold text-white truncate max-w-[150px]">{pool.name}</span>
+                              <span className="text-[10px] bg-emerald-950 text-emerald-300 px-1.5 py-0.5 rounded font-mono">100% Ok</span>
+                            </div>
+                            <p className="text-slate-400 text-[11px]">
+                              Volume: {pool.volume_m3}m³ • Equilíbrio físico-químico protegido pela garantia decenal.
+                            </p>
+                            <div className="pt-2 border-t border-slate-800 flex justify-between items-center text-[10px] text-emerald-400">
+                              <div className="flex items-center gap-1">
+                                <CheckCircle2 className="w-3.5 h-3.5" />
+                                <span>Garantia Protegida</span>
+                              </div>
+                              <button
+                                onClick={() => setInspectingPool(pool)}
+                                className="px-2 py-1 rounded bg-emerald-950 border border-emerald-800 text-emerald-300 hover:bg-emerald-900 transition cursor-pointer"
+                              >
+                                Prontuário
+                              </button>
+                            </div>
+                          </div>
+                        ))
+                    )}
                   </div>
                 </div>
               </div>
@@ -688,6 +810,16 @@ export default function JHPCSApp() {
         {activeTab === 'client_portal' && (
           <div className="animate-fadeIn">
             <ClientManagerDashboard />
+          </div>
+        )}
+
+        {/* TAB: ETIQUETA DA CASA DE MÁQUINAS (QR CODE & CONVITE DO TRATADOR) */}
+        {activeTab === 'machine_room_tag' && (
+          <div className="animate-fadeIn">
+            <PoolMachineRoomTagHub 
+              userRole={currentUser?.role}
+              pools={livePools}
+            />
           </div>
         )}
 
@@ -864,6 +996,7 @@ export default function JHPCSApp() {
         isOpen={isRegisterModalOpen}
         onClose={() => setIsRegisterModalOpen(false)}
         onPoolCreated={(newPool) => {
+          fetchLivePools();
           alert(`Digital Twin criado com sucesso para: ${newPool.name}!`);
         }}
       />
@@ -883,6 +1016,7 @@ export default function JHPCSApp() {
         onClose={() => setActiveDrilldown(null)}
         onSelectPoolToInspect={(pool) => setInspectingPool(pool)}
         onNavigateToWhatsAppReports={() => setActiveTab('executive_reports')}
+        pools={livePools}
       />
 
       {/* Modal do Disparador Executivo de Boas-Vindas & Revista Digital */}

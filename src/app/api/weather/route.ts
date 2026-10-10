@@ -36,6 +36,10 @@ export async function GET(request: Request) {
         : 'Condições estáveis. Manter parâmetros normais de manutenção.',
       city: data.name,
       is_fallback: false
+    }, {
+      headers: {
+        'Cache-Control': 'public, s-maxage=1800, stale-while-revalidate=3600'
+      }
     });
   } catch (error) {
     return NextResponse.json({
