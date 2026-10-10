@@ -72,7 +72,7 @@ Apresentar à Diretoria da **JHoston Pools** (Joabson e equipe) o sistema defini
 
 ---
 
-### ATO 2: A Agilidade Operacional — Disparo de Relatórios no WhatsApp
+### ATO 2: A Agilidade Operacional — Disparo de Relatórios no WhatsApp & Monetização Recorrente
 1. **Navegar para a aba "Relatórios Diretoria (WhatsApp)"**:
 2. **Apresentar os 4 Relatórios Estratégicos**:
    - 📊 *Panorama Geral & Saúde da Carteira*
@@ -80,6 +80,11 @@ Apresentar à Diretoria da **JHoston Pools** (Joabson e equipe) o sistema defini
    - 🛡️ *Certificado Mensal de Garantia Jurídica*
    - 🧪 *Balanço Químico & Previsão de Estoque*
 3. **Demonstrar o "Smartphone Preview ao Vivo"** e o disparo real via Evolution API em menos de 3.2 segundos.
+4. **Novo Modelo de Degustação VIP & Transição Comercial (6 Meses)**:
+   - Todo cliente ganha **6 meses de relatórios semanais/quinzenais gratuitos** para se acostumar com a auditoria na palma da mão.
+   - **Régua de Aviso Automatizada**: Sistema avisa no WhatsApp com 30 e 15 dias de antecedência o fim do período de cortesia.
+   - **Extensão Técnica de até 3 Meses**: Se a obra requerer mais acompanhamento, a equipe técnica da JHoston pode solicitar extensão de 1 a 3 meses, com **justificativa formal e aprovação obrigatória da Diretoria (Joabson)**.
+   - **Planos Pós-Degustação**: Standard (1x/mês incluso), Pro Executive (R$ 29,90/mês quinzenal) e Black Elite (R$ 49,90/mês semanal).
 
 ---
 
@@ -114,10 +119,12 @@ Apresentar à Diretoria da **JHoston Pools** (Joabson e equipe) o sistema defini
 ### ATO 5: Governança Suprema & Cockpit Forense MASTER
 1. **Cockpit Forense de Auditoria MASTER**:
    - Demonstrar o Livro-Razão inviolável (`Audit Logs`), filtros por IP e botão de **Exportação CSV** para instrução de laudos periciais.
-2. **Kit Boas-Vindas da Diretoria (Revista VIP)**:
+2. **Painel de Homologação de Extensões de Degustação**:
+   - Apenas Joabson/Diretoria tem o poder de liberar extensões de 1 a 3 meses de relatórios gratuitos solicitadas pela engenharia.
+3. **Kit Boas-Vindas da Diretoria (Revista VIP)**:
    - Demonstrar o disparo da edição executiva de 4 páginas em PDF de alta resolução com 1 clique.
 
 ---
 
 ## 💡 Argumento Comercial Final para Fechamento
-> *"Com o JHPCS, a JHoston Pools não vende apenas piscinas e revestimentos; ela entrega uma **Garantia Assegurada por Software**, protege sua margem de lucro contra reclamações indevidas e cria um canal direto de fidelização e venda de insumos que dura décadas."*
+> *"Com o JHPCS, a JHoston Pools não vende apenas piscinas e revestimentos; ela entrega uma **Garantia Assegurada por Software**, protege sua margem de lucro contra reclamações indevidas, oferece 6 meses de degustação VIP e cria um canal direto de fidelização e receita recorrente que dura décadas."*

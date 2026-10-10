@@ -25,9 +25,18 @@ A instância da Evolution API já está rodando (`whatsapp-ecostone.onrender.com
 - [x] **Integração Real (POST HTTP):** Substituir o `console.log` atual pela requisição real enviando as mensagens para o WhatsApp.
 - [x] **Regra de Notificações Inteligentes:** Apenas eventos "RED ZONE" devem gerar alertas instantâneos no WhatsApp, tanto para a JHoston quanto para o Cliente Final (evitando spam de manutenções normais).
 - [ ] **Modelo de Negócio Oficial: Planos de Assinatura Premium (JHPCS Analytics VIP):**
-  - **Tier Gratuito (Standard Incluso):** 1 Laudo Mensal consolidado no WhatsApp no 1º dia útil de cada mês com validação básica de garantia decenal/trienal.
-  - **Tier Pro Executive (R$ 29,90/mês ou R$ 299/ano):** Despacho Quinzenal (dias 01 e 15) com gráficos de estabilidade F1, radar meteorológico antecipado e comparativo fotográfico de evolução mineral.
-  - **Tier Black Elite / Resort (R$ 49,90/mês ou R$ 499/ano):** Despacho Semanal toda segunda-feira às 08h, laudo pericial com hash SHA-256 e assinatura digital para síndicos e gerentes, cálculo de desperdício químico e botão de 1-toque para reabastecimento de estoque homologado.
+  - **Período de Degustação VIP Incluso (6 Meses Gratuitos):** Todo cliente novo recebe 6 meses de envios semanais/quinzenais sem custos para experimentar a tranquilidade do monitoramento contínuo.
+  - **Régua de Transição & Alerta de Encerramento:**
+    - Faltando 30 dias: Notificação amigável no WhatsApp e no Portal informando o término do período de cortesia.
+    - Faltando 15 dias: Apresentação da proposta comercial dos planos Pro e Black Elite com 1-clique para contratação.
+    - Faltando 48 horas: Último aviso e migração automática para o tier Standard (1 envio mensal gratuito) caso não contrate.
+  - **Extensão de Cortesia Técnica (Até +3 Meses):**
+    - Se a equipe técnica da JHoston identificar que a piscina precisa de mais tempo de acompanhamento (ex: cura atípica, alta variação de pH ou atraso na entrega da obra), a equipe pode solicitar extensão de 1 a 3 meses.
+    - **Governança Estrita:** A extensão exige preenchimento obrigatório de justificativa técnica e **aprovação expressa da Diretoria Executiva da JHoston (Joabson)** antes de ser efetivada no sistema.
+  - **Tiers Oficiais Pós-Degustação:**
+    - **Tier Gratuito (Standard Incluso):** 1 Laudo Mensal consolidado no WhatsApp no 1º dia útil de cada mês com validação básica de garantia decenal/trienal.
+    - **Tier Pro Executive (R$ 29,90/mês ou R$ 299/ano):** Despacho Quinzenal (dias 01 e 15) com gráficos de estabilidade F1, radar meteorológico antecipado e comparativo fotográfico de evolução mineral.
+    - **Tier Black Elite / Resort (R$ 49,90/mês ou R$ 499/ano):** Despacho Semanal toda segunda-feira às 08h, laudo pericial com hash SHA-256 e assinatura digital para síndicos e gerentes, cálculo de desperdício químico e botão de 1-toque para reabastecimento de estoque homologado.
 
 ## 🔵 FASE 4: Geração Automática de Laudos (PDF) & Upsell Recorrente
 - [x] **Módulo de PDF (ex: `pdfmake` ou `puppeteer`):** Toda vez que uma manutenção for concluída, o sistema deve compilar os dados (Nome, Data, pH, Cloro, Foto, e Consumo de Produto) em um arquivo `.pdf` timbrado com a logo da JHoston Pools. (Feito via `jspdf` para altíssima performance no servidor Edge).
@@ -35,6 +44,9 @@ A instância da Evolution API já está rodando (`whatsapp-ecostone.onrender.com
 - [ ] **Engine de Cron com Separação de Tiers:**
   - `/api/cron/monthly-reports` (Tier Standard): Despacha 1x/mês.
   - `/api/cron/weekly-reports` (Tier Black Elite): Despacha toda segunda-feira filtrando apenas piscinas com `subscription_tier = 'BLACK_SEMANAL'`.
+- [ ] **Módulo de Governança de Período Gratuito & Extensão Técnica:**
+  - Controle das colunas `trial_ends_at`, `trial_extension_months`, `trial_extension_reason` e `trial_approved_by_director`.
+  - Painel da Diretoria para homologar ou indeferir extensões solicitadas pelos técnicos.
 - [ ] **Fluxo de Upgrade no Portal do Cliente:** Adicionar no painel do síndico/cliente a chave de ativação ou botão de upgrade com checkout Pix/Cartão integrado.
 
 ## 🟢 FASE 5: Oficialização do PWA (Modo Offline)

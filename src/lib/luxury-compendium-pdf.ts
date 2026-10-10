@@ -437,25 +437,25 @@ export function generateLuxuryCompendiumPdf(data: LuxuryCompendiumData = {}): js
   doc.text(doc.splitTextToSize(portalCli, pageWidth - 44), 22, curY + 13.5);
 
   // Argumento de Fechamento Comercial & Assinatura Recorrente
-  curY += 65;
+  curY += 63;
   doc.setFillColor(15, 23, 42); // slate-900
   doc.setDrawColor(245, 158, 11);
   doc.setLineWidth(0.6);
-  doc.roundedRect(16, curY, pageWidth - 32, 24, 2.5, 2.5, 'FD');
+  doc.roundedRect(16, curY, pageWidth - 32, 28, 2.5, 2.5, 'FD');
 
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(8);
+  doc.setFontSize(7.5);
   doc.setTextColor(245, 158, 11);
-  doc.text('[ MODELO DE RECEITA RECORRENTE ] PLANOS DE ASSINATURA VIP (JHPCS)', 22, curY + 6);
+  doc.text('[ ASSINATURA VIP ] 6 MESES INCLUSOS + EXTENSÃO TÉCNICA AUDITADA', 22, curY + 5.5);
 
   doc.setFont('helvetica', 'normal');
-  doc.setFontSize(6.8);
+  doc.setFontSize(6.4);
   doc.setTextColor(226, 232, 240);
   const argComercialText = 
-    `• Standard Incluso: 1 laudo mensal no WhatsApp (gratuito na compra da piscina).\n` +
-    `• Pro Executive (R$ 29,90/mês): Despacho quinzenal com gráficos F1 e alerta de compras de insumos.\n` +
-    `• Black Elite / Resort (R$ 49,90/mês): Auditoria semanal toda 2ª feira, radar de chuva ácida e laudo pericial com hash SHA-256.`;
-  doc.text(doc.splitTextToSize(argComercialText, pageWidth - 44), 22, curY + 11);
+    `• Degustação VIP (6 Meses): Relatórios semanais/quinzenais inclusos com avisos aos 30 e 15 dias do término.\n` +
+    `• Extensão Técnica (Até +3 Meses): Requer justificativa técnica da equipe e aprovação mandatória da Diretoria (Joabson).\n` +
+    `• Pós-Degustação: Standard (Incluso 1x/mês) | Pro Executive (R$ 29,90/mês quinzenal) | Black Elite (R$ 49,90/mês semanal F1).`;
+  doc.text(doc.splitTextToSize(argComercialText, pageWidth - 44), 22, curY + 10);
 
   drawPageFooter(4);
 

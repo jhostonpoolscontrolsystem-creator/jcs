@@ -287,6 +287,38 @@ export default function RevistaExecutivaPage() {
                 </div>
               </div>
             </div>
+
+            {/* REGRAS DE TRANSIÇÃO, CORTESIA DE 6 MESES E EXTENSÃO TÉCNICA */}
+            <div className="p-4 rounded-xl bg-slate-950/90 border border-slate-800 space-y-3 text-xs">
+              <div className="flex items-center justify-between">
+                <span className="font-mono font-bold text-amber-400 uppercase text-[11px] flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                  Régua de Degustação VIP & Governança de Extensão Técnica
+                </span>
+                <span className="text-[10px] font-mono text-cyan-400 bg-cyan-950/60 border border-cyan-800/60 px-2 py-0.5 rounded font-bold">
+                  6 MESES INCLUSOS + ATÉ 3 MESES CONDICIONAIS
+                </span>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-slate-300 text-[11px] leading-relaxed">
+                <div className="space-y-1.5">
+                  <strong className="text-white block font-bold">1. Degustação Inicial & Alerta de Encerramento:</strong>
+                  <p>
+                    O cliente experimenta envios semanais/quinzenais gratuitos durante os <strong>6 primeiros meses</strong>.
+                    O sistema monitora a data limite e dispara avisos automáticos no WhatsApp e Portal faltando <strong>30 dias</strong> e <strong>15 dias</strong> para o término da cortesia, permitindo a adesão com 1 toque.
+                  </p>
+                </div>
+                <div className="space-y-1.5">
+                  <strong className="text-white block font-bold">2. Extensão Técnica Homologada (Até +3 Meses):</strong>
+                  <p>
+                    Caso a equipe técnica da JHoston comprove necessidade especial de acompanhamento (cura atípica ou ajuste de parâmetros), a equipe pode requerer extensão de <strong>1 a 3 meses</strong>.
+                    <span className="text-amber-300 font-semibold block mt-1">
+                      Trava de Segurança: A extensão exige justificativa pericial por escrito e aprovação mandatória da Diretoria Executiva da JHoston (Joabson).
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
