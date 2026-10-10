@@ -24,7 +24,7 @@ import {
 
 export const metadata = {
   title: 'Revista Executiva JHPCS 2026 — Edição Única Colecionável',
-  description: 'Compêndio de Luxo: Roteiro de Apresentação, Manual JHoston Pools, Gestão do Piscineiro, Roteiro de Testes de Estresse, Flyers e Certificado Soberano de Homologação Decenal.',
+  description: 'Compêndio de Luxo: Roteiro de Apresentação, Manual JHoston Pools, Gestão do Piscineiro, Roteiro de Testes de Estresse, Flyers e Certificado do Plano de Manutenção Ativo (3 Anos).',
 };
 
 export default function RevistaExecutivaPage() {
@@ -91,15 +91,15 @@ export default function RevistaExecutivaPage() {
         <div className="max-w-7xl mx-auto px-6 py-16 sm:py-24 space-y-8 relative">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 font-mono text-xs font-bold">
             <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-            COMPÊNDIO OFICIAL DA ALTA DIRETORIA • DECRETO OPERACIONAL 2026-2036
+            COMPÊNDIO OFICIAL DA ALTA DIRETORIA • PLANO DE MANUTENÇÃO ATIVO
           </div>
 
           <div className="space-y-4 max-w-4xl">
             <h1 className="text-3xl sm:text-6xl font-black text-white tracking-tight leading-[1.1]">
-              A Bíblia Operacional & Soberana de <span className="bg-gradient-to-r from-amber-300 via-amber-400 to-amber-600 bg-clip-text text-transparent">Blindagem Decenal</span>
+              A Bíblia Operacional & Soberana da <span className="bg-gradient-to-r from-amber-300 via-amber-400 to-amber-600 bg-clip-text text-transparent">Garantia Trienal Ativa</span>
             </h1>
             <p className="text-slate-300 text-base sm:text-lg leading-relaxed font-normal">
-              A unificação editorial definitiva entre o <strong>Roteiro de Apresentação Executiva</strong>, o <strong>Manual do Usuário JHoston Pools</strong> com as leis petrificadas de cura e preservação mineral, a <strong>Gestão de Campo do Tratador</strong> com isolamento criptográfico por etiquetas QR Code, o <strong>Roteiro Oficial de Testes de Estresse</strong> e os <strong>Flyers de Boas-Vindas</strong>.
+              A unificação editorial definitiva entre o <strong>Roteiro de Apresentação Executiva</strong>, o <strong>Manual do Usuário JHoston Pools</strong> com o <strong>Plano de Manutenção Ativo de 3 Anos</strong> (acompanhamento semanal sem mensalidade e intervenções anuais com mão de obra isenta), a <strong>Gestão de Campo do Tratador</strong> com isolamento por etiquetas QR Code, o <strong>Roteiro Oficial de Testes de Estresse</strong> e os <strong>Flyers de Boas-Vindas</strong>.
             </p>
           </div>
 
@@ -118,7 +118,7 @@ export default function RevistaExecutivaPage() {
             <div className="space-y-1">
               <span className="text-[10px] font-mono text-cyan-400 uppercase tracking-widest font-bold">Homologação Soberana</span>
               <h3 className="text-sm font-black text-cyan-200">JHoston Pools Brasil</h3>
-              <p className="text-xs text-slate-400">Garantia Decenal 2026–2036 Blindada</p>
+              <p className="text-xs text-slate-400">Garantia Ativa (3 Anos) Homologada</p>
             </div>
           </div>
         </div>
@@ -423,7 +423,7 @@ export default function RevistaExecutivaPage() {
             </span>
             <div>
               <span className="text-[10px] font-mono uppercase text-amber-400 font-bold tracking-widest">Capítulo VI da Revista</span>
-              <h2 className="text-2xl font-black text-white">Certificado Soberano de Homologação Decenal</h2>
+              <h2 className="text-2xl font-black text-white">Certificado Soberano de Homologação Trienal</h2>
             </div>
           </div>
 
@@ -439,17 +439,17 @@ export default function RevistaExecutivaPage() {
               </div>
 
               <h3 className="text-2xl sm:text-4xl font-black text-white">
-                Homologado com Eficácia Plena Decenal (2026–2036)
+                Homologado no Plano de Manutenção Ativo (3 Anos)
               </h3>
 
               <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                Certificamos para todos os fins de direito e engenharia que o <strong>JHoston Pools Control System (JHPCS)</strong> atende integralmente aos padrões normativos da ABNT, às diretrizes químicas de preservação de revestimentos de areia compactada e aos preceitos da perícia forense digital imutável.
+                Certificamos para todos os fins de direito e engenharia que o <strong>JHoston Pools Control System (JHPCS)</strong> atende integralmente às diretrizes químicas do <strong>Plano de Manutenção Ativo de 3 Anos</strong>, garantindo auditoria semanal sem mensalidade e intervenções presenciais no 1º, 2º e 3º ano com isenção integral da mão de obra especializada.
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-mono">
                 <div className="p-3 rounded-xl bg-slate-950 border border-slate-800">
                   <span className="text-slate-500 block text-[10px]">CÓDIGO DE HOMOLOGAÇÃO</span>
-                  <span className="text-amber-400 font-bold">JHPCS-DECENNIAL-SOVEREIGN-2026</span>
+                  <span className="text-amber-400 font-bold">JHPCS-TRIENNIAL-ACTIVE-PLAN-2026</span>
                 </div>
                 <div className="p-3 rounded-xl bg-slate-950 border border-slate-800">
                   <span className="text-slate-500 block text-[10px]">HASH CRIPTOGRÁFICO SHA-256</span>

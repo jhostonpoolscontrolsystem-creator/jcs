@@ -64,12 +64,12 @@ export default function ApresentacaoDiretoriaPage() {
         </div>
 
         <h1 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight max-w-4xl">
-          A Revolução da Blindagem Decenal & Telemetria F1 de Piscinas Monolíticas
+          A Revolução da Garantia Trienal Ativa & Telemetria F1 de Piscinas Monolíticas
         </h1>
 
         <p className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-3xl">
           Esta plataforma foi concebida sob medida para solucionar de forma definitiva o maior desafio da indústria de revestimentos monolíticos e piscinas de areia: 
-          <strong> blindar a JHoston Pools juridicamente contra garantias indevidas provocadas por tratadores despreparados</strong>, 
+          <strong> blindar a JHoston Pools com o Plano de Manutenção Ativo de 3 Anos (acompanhamento semanal e revisões anuais com mão de obra isenta)</strong>, 
           ao mesmo tempo em que entregamos aos clientes uma experiência de inteligência e telemetria comparável à Fórmula 1.
         </p>
 

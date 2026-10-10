@@ -57,9 +57,9 @@ export default function GuiaClientePage() {
 
       {/* Hero Section */}
       <section className="max-w-6xl mx-auto px-6 py-12 space-y-6">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/80 border border-cyan-800/60 text-cyan-400 font-mono text-xs font-bold">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-950/80 border border-amber-800/60 text-amber-400 font-mono text-xs font-bold">
           <Award className="w-3.5 h-3.5" />
-          GARANTIA DECENAL ATIVA & PROTEÇÃO QUÍMICA
+          GARANTIA TRIENAL ATIVA • PLANO DE MANUTENÇÃO ATIVO
         </div>
 
         <h1 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight max-w-4xl">

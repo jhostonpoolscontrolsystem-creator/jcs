@@ -684,12 +684,12 @@ export function generateLuxuryCompendiumPdf(data: LuxuryCompendiumData = {}): js
   drawPageFooter(7);
 
   // ========================================================
-  // PÁGINA 8: CERTIFICADO SOBERANO DE HOMOLOGAÇÃO & SELO DECENAL
+  // PÁGINA 8: CERTIFICADO SOBERANO DE HOMOLOGAÇÃO & SELO TRIENAL
   // ========================================================
   doc.addPage();
   doc.setFillColor(2, 6, 23);
   doc.rect(0, 0, pageWidth, pageHeight, 'F');
-  drawPageHeader('HOMOLOGAÇÃO SOBERANA & SELO DECENAL', 'TERMO PERICIAL', 8);
+  drawPageHeader('HOMOLOGAÇÃO SOBERANA & SELO TRIENAL', 'PLANO DE MANUTENÇÃO ATIVO', 8);
 
   curY = 32;
   // Moldura Nobre de Certificado
@@ -712,15 +712,15 @@ export function generateLuxuryCompendiumPdf(data: LuxuryCompendiumData = {}): js
   certY += 7;
   doc.setFontSize(10);
   doc.setTextColor(245, 158, 11);
-  doc.text('PLATAFORMA JHPCS • BLINDAGEM DA GARANTIA DECENAL', pageWidth / 2, certY, { align: 'center' });
+  doc.text('PLATAFORMA JHPCS • PLANO DE MANUTENÇÃO ATIVO (3 ANOS)', pageWidth / 2, certY, { align: 'center' });
 
   certY += 12;
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(8.5);
   doc.setTextColor(226, 232, 240);
   const certP1 = 
-    `Atestamos por meio deste documento pericial oficial que a plataforma JHPCS (JHoston Pools Control System) concluiu com 100% de êxito todas as etapas de homologação de arquitetura, testes de estresse de campo e motor estequiométrico.\n\n` +
-    `O ecossistema encontra-se homologado para auditar, monitorar e proteger o acervo de piscinas e revestimentos monolíticos da JHoston Pools do Brasil, conferindo validade jurídica e técnica aos laudos emitidos perante o Código Civil Brasileiro.`;
+    `Atestamos por meio deste documento pericial oficial que a plataforma JHPCS (JHoston Pools Control System) concluiu com 100% de êxito todas as etapas de homologação para sustentar o Plano de Manutenção Ativo de 3 Anos.\n\n` +
+    `O ecossistema encontra-se homologado para auditar semanalmente o tratador da piscina sem mensalidade e garantir o suporte técnico das intervenções anuais (Ano 1, 2 e 3) com isenção total de mão de obra para esvaziamento, lavagem técnica e aplicação de resina protetora.`;
   doc.text(doc.splitTextToSize(certP1, pageWidth - 48), 24, certY);
 
   certY += 34;
@@ -730,14 +730,14 @@ export function generateLuxuryCompendiumPdf(data: LuxuryCompendiumData = {}): js
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(9);
   doc.setTextColor(56, 189, 248);
-  doc.text('MATRIZ DE CONFORMIDADE TECNOLÓGICA:', 30, certY + 8);
+  doc.text('MATRIZ DE CONFORMIDADE TECNOLÓGICA & OPERACIONAL:', 30, certY + 8);
 
   const checklist = [
     '✓ Banco de Dados Live Supabase com Isolamento Multi-Tenant Homologado',
     '✓ Cockpit de Telemetria F1 com Tacômetros Digitais e Cálculo Contínuo de LSI',
-    '✓ PWA do Tratador com Instalação por QR Code na Casa de Máquinas e Modo Offline',
-    '✓ Automação de Alertas Red Zone e Laudos em < 3.2s via Evolution API (WhatsApp)',
-    '✓ Livro-Razão Forense Inviolável com Exportação CSV para Perícias Judiciais',
+    '✓ Auditoria Semanal Direta com o Tratador via WhatsApp sem Mensalidade',
+    '✓ Registro de Intervenções Anuais (Ano 1, 2 e 3) com Mão de Obra Técnica 100% Isenta',
+    '✓ Livro-Razão Forense Inviolável com Exportação CSV para Perícias e Garantia Trienal',
   ];
 
   let checkY = certY + 16;
@@ -790,7 +790,7 @@ export function generateLuxuryCompendiumPdf(data: LuxuryCompendiumData = {}): js
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(6.5);
   doc.setTextColor(100, 116, 139);
-  doc.text('REGISTRO CRIPTOGRÁFICO: SHA-256 JHPCS-SOVEREIGN-DECENAL-WARRANTY-SEAL-2026', pageWidth / 2, certY, { align: 'center' });
+  doc.text('REGISTRO CRIPTOGRÁFICO: SHA-256 JHPCS-SOVEREIGN-TRIENNIAL-ACTIVE-PLAN-2026', pageWidth / 2, certY, { align: 'center' });
 
   drawPageFooter(8);
 
