@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import { generateLuxuryCompendiumPdf } from '@/lib/luxury-compendium-pdf';
-export const dynamic = 'force-dynamic';
 
 export async function GET(request: Request) {
   try {

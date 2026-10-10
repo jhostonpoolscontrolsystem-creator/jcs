@@ -436,19 +436,26 @@ export function generateLuxuryCompendiumPdf(data: LuxuryCompendiumData = {}): js
     `• Laudo Técnico Mensal em PDF: Emissão instantânea do relatório com selo oficial de conformidade para seguro e vigilância.`;
   doc.text(doc.splitTextToSize(portalCli, pageWidth - 44), 22, curY + 13.5);
 
-  // Argumento de Fechamento Comercial
+  // Argumento de Fechamento Comercial & Assinatura Recorrente
   curY += 65;
-  doc.setFillColor(180, 83, 9); // amber-700
-  doc.roundedRect(16, curY, pageWidth - 32, 21, 2.5, 2.5, 'F');
+  doc.setFillColor(15, 23, 42); // slate-900
+  doc.setDrawColor(245, 158, 11);
+  doc.setLineWidth(0.6);
+  doc.roundedRect(16, curY, pageWidth - 32, 24, 2.5, 2.5, 'FD');
 
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(8);
-  doc.setTextColor(255, 255, 255);
-  doc.text('[ ARGUMENTO COMERCIAL FINAL PARA FECHAMENTO ]', 22, curY + 6.5);
+  doc.setTextColor(245, 158, 11);
+  doc.text('[ MODELO DE RECEITA RECORRENTE ] PLANOS DE ASSINATURA VIP (JHPCS)', 22, curY + 6);
+
   doc.setFont('helvetica', 'normal');
-  doc.setFontSize(7);
-  const argComercialText = '"Com o JHPCS, a JHoston Pools não vende apenas piscinas; entrega uma Garantia Assegurada por Software, protege sua margem de lucro e cria um canal de fidelização que dura décadas."';
-  doc.text(doc.splitTextToSize(argComercialText, pageWidth - 44), 22, curY + 11.5);
+  doc.setFontSize(6.8);
+  doc.setTextColor(226, 232, 240);
+  const argComercialText = 
+    `• Standard Incluso: 1 laudo mensal no WhatsApp (gratuito na compra da piscina).\n` +
+    `• Pro Executive (R$ 89/mês): Despacho quinzenal com gráficos F1 e alerta de compras de insumos.\n` +
+    `• Black Elite / Resort (R$ 249/mês): Auditoria semanal toda 2ª feira, radar de chuva ácida e laudo pericial com hash SHA-256.`;
+  doc.text(doc.splitTextToSize(argComercialText, pageWidth - 44), 22, curY + 11);
 
   drawPageFooter(4);
 

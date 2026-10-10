@@ -224,6 +224,70 @@ export default function RevistaExecutivaPage() {
               </div>
             </div>
           </div>
+
+          {/* NOVO BLOCO COMERCIAL: PLANOS DE ASSINATURA PREMIUM DE LAUDOS */}
+          <div className="p-6 rounded-2xl bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 border border-amber-500/30 space-y-4">
+            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800/80 pb-3">
+              <div className="flex items-center gap-2">
+                <Crown className="w-5 h-5 text-amber-400" />
+                <h3 className="text-base font-black text-white">
+                  Plano Comercial de Assinatura Premium de Relatórios (JHPCS Analytics VIP)
+                </h3>
+              </div>
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono bg-amber-500/10 text-amber-300 border border-amber-500/30 font-bold">
+                NOVA RECEITA RECORRENTE (ARR)
+              </span>
+            </div>
+
+            <p className="text-xs text-slate-300 leading-relaxed">
+              Além de blindar a garantia, o JHPCS transforma-se em um poderoso gerador de receita recorrente para a JHoston Pools. O cliente escolhe o nível de frequência dos despachos automáticos no WhatsApp:
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1">
+              {/* TIER 1: STANDARD */}
+              <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2 text-xs">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-slate-200">Standard Incluso</span>
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-bold">GRATUITO</span>
+                </div>
+                <div className="text-slate-400 text-[11px] leading-relaxed space-y-1">
+                  <p>• Despacho <strong>Mensal</strong> (1º dia útil) no WhatsApp</p>
+                  <p>• Status do Plano de Manutenção Ativo</p>
+                  <p>• Médias mensais de pH e Cloro</p>
+                  <p>• Certificado básico de conformidade</p>
+                </div>
+              </div>
+
+              {/* TIER 2: PRO EXECUTIVE */}
+              <div className="p-4 rounded-xl bg-slate-950 border border-cyan-500/40 space-y-2 text-xs relative overflow-hidden">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-cyan-300">Pro Executive</span>
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 font-bold">R$ 89/mês</span>
+                </div>
+                <div className="text-slate-300 text-[11px] leading-relaxed space-y-1">
+                  <p>• Despacho <strong>Quinzenal</strong> (dias 01 e 15) no WhatsApp</p>
+                  <p>• Gráficos de telemetria F1 e balanço LSI</p>
+                  <p>• Alerta preditivo de reposição de insumos</p>
+                  <p>• Comparativo fotográfico de evolução mineral</p>
+                </div>
+              </div>
+
+              {/* TIER 3: BLACK ELITE */}
+              <div className="p-4 rounded-xl bg-slate-950 border border-amber-500/50 space-y-2 text-xs relative overflow-hidden shadow-lg shadow-amber-500/5">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-amber-400">Black Elite / Resort</span>
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">R$ 249/mês</span>
+                </div>
+                <div className="text-slate-300 text-[11px] leading-relaxed space-y-1">
+                  <p>• Despacho <strong>Semanal</strong> (segunda 08h) + On-Demand</p>
+                  <p>• Auditoria semanal detalhada do tratador</p>
+                  <p>• Radar de chuva ácida meteorológico antecipado</p>
+                  <p>• Laudo com Hash SHA-256 e assinatura digital</p>
+                  <p>• 1-toque para reabastecimento de produtos</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
 
         {/* CAPÍTULO 5: MANUAL DO USUÁRIO JHOSTON POOLS */}
