@@ -218,7 +218,7 @@ export default function RevistaExecutivaPage() {
                 <div className="p-3 rounded-xl bg-slate-950 border border-slate-800">
                   <span className="text-amber-400 font-bold font-mono text-[10px] uppercase">Ato IV • O Kit de Boas-Vindas & Fechamento</span>
                   <p className="mt-1">
-                    Flyers de gala, Manual de bolso, Placa física de casa de máquinas e o Selo de Garantia Decenal Ativa.
+                    Flyers de gala, Manual de bolso, Placa física de casa de máquinas e o Selo de Garantia Trienal Ativa (3 Anos).
                   </p>
                 </div>
               </div>
@@ -245,7 +245,7 @@ export default function RevistaExecutivaPage() {
                 <span>A Regra de Ouro do Ácido</span>
               </div>
               <p className="text-xs text-slate-300 leading-relaxed">
-                <strong>PROIBIÇÃO ABSOLUTA:</strong> É terminantemente proibido o uso de <em>Ácido Muriático ou Clorídrico puro</em> no revestimento monolítico. O ataque ácido dissolve a matriz de carbonato de cálcio, descalça os grãos minerais e anula a garantia decenal de forma instantânea e irrevogável registrada em perícia.
+                <strong>PROIBIÇÃO ABSOLUTA:</strong> É terminantemente proibido o uso de <em>Ácido Muriático ou Clorídrico puro</em> no revestimento monolítico. O ataque ácido dissolve a matriz de carbonato de cálcio, descalça os grãos minerais e anula a garantia trienal de forma instantânea e irrevogável registrada em perícia.
               </p>
             </div>
 
@@ -392,14 +392,14 @@ export default function RevistaExecutivaPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
             {[
-              { id: 'EX-01', t: 'Ataque Ácido Intencional', desc: 'Simulação de dosagem crítica de ácido. O motor forense bloqueia o laudo, gera alarme sonoro e marca sinistro decenal com timestamp.', badge: 'FORENSE' },
+              { id: 'EX-01', t: 'Ataque Ácido Intencional', desc: 'Simulação de dosagem crítica de ácido. O motor forense bloqueia o laudo, gera alarme sonoro e marca sinistro trienal com timestamp.', badge: 'FORENSE' },
               { id: 'EX-02', t: 'Queda de Conexão Offline', desc: 'Preenchimento em subsolo sem internet. O PWA armazena localmente em IndexedDB e sincroniza assim que restabelece o 4G.', badge: 'OFFLINE' },
               { id: 'EX-03', t: 'Invasão Multi-Tenant', desc: 'Tentativa de submissão com ID de cliente cruzado. O backend intercepta com HTTP 403 Forbidden e registra log de auditoria.', badge: 'SEGURANÇA' },
               { id: 'EX-04', t: 'Estresse Concorrente', desc: '100 submissões simultâneas de tratadores. O SQLite/Prisma sustenta sem corrupção com locks transacionais protegidos.', badge: 'PERFORMANCE' },
               { id: 'EX-05', t: 'Disparo WhatsApp em Massa', desc: 'Disparo de relatórios e etiquetas para 50 síndicos simultâneos sem estouro de cota e com fila resiliente.', badge: 'COMUNICAÇÃO' },
               { id: 'EX-06', t: 'Eflorescência Acelerada', desc: 'Simulação de dureza cálcica descompensada. Alerta imediato de dosagem de sequestrante antes da formação do véu.', badge: 'QUÍMICA' },
               { id: 'EX-07', t: 'Foto Pericial Falsificada', desc: 'Submissão de imagem repetida ou corrompida. Validação de integridade do payload de evidência com hash forense.', badge: 'AUDITORIA' },
-              { id: 'EX-08', t: 'Emissão de Laudo Decenal', desc: 'Geração de PDF do laudo pericial com certificado digital, QR Code de validação pública e assinatura autorizada.', badge: 'JURÍDICO' },
+              { id: 'EX-08', t: 'Emissão de Laudo Trienal', desc: 'Geração de PDF do laudo pericial com certificado digital, QR Code de validação pública e assinatura autorizada.', badge: 'JURÍDICO' },
             ].map((test) => (
               <div key={test.id} className="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-2">
                 <div className="flex items-center justify-between">

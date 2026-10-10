@@ -19,7 +19,7 @@ export interface LuxuryCompendiumData {
  * PÁG 5: Manual do Usuário JHoston Pools • Engenharia, Pilares de Blindagem & Regra de Ácido
  * PÁG 6: Gestão de Campo Descomplicada • O Piscineiro como Funcionário & Adesivos QR Code
  * PÁG 7: Roteiro Oficial de Testes de Estresse & Exercícios Extremos (EX-01 a EX-08)
- * PÁG 8: Certificado Soberano de Homologação Tecnológica & Matriz de Conformidade Decenal
+ * PÁG 8: Certificado Soberano de Homologação Tecnológica & Matriz de Conformidade Trienal
  */
 export function generateLuxuryCompendiumPdf(data: LuxuryCompendiumData = {}): jsPDF {
   const {
@@ -88,7 +88,7 @@ export function generateLuxuryCompendiumPdf(data: LuxuryCompendiumData = {}): js
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(6.5);
     doc.setTextColor(100, 116, 139);
-    doc.text('JHPCS Luxury Edition • Engenharia de Revestimentos Monolíticos • Blindagem Decenal Homologada', 14, pageHeight - 7);
+    doc.text('JHPCS Luxury Edition • Engenharia de Revestimentos Monolíticos • Blindagem Trienal Homologada • Plano Ativo 3 Anos', 14, pageHeight - 7);
 
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(245, 158, 11);
@@ -116,7 +116,7 @@ export function generateLuxuryCompendiumPdf(data: LuxuryCompendiumData = {}): js
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(7.5);
   doc.setTextColor(255, 255, 255);
-  doc.text('★ EDIÇÃO ÚNICA • COMPÊNDIO OFICIAL ★', pageWidth / 2, 23.5, { align: 'center' });
+  doc.text('EDIÇÃO ÚNICA • COMPÊNDIO OFICIAL', pageWidth / 2, 23.5, { align: 'center' });
 
   // Logo Oficial no Centro do Cabeçalho
   let curY = 38;
@@ -160,7 +160,7 @@ export function generateLuxuryCompendiumPdf(data: LuxuryCompendiumData = {}): js
 
   const pillars = [
     { title: 'ROTEIRO EXECUTIVO DE APRESENTAÇÃO', desc: 'Os 5 personagens estratégicos, demonstração ao vivo para a Diretoria (Joabson) e argumentos comerciais de fechamento.' },
-    { title: 'MANUAL DO USUÁRIO JHOSTON POOLS', desc: 'Diretrizes de Engenharia, Regra Pétrea contra Ácidos, Cockpit Telemetria F1 e Proteção da Garantia Decenal.' },
+    { title: 'MANUAL DO USUÁRIO JHOSTON POOLS', desc: 'Diretrizes de Engenharia, Regra Pétrea contra Ácidos, Cockpit Telemetria F1 e Proteção da Garantia Trienal Ativa (3 Anos).' },
     { title: 'ROTEIRO DE TESTES DE ESTRESSE (EX-01 A EX-08)', desc: 'Exercícios práticos de ataque ácido, travamento offline 72h, disparos via Evolution API e validação pericial.' },
     { title: 'GESTÃO DO TRATADOR & ETIQUETAS QR CODE', desc: 'Isolamento de tenant (o tratador é funcionário do cliente final) e adesivos impressos para a casa de máquinas.' },
   ];
@@ -258,7 +258,7 @@ export function generateLuxuryCompendiumPdf(data: LuxuryCompendiumData = {}): js
     { page: 'PÁG 05', title: 'MANUAL DO USUÁRIO JHOSTON POOLS', desc: 'Diretrizes Técnicas, Proibição Letal de Ácidos e os 28 Dias de Cura Submersa.' },
     { page: 'PÁG 06', title: 'GESTÃO DO PISCINEIRO & ETIQUETAS QR CODE', desc: 'Isolamento de Tenants e Adesivos Oficiais Impressos para a Casa de Máquinas.' },
     { page: 'PÁG 07', title: 'ROTEIRO DE TESTES DE ESTRESSE & EXERCÍCIOS', desc: 'Bateria EX-01 a EX-08: Red Zones, Ataques Ácidos, Blecaute Offline e SLA.' },
-    { page: 'PÁG 08', title: 'CERTIFICADO DE HOMOLOGAÇÃO & TERMO DECENAL', desc: 'Validação Criptográfica SHA-256 e Blindagem Jurídica do Acervo.' },
+    { page: 'PÁG 08', title: 'CERTIFICADO DE HOMOLOGAÇÃO & TERMO TRIENAL', desc: 'Validação Criptográfica SHA-256 e Blindagem Jurídica do Acervo.' },
   ];
 
   indexItems.forEach((item) => {
@@ -380,27 +380,27 @@ export function generateLuxuryCompendiumPdf(data: LuxuryCompendiumData = {}): js
   doc.rect(0, 0, pageWidth, pageHeight, 'F');
   drawPageHeader('TELEMETRIA F1 & PORTAL DO CLIENTE', 'DEMONSTRAÇÃO AO VIVO', 4);
 
-  curY = 28;
+  curY = 27;
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(14);
+  doc.setFontSize(13);
   doc.setTextColor(255, 255, 255);
   doc.text('O "Pit Wall" da Piscina: Telemetria Contínua & Experiência VIP', 16, curY);
 
-  curY += 5;
+  curY += 4.5;
   doc.setFont('helvetica', 'normal');
-  doc.setFontSize(8);
+  doc.setFontSize(7.5);
   doc.setTextColor(56, 189, 248);
   doc.text('Do monitoramento termodinâmico à fidelização e venda recorrente de insumos homologados', 16, curY);
 
   // Bloco Cockpit F1
-  curY += 8;
+  curY += 6.5;
   doc.setFillColor(15, 23, 42);
-  doc.roundedRect(16, curY, pageWidth - 32, 62, 3, 3, 'F');
+  doc.roundedRect(16, curY, pageWidth - 32, 58, 2.5, 2.5, 'F');
 
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(9.5);
+  doc.setFontSize(9);
   doc.setTextColor(245, 158, 11);
-  doc.text('COCKPIT DE TELEMETRIA F1 ("PIT WALL") NOVO MÓDULO', 22, curY + 8);
+  doc.text('COCKPIT DE TELEMETRIA F1 ("PIT WALL") NOVO MÓDULO', 22, curY + 7);
 
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(7.5);
@@ -411,19 +411,19 @@ export function generateLuxuryCompendiumPdf(data: LuxuryCompendiumData = {}): js
     `• Medidor Dinâmico de LSI (Langelier): Dial analógico colorido identificando tendências corrosivas (< -0.3) ou incrustantes (> +0.3).\n` +
     `• Séries Históricas em Gráfico: Curvas de estabilidade com target bands seguras dos últimos 7 e 14 dias com correlação meteorológica via OpenWeather.\n` +
     `• Pit Stop Químico: Prescrição estequiométrica exata de dosagem para reequilíbrio sem produtos abrasivos.`;
-  doc.text(doc.splitTextToSize(f1Text, pageWidth - 44), 22, curY + 15);
+  doc.text(doc.splitTextToSize(f1Text, pageWidth - 44), 22, curY + 13.5);
 
   // ATO 3 & ATO 4: PORTAL DO CLIENTE
-  curY += 68;
+  curY += 63;
   doc.setFillColor(15, 23, 42);
   doc.setDrawColor(56, 189, 248);
   doc.setLineWidth(0.5);
-  doc.roundedRect(16, curY, pageWidth - 32, 68, 3, 3, 'FD');
+  doc.roundedRect(16, curY, pageWidth - 32, 60, 2.5, 2.5, 'FD');
 
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(9.5);
+  doc.setFontSize(9);
   doc.setTextColor(56, 189, 248);
-  doc.text('ATO 3: O PORTAL DO PROPRIETÁRIO & GERENTE GERAL', 22, curY + 8);
+  doc.text('ATO 3: O PORTAL DO PROPRIETÁRIO & GERENTE GERAL', 22, curY + 7);
 
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(7.5);
@@ -434,20 +434,21 @@ export function generateLuxuryCompendiumPdf(data: LuxuryCompendiumData = {}): js
     `• Satélite Meteorológico Live: Alerta com dias de antecedência sobre chuvas ácidas e recomenda elevação preventiva de pH.\n` +
     `• Estoque Preditivo de Produtos (Runway): Tabela informando dias restantes de estoque de Cloro e Bicarbonato, com botão para compra direta homologada gerando receita contínua à JHoston Pools.\n` +
     `• Laudo Técnico Mensal em PDF: Emissão instantânea do relatório com selo oficial de conformidade para seguro e vigilância.`;
-  doc.text(doc.splitTextToSize(portalCli, pageWidth - 44), 22, curY + 15);
+  doc.text(doc.splitTextToSize(portalCli, pageWidth - 44), 22, curY + 13.5);
 
   // Argumento de Fechamento Comercial
-  curY += 74;
+  curY += 65;
   doc.setFillColor(180, 83, 9); // amber-700
-  doc.roundedRect(16, curY, pageWidth - 32, 18, 2.5, 2.5, 'F');
+  doc.roundedRect(16, curY, pageWidth - 32, 21, 2.5, 2.5, 'F');
 
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(8.5);
+  doc.setFontSize(8);
   doc.setTextColor(255, 255, 255);
-  doc.text('💡 ARGUMENTO COMERCIAL FINAL PARA FECHAMENTO:', 22, curY + 6.5);
+  doc.text('[ ARGUMENTO COMERCIAL FINAL PARA FECHAMENTO ]', 22, curY + 6.5);
   doc.setFont('helvetica', 'normal');
-  doc.setFontSize(7.5);
-  doc.text('"Com o JHPCS, a JHoston Pools não vende apenas piscinas; entrega uma Garantia Assegurada por Software, protege sua margem de lucro e cria um canal de fidelização que dura décadas."', 22, curY + 12.5);
+  doc.setFontSize(7);
+  const argComercialText = '"Com o JHPCS, a JHoston Pools não vende apenas piscinas; entrega uma Garantia Assegurada por Software, protege sua margem de lucro e cria um canal de fidelização que dura décadas."';
+  doc.text(doc.splitTextToSize(argComercialText, pageWidth - 44), 22, curY + 11.5);
 
   drawPageFooter(4);
 
@@ -459,87 +460,87 @@ export function generateLuxuryCompendiumPdf(data: LuxuryCompendiumData = {}): js
   doc.rect(0, 0, pageWidth, pageHeight, 'F');
   drawPageHeader('MANUAL DO USUÁRIO JHOSTON POOLS', 'ENGENHARIA & REGRAS TÉCNICAS', 5);
 
-  curY = 28;
+  curY = 27;
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(14);
+  doc.setFontSize(13);
   doc.setTextColor(255, 255, 255);
   doc.text('Diretrizes de Engenharia Mineral & Regras Inegociáveis', 16, curY);
 
-  curY += 5;
+  curY += 4.5;
   doc.setFont('helvetica', 'normal');
-  doc.setFontSize(8);
+  doc.setFontSize(7.5);
   doc.setTextColor(245, 158, 11);
-  doc.text('Protocolos normativos que regem a garantia decenal de revestimentos monolíticos', 16, curY);
+  doc.text('Protocolos normativos que regem o Plano de Manutenção Ativo e a garantia de revestimentos monolíticos', 16, curY);
 
   // Box 1: A Regra Letal de Ácido
-  curY += 7;
+  curY += 6.5;
   doc.setFillColor(69, 10, 10); // red-950
   doc.setDrawColor(239, 68, 68); // red-500
   doc.setLineWidth(0.6);
-  doc.roundedRect(16, curY, pageWidth - 32, 42, 3, 3, 'FD');
+  doc.roundedRect(16, curY, pageWidth - 32, 43, 2.5, 2.5, 'FD');
 
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(9.5);
+  doc.setFontSize(8.5);
   doc.setTextColor(248, 113, 113);
-  doc.text('🚨 A REGRA LETAL DE PROIBIÇÃO DE ÁCIDOS CORROSIVOS', 22, curY + 8);
+  doc.text('[ REGRA PÉTREA ] PROIBIÇÃO ABSOLUTA DE ÁCIDOS CORROSIVOS', 22, curY + 7);
 
   doc.setFont('helvetica', 'normal');
-  doc.setFontSize(7.5);
+  doc.setFontSize(7);
   doc.setTextColor(254, 202, 202);
   const acidRule = 
     `Revestimentos cimentícios monolíticos e agregados de quartzo/areia possuem matriz mineral sensível ao ataque ácido.\n` +
     `• O uso de Ácido Muriático (Clorídrico), Limpa Pedras ou desincrustantes agressivos provoca dissolução da pasta de cimento e exposição prematura dos agregados.\n` +
     `• REGRA PÉTREA JHPCS: Se qualquer laudo, foto ou checklist acusar o uso de produtos não homologados ou pH < 6.8 persistente, o sistema altera compulsoriamente o status do ativo para WARRANTY_SUSPENDED (Garantia Suspensa), gerando notificação pericial e blindando a JHoston Pools.`;
-  doc.text(doc.splitTextToSize(acidRule, pageWidth - 44), 22, curY + 15);
+  doc.text(doc.splitTextToSize(acidRule, pageWidth - 44), 22, curY + 12.5);
 
   // Box 2: Cura Submersa dos 28 Dias
-  curY += 48;
+  curY += 47.5;
   doc.setFillColor(15, 23, 42);
   doc.setDrawColor(245, 158, 11);
   doc.setLineWidth(0.5);
-  doc.roundedRect(16, curY, pageWidth - 32, 42, 3, 3, 'FD');
+  doc.roundedRect(16, curY, pageWidth - 32, 41, 2.5, 2.5, 'FD');
 
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(9.5);
+  doc.setFontSize(8.5);
   doc.setTextColor(245, 158, 11);
-  doc.text('⏳ PROTOCOLO DOS 28 DIAS DE CURA SUBMERSA', 22, curY + 8);
+  doc.text('[ PROTOCOLO CRÍTICO ] 28 DIAS DE CURA SUBMERSA', 22, curY + 7);
 
   doc.setFont('helvetica', 'normal');
-  doc.setFontSize(7.5);
+  doc.setFontSize(7);
   doc.setTextColor(226, 232, 240);
   const cureRule = 
     `Piscinas recém-aplicadas passam por regime crítico de 7 dias de cura a seco e 28 dias de cura submersa contínua:\n` +
     `• Escovação Diária Obrigatória: Remove poeira de carbonatação e evita incrustações precoces.\n` +
     `• Bloqueio de Cloração de Choque: A dosagem de choque de cloro no primeiro mês causa descoloração superficial irreversível.\n` +
     `• Proibição de Carrinhos Metálicos: Aspiradores com rodízios de metal são terminantemente proibidos na fase de polimerização inicial.`;
-  doc.text(doc.splitTextToSize(cureRule, pageWidth - 44), 22, curY + 15);
+  doc.text(doc.splitTextToSize(cureRule, pageWidth - 44), 22, curY + 12.5);
 
   // Box 3: O Novo Plano de Manutenção Ativo (3 Anos de Cuidado Proativo)
-  curY += 46;
+  curY += 45.5;
   doc.setFillColor(15, 23, 42);
   doc.setDrawColor(245, 158, 11);
   doc.setLineWidth(0.6);
-  doc.roundedRect(16, curY, pageWidth - 32, 62, 3, 3, 'FD');
+  doc.roundedRect(16, curY, pageWidth - 32, 60, 2.5, 2.5, 'FD');
 
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(9.5);
+  doc.setFontSize(8.5);
   doc.setTextColor(245, 158, 11);
-  doc.text('👑 PLANO DE MANUTENÇÃO ATIVO: A REVOLUÇÃO NO PÓS-VENDA E GARANTIA', 22, curY + 8);
+  doc.text('[ PLANO DE MANUTENÇÃO ATIVO ] A REVOLUÇÃO NO PÓS-VENDA E GARANTIA', 22, curY + 7);
 
   doc.setFont('helvetica', 'normal');
-  doc.setFontSize(7.5);
+  doc.setFontSize(7);
   doc.setTextColor(226, 232, 240);
   const activePlanPdfText = 
     `Substituímos termos de garantia passivos pelo acompanhamento direto de 3 anos para longevidade impecável do revestimento:\n\n` +
     `• 1. Monitoramento Remoto Semanal (Sem Mensalidade): Contato direto com o tratador/caseiro para auditar pH e Cloro.\n` +
     `• 2. Intervenção Anual Preventiva (Ano 1 e 2): Equipe especializada no local para esvaziamento, lavagem técnica e aplicação de resina protetora preventiva. MÃO DE OBRA 100% ISENTA! Cliente arca apenas com deslocamento e resina.\n` +
     `• 3. Manutenção Pesada & Revitalização (Ano 3): Lavagem química intensiva de alta pressão e camada final de proteção. Isenção total de mão de obra mantida. Ao término do ciclo legal de 3 anos, o cliente pode optar pela renovação do plano.`;
-  doc.text(doc.splitTextToSize(activePlanPdfText, pageWidth - 44), 22, curY + 15);
+  doc.text(doc.splitTextToSize(activePlanPdfText, pageWidth - 44), 22, curY + 13);
 
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(7.5);
+  doc.setFontSize(7);
   doc.setTextColor(56, 189, 248);
-  doc.text('"Sua única preocupação será aproveitar o espaço de lazer. A responsabilidade técnica e o cuidado contínuo são nossos."', 22, curY + 56);
+  doc.text('"Sua única preocupação será aproveitar o espaço de lazer. A responsabilidade técnica e o cuidado contínuo são nossos."', 22, curY + 54);
 
   drawPageFooter(5);
 
@@ -551,54 +552,54 @@ export function generateLuxuryCompendiumPdf(data: LuxuryCompendiumData = {}): js
   doc.rect(0, 0, pageWidth, pageHeight, 'F');
   drawPageHeader('OPERAÇÃO DE CAMPO & ETIQUETAS QR', 'ISOLAMENTO DE TENANTS', 6);
 
-  curY = 28;
+  curY = 27;
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(14);
+  doc.setFontSize(13);
   doc.setTextColor(255, 255, 255);
   doc.text('O Piscineiro como Funcionário do Cliente & Adesivo na Casa de Máquinas', 16, curY);
 
-  curY += 5;
+  curY += 4.5;
   doc.setFont('helvetica', 'normal');
-  doc.setFontSize(8);
+  doc.setFontSize(7.5);
   doc.setTextColor(56, 189, 248);
   doc.text('Adoção de campo sem resistência tecnológica: aponte a câmera e opere em 2 minutos', 16, curY);
 
   // Box 1: Diretriz de Isolamento
-  curY += 8;
+  curY += 6.5;
   doc.setFillColor(15, 23, 42);
   doc.setDrawColor(245, 158, 11);
   doc.setLineWidth(0.5);
-  doc.roundedRect(16, curY, pageWidth - 32, 46, 3, 3, 'FD');
+  doc.roundedRect(16, curY, pageWidth - 32, 47, 2.5, 2.5, 'FD');
 
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(9.5);
+  doc.setFontSize(8.5);
   doc.setTextColor(245, 158, 11);
-  doc.text('🔒 DIRETRIZ DE ISOLAMENTO: O PISCINEIRO É FUNCIONÁRIO DO CLIENTE', 22, curY + 8);
+  doc.text('[ DIRETRIZ DE ISOLAMENTO ] O PISCINEIRO É FUNCIONÁRIO DO CLIENTE', 22, curY + 7);
 
   doc.setFont('helvetica', 'normal');
-  doc.setFontSize(7.5);
+  doc.setFontSize(7);
   doc.setTextColor(226, 232, 240);
   const tenantText = 
     `O piscineiro é contratado diretamente pelo cliente final (hotel, condomínio ou residência):\n\n` +
     `• Escopo Estrito de Visualização: O tratador visualiza e opera exclusivamente as piscinas do seu contratante. Nenhum dado, foto ou estoque de outros estabelecimentos é trafegado para o aparelho celular do tratador.\n` +
     `• Trava de Submissão no Backend: O endpoint /api/maintenance/submit valida o vínculo em pool_maintainers. Qualquer tentativa forjada de registrar laudos em tanques alheios é bloqueada com 403 Forbidden.\n` +
     `• Acesso Rápido Sem Senhas Longas: O tratador acessa apenas com seu CPF e um PIN numérico de 4 dígitos.`;
-  doc.text(doc.splitTextToSize(tenantText, pageWidth - 44), 22, curY + 15);
+  doc.text(doc.splitTextToSize(tenantText, pageWidth - 44), 22, curY + 13);
 
   // Box 2: A Nova Aba "Etiqueta Casa de Máquinas (QR)"
-  curY += 52;
+  curY += 51.5;
   doc.setFillColor(15, 23, 42);
   doc.setDrawColor(56, 189, 248);
   doc.setLineWidth(0.5);
-  doc.roundedRect(16, curY, pageWidth - 32, 50, 3, 3, 'FD');
+  doc.roundedRect(16, curY, pageWidth - 32, 53, 2.5, 2.5, 'FD');
 
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(9.5);
+  doc.setFontSize(8.5);
   doc.setTextColor(56, 189, 248);
-  doc.text('🏷️ A NOVA ABA "ETIQUETA CASA DE MÁQUINAS (QR)"', 22, curY + 8);
+  doc.text('[ NOVA FERRAMENTA ] A NOVA ABA "ETIQUETA CASA DE MÁQUINAS (QR)"', 22, curY + 7);
 
   doc.setFont('helvetica', 'normal');
-  doc.setFontSize(7.5);
+  doc.setFontSize(7);
   doc.setTextColor(226, 232, 240);
   const qrHubText = 
     `Disponível no painel do cliente final e da diretoria para erradicar a necessidade de digitação de URLs:\n\n` +
@@ -606,20 +607,20 @@ export function generateLuxuryCompendiumPdf(data: LuxuryCompendiumData = {}): js
     `2. Fixação no Filtro: A placa é colada na tampa do filtro ou porta da casa de máquinas.\n` +
     `3. 1 Toque com a Câmera: O tratador aponta a câmera do celular para o adesivo e o app é instalado na hora!\n` +
     `4. Disparo WhatsApp Alternativo: Permite enviar o link mágico de ativação diretamente para o WhatsApp do tratador via Evolution API.`;
-  doc.text(doc.splitTextToSize(qrHubText, pageWidth - 44), 22, curY + 15);
+  doc.text(doc.splitTextToSize(qrHubText, pageWidth - 44), 22, curY + 13);
 
   // Box 3: Resiliência Offline
-  curY += 56;
+  curY += 57.5;
   doc.setFillColor(8, 47, 73);
-  doc.roundedRect(16, curY, pageWidth - 32, 32, 2.5, 2.5, 'F');
+  doc.roundedRect(16, curY, pageWidth - 32, 34, 2.5, 2.5, 'F');
 
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(8.5);
+  doc.setFontSize(8);
   doc.setTextColor(56, 189, 248);
-  doc.text('📶 OPERAÇÃO OFFLINE-FIRST (72 HORAS DE RESILIÊNCIA EM SUBSOLOS):', 22, curY + 7);
+  doc.text('[ RESILIÊNCIA OFFLINE-FIRST ] OPERAÇÃO (72 HORAS DE RESILIÊNCIA EM SUBSOLOS):', 22, curY + 7);
 
   doc.setFont('helvetica', 'normal');
-  doc.setFontSize(7.5);
+  doc.setFontSize(7);
   doc.setTextColor(241, 245, 249);
   const offText = 
     `Em casas de máquinas subterrâneas ou áreas rurais sem sinal de celular, o aplicativo salva todas as fotos (comprimidas em WebP nativo) e medições no banco local IndexedDB do celular.\n` +
@@ -733,11 +734,11 @@ export function generateLuxuryCompendiumPdf(data: LuxuryCompendiumData = {}): js
   doc.text('MATRIZ DE CONFORMIDADE TECNOLÓGICA & OPERACIONAL:', 30, certY + 8);
 
   const checklist = [
-    '✓ Banco de Dados Live Supabase com Isolamento Multi-Tenant Homologado',
-    '✓ Cockpit de Telemetria F1 com Tacômetros Digitais e Cálculo Contínuo de LSI',
-    '✓ Auditoria Semanal Direta com o Tratador via WhatsApp sem Mensalidade',
-    '✓ Registro de Intervenções Anuais (Ano 1, 2 e 3) com Mão de Obra Técnica 100% Isenta',
-    '✓ Livro-Razão Forense Inviolável com Exportação CSV para Perícias e Garantia Trienal',
+    '[OK] Banco de Dados Live Supabase com Isolamento Multi-Tenant Homologado',
+    '[OK] Cockpit de Telemetria F1 com Tacômetros Digitais e Cálculo Contínuo de LSI',
+    '[OK] Auditoria Semanal Direta com o Tratador via WhatsApp sem Mensalidade',
+    '[OK] Registro de Intervenções Anuais (Ano 1, 2 e 3) com Mão de Obra Técnica 100% Isenta',
+    '[OK] Livro-Razão Forense Inviolável com Exportação CSV para Perícias e Garantia Trienal',
   ];
 
   let checkY = certY + 16;
