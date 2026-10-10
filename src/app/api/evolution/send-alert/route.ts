@@ -6,6 +6,9 @@ export interface WhatsAppAlertPayload {
   maintainer_name: string;
   target_phone: string;
   alert_type: 'RED_ZONE_ALERT' | 'RELATORIO_MENSAL' | 'CHATBOT_QUERY' | 'WARRANTY_SUSPENSION' | 'AI_MULTIMODAL_IMAGE';
+  pdf_url?: string;
+  pdf_filename?: string;
+  pdf_base64?: string;
   details?: {
     ph?: number;
     chlorine_ppm?: number;
@@ -70,31 +73,62 @@ export async function POST(request: Request) {
 
     try {
       if (evolutionApiKey) {
-        const evoRes = await fetch(`${evolutionUrl}/message/sendText/${instanceName}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            apikey: evolutionApiKey,
-          },
-          body: JSON.stringify({
-            number: formattedPhone,
-            text: textMessage,
-            textMessage: {
-              text: textMessage,
-            },
-            options: {
-              delay: 1000,
-              presence: 'composing',
-            },
-          }),
-        });
+        // Se houver PDF anexado (URL pública ou Base64), despacha como Documento via sendMedia
+        if (body.pdf_url || body.pdf_base64) {
+          const mediaUrl = body.pdf_url || body.pdf_base64;
+          const fileName = body.pdf_filename || 'Revista_Executiva_JHPCS.pdf';
 
-        if (evoRes.ok) {
-          evolutionResponse = await evoRes.json();
-          isDelivered = true;
+          const evoRes = await fetch(`${evolutionUrl}/message/sendMedia/${instanceName}`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              apikey: evolutionApiKey,
+            },
+            body: JSON.stringify({
+              number: formattedPhone,
+              mediatype: 'document',
+              mimetype: 'application/pdf',
+              caption: textMessage,
+              media: mediaUrl,
+              fileName: fileName,
+            }),
+          });
+
+          if (evoRes.ok) {
+            evolutionResponse = await evoRes.json();
+            isDelivered = true;
+          } else {
+            const errData = await evoRes.text();
+            console.warn('Erro resposta Evolution API (sendMedia):', errData);
+          }
         } else {
-          const errData = await evoRes.text();
-          console.warn('Erro resposta Evolution API:', errData);
+          // Envio de mensagem de texto padrão via sendText
+          const evoRes = await fetch(`${evolutionUrl}/message/sendText/${instanceName}`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              apikey: evolutionApiKey,
+            },
+            body: JSON.stringify({
+              number: formattedPhone,
+              text: textMessage,
+              textMessage: {
+                text: textMessage,
+              },
+              options: {
+                delay: 1000,
+                presence: 'composing',
+              },
+            }),
+          });
+
+          if (evoRes.ok) {
+            evolutionResponse = await evoRes.json();
+            isDelivered = true;
+          } else {
+            const errData = await evoRes.text();
+            console.warn('Erro resposta Evolution API (sendText):', errData);
+          }
         }
       }
     } catch (err: any) {

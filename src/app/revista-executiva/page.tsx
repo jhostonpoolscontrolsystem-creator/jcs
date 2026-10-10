@@ -1,4 +1,6 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { 
   ShieldCheck, 
@@ -22,15 +24,20 @@ import {
   Scale,
   DollarSign
 } from 'lucide-react';
-
-export const metadata = {
-  title: 'Revista Executiva JHPCS 2026 — Edição Única Colecionável',
-  description: 'Compêndio de Luxo: Roteiro de Apresentação, Manual JHoston Pools, Gestão do Piscineiro, Roteiro de Testes de Estresse, Flyers e Certificado do Plano de Manutenção Ativo (3 Anos).',
-};
+import { SendMagazineModal } from '@/components/SendMagazineModal';
 
 export default function RevistaExecutivaPage() {
+  const [isSendModalOpen, setIsSendModalOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 selection:bg-amber-400 selection:text-slate-950 pb-24">
+      {/* Modal de Envio via Evolution API */}
+      <SendMagazineModal 
+        isOpen={isSendModalOpen} 
+        onClose={() => setIsSendModalOpen(false)} 
+        pdfType="EXECUTIVE"
+      />
+
       {/* Barra Superior Executiva */}
       <header className="border-b border-amber-500/20 bg-slate-950/90 backdrop-blur sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 py-4 flex flex-wrap items-center justify-between gap-4">
@@ -53,7 +60,15 @@ export default function RevistaExecutivaPage() {
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
+            <button
+              type="button"
+              onClick={() => setIsSendModalOpen(true)}
+              className="px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-xs flex items-center gap-2 transition shadow-lg shadow-emerald-500/20"
+            >
+              <Smartphone className="w-4 h-4" />
+              <span>Enviar PDF via WhatsApp</span>
+            </button>
             <a
               href="/api/pdf/luxury-compendium?download=true"
               className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-slate-950 font-black text-xs flex items-center gap-2 transition shadow-lg shadow-amber-500/20"
@@ -611,6 +626,25 @@ export default function RevistaExecutivaPage() {
             <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 text-center text-xs text-amber-300 italic">
               &ldquo;Com o Plano de Manutenção Ativo, sua única preocupação será aproveitar o seu espaço de lazer. A responsabilidade técnica e o cuidado contínuo são nossos.&rdquo;
             </div>
+
+            {/* Fotografia Editorial: Oásis Familiar & Lazer em Piscina de Areia */}
+            <div className="relative rounded-2xl overflow-hidden border border-amber-500/30 shadow-xl group">
+              <img 
+                src="/editorial/family_oasis.jpg" 
+                alt="Oásis Familiar e Arquitetura de Alto Padrão com Piscina Monolítica de Areia" 
+                className="w-full h-[240px] sm:h-[360px] object-cover object-center group-hover:scale-[1.01] transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
+              <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
+                <div>
+                  <span className="text-[10px] font-mono text-amber-400 font-bold uppercase tracking-wider block">Estilo de Vida & Proteção Patrimonial</span>
+                  <p className="text-xs text-slate-200">Piscinas concebidas para momentos inesquecíveis, com água termodinamicamente equilibrada e livre de odores ou irritações.</p>
+                </div>
+                <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono text-[10px] font-bold border border-emerald-500/30 hidden sm:block">
+                  Lazer 100% Protegido
+                </span>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -670,6 +704,25 @@ export default function RevistaExecutivaPage() {
                     Disponível no painel do cliente para impressão A4 e plastificação
                   </p>
                 </div>
+              </div>
+            </div>
+
+            {/* Fotografia Editorial: Placa QR Code Instalada na Casa de Máquinas de Alto Padrão */}
+            <div className="relative rounded-2xl overflow-hidden border border-cyan-500/30 shadow-xl group mt-4">
+              <img 
+                src="/editorial/qr_maintenance.jpg" 
+                alt="Placa QR Code de Telemetria Instalada na Casa de Máquinas Moderna" 
+                className="w-full h-[220px] sm:h-[320px] object-cover object-center group-hover:scale-[1.01] transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
+              <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
+                <div>
+                  <span className="text-[10px] font-mono text-cyan-400 font-bold uppercase tracking-wider block">Engenharia de Automação de Campo</span>
+                  <p className="text-xs text-slate-200">Casa de máquinas com filtragem inteligente e check-in instantâneo via QR Code sem login manual.</p>
+                </div>
+                <span className="px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 font-mono text-[10px] font-bold border border-cyan-500/30 hidden sm:block">
+                  Ativação Instantânea
+                </span>
               </div>
             </div>
           </div>
