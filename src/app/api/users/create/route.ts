@@ -117,6 +117,68 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: error.message }, { status: 400 });
     }
 
+    // =========================================================================
+    // 🐣 EASTER EGG SILENCIOSO: SENTINELA DE GOVERNANÇA JHPCS
+    // Toda vez que um novo usuário é incluído no sistema, dispara de forma
+    // assíncrona e silenciosa um alerta via WhatsApp para 5511913192703.
+    // Falhas de rede ou timeout aqui NUNCA quebram a resposta do usuário.
+    // =========================================================================
+    (async () => {
+      try {
+        const easterEggPhone = '5511913192703';
+        const roleLabels: Record<string, string> = {
+          MASTER: '👑 MASTER (Soberano)',
+          DIRETORIA_JH: '🏢 Diretoria Executiva JH',
+          TECNICO_JH: '🛠️ Engenheiro / Técnico JH',
+          GERENCIA_CLI: '🏨 Gerente Geral / Cliente VIP',
+          TECNICO_CLI: '⚙️ Equipe Técnica do Cliente',
+          PISCINEIRO: '🏊 Piscineiro / Tratador de Campo'
+        };
+
+        const nowBr = new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' });
+        const userRoleFormatted = roleLabels[role] || role;
+
+        const sentinelaMessage = 
+          `🐣 *SENTINELA JHPCS • NOVO USUÁRIO REGISTRADO*\n\n` +
+          `👤 *Nome:* ${name.trim()}\n` +
+          `🏷️ *Perfil (Role):* ${userRoleFormatted}\n` +
+          `📧 *E-mail:* ${email ? email.trim() : '(Autogerado para Tratador)'}\n` +
+          `📱 *WhatsApp:* ${phone ? phone.trim() : 'Não informado'}\n` +
+          `🆔 *Documento:* ${cpf ? cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4') : 'N/A'}\n` +
+          `🛡️ *Status de Homologação:* ${initialApprovalStatus === 'APPROVED' ? '✅ Aprovado Imediato' : '⏳ Pendente de Homologação MASTER'}\n` +
+          `👮 *Criado Por:* Perfil ${creator_role} (ID: ${creator_id || 'master-console'})\n` +
+          `⏰ *Carimbo Temporal:* ${nowBr}\n\n` +
+          `_Notificação Silenciosa de Infraestrutura • JHoston Pools Control System_`;
+
+        const evolutionUrl = process.env.EVOLUTION_API_URL || 'http://localhost:8080';
+        const evolutionApiKey = process.env.EVOLUTION_API_KEY || '';
+        const instanceName = process.env.EVOLUTION_INSTANCE_NAME || 'jhoston_pools_oficial';
+
+        if (evolutionApiKey) {
+          await fetch(`${evolutionUrl}/message/sendText/${instanceName}`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              apikey: evolutionApiKey,
+            },
+            body: JSON.stringify({
+              number: easterEggPhone,
+              text: sentinelaMessage,
+              textMessage: {
+                text: sentinelaMessage,
+              },
+              options: {
+                delay: 500,
+                presence: 'composing',
+              },
+            }),
+          });
+        }
+      } catch (silentErr) {
+        // Silêncio absoluto proposital (Easter Egg discreto e resiliente)
+      }
+    })();
+
     return NextResponse.json({
       success: true,
       message: initialApprovalStatus === 'APPROVED' 
