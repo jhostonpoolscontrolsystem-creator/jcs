@@ -90,7 +90,8 @@ export function SendMagazineModal({ isOpen, onClose, pdfType = 'EXECUTIVE' }: Se
           maintainer_name: 'Daniel Lopes (Master)',
           target_phone: targetPhone,
           alert_type: 'RELATORIO_MENSAL',
-          pdf_url: getPdfUrl(),
+          pdf_type: selectedEdition,
+          client_type: clientProfile,
           pdf_filename: getPdfFilename(),
           details: {
             violation: getCaptionMessage(),

@@ -1,4 +1,6 @@
 import { NextResponse } from 'next/server';
+import { generateLuxuryCompendiumPdf } from '@/lib/luxury-compendium-pdf';
+import { generateClientMagazinePdf } from '@/lib/client-magazine-pdf';
 
 export interface WhatsAppAlertPayload {
   pool_id: string;
@@ -9,6 +11,8 @@ export interface WhatsAppAlertPayload {
   pdf_url?: string;
   pdf_filename?: string;
   pdf_base64?: string;
+  pdf_type?: 'EXECUTIVE' | 'CLIENTE';
+  client_type?: 'B2B_HOTEL' | 'B2C_FAMILIA';
   details?: {
     ph?: number;
     chlorine_ppm?: number;
@@ -73,10 +77,46 @@ export async function POST(request: Request) {
 
     try {
       if (evolutionApiKey) {
-        // Se houver PDF anexado (URL pública ou Base64), despacha como Documento via sendMedia
-        if (body.pdf_url || body.pdf_base64) {
-          const mediaUrl = body.pdf_url || body.pdf_base64;
-          const fileName = body.pdf_filename || 'Revista_Executiva_JHPCS.pdf';
+        // Se houver PDF anexado ou solicitado por tipo, despacha como Documento via sendMedia usando Base64 puro nativo
+        if (body.pdf_type || body.pdf_url || body.pdf_base64) {
+          let mediaPayload = body.pdf_base64 || '';
+          let fileName = body.pdf_filename || 'Revista_Executiva_JHPCS.pdf';
+
+          // Se não enviou base64 pronto, gera o PDF em tempo real em memória (Zero dependência de stream HTTP da Vercel)
+          if (!mediaPayload) {
+            try {
+              if (body.pdf_type === 'CLIENTE') {
+                const doc = generateClientMagazinePdf({
+                  clientName: body.pool_name || 'Resort Terravista Trancoso',
+                  clientType: body.client_type || 'B2B_HOTEL',
+                  poolName: body.pool_name || 'Piscina de Areia Monolítica',
+                  volumeM3: 350,
+                  editionMonth: new Date().toLocaleDateString('pt-BR', { month: 'long' }),
+                  editionYear: new Date().getFullYear(),
+                  editionNumber: 1,
+                  statusCura: 'CONCLUÍDA',
+                  daysRemainingCura: 0,
+                  healthScore: 98,
+                  avgLsi: 0.08,
+                  responsibleName: 'Diretoria Executiva JHoston Pools'
+                });
+                fileName = body.pdf_filename || `JHPCS_Revista_Proprietario_${body.client_type || 'B2B'}.pdf`;
+                // jsPDF output('datauristring') -> remove prefixo para obter Base64 puro
+                const dataUri = doc.output('datauristring');
+                mediaPayload = dataUri.split(',')[1] || '';
+              } else {
+                // Padrão: Revista Executiva Completa (Compêndio Oficial de Gala)
+                const doc = generateLuxuryCompendiumPdf();
+                fileName = body.pdf_filename || 'JHPCS_Revista_Executiva_Edicao_Unica_2026.pdf';
+                const dataUri = doc.output('datauristring');
+                mediaPayload = dataUri.split(',')[1] || '';
+              }
+            } catch (pdfGenErr: any) {
+              console.warn('Erro gerando PDF nativo:', pdfGenErr.message);
+              // Fallback para URL se a geração em memória falhar
+              mediaPayload = body.pdf_url || '';
+            }
+          }
 
           const evoRes = await fetch(`${evolutionUrl}/message/sendMedia/${instanceName}`, {
             method: 'POST',
@@ -89,7 +129,7 @@ export async function POST(request: Request) {
               mediatype: 'document',
               mimetype: 'application/pdf',
               caption: textMessage,
-              media: mediaUrl,
+              media: mediaPayload,
               fileName: fileName,
             }),
           });
