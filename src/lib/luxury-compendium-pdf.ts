@@ -239,7 +239,8 @@ export function generateLuxuryCompendiumPdf(data: LuxuryCompendiumData = {}): js
     `Quando surgiam manchas ou delaminação provocadas por pura imperícia, a culpa recaía injustamente sobre a empresa que implantava ou revitalizava a piscina, gerando custos de garantias indevidas e desgaste de marca.\n\n` +
     `O JHPCS (JHoston Pools Control System) nasceu para colocar um ponto final definitivo nessa vulnerabilidade. Nós não desenvolvemos apenas um software de gestão: nós criamos uma blindagem termodinâmica, operacional e forense. Com Digital Twin em tempo real, inteligência de geolocalização e automação via WhatsApp em menos de 3.2 segundos, transformamos o cumprimento da garantia em um ativo incontestável perante o Código Civil.\n\n` +
     `Este Compêndio reúne tudo o que a liderança precisa para apresentar, auditar, estressar e proteger cada metro quadrado de piscina construído sob a bandeira JHoston Pools."\n\n` +
-    `— Daniel Lopes & Patrícia Grübel (Desenvolvedores do JHPCS • Fundadores & Gestores MASTER)`;
+    `— Daniel Lopes & Patrícia Grübel\n` +
+    `GADAP SISTEMAS • Software House Criadora do JHPCS (Inovação, Ética & Solidez)`;
 
   const splitEditorial = doc.splitTextToSize(editorialText, pageWidth - 44);
   doc.text(splitEditorial, 22, curY + 7);

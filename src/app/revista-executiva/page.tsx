@@ -222,6 +222,86 @@ export default function RevistaExecutivaPage() {
               </div>
             </div>
           </div>
+
+          {/* MANIFESTO & ORIGEM: GADAP SISTEMAS • INOVAÇÃO E FLEXIBILIDADE */}
+          <div className="p-8 rounded-3xl bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950/40 border border-cyan-500/30 relative overflow-hidden shadow-2xl">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none" />
+            
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+              {/* Logotipo Oficial da GADAP */}
+              <div className="lg:col-span-4 flex flex-col items-center justify-center p-4 rounded-2xl bg-slate-950/80 border border-cyan-500/30 shadow-inner group">
+                <div className="relative rounded-2xl overflow-hidden border border-cyan-400/20 shadow-xl group-hover:border-cyan-400/50 transition">
+                  <img 
+                    src="/GADAP_Logo.png" 
+                    alt="GADAP Sistemas • Inovação e Flexibilidade" 
+                    className="w-full max-w-[280px] h-auto object-contain rounded-xl"
+                  />
+                </div>
+                <span className="mt-3 text-[10px] font-mono text-cyan-300 uppercase tracking-widest font-bold text-center">
+                  Software House Criadora do JHPCS
+                </span>
+              </div>
+
+              {/* Narrativa Etimológica e Conceitual da Marca */}
+              <div className="lg:col-span-8 space-y-4">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 font-mono text-xs font-bold">
+                  <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+                  MANIFESTO DE ENGENHARIA DE SOFTWARE
+                </div>
+
+                <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+                  GADAP Sistemas: <span className="bg-gradient-to-r from-cyan-300 via-teal-300 to-emerald-400 bg-clip-text text-transparent">A Tríade da Engenharia de Confiança</span>
+                </h3>
+
+                <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                  A concepção do JHPCS carrega o DNA da <strong>GADAP Sistemas</strong> (Inovação e Flexibilidade). O nome não é uma sigla fortuita: é a fusão milenar de três raízes linguísticas e filosóficas que fundamentam a arquitetura de software desenhada por <strong>Daniel Lopes & Patrícia Grübel</strong>:
+                </p>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+                  {/* Pilar 1: ADAP */}
+                  <div className="p-4 rounded-2xl bg-slate-950/70 border border-cyan-500/30 space-y-2">
+                    <div className="flex items-center gap-2 text-cyan-400 font-mono text-xs font-bold">
+                      <span className="w-5 h-5 rounded-md bg-cyan-500/20 flex items-center justify-center text-[10px] border border-cyan-500/40">01</span>
+                      <span>A Raiz &ldquo;ADAP&rdquo; (Latim / Inglês)</span>
+                    </div>
+                    <h4 className="text-sm font-bold text-white">Inovação & Flexibilidade</h4>
+                    <p className="text-xs text-slate-300 leading-relaxed">
+                      Remete diretamente a <em>Adapt</em> (inglês) e <em>Adaptare</em> (latim). Em tecnologia, a capacidade de adaptação é o pilar da inovação. Um sistema rígido gera medo e frustração; um sistema adaptável é amigável, maleável e centrado no usuário. Foneticamente soa como <strong>G-ADAP</strong> (<em>Global Adaptation</em> ou <em>Great Adaptation</em>).
+                    </p>
+                  </div>
+
+                  {/* Pilar 2: ADAB */}
+                  <div className="p-4 rounded-2xl bg-slate-950/70 border border-teal-500/30 space-y-2">
+                    <div className="flex items-center gap-2 text-teal-400 font-mono text-xs font-bold">
+                      <span className="w-5 h-5 rounded-md bg-teal-500/20 flex items-center justify-center text-[10px] border border-teal-500/40">02</span>
+                      <span>O Conceito &ldquo;Adab&rdquo; (Árabe / Turco)</span>
+                    </div>
+                    <h4 className="text-sm font-bold text-white">Comprometimento & Clareza</h4>
+                    <p className="text-xs text-slate-300 leading-relaxed">
+                      No idioma árabe e turco (<em>Adab</em> ou <em>Adap</em>), a palavra descreve a mais nobre ética, respeito, boas maneiras e conduta moral irrepreensível. Traduz a premissa de um sistema que acolhe sem gerar intimidação, consolidando transparência mútua e relações de confiança indestrutíveis com o cliente.
+                    </p>
+                  </div>
+
+                  {/* Pilar 3: GADA */}
+                  <div className="p-4 rounded-2xl bg-slate-950/70 border border-amber-500/30 space-y-2">
+                    <div className="flex items-center gap-2 text-amber-400 font-mono text-xs font-bold">
+                      <span className="w-5 h-5 rounded-md bg-amber-500/20 flex items-center justify-center text-[10px] border border-amber-500/40">03</span>
+                      <span>A Palavra &ldquo;Gada&rdquo; (Sânscrito)</span>
+                    </div>
+                    <h4 className="text-sm font-bold text-white">Solidez & O Guardião Bulldog</h4>
+                    <p className="text-xs text-slate-300 leading-relaxed">
+                      Na tradição sânscrita ancestral, a <em>Gada</em> é a clava sagrada: símbolo de força absoluta, autoridade invicta e proteção de fundações inabaláveis. Essa raiz materializa a solidez implacável da plataforma, personificada no nosso <strong>Bulldog Cibernético</strong> — o sentinela incondicional da infraestrutura mineral e digital.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="p-3.5 rounded-xl bg-slate-950/90 border border-cyan-500/30 text-cyan-200 font-mono text-xs flex items-center justify-between flex-wrap gap-2">
+                  <span>💡 <strong>Síntese GADAP:</strong> Força de Guardião (<em>Gada</em>) + Ética & Respeito (<em>Adab</em>) + Adaptação Tecnológica (<em>Adapt</em>).</span>
+                  <span className="text-[11px] text-slate-400">Criado por Daniel Lopes & Patrícia Grübel</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
 
         {/* CAPÍTULO 3: ROTEIRO DE APRESENTAÇÃO */}
