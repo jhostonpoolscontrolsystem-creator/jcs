@@ -85,6 +85,7 @@ Apresentar à Diretoria da **JHoston Pools** (Joabson e equipe) o sistema defini
    - **Régua de Aviso Automatizada**: Sistema avisa no WhatsApp com 30 e 15 dias de antecedência o fim do período de cortesia.
    - **Extensão Técnica de até 3 Meses**: Se a obra requerer mais acompanhamento, a equipe técnica da JHoston pode solicitar extensão de 1 a 3 meses, com **justificativa formal e aprovação obrigatória da Diretoria (Joabson)**.
    - **Planos Pós-Degustação**: Standard (1x/mês incluso), Pro Executive (R$ 29,90/mês quinzenal) e Black Elite (R$ 49,90/mês semanal).
+   - **Condição Comercial Inegociável**: **Pagamento antecipado até o dia 05 do mês corrente**. Garante previsibilidade de caixa para a JHoston e segurança de entrega sem qualquer risco de inadimplência.
 
 ---
 

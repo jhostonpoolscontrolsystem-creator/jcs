@@ -382,7 +382,7 @@ export function MasterAuditReportsCockpit({ onNavigateTab, onOpenWelcomeKit }: M
                 </h4>
               </div>
               <span className="text-[10px] font-mono text-slate-400">
-                Padrão: 6 meses cortesia • Extensão técnica máxima: +3 meses homologados
+                Padrão: 6 meses cortesia • Extensão máxima: +3m aprovada • Pagamento: Antecipado até dia 05
               </span>
             </div>
 
@@ -397,6 +397,7 @@ export function MasterAuditReportsCockpit({ onNavigateTab, onOpenWelcomeKit }: M
                     <th className="p-3.5">Status Cortesia</th>
                     <th className="p-3.5">Opção de Plano</th>
                     <th className="p-3.5">Valor Mensal</th>
+                    <th className="p-3.5">Vencimento</th>
                     <th className="p-3.5">Extensão Técnica</th>
                   </tr>
                 </thead>
@@ -461,6 +462,15 @@ export function MasterAuditReportsCockpit({ onNavigateTab, onOpenWelcomeKit }: M
                       </td>
                       <td className="p-3.5 font-bold text-emerald-400 font-mono">
                         {item.monthly_value_brl > 0 ? `R$ ${item.monthly_value_brl.toFixed(2).replace('.', ',')}/mês` : 'Incluso (R$ 0)'}
+                      </td>
+                      <td className="p-3.5 font-mono text-[11px]">
+                        {item.monthly_value_brl > 0 ? (
+                          <span className="px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/30 text-amber-300 font-bold">
+                            Dia 05 (Antecipado)
+                          </span>
+                        ) : (
+                          <span className="text-slate-500">—</span>
+                        )}
                       </td>
                       <td className="p-3.5 text-xs text-slate-400 max-w-xs">
                         {item.extension_months > 0 ? (

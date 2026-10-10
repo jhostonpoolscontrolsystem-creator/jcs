@@ -19,7 +19,8 @@ import {
   AlertTriangle,
   QrCode,
   Droplets,
-  Scale
+  Scale,
+  DollarSign
 } from 'lucide-react';
 
 export const metadata = {
@@ -316,6 +317,14 @@ export default function RevistaExecutivaPage() {
                       Trava de Segurança: A extensão exige justificativa pericial por escrito e aprovação mandatória da Diretoria Executiva da JHoston (Joabson).
                     </span>
                   </p>
+                </div>
+              </div>
+
+              {/* CLÁUSULA COMERCIAL: PAGAMENTO ANTECIPADO ATÉ O DIA 05 */}
+              <div className="pt-2 border-t border-slate-800/80 flex items-start gap-2.5 text-[11px] text-amber-300/90 bg-amber-500/5 p-2.5 rounded-lg border border-amber-500/20">
+                <DollarSign className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                <div>
+                  <strong className="text-amber-400">Condição Financeira Antecipada (Vencimento até o dia 05):</strong> Todos os planos pagos operam sob regime pré-pago mensal, com quitação antecipada até o <strong>dia 05 do mês corrente</strong> para liberação dos despachos frequentes. Na ausência de pagamento até o dia 05, o ativo é automaticamente mantido no plano Standard Incluso (mensal gratuito).
                 </div>
               </div>
             </div>

@@ -123,6 +123,7 @@ export async function GET(request: Request) {
           listText + '\n' +
           `📊 *Total Monitorado:* ${auditItems.length} piscinas\n` +
           `💰 *Potencial ARR Imediato:* R$ ${auditItems.reduce((acc, c) => acc + c.monthly_value_brl, 0).toFixed(2).replace('.', ',')}/mês\n` +
+          `📅 *Regra Comercial:* Pagamento antecipado impreterivelmente até o dia 05 do mês corrente.\n` +
           `⏰ *Emitido em:* ${nowBr}\n\n` +
           `_JHoston Pools Control System • Governança Soberana Daniel & Patrícia_`
         );
@@ -142,6 +143,7 @@ export async function GET(request: Request) {
         'Plano Atual',
         'Opção do Cliente',
         'Valor Mensal (R$)',
+        'Regra Pagamento',
         'Início Degustação',
         'Fim Degustação',
         'Dias Restantes Cortesia',
@@ -165,6 +167,7 @@ export async function GET(request: Request) {
           `"${item.current_tier}"`,
           `"${item.client_chosen_tier}"`,
           `"${item.monthly_value_brl.toFixed(2)}"`,
+          `"Antecipado (até dia 05)"`,
           `"${new Date(item.trial_started_at).toLocaleDateString('pt-BR')}"`,
           `"${new Date(item.trial_ends_at).toLocaleDateString('pt-BR')}"`,
           `"${item.days_remaining_trial}"`,

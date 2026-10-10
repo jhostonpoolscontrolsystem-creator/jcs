@@ -35,8 +35,9 @@ A instância da Evolution API já está rodando (`whatsapp-ecostone.onrender.com
     - **Governança Estrita:** A extensão exige preenchimento obrigatório de justificativa técnica e **aprovação expressa da Diretoria Executiva da JHoston (Joabson)** antes de ser efetivada no sistema.
   - **Tiers Oficiais Pós-Degustação:**
     - **Tier Gratuito (Standard Incluso):** 1 Laudo Mensal consolidado no WhatsApp no 1º dia útil de cada mês com validação básica de garantia decenal/trienal.
-    - **Tier Pro Executive (R$ 29,90/mês ou R$ 299/ano):** Despacho Quinzenal (dias 01 e 15) com gráficos de estabilidade F1, radar meteorológico antecipado e comparativo fotográfico de evolução mineral.
-    - **Tier Black Elite / Resort (R$ 49,90/mês ou R$ 499/ano):** Despacho Semanal toda segunda-feira às 08h, laudo pericial com hash SHA-256 e assinatura digital para síndicos e gerentes, cálculo de desperdício químico e botão de 1-toque para reabastecimento de estoque homologado.
+    - **Tier Pro Executive (R$ 29,90/mês ou R$ 299/ano):** Despacho Quinzenal (dias 01 e 15) com gráficos de estabilidade F1, radar meteorológico antecipado e comparativo fotográfico de evolução mineral. *Pagamento antecipado até o dia 05 do mês corrente.*
+    - **Tier Black Elite / Resort (R$ 49,90/mês ou R$ 499/ano):** Despacho Semanal toda segunda-feira às 08h, laudo pericial com hash SHA-256 e assinatura digital para síndicos e gerentes, cálculo de desperdício químico e botão de 1-toque para reabastecimento de estoque homologado. *Pagamento antecipado até o dia 05 do mês corrente.*
+    - **Regra Financeira de Cobrança (Pré-pago):** Todos os pagamentos dos planos por assinatura são **antecipados, com vencimento impreterivelmente até o dia 05 do mês corrente**. Sem confirmação até o dia 05, o sistema suspende os despachos quinzenais/semanais e reverte automaticamente para o envio mensal gratuito (Standard Incluso), blindando contra inadimplência.
 
 ## 🔵 FASE 4: Geração Automática de Laudos (PDF) & Upsell Recorrente
 - [x] **Módulo de PDF (ex: `pdfmake` ou `puppeteer`):** Toda vez que uma manutenção for concluída, o sistema deve compilar os dados (Nome, Data, pH, Cloro, Foto, e Consumo de Produto) em um arquivo `.pdf` timbrado com a logo da JHoston Pools. (Feito via `jspdf` para altíssima performance no servidor Edge).

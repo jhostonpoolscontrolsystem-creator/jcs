@@ -454,7 +454,8 @@ export function generateLuxuryCompendiumPdf(data: LuxuryCompendiumData = {}): js
   const argComercialText = 
     `• Degustação VIP (6 Meses): Relatórios semanais/quinzenais inclusos com avisos aos 30 e 15 dias do término.\n` +
     `• Extensão Técnica (Até +3 Meses): Requer justificativa técnica da equipe e aprovação mandatória da Diretoria (Joabson).\n` +
-    `• Pós-Degustação: Standard (Incluso 1x/mês) | Pro Executive (R$ 29,90/mês quinzenal) | Black Elite (R$ 49,90/mês semanal F1).`;
+    `• Pós-Degustação: Standard (Incluso 1x/mês) | Pro Executive (R$ 29,90/mês quinzenal) | Black Elite (R$ 49,90/mês semanal F1).\n` +
+    `• Condição Financeira: Pagamento antecipado até o dia 05 do mês corrente para liberação dos despachos frequentes.`;
   doc.text(doc.splitTextToSize(argComercialText, pageWidth - 44), 22, curY + 10);
 
   drawPageFooter(4);
