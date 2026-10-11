@@ -71,9 +71,21 @@ Acessível pela aba **"Clientes & Telemetria F1"**:
   - Dureza Cálcica: **200 a 400 ppm**
 - Regra de Cura Submersa: Bloqueio estrito de aplicação de ácido clorídrico (muriático) e cloração de choque nas primeiras 4 semanas de preenchimento da piscina.
 
-### 3.5. Relatórios Executivos & WhatsApp
-- Central de despacho e agendamento de relatórios periciais mensais em PDF com selo de integridade digital.
-- Catálogo corporativo de telefones da diretoria e dos clientes para notificações instantâneas em caso de não-conformidade.
+## 3.6. A Software House GADAP Sistemas & Engenharia de Confiança
+A infraestrutura do JHPCS foi arquitetada e desenvolvida com exclusividade pela **GADAP Sistemas (Inovação e Flexibilidade)** sob a liderança técnica de **Daniel Lopes & Patrícia Grübel**.
+O nome GADAP sintetiza três raízes milenares fundamentais:
+1. **A Raiz "ADAP" (Latim / Inglês)**: *Adaptare* / *Adapt* — Inovação e flexibilidade contínua. Um sistema rígido gera medo e frustração; um sistema adaptável é amigável e focado no usuário. Foneticamente soa como **G-ADAP** (*Global Adaptation* ou *Great Adaptation*).
+2. **O Conceito "Adab" (Árabe / Turco)**: Ética, respeito, boas maneiras e conduta moral irrepreensível, estabelecendo relações de clareza e confiança inabalável com clientes e diretores.
+3. **A Palavra "Gada" (Sânscrito)**: A clava sagrada, símbolo ancestral de força absoluta, autoridade invicta e fundações inabaláveis, materializada no guardião oficial da plataforma: o **Bulldog Cibernético**.
+
+### 3.7. Relatórios Executivos & Envio de Documento PDF via Evolution API
+- **Disparo Direto de Arquivo PDF (Nativo)**: Através da integração oficial com a Evolution API (`instância: ecostone`), o Master pode enviar o arquivo PDF real da **Revista Executiva Colecionável (Compêndio)** e da **Revista do Proprietário** diretamente no WhatsApp dos diretores ou clientes (sem forçar abertura de links externos).
+- **Planos Comerciais de Despacho & Vencimento Antecipado**:
+  - *Standard Incluso (Gratuito)*: 1 envio mensal no 1º dia útil.
+  - *Pro Executive (R$ 29,90/mês)*: Envios quinzenais (dias 01 e 15) com telemetria F1 e balanço LSI.
+  - *Black Elite / Resort (R$ 49,90/mês)*: Envios semanais toda segunda-feira às 08h, radar meteorológico e laudo com Hash SHA-256.
+  - *Condição de Pagamento*: Quitação antecipada até o **dia 05 do mês corrente**.
+  - *Degustação & Extensão Técnica*: 6 meses iniciais gratuitos de envios frequentes. Prorrogação de até mais 3 meses permitida mediante laudo pericial da equipe técnica e autorização mandatória da Diretoria da JHoston Pools.
 
 ---
 
@@ -88,4 +100,5 @@ Acessível pela aba **"Clientes & Telemetria F1"**:
    - Mantenha a autenticação por senha forte (letras, números e caracteres especiais) e utilize o botão de logout ao sair de computadores compartilhados.
 
 ---
-*JHoston Pools Control System • Garantia de Revestimentos Monolíticos & Digital Twin*
+*GADAP Sistemas • Criadora Oficial do JHoston Pools Control System (JHPCS)*  
+*Garantia de Revestimentos Monolíticos, Telemetria F1 & Digital Twin*

@@ -1,5 +1,13 @@
 import { jsPDF } from 'jspdf';
 import { JHPCS_LOGO_BASE64 } from './logo-base64';
+import { 
+  GADAP_LOGO_BASE64, 
+  HERO_SAND_POOL_BASE64, 
+  MONOLITHIC_CURE_BASE64, 
+  PITWALL_TELEMETRY_BASE64, 
+  QR_MAINTENANCE_BASE64, 
+  FAMILY_OASIS_BASE64 
+} from './editorial-images-base64';
 
 export interface LuxuryCompendiumData {
   editionTitle?: string;
@@ -140,48 +148,49 @@ export function generateLuxuryCompendiumPdf(data: LuxuryCompendiumData = {}): js
   doc.setTextColor(245, 158, 11); // amber-500
   doc.text('CONTROL SYSTEM • JHPCS', pageWidth / 2, curY, { align: 'center' });
 
-  curY += 6;
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(8.5);
-  doc.setTextColor(148, 163, 184);
-  doc.text('A REVOLUÇÃO DA GARANTIA INTELIGENTE & DIGITAL TWIN DE REVESTIMENTOS MONOLÍTICOS', pageWidth / 2, curY, { align: 'center' });
+  // Foto Editorial de Capa: Piscina de Areia Monolítica
+  try {
+    if (HERO_SAND_POOL_BASE64) {
+      doc.addImage(HERO_SAND_POOL_BASE64, 'JPEG', 18, curY, pageWidth - 36, 42);
+      curY += 46;
+    }
+  } catch (e) {}
 
   // Bloco Central: O que este compêndio une
-  curY += 14;
   doc.setFillColor(15, 23, 42); // slate-900
   doc.setDrawColor(245, 158, 11);
   doc.setLineWidth(0.6);
-  doc.roundedRect(18, curY, pageWidth - 36, 86, 3, 3, 'FD');
+  doc.roundedRect(18, curY, pageWidth - 36, 68, 3, 3, 'FD');
 
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(10.5);
+  doc.setFontSize(9.5);
   doc.setTextColor(245, 158, 11);
-  doc.text('CONTEÚDO INTEGRAL UNIFICADO NESTA EDIÇÃO:', 26, curY + 11);
+  doc.text('CONTEÚDO INTEGRAL UNIFICADO NESTA EDIÇÃO:', 26, curY + 8);
 
   const pillars = [
-    { title: 'ROTEIRO EXECUTIVO DE APRESENTAÇÃO', desc: 'Os 5 personagens estratégicos, demonstração ao vivo para a Diretoria (Joabson) e argumentos comerciais de fechamento.' },
-    { title: 'MANUAL DO USUÁRIO JHOSTON POOLS', desc: 'Diretrizes de Engenharia, Regra Pétrea contra Ácidos, Cockpit Telemetria F1 e Proteção da Garantia Trienal Ativa (3 Anos).' },
-    { title: 'ROTEIRO DE TESTES DE ESTRESSE (EX-01 A EX-08)', desc: 'Exercícios práticos de ataque ácido, travamento offline 72h, disparos via Evolution API e validação pericial.' },
-    { title: 'GESTÃO DO TRATADOR & ETIQUETAS QR CODE', desc: 'Isolamento de tenant (o tratador é funcionário do cliente final) e adesivos impressos para a casa de máquinas.' },
+    { title: 'ROTEIRO EXECUTIVO DE APRESENTAÇÃO', desc: 'Os 5 personagens estratégicos, demonstração ao vivo para a Diretoria (Joabson) e argumentos comerciais.' },
+    { title: 'MANUAL DO USUÁRIO JHOSTON POOLS', desc: 'Diretrizes de Engenharia, Regra Pétrea contra Ácidos, Cockpit Telemetria F1 e Proteção Trienal Ativa.' },
+    { title: 'ROTEIRO DE TESTES DE ESTRESSE (EX-01 A EX-08)', desc: 'Exercícios práticos de ataque ácido, travamento offline 72h, disparos via Evolution API e perícia.' },
+    { title: 'GESTÃO DO TRATADOR & ETIQUETAS QR CODE', desc: 'Isolamento de tenant (o tratador é do cliente final) e adesivos impressos para a casa de máquinas.' },
   ];
 
-  let pillarY = curY + 21;
+  let pillarY = curY + 16;
   pillars.forEach((p, idx) => {
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(8.5);
+    doc.setFontSize(7.5);
     doc.setTextColor(56, 189, 248);
     doc.text(`[0${idx + 1}] ${p.title}`, 26, pillarY);
 
     doc.setFont('helvetica', 'normal');
-    doc.setFontSize(7.5);
+    doc.setFontSize(6.8);
     doc.setTextColor(203, 213, 225);
     const splitDesc = doc.splitTextToSize(p.desc, pageWidth - 56);
-    doc.text(splitDesc, 26, pillarY + 4);
-    pillarY += 15;
+    doc.text(splitDesc, 26, pillarY + 3.5);
+    pillarY += 12;
   });
 
   // Caixa de Expediente e Dedicatória
-  curY += 94;
+  curY += 73;
   doc.setFillColor(11, 15, 25);
   doc.setDrawColor(51, 65, 85);
   doc.setLineWidth(0.4);
@@ -218,41 +227,68 @@ export function generateLuxuryCompendiumPdf(data: LuxuryCompendiumData = {}): js
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(16);
   doc.setTextColor(255, 255, 255);
-  doc.text('A Blindagem Científica da Engenharia Mineral', 16, curY);
-
-  curY += 7;
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(9);
-  doc.setTextColor(245, 158, 11);
-  doc.text('Carta Aberta de Daniel Lopes & Patrícia Grübel à Diretoria da JHoston Pools', 16, curY);
-
+  // Bloco Editorial: Carta Aberta
   curY += 8;
   doc.setFillColor(15, 23, 42);
-  doc.roundedRect(16, curY, pageWidth - 32, 90, 3, 3, 'F');
+  doc.roundedRect(16, curY, pageWidth - 32, 68, 3, 3, 'F');
 
   doc.setFont('helvetica', 'normal');
-  doc.setFontSize(8);
+  doc.setFontSize(7.5);
   doc.setTextColor(226, 232, 240);
   const editorialText = 
     `"Prezada Diretoria e Parceiros da JHoston Pools,\n\n` +
-    `Quando a JHoston Pools nos trouxe o desafio de conceber o JHPCS, o diagnóstico da dor era contundente: durante anos, o maior pesadelo dos aplicadores de revestimentos monolíticos e piscinas de areia foi o pós-obra. Após investir meses em projetos arquitetônicos impecáveis e acabamento mineral de padrão internacional, as obras ficavam à mercê de tratadores desqualificados, chuvas torrenciais e produtos químicos clandestinos como ácido muriático e limpa pedras.\n\n` +
+    `Quando a JHoston Pools nos trouxe o desafio de conceber o JHPCS, o diagnóstico era contundente: durante anos, o maior pesadelo dos aplicadores de revestimentos monolíticos e piscinas de areia foi o pós-obra. Obras de padrão internacional ficavam à mercê de tratadores desqualificados e produtos clandestinos como ácido muriático e limpa pedras.\n\n` +
     `Quando surgiam manchas ou delaminação provocadas por pura imperícia, a culpa recaía injustamente sobre a empresa que implantava ou revitalizava a piscina, gerando custos de garantias indevidas e desgaste de marca.\n\n` +
-    `O JHPCS (JHoston Pools Control System) nasceu para colocar um ponto final definitivo nessa vulnerabilidade. Nós não desenvolvemos apenas um software de gestão: nós criamos uma blindagem termodinâmica, operacional e forense. Com Digital Twin em tempo real, inteligência de geolocalização e automação via WhatsApp em menos de 3.2 segundos, transformamos o cumprimento da garantia em um ativo incontestável perante o Código Civil.\n\n` +
-    `Este Compêndio reúne tudo o que a liderança precisa para apresentar, auditar, estressar e proteger cada metro quadrado de piscina construído sob a bandeira JHoston Pools."\n\n` +
-    `— Daniel Lopes & Patrícia Grübel\n` +
-    `GADAP SISTEMAS • Software House Criadora do JHPCS (Inovação, Ética & Solidez)`;
+    `O JHPCS (JHoston Pools Control System) nasceu para colocar um ponto final definitivo nessa vulnerabilidade com blindagem termodinâmica, operacional e forense."\n\n` +
+    `— Daniel Lopes & Patrícia Grübel (Desenvolvedores do JHPCS • Gestores MASTER)`;
 
   const splitEditorial = doc.splitTextToSize(editorialText, pageWidth - 44);
-  doc.text(splitEditorial, 22, curY + 7);
+  doc.text(splitEditorial, 22, curY + 6.5);
+
+  // NOVO BLOCO OFICIAL: GADAP SISTEMAS & A TRÍADE DE ENGENHARIA
+  curY += 73;
+  doc.setFillColor(11, 15, 25);
+  doc.setDrawColor(6, 182, 212); // cyan-500
+  doc.setLineWidth(0.6);
+  doc.roundedRect(16, curY, pageWidth - 32, 62, 3, 3, 'FD');
+
+  // Adiciona o Logotipo Oficial da GADAP com o Bulldog
+  try {
+    if (GADAP_LOGO_BASE64) {
+      doc.addImage(GADAP_LOGO_BASE64, 'PNG', 20, curY + 6, 42, 42);
+    }
+  } catch (e) {}
+
+  // Texto da Tríade Etimológica ao lado do Logo
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(10.5);
+  doc.setTextColor(6, 182, 212);
+  doc.text('GADAP SISTEMAS • A Tríade da Engenharia de Confiança', 66, curY + 8);
+
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(7.2);
+  doc.setTextColor(245, 158, 11);
+  doc.text('A Software House Criadora do JHPCS • Daniel Lopes & Patrícia Grübel', 66, curY + 13);
+
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(6.8);
+  doc.setTextColor(226, 232, 240);
+  const gadapManifesto = 
+    `1. A Raiz "ADAP" (Latim/Inglês - Adaptare/Adapt): Inovação e Flexibilidade contínua. Um sistema rígido gera medo e frustração; um sistema adaptável é amigável e focado no usuário. Foneticamente soa como G-ADAP (Global/Great Adaptation).\n\n` +
+    `2. O Conceito "Adab" (Árabe/Turco): Descreve a mais nobre ética, respeito, boas maneiras e conduta moral irrepreensível. Traduz a transparência e clareza no trato com o cliente, construindo relações de confiança sólidas e acolhedoras.\n\n` +
+    `3. A Palavra "Gada" (Sânscrito - O Guardião Bulldog): Clava ancestral que simboliza força absoluta, autoridade invicta e fundações inabaláveis. Personificada no nosso Bulldog Cibernético, sentinela que protege o patrimônio mineral e digital.`;
+
+  const splitGadap = doc.splitTextToSize(gadapManifesto, pageWidth - 86);
+  doc.text(splitGadap, 66, curY + 18.5);
 
   // Bloco de Índice / Sumário
-  curY += 97;
+  curY += 66;
   doc.setFont('helvetica', 'bold');
-  doc.setFontSize(12);
+  doc.setFontSize(10);
   doc.setTextColor(255, 255, 255);
   doc.text('ESTRUTURA DO COMPÊNDIO NESTA EDIÇÃO:', 16, curY);
 
-  curY += 6;
+  curY += 4.5;
   const indexItems = [
     { page: 'PÁG 03', title: 'ROTEIRO DE APRESENTAÇÃO EXECUTIVA (PARTE 1)', desc: 'Os 5 Personagens, Narrativa de Abertura e o Impacto Estratégico para Joabson.' },
     { page: 'PÁG 04', title: 'ROTEIRO DE APRESENTAÇÃO EXECUTIVA (PARTE 2)', desc: 'Cockpit Telemetria F1, Alertas WhatsApp em <3.2s e o Portal do Cliente.' },
@@ -264,22 +300,22 @@ export function generateLuxuryCompendiumPdf(data: LuxuryCompendiumData = {}): js
 
   indexItems.forEach((item) => {
     doc.setFillColor(15, 23, 42);
-    doc.roundedRect(16, curY, pageWidth - 32, 11, 2, 2, 'F');
+    doc.roundedRect(16, curY, pageWidth - 32, 8.5, 1.5, 1.5, 'F');
 
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(7.5);
+    doc.setFontSize(7);
     doc.setTextColor(245, 158, 11);
-    doc.text(item.page, 22, curY + 7);
+    doc.text(item.page, 20, curY + 5.5);
 
     doc.setTextColor(255, 255, 255);
-    doc.text(item.title, 42, curY + 7);
+    doc.text(item.title, 38, curY + 5.5);
 
     doc.setFont('helvetica', 'normal');
-    doc.setFontSize(6.5);
+    doc.setFontSize(6.2);
     doc.setTextColor(148, 163, 184);
-    doc.text(item.desc, 115, curY + 7);
+    doc.text(item.desc, 112, curY + 5.5);
 
-    curY += 13.5;
+    curY += 10.5;
   });
 
   drawPageFooter(2);
@@ -414,35 +450,19 @@ export function generateLuxuryCompendiumPdf(data: LuxuryCompendiumData = {}): js
     `• Pit Stop Químico: Prescrição estequiométrica exata de dosagem para reequilíbrio sem produtos abrasivos.`;
   doc.text(doc.splitTextToSize(f1Text, pageWidth - 44), 22, curY + 13.5);
 
-  // ATO 3 & ATO 4: PORTAL DO CLIENTE
-  curY += 63;
-  doc.setFillColor(15, 23, 42);
-  doc.setDrawColor(56, 189, 248);
-  doc.setLineWidth(0.5);
-  doc.roundedRect(16, curY, pageWidth - 32, 60, 2.5, 2.5, 'FD');
-
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(9);
-  doc.setTextColor(56, 189, 248);
-  doc.text('ATO 3: O PORTAL DO PROPRIETÁRIO & GERENTE GERAL', 22, curY + 7);
-
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(7.5);
-  doc.setTextColor(226, 232, 240);
-  const portalCli = 
-    `"O cliente da JHoston Pools (seja um Hotel, Resort ou Residencial de Luxo) sente que contratou uma empresa de engenharia de ponta, não um simples prestador de serviços."\n\n` +
-    `• Contador de Cura Submersa (28 Dias): Barra de progresso visual mostrando o dia exato do ciclo e bloqueando cloração de choque.\n` +
-    `• Satélite Meteorológico Live: Alerta com dias de antecedência sobre chuvas ácidas e recomenda elevação preventiva de pH.\n` +
-    `• Estoque Preditivo de Produtos (Runway): Tabela informando dias restantes de estoque de Cloro e Bicarbonato, com botão para compra direta homologada gerando receita contínua à JHoston Pools.\n` +
-    `• Laudo Técnico Mensal em PDF: Emissão instantânea do relatório com selo oficial de conformidade para seguro e vigilância.`;
-  doc.text(doc.splitTextToSize(portalCli, pageWidth - 44), 22, curY + 13.5);
+  // Foto Editorial: Cockpit de Telemetria F1 e Radar Meteorológico
+  try {
+    if (PITWALL_TELEMETRY_BASE64) {
+      doc.addImage(PITWALL_TELEMETRY_BASE64, 'JPEG', 16, curY, pageWidth - 32, 40);
+      curY += 43;
+    }
+  } catch (e) {}
 
   // Argumento de Fechamento Comercial & Assinatura Recorrente
-  curY += 63;
   doc.setFillColor(15, 23, 42); // slate-900
   doc.setDrawColor(245, 158, 11);
   doc.setLineWidth(0.6);
-  doc.roundedRect(16, curY, pageWidth - 32, 28, 2.5, 2.5, 'FD');
+  doc.roundedRect(16, curY, pageWidth - 32, 26, 2.5, 2.5, 'FD');
 
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(7.5);
@@ -542,14 +562,18 @@ export function generateLuxuryCompendiumPdf(data: LuxuryCompendiumData = {}): js
   const activePlanPdfText = 
     `Substituímos termos de garantia passivos pelo acompanhamento direto de 3 anos para longevidade impecável do revestimento:\n\n` +
     `• 1. Monitoramento Remoto Semanal (Sem Mensalidade): Contato direto com o tratador/caseiro para auditar pH e Cloro.\n` +
-    `• 2. Intervenção Anual Preventiva (Ano 1 e 2): Equipe especializada no local para esvaziamento, lavagem técnica e aplicação de resina protetora preventiva. MÃO DE OBRA 100% ISENTA! Cliente arca apenas com deslocamento e resina.\n` +
-    `• 3. Manutenção Pesada & Revitalização (Ano 3): Lavagem química intensiva de alta pressão e camada final de proteção. Isenção total de mão de obra mantida. Ao término do ciclo legal de 3 anos, o cliente pode optar pela renovação do plano.`;
-  doc.text(doc.splitTextToSize(activePlanPdfText, pageWidth - 44), 22, curY + 13);
+    `• 2. Intervenção Anual Preventiva (Ano 1 e 2): Equipe especializada no local para esvaziamento, lavagem técnica e aplicação de resina protetora preventiva. MÃO DE OBRA 100% ISENTA!\n` +
+    `• 3. Manutenção Pesada & Revitalização (Ano 3): Lavagem química intensiva de alta pressão e camada final de proteção. Isenção total de mão de obra mantida.`;
+  doc.text(doc.splitTextToSize(activePlanPdfText, pageWidth - 44), 22, curY + 12);
 
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(7);
-  doc.setTextColor(56, 189, 248);
-  doc.text('"Sua única preocupação será aproveitar o espaço de lazer. A responsabilidade técnica e o cuidado contínuo são nossos."', 22, curY + 54);
+  // Foto Editorial: Macroestrutura Mineral & Quartzo em Cura Submersa
+  curY += 45;
+  try {
+    if (MONOLITHIC_CURE_BASE64) {
+      doc.addImage(MONOLITHIC_CURE_BASE64, 'JPEG', 16, curY, pageWidth - 32, 38);
+      curY += 41;
+    }
+  } catch (e) {}
 
   drawPageFooter(5);
 
@@ -618,23 +642,14 @@ export function generateLuxuryCompendiumPdf(data: LuxuryCompendiumData = {}): js
     `4. Disparo WhatsApp Alternativo: Permite enviar o link mágico de ativação diretamente para o WhatsApp do tratador via Evolution API.`;
   doc.text(doc.splitTextToSize(qrHubText, pageWidth - 44), 22, curY + 13);
 
-  // Box 3: Resiliência Offline
-  curY += 57.5;
-  doc.setFillColor(8, 47, 73);
-  doc.roundedRect(16, curY, pageWidth - 32, 34, 2.5, 2.5, 'F');
-
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(8);
-  doc.setTextColor(56, 189, 248);
-  doc.text('[ RESILIÊNCIA OFFLINE-FIRST ] OPERAÇÃO (72 HORAS DE RESILIÊNCIA EM SUBSOLOS):', 22, curY + 7);
-
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(7);
-  doc.setTextColor(241, 245, 249);
-  const offText = 
-    `Em casas de máquinas subterrâneas ou áreas rurais sem sinal de celular, o aplicativo salva todas as fotos (comprimidas em WebP nativo) e medições no banco local IndexedDB do celular.\n` +
-    `Ao retornar para uma área com Wi-Fi ou 4G, a sincronização é disparada automaticamente com integridade criptográfica.`;
-  doc.text(doc.splitTextToSize(offText, pageWidth - 44), 22, curY + 13);
+  // Foto Editorial: Placa QR Code Instalada na Casa de Máquinas
+  curY += 38;
+  try {
+    if (QR_MAINTENANCE_BASE64) {
+      doc.addImage(QR_MAINTENANCE_BASE64, 'JPEG', 16, curY, pageWidth - 32, 38);
+      curY += 41;
+    }
+  } catch (e) {}
 
   drawPageFooter(6);
 
