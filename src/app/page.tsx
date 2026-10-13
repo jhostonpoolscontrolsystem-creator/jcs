@@ -38,6 +38,7 @@ import { MasterAuditReportsCockpit } from '@/components/MasterAuditReportsCockpi
 import { MetricDrilldownModal, MetricDrilldownType } from '@/components/MetricDrilldownModal';
 import { DocumentDownloadCenter } from '@/components/DocumentDownloadCenter';
 import { ChemicalSuppliesStore } from '@/components/ChemicalSuppliesStore';
+import { OrderCommercialDashboard } from '@/components/OrderCommercialDashboard';
 import ClientPortfolioViewer from '@/components/ClientPortfolioViewer';
 import ExecutiveWelcomeKitModal, { WelcomeKitAudience } from '@/components/ExecutiveWelcomeKitModal';
 import { PoolMachineRoomTagHub } from '@/components/PoolMachineRoomTagHub';
@@ -45,7 +46,7 @@ import { UserRole, Pool } from '@/types/database';
 import { LogIn, LogOut, Users, UserCheck, GraduationCap, HelpCircle, Crown, Download, ShoppingBag, Building2, ShieldCheck, QrCode } from 'lucide-react';
 
 export default function JHPCSApp() {
-  const [activeTab, setActiveTab] = useState<'master' | 'master_audit' | 'dashboard' | 'clients' | 'client_portal' | 'machine_room_tag' | 'pwa' | 'whatsapp' | 'rbac' | 'audit_live' | 'users' | 'executive_reports' | 'training' | 'help' | 'downloads' | 'store'>('master');
+  const [activeTab, setActiveTab] = useState<'master' | 'master_audit' | 'commercial_orders' | 'dashboard' | 'clients' | 'client_portal' | 'machine_room_tag' | 'pwa' | 'whatsapp' | 'rbac' | 'audit_live' | 'users' | 'executive_reports' | 'training' | 'help' | 'downloads' | 'store'>('master');
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isWelcomeKitOpen, setIsWelcomeKitOpen] = useState(false);
@@ -280,6 +281,18 @@ export default function JHPCSApp() {
                 <ShieldCheck className="w-4 h-4 text-amber-400" />
                 Auditoria & Relatórios MASTER
               </button>
+
+              <button
+                onClick={() => setActiveTab('commercial_orders')}
+                className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-all ${
+                  activeTab === 'commercial_orders'
+                    ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 shadow-md shadow-emerald-500/30 font-black'
+                    : 'text-emerald-400 hover:text-white hover:bg-slate-900 border border-emerald-500/20'
+                }`}
+              >
+                <ShoppingBag className="w-4 h-4 text-emerald-400" />
+                Pedidos B2B & Expedição
+              </button>
             </>
           )}
 
@@ -508,6 +521,14 @@ export default function JHPCSApp() {
               setWelcomeKitAudience('DIRETORIA_JHOSTON');
               setIsWelcomeKitOpen(true);
             }}
+          />
+        )}
+
+        {/* TAB 0.2: MASTER & DIRETORIA (Controle Comercial de Pedidos B2B e Expedição) */}
+        {activeTab === 'commercial_orders' && (
+          <OrderCommercialDashboard
+            currentUserRole={currentUser?.role || 'MASTER'}
+            onNavigateTab={(tab) => setActiveTab(tab as any)}
           />
         )}
 

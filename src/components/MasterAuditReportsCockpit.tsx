@@ -28,6 +28,8 @@ import {
   Calendar
 } from 'lucide-react';
 import { format } from 'date-fns';
+import { PixInvoiceModal } from './PixInvoiceModal';
+import { PredictiveDossierModal } from './PredictiveDossierModal';
 
 interface AuditLog {
   id: string;
@@ -59,6 +61,12 @@ export function MasterAuditReportsCockpit({ onNavigateTab, onOpenWelcomeKit }: M
   const [subsFilter, setSubsFilter] = useState('ALL');
   const [notifyingMasters, setNotifyingMasters] = useState(false);
   const [notifyFeedback, setNotifyFeedback] = useState<string | null>(null);
+
+  // Estados dos Modais MASTER 1.1 e 1.2
+  const [selectedPoolForPix, setSelectedPoolForPix] = useState<any>(null);
+  const [isPixModalOpen, setIsPixModalOpen] = useState(false);
+  const [selectedPoolForPredictive, setSelectedPoolForPredictive] = useState<any>(null);
+  const [isPredictiveModalOpen, setIsPredictiveModalOpen] = useState(false);
 
   // Carregar Logs da API
   const fetchLogs = async () => {
@@ -399,6 +407,7 @@ export function MasterAuditReportsCockpit({ onNavigateTab, onOpenWelcomeKit }: M
                     <th className="p-3.5">Valor Mensal</th>
                     <th className="p-3.5">Vencimento</th>
                     <th className="p-3.5">Extensão Técnica</th>
+                    <th className="p-3.5 text-right">Ações Master</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-800/60 font-sans">
@@ -483,6 +492,33 @@ export function MasterAuditReportsCockpit({ onNavigateTab, onOpenWelcomeKit }: M
                         ) : (
                           <span className="text-slate-600 font-mono text-[11px]">—</span>
                         )}
+                      </td>
+                      <td className="p-3.5 text-right whitespace-nowrap">
+                        <div className="flex items-center justify-end gap-1.5">
+                          <button
+                            onClick={() => {
+                              setSelectedPoolForPix(item);
+                              setIsPixModalOpen(true);
+                            }}
+                            className="px-2.5 py-1.5 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/30 text-[11px] font-bold flex items-center gap-1 transition cursor-pointer"
+                            title="Emitir Cobrança PIX com Vencimento dia 05"
+                          >
+                            <DollarSign className="w-3 h-3" />
+                            <span>PIX Dia 05</span>
+                          </button>
+
+                          <button
+                            onClick={() => {
+                              setSelectedPoolForPredictive(item);
+                              setIsPredictiveModalOpen(true);
+                            }}
+                            className="px-2.5 py-1.5 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 text-[11px] font-bold flex items-center gap-1 transition cursor-pointer"
+                            title="Motor Preditivo LSI & IA Forense SHA-256"
+                          >
+                            <Sparkles className="w-3 h-3" />
+                            <span>IA Forense</span>
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   ))}
@@ -849,6 +885,25 @@ export function MasterAuditReportsCockpit({ onNavigateTab, onOpenWelcomeKit }: M
           </div>
         </div>
       )}
+
+      {/* MODAIS MASTER 1.1 e 1.2 */}
+      <PixInvoiceModal
+        isOpen={isPixModalOpen}
+        onClose={() => {
+          setIsPixModalOpen(false);
+          setSelectedPoolForPix(null);
+        }}
+        poolItem={selectedPoolForPix}
+      />
+
+      <PredictiveDossierModal
+        isOpen={isPredictiveModalOpen}
+        onClose={() => {
+          setIsPredictiveModalOpen(false);
+          setSelectedPoolForPredictive(null);
+        }}
+        poolItem={selectedPoolForPredictive}
+      />
     </div>
   );
 }

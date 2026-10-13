@@ -74,13 +74,28 @@ Localizado no botão de ouro **"Kit Boas-Vindas (Revista VIP)"** na barra superi
 
 ---
 
-## 5. Procedimentos de Engenharia em Alertas Químicos
-1. Ao receber notificação de **Red Zone (pH < 6.8)**:
-   - Inspecione a foto do teste da água enviada pelo tratador no prontuário da piscina.
-   - Verifique a geolocalização do satélite (GPS) do tratador para garantir que a coleta foi feita na borda da piscina.
-   - Oriente a aplicação imediata de Barrilha Leve calculada pelo motor estequiométrico.
-2. Em caso de relato de uso de ácidos proibidos:
-   - O sistema altera o status do ativo para `WARRANTY_SUSPENDED`. Emita o laudo pericial para instrução técnica junto ao cliente.
+### 4.4. Painel Comercial de Insumos B2B & Expedição Nacional
+Acessível pela aba **"Pedidos B2B & Expedição"**:
+- **Monitoramento do Abastecimento da Carteira**: Rastreamento dos lotes de Cloro Concentrado, Barrilha e Bicarbonato enviados para os clientes no Brasil inteiro.
+- **Expedição e Confirmação de Entrega na Casa de Máquinas**: A Diretoria e o Corpo Técnico podem avançar o status logístico para *Despachado* e *Entregue*, carimbando o **Selo de Garantia Blindada** no histórico do cliente.
+- **Conversão de Insumos via Telemetria**: Acompanhamento dos pedidos gerados automaticamente a partir de piscinas que entraram em alerta químico.
+
+---
+
+## 5. Procedimentos de Engenharia em Alertas Químicos & Red Flags Nacionais
+Como as piscinas estão no Brasil inteiro e o tratador é funcionário/prestador do cliente final, **a JHoston não realiza deslocamento físico de socorro**, atuando por **Supervisão Pericial Remota e Blindagem Contratual**:
+
+1. **Disparo Automático de Red Flag**:
+   - Quando o tratador registra **pH < 6.8**, o sistema notifica simultaneamente:
+     - O **Corpo Técnico da JHoston (Joabson e Engenharia)** com a memória de cálculo pericial.
+     - O **Piscineiro e o Síndico no WhatsApp** com a tele-orientação estequiométrica de neutralização imediata.
+     - Os **Fundadores Master (Daniel e Patrícia)** pela sentinela silenciosa.
+2. **Janela de Tolerância de 48 Horas**:
+   - Inicia-se a contagem regressiva de 48 horas no sistema. O tratador deve realizar a dosagem prescrita e submeter novo teste com foto no app.
+3. **Tratamento de Negligência Operacional**:
+   - Se após 48h o cliente não demonstrar o reequilíbrio, a Diretoria tem à disposição o botão de emissão de **Notificação Preventiva de Perda de Garantia**, resguardando a empresa perante o Código Civil.
+4. **Relato de Ácidos Proibidos / Limpa Pedras**:
+   - Caso seja acusado o uso de substâncias corrosivas, o status do ativo é alterado imediatamente para `WARRANTY_SUSPENDED` com geração do dossiê forense SHA-256.
 
 ---
 *JHoston Pools Control System • Engenharia de Revestimentos Monolíticos & Proteção Patrimonial*

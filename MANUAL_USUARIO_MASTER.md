@@ -54,6 +54,19 @@ Acessível na barra superior pela aba **"Auditoria & Relatórios MASTER"** ou pe
 - **Visão 360° da Carteira**: Acompanhamento dos ativos monitorados, piscinas em Red Zone, obras em período de cura (7 dias seca + 28 dias submersa) e integridade da infraestrutura WhatsApp.
 - **Cockpit F1**: Tacômetros digitais, medidor analógico de LSI (Langelier), séries históricas com faixas seguras e correlação meteorológica via OpenWeather.
 
+### 3.5. Faturas PIX Dinâmico & Antecipação até o Dia 05 (Feature 1.1)
+- **Cobrança Automatizada no BACEN**: Na sub-aba *Gestão de Assinaturas & Degustação 6M*, o botão **"PIX Dia 05"** gera código EMV Copia e Cola e QR Code dinâmico para os planos *Pro Executive (R$ 29,90)* e *Black Elite (R$ 49,90)*.
+- **Despacho com 1 Clique no WhatsApp**: Notificação direta ao síndico ou gestor financeiro com vencimento impreterível até o dia 05 do mês corrente.
+- **Proteção Antinadimplência**: Sem confirmação até o dia 05, o ativo é revertido automaticamente ao plano gratuito Standard, blindando contra inadimplência.
+
+### 3.6. Motor Preditivo LSI + Clima & IA Forense SHA-256 (Feature 1.2)
+- **Score Preditivo de Risco**: Botão **"IA Forense"** que processa em tempo real pH, LSI, temperatura e frente de chuvas em 48h para detectar risco de corrosão ácida antes da degradação dos grânulos minerais.
+- **Dossiê Forense com Hash Imutável**: Geração de hash SHA-256 e memória pericial para resguardo irrefutável do Termo de Garantia Decenal.
+
+### 3.7. Governança Comercial de Pedidos B2B & Expedição Nacional
+- **Aba "Pedidos B2B & Expedição"**: Acompanhamento do faturamento total (GMV), ticket médio e taxa de conversão originada por alertas químicos de campo.
+- **Auditoria de Insumos Homologados**: Validação dos lotes despachados (Barrilha Leve, Cloro Concentrado, Bicarbonato puro), conferindo o Selo de Garantia Blindada para o cliente.
+
 ---
 
 ## 4. Diretrizes de Segurança e Boas Práticas

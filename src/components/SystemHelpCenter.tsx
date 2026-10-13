@@ -24,7 +24,9 @@ import {
   Sparkles,
   PhoneCall,
   Flame,
-  Info
+  Info,
+  ShoppingBag,
+  QrCode
 } from 'lucide-react';
 import { UserRole } from '@/types/database';
 
@@ -410,6 +412,53 @@ export function SystemHelpCenter({ onNavigateTab }: { onNavigateTab: (tab: any) 
           question: 'A geração mensal da nova edição da revista consome créditos de IA?',
           answer: 'Não! O motor editorial do JHPCS é 100% autônomo e matemático. Ele lê diretamente as métricas do banco de dados (piscinas ativas, curas, LSI) e compõe a edição mensal sem necessidade de qualquer inteligência artificial externa.',
           tags: ['ia', 'autonomo', 'mensal', 'cron', 'custo']
+        }
+      ]
+    },
+    {
+      id: 'comercial_b2b_forense',
+      title: 'Comercial B2B, Cobrança PIX & IA Forense',
+      icon: ShoppingBag,
+      badge: 'Novas Features MASTER & Diretoria',
+      summary: 'Como emitir faturas PIX até dia 05, auditar riscos pelo motor preditivo SHA-256 e gerenciar a expedição de insumos homologados.',
+      topics: [
+        {
+          title: 'Emissão de Cobrança PIX com Vencimento Dia 05 (Exclusivo Master)',
+          description: 'Na sub-aba "Gestão de Assinaturas & Degustação 6M" do Cockpit Master, o botão "PIX Dia 05" gera instantaneamente o QR Code e o código Pix Copia e Cola EMV homologado pelo BACEN para os planos Pro Executive (R$ 29,90) e Black Elite (R$ 49,90), permitindo despacho imediato no WhatsApp do síndico.',
+          stepByStep: [
+            'Acesse a aba "Auditoria & Relatórios MASTER" -> Sub-aba "Gestão de Assinaturas & Degustação 6M".',
+            'Localize o cliente e clique no botão "PIX Dia 05".',
+            'Confira o valor e clique em "Despachar no WhatsApp do Cliente".',
+            'A confirmação antecipada até o dia 05 garante a manutenção dos laudos periciais semanais/quinzenais.'
+          ]
+        },
+        {
+          title: 'Motor Preditivo LSI & IA Forense SHA-256',
+          description: 'O botão "IA Forense" cruza parâmetros físico-químicos (pH, LSI, CYA, dureza) com a frente de chuva OpenWeather em 48h para calcular o risco de corrosão ácida e emite um dossiê pericial com hash SHA-256 inviolável.',
+          stepByStep: [
+            'Clique em "IA Forense" na linha da piscina no Cockpit Master.',
+            'O sistema processa os tensores térmicos e a probabilidade de precipitação pluvial.',
+            'O dossiê emitido blinda juridicamente o laudo pericial contra contestações de garantia.'
+          ]
+        },
+        {
+          title: 'Painel Comercial de Pedidos B2B & Expedição Nacional',
+          description: 'A aba "Pedidos B2B & Expedição" permite ao Master e à Diretoria acompanhar o faturamento de insumos (Barrilha Leve, Cloro Concentrado, Bicarbonato puro), atualizar o status de transporte e carimbar o Selo de Garantia Blindada na ficha do cliente.',
+          importantNotice: 'A utilização de insumos homologados adquiridos na loja B2B comprova o cumprimento das diretrizes técnicas do Termo de Garantia Decenal.'
+        }
+      ],
+      faqs: [
+        {
+          id: 'faq-b2b-1',
+          question: 'O que acontece se o cliente não pagar o plano até o dia 05?',
+          answer: 'Conforme a regra de cobrança antecipada, sem quitação até o dia 05 o ativo é automaticamente revertido para o tier gratuito Standard Incluso (1 envio mensal), preservando a segurança contra inadimplência.',
+          tags: ['pix', 'vencimento', 'dia 05', 'assinatura', 'pagamento']
+        },
+        {
+          id: 'faq-b2b-2',
+          question: 'A JHoston envia equipe física quando ocorre um Red Flag de pH ácido?',
+          answer: 'Não. Como as piscinas estão espalhadas pelo Brasil inteiro e o tratador é funcionário do cliente final, a JHoston atua por Supervisão Pericial Remota. O sistema notifica o Corpo Técnico e despacha a orientação estequiométrica no WhatsApp do piscineiro local, iniciando a janela de tolerância de 48 horas.',
+          tags: ['red flag', 'engenharia', 'sla', 'brasil', 'piscineiro']
         }
       ]
     }

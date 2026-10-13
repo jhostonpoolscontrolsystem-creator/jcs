@@ -51,6 +51,10 @@ A instância da Evolution API já está rodando (`whatsapp-ecostone.onrender.com
   - Endpoint pericial `/api/subscriptions/audit` com auditoria completa de ARR, dias restantes e estados de degustação.
   - **Exportação em Planilha (.CSV):** Relatório oficial formatado para Excel com colunas de vencimento antecipado dia 05, justificativas técnicas e status de homologação de Joabson.
   - Sub-aba **"Gestão de Assinaturas & Degustação 6M"** no Cockpit Master com disparo de WhatsApp com 1 toque e métricas em tempo real.
+- [x] **Faturas PIX Dinâmico BACEN & Cobrança Antecipada Dia 05 (Feature 1.1):** Endpoint `/api/subscriptions/pix-invoice` com geração de QR Code, Copia e Cola EMV e envio automático no WhatsApp do cliente.
+- [x] **Motor Preditivo LSI + Clima & IA Forense SHA-256 (Feature 1.2):** Endpoint `/api/ai/forensic-risk-score` com previsão de corrosão ácida por termodinâmica hídrica e chuva em 48h, com emissão de hash inviolável.
+- [x] **Red Flags Técnicos Nacionais & Supervisão Remota (Feature 2.1):** Endpoint `/api/alerts/red-zone-technical` com notificação para a Engenharia JHoston, janela de 48h sem envio físico e resguardo do Termo de Garantia Decenal.
+- [x] **Dashboard Comercial B2B & Expedição Nacional (Feature 2.2):** Aba dedicada `Pedidos B2B & Expedição` (`/api/orders/commercial`) com GMV, rastreamento de entregas e concessão do Selo de Garantia Blindada.
 - [ ] **Engine de Cron com Separação de Tiers:**
   - `/api/cron/monthly-reports` (Tier Standard): Despacha 1x/mês no 1º dia útil.
   - `/api/cron/weekly-reports` (Tier Black Elite): Despacha toda segunda-feira filtrando apenas piscinas com `subscription_tier = 'BLACK_SEMANAL'`.
@@ -63,4 +67,4 @@ A instância da Evolution API já está rodando (`whatsapp-ecostone.onrender.com
 ---
 
 ### Status Executivo Atual:
-Todas as fundações de governança, blindagem pericial da garantia trienal, gestão de degustação de 6 meses, extensões técnicas com chancela da Diretoria, notificações personalizadas dos MASTERs Daniel e Patrícia e regra comercial de vencimento antecipado até o dia 05 estão **100% implementadas, auditadas e validadas em produção**.
+Todas as fundações de governança, blindagem pericial da garantia trienal, gestão de degustação de 6 meses, extensões técnicas com chancela da Diretoria, notificações personalizadas dos MASTERs Daniel e Patrícia, cobrança Pix automatizada até o dia 05, motor preditivo de LSI com hash SHA-256, Red Flags remotos com supervisão da Engenharia JHoston e o novo Dashboard Comercial B2B estão **100% implementados, auditados e documentados em produção**.

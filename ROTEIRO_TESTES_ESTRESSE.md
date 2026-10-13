@@ -20,6 +20,9 @@ Demonstrar na prática para a **Diretoria da JHoston Pools** que o sistema é **
 | **EX-06** | **Troca Obrigatória de Senha Provisória** | Novo Usuário | Usuário tenta manter senha padrão `123456` | **Barreira de segurança**: sistema exige senha forte com mínimo de 6 caracteres e caractere especial (`!@#$%^&*`). |
 | **EX-07** | **Cockpit de Telemetria F1 & LSI ao Vivo** | Diretoria / Master | Estresse de dados em tempo real e cálculo estequiométrico | Tacômetros digitais reagem instantaneamente aos dados; dial analógico acusa se o monólito está em zona corrosiva (< -0.3) ou seguro; séries históricas exibem curvas e correlação climática. |
 | **EX-08** | **Disparador Kit Boas-Vindas & Revista VIP** | Master / Diretoria JH | Validar controle de alçada e disparo WhatsApp da Revista VIP | Usuário Master pode disparar para Diretoria e Clientes; Diretoria JH pode disparar apenas para Clientes (bloqueio de envio a si mesma); envio com preview de smartphone e entrega via Evolution API com SLA < 3.2s. |
+| **EX-10** | **Cobrança PIX Dinâmica Vencimento Dia 05** | Master | Validar cálculo do plano e geração do QR Code BACEN | Emissão em 1 clique de QR Code e Pix Copia e Cola EMV com vencimento no dia 05 e disparo direto no WhatsApp do síndico. |
+| **EX-11** | **Predição LSI + Clima & Hash SHA-256** | Master | Prever agressão ácida antes da perda de brilho mineral | Algoritmo correlaciona LSI, CYA e chuva em 48h emitindo dossiê pericial inviolável com hash criptográfico. |
+| **EX-12** | **Despacho Red Flag Técnico & Expedição B2B** | Diretoria JH / Master | Gerenciar alerta nacional remoto e remessa de insumos | Notificação da Engenharia no WhatsApp, tolerância de 48h sem envio físico e avanço de status de entrega com Selo de Garantia Blindada. |
 
 ---
 
@@ -139,9 +142,41 @@ Demonstrar na prática para a **Diretoria da JHoston Pools** que o sistema é **
 
 ---
 
+### EXERCÍCIO 10: Teste de Emissão & Cobrança PIX com Vencimento Dia 05 (Feature 1.1)
+1. **Onde Executar**: Na aba **"Auditoria & Relatórios MASTER"** ➔ Sub-aba **"Gestão de Assinaturas & Degustação 6M"**.
+2. **Ação**:
+   - Na linha de uma piscina (ex: *Resort Terravista Trancoso*), clique no botão **"PIX Dia 05"**.
+   - O modal dinâmico exibe o valor calculado com base no plano contratado (*Pro Executive R$ 29,90* ou *Black Elite R$ 49,90*).
+   - Clique em **"Despachar no WhatsApp do Cliente"** ou copie o código Pix EMV Copia e Cola.
+3. **O que Observar**:
+   - Geração instantânea do payload oficial do BACEN com CRC16 validado e vencimento rigoroso até o dia 05, comprovando a regra de cobrança antecipada contra inadimplência.
+
+---
+
+### EXERCÍCIO 11: Motor Preditivo LSI + Clima & Dossiê Forense SHA-256 (Feature 1.2)
+1. **Onde Executar**: No Cockpit Master, na sub-aba de assinaturas.
+2. **Ação**:
+   - Clique no botão **"IA Forense"** na linha de um ativo.
+   - O sistema processa os tensores térmicos de água (29°C), LSI de saturação (-0.72) e previsão pluvial de 32mm em 48h.
+3. **O que Observar**:
+   - Exibição do tacômetro de risco de corrosão, prescrição estequiométrica de neutralização e carimbo imutável com **Hash SHA-256**. O dossiê blinda a JHoston perante o Código Civil contra acusações infundadas de perda de garantia.
+
+---
+
+### EXERCÍCIO 12: Despacho de Red Flag ao Corpo Técnico e Expedição B2B (Features 2.1 e 2.2)
+1. **Onde Executar**: Aba **"Pedidos B2B & Expedição"** e endpoint `/api/alerts/red-zone-technical`.
+2. **Ação**:
+   - Simule o disparo de um Red Flag crítico (pH 6.3).
+   - Verifique que o WhatsApp do Corpo Técnico da JHoston (Joabson e Engenharia) recebe o alerta com a localização e as 48h de tolerância, enquanto o piscineiro do cliente recebe a tele-orientação de campo.
+   - Acesse a aba **"Pedidos B2B & Expedição"**: acompanhe o pedido de Barrilha e Cloro gerado pela telemetria, clique em **"Despachar"** e em **"Confirmar Entrega"**.
+3. **O que Observar**:
+   - Atualização do status com concessão do Selo de Garantia Blindada no histórico do cliente.
+
+---
+
 ## 🎯 Conclusão da Demonstração Prática
 Ao término destes exercícios, a Diretoria da JHoston Pools constatará que:
 * **Nenhum tratador consegue burlar o processo sem ser detectado.**
 * **Nenhuma piscina fica sem histórico ou registro de garantia.**
 * **A diretoria tem controle absoluto sem depender de telefonemas ou planilhas de papel.**
-* **A entrega em PDF de luxo e a revista mensal posicionam a JHoston Pools no mais alto nível de engenharia internacional.**
+* **A entrega em PDF de luxo, a revista mensal, a cobrança PIX dia 05 e o ecossistema B2B posicionam a JHoston Pools no mais alto nível de engenharia internacional.**
