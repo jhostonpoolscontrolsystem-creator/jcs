@@ -301,21 +301,24 @@ export function generateClientMagazinePdf(data: ClientMagazineData): jsPDF {
   doc.setFont('helvetica', 'normal');
 
   const hotelArticleText =
-    'Empreendimentos de hospitalidade de alto padrão que investiram em piscinas de areia e revestimentos monolíticos ' +
-    'relatam uma transformação instantânea na percepção de valor por parte dos hóspedes. No ecossistema atual de turismo, ' +
-    'a piscina não é apenas um item de lazer: ela é a foto de capa no Instagram, o cenário principal das memórias de viagem e o ponto ' +
-    'onde os hóspedes passam mais de 60% do seu tempo de permanência no hotel.\n\n' +
-    'Entretanto, a sofisticação estética exige excelência operacional invisível. Um único episódio de água turva em feriado prolongado ' +
-    'pode arruinar avaliações e custar dezenas de milhares de reais em compensações. É por isso que o monitoramento digital ' +
-    'da JHoston Pools assegura que a água esteja sempre termodinamicamente equilibrada, cristalina e pronta para brilhar nas fotos.';
+    'Empreendimentos de hospitalidade ultra-luxo que elegem piscinas de areia e revestimentos monolíticos ' +
+    'redefinem o ápice do design biofílico e da arquitetura sensorial. No turismo de elite mundial, ' +
+    'a piscina é o elemento escultural protagonista: ela estampa capas internacionais, protagoniza memórias ' +
+    'inesquecíveis e ancora onde o hóspede desfruta mais de 65% de suas horas de contemplação e lazer no resort.\n\n' +
+    'Contudo, a nobreza de uma praia privativa monolítica exige uma custódia química invisível e infalível. ' +
+    'Qualquer oscilação de transparência ou agressividade na água compromete a reputação do estabelecimento e o ' +
+    'valor intangível da marca. A custódia algorítmica do JHPCS garante o balanço termodinâmico contínuo (LSI neutro), ' +
+    'preservando o toque de seda da água, as tonalidades esmeralda e a integridade perene do ativo mineral.';
 
   const familyArticleText =
-    'Ter uma piscina de areia monolítica em casa vai muito além da estética sofisticada: é sobre criar um santuário de bem-estar ' +
-    'onde as crianças aprendem a nadar, os fins de semana com amigos se tornam inesquecíveis e as preocupações do dia a dia se dissolvem.\n\n' +
-    'Diferente das piscinas convencionais de azulejo frio ou fibra, o revestimento monolítico da JHoston reproduz o toque suave ' +
-    'da areia compactada, sem rejuntes cortantes ou acúmulo de fungos. Além disso, a custódia química do JHPCS garante que ' +
-    'a água nunca esteja agressiva: sem ardor nos olhos das crianças, sem cabelos esverdeados e sem o cheiro desagradável de cloro residual. ' +
-    'Uma experiência pura de resort dentro da sua própria casa.';
+    'Possuir uma piscina de areia monolítica JHoston Pools é materializar uma obra de arte viva no coração ' +
+    'do seu patrimônio familiar. Inspirada nas mais exclusivas enseadas caribenhas, a superfície monolítica ' +
+    'combina a suavidade tátil da areia compactada com a solidez mineral do quartzo nobre, eliminando de forma definitiva ' +
+    'os rejuntes frios, ásperos e suscetíveis a fungos das piscinas convencionais.\n\n' +
+    'Por trás dessa experiência sensorial de refúgio particular, o JHPCS atua como um concierge científico permanente. ' +
+    'Ao auditar semanalmente os parâmetros físico-químicos, o sistema previne a corrosão ácida e assegura uma água ' +
+    'equilibrada em sua máxima pureza: sem ressecamento de pele, sem irritação ocular para as crianças e com o brilho ' +
+    'cristalino que celebra as memórias mais preciosas da sua família.';
 
   const selectedArticle = isHotel ? hotelArticleText : familyArticleText;
   const splitArticle = doc.splitTextToSize(selectedArticle, pageWidth - 56);

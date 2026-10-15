@@ -236,10 +236,10 @@ export function generateLuxuryCompendiumPdf(data: LuxuryCompendiumData = {}): js
   doc.setFontSize(7.5);
   doc.setTextColor(226, 232, 240);
   const editorialText = 
-    `"Prezada Diretoria e Parceiros da JHoston Pools,\n\n` +
-    `Quando a JHoston Pools nos trouxe o desafio de conceber o JHPCS, o diagnóstico era contundente: durante anos, o maior pesadelo dos aplicadores de revestimentos monolíticos e piscinas de areia foi o pós-obra. Obras de padrão internacional ficavam à mercê de tratadores desqualificados e produtos clandestinos como ácido muriático e limpa pedras.\n\n` +
-    `Quando surgiam manchas ou delaminação provocadas por pura imperícia, a culpa recaía injustamente sobre a empresa que implantava ou revitalizava a piscina, gerando custos de garantias indevidas e desgaste de marca.\n\n` +
-    `O JHPCS (JHoston Pools Control System) nasceu para colocar um ponto final definitivo nessa vulnerabilidade com blindagem termodinâmica, operacional e forense."\n\n` +
+    `"Prezada Diretoria, Arquitetos e Proprietários de Obras JHoston Pools,\n\n` +
+    `Superfícies monolíticas de areia e matrizes de quartzo nobre representam o estado da arte na arquitetura de lazer de alto padrão. No entanto, a suntuosidade de uma praia privativa exige uma responsabilidade técnica proporcional à sua beleza: durante décadas, obras primorosas foram expostas ao empirismo de tratadores desqualificados e ao ataque devastador de ácidos muriáticos e químicos clandestinos.\n\n` +
+    `Quando manchas, rugosidades ou desagregações minerais surgiam por pura imperícia operacional, o ônus recaía injustamente sobre quem executou a obra de arte, gerando custos de garantias indevidas e abalo patrimonial.\n\n` +
+    `O JHPCS (JHoston Pools Control System) foi concebido para elevar a custódia desses ativos ao mais alto patamar da engenharia forense mundial. Criamos uma muralha de proteção matemática, satelital e termodinâmica que assegura a longevidade da matriz mineral, honra a confiança de cada cliente e transforma a garantia em uma experiência ativa de alta hospitalidade."\n\n` +
     `— Daniel Lopes & Patrícia Grübel (Desenvolvedores do JHPCS • Gestores MASTER)`;
 
   const splitEditorial = doc.splitTextToSize(editorialText, pageWidth - 44);

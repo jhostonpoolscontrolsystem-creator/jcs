@@ -314,23 +314,25 @@ export function generateExecutiveWelcomeKitPdf(data: MagazineEditionData = {}): 
   doc.setTextColor(245, 158, 11);
   doc.setFontSize(11);
   doc.setFont('helvetica', 'bold');
-  doc.text('EDITORIAL: A PRECISÃO CIENTÍFICA A SERVIÇO DA GARANTIA', 28, 146);
+  doc.text('EDITORIAL: A ENGENHARIA MINERAL EM SUA EXPRESSÃO MÁXIMA DE LUXO', 28, 146);
 
   doc.setTextColor(203, 213, 225);
   doc.setFontSize(8.5);
   doc.setFont('helvetica', 'normal');
   const editorialText =
-    'A durabilidade e o refinamento estético de um revestimento monolítico não decorrem do acaso, ' +
-    'mas de rigor científico inegociável. Ao longo dos anos, constatou-se que a quase totalidade das patologias ' +
-    'precoces registradas na construção civil especializada decorre de intervenções inadequadas, sobretudo ' +
-    'o uso clandestino de ácido muriático, desequilíbrio termodinâmico contínuo e negligência nos ciclos de cura.\n\n' +
-    'O JHPCS (JHoston Pools Control System) foi concebido para transformar a gestão de piscinas em uma ' +
-    'operação de alta precisão, operando como um verdadeiro pit wall da Fórmula 1. Cada dado coletado via satélite ' +
-    'e auditado por inteligência artificial multimodal alimenta o gêmeo digital do ativo, gerando histórico pericial ' +
-    'inviolável e assegurando que o padrão decenal seja cumprido em sua plenitude.\n\n' +
-    'Esta publicação executiva condensa os princípios técnicos essenciais, os índices de saturação química e ' +
-    'as rotinas obrigatórias para os tratadores e gestores. Nosso compromisso é entregar clareza absoluta, ' +
-    'proteção patrimonial inabalável e inovação de ponta a ponta em cada metro cúbico sob nossa guarda.';
+    'A arquitetura líquida contemporânea e as superfícies monolíticas de quartzo natural transcendem ' +
+    'o conceito de piscina: são verdadeiras obras de arte geológica, concebidas para transformar residências ' +
+    'e resorts em refúgios paradisíacos de alto prestígio. No entanto, a nobreza de uma matriz mineral viva ' +
+    'exige uma custódia científica de precisão absoluta.\n\n' +
+    'Na construção civil de luxo, a integridade de um revestimento não tolera empirismos. A quase totalidade ' +
+    'das patologias precoces nasce de agressões químicas desastrosas — o uso de ácidos clandestinos, o choque de ' +
+    'cloração e o descuido com a maturação dos primeiros 28 dias. O JHPCS (JHoston Pools Control System) ' +
+    'foi projetado para ser o guardião silencioso e infalível desse patrimônio, operando com a telemetria e o rigor ' +
+    'de um autêntico "pit wall" da Fórmula 1.\n\n' +
+    'Combinando inteligência termodinâmica em tempo real, cálculo contínuo de Langelier (LSI) e o inovador ' +
+    'Plano de Manutenção Ativo de 02 Anos com extensões contratuais, elevamos o padrão de pós-venda ao nível ' +
+    'da alta hospitalidade mundial. Nosso propósito é um só: assegurar que a água permaneça sedosa, a cor pura e a ' +
+    'sofisticação do seu monólito perpétua por todas as estações.';
 
   const splitEditorial = doc.splitTextToSize(editorialText, pageWidth - 56);
   doc.text(splitEditorial, 28, 155);
