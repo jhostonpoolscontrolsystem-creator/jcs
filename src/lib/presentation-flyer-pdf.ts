@@ -91,13 +91,13 @@ export function generatePresentationFlyerPdf(params: PresentationFlyerParams): j
     currentY += 6;
     doc.setFontSize(12);
     doc.setTextColor(245, 158, 11); // Amber-500
-    doc.text('Plano de Manutenção Ativo (3 Anos), Telemetria F1 e Proteção Jurídica', 14, currentY);
+    doc.text('Plano de Manutenção Ativo (02 Anos), Telemetria F1 e Extensão de Garantia', 14, currentY);
   } else {
     doc.text('A Proteção Inteligente da Sua Piscina JHoston', 14, currentY);
     currentY += 6;
     doc.setFontSize(12);
     doc.setTextColor(6, 182, 212); // Cyan-500
-    doc.text('Digital Twin, Plano de Manutenção Ativo de 3 Anos e Pós-Venda Proativo', 14, currentY);
+    doc.text('Digital Twin, Plano de Manutenção Ativo de 02 Anos e Extensão Garantida', 14, currentY);
   }
 
   // Caixa de Boas-Vindas Personalizada
@@ -136,8 +136,8 @@ export function generatePresentationFlyerPdf(params: PresentationFlyerParams): j
   const cardsData = isDiretoria ? [
     {
       num: '01',
-      title: 'Plano de Manutenção Ativo (3 Anos)',
-      desc: 'Substituição da garantia passiva pelo cuidado proativo. Acompanhamento semanal sem mensalidade e revisões anuais com mão de obra isenta.'
+      title: 'Plano de Manutenção Ativo (02 Anos)',
+      desc: 'Substituição da garantia passiva pelo cuidado proativo. Acompanhamento semanal sem mensalidade, revisões anuais com mão de obra isenta e extensão programada.'
     },
     {
       num: '02',
@@ -157,8 +157,8 @@ export function generatePresentationFlyerPdf(params: PresentationFlyerParams): j
   ] : [
     {
       num: '01',
-      title: 'Plano de Manutenção Ativo (3 Anos)',
-      desc: 'Nós ligamos semanalmente para seu tratador (zero mensalidade). Visitas anuais (Ano 1, 2 e 3) com mão de obra especializada 100% isenta!'
+      title: 'Plano de Manutenção Ativo (02 Anos)',
+      desc: 'Nós ligamos semanalmente para seu tratador (zero mensalidade). Visitas anuais (Ano 1 e 2) com mão de obra técnica 100% isenta e extensão garantida!'
     },
     {
       num: '02',
@@ -279,7 +279,7 @@ export function generatePresentationFlyerPdf(params: PresentationFlyerParams): j
   doc.setFontSize(7.5);
   doc.setTextColor(2, 6, 23); // Slate-950
   doc.text('PLANO DE MANUTENÇÃO', sealX + (sealW / 2), sealY + 7, { align: 'center' });
-  doc.text('ATIVO (3 ANOS)', sealX + (sealW / 2), sealY + 12, { align: 'center' });
+  doc.text('ATIVO (02 ANOS)', sealX + (sealW / 2), sealY + 12, { align: 'center' });
   doc.setFontSize(6.5);
   doc.text('JHÖSTON POOLS OFICIAL', sealX + (sealW / 2), sealY + 17, { align: 'center' });
 

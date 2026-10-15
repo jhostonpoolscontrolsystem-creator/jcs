@@ -427,7 +427,7 @@ export default function PoolF1TelemetryCockpit({
                   Auditoria de Conformidade Histórica
                 </span>
                 <p className="text-slate-400 leading-relaxed">
-                  As medições físicas e químicas coletadas via PWA do tratador são registradas com carimbo de tempo inviolável, geolocalização e fotos da cubeta colorimétrica. A estabilidade continuada das curvas assegura a validade dos 10 anos de garantia do monólito.
+                  As medições físicas e químicas coletadas via PWA do tratador são registradas com carimbo de tempo inviolável, geolocalização e fotos da cubeta colorimétrica. A estabilidade continuada das curvas assegura a validade dos 02 anos de garantia do monólito e habilita extensões adicionais.
                 </p>
               </div>
             </div>
@@ -486,7 +486,7 @@ export default function PoolF1TelemetryCockpit({
                     <h4 className="text-sm font-bold text-white uppercase tracking-tight">
                       Certificado de Blindagem Monolítica
                     </h4>
-                    <span className="text-xs text-slate-400">Garantia Decenal Contratual (10 Anos)</span>
+                    <span className="text-xs text-slate-400">Garantia Ativa (02 Anos & Extensível)</span>
                   </div>
                 </div>
 

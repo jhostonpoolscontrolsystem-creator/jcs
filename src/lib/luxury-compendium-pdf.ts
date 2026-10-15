@@ -96,7 +96,7 @@ export function generateLuxuryCompendiumPdf(data: LuxuryCompendiumData = {}): js
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(6.5);
     doc.setTextColor(100, 116, 139);
-    doc.text('JHPCS Luxury Edition • Engenharia de Revestimentos Monolíticos • Blindagem Trienal Homologada • Plano Ativo 3 Anos', 14, pageHeight - 7);
+    doc.text('JHPCS Luxury Edition • Engenharia de Revestimentos Monolíticos • Garantia Ativa 02 Anos • Extensão Programada', 14, pageHeight - 7);
 
     doc.setFont('helvetica', 'bold');
     doc.setTextColor(245, 158, 11);
@@ -544,7 +544,7 @@ export function generateLuxuryCompendiumPdf(data: LuxuryCompendiumData = {}): js
     `• Proibição de Carrinhos Metálicos: Aspiradores com rodízios de metal são terminantemente proibidos na fase de polimerização inicial.`;
   doc.text(doc.splitTextToSize(cureRule, pageWidth - 44), 22, curY + 12.5);
 
-  // Box 3: O Novo Plano de Manutenção Ativo (3 Anos de Cuidado Proativo)
+  // Box 3: O Novo Plano de Manutenção Ativo (02 Anos de Cuidado Proativo & Extensão)
   curY += 45.5;
   doc.setFillColor(15, 23, 42);
   doc.setDrawColor(245, 158, 11);
@@ -554,16 +554,16 @@ export function generateLuxuryCompendiumPdf(data: LuxuryCompendiumData = {}): js
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(8.5);
   doc.setTextColor(245, 158, 11);
-  doc.text('[ PLANO DE MANUTENÇÃO ATIVO ] A REVOLUÇÃO NO PÓS-VENDA E GARANTIA', 22, curY + 7);
+  doc.text('[ PLANO DE MANUTENÇÃO ATIVO ] A REVOLUÇÃO NO PÓS-VENDA E GARANTIA DE 02 ANOS', 22, curY + 7);
 
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(7);
   doc.setTextColor(226, 232, 240);
   const activePlanPdfText = 
-    `Substituímos termos de garantia passivos pelo acompanhamento direto de 3 anos para longevidade impecável do revestimento:\n\n` +
+    `Substituímos termos de garantia passivos pelo acompanhamento direto de 02 anos com opção de extensão programada:\n\n` +
     `• 1. Monitoramento Remoto Semanal (Sem Mensalidade): Contato direto com o tratador/caseiro para auditar pH e Cloro.\n` +
     `• 2. Intervenção Anual Preventiva (Ano 1 e 2): Equipe especializada no local para esvaziamento, lavagem técnica e aplicação de resina protetora preventiva. MÃO DE OBRA 100% ISENTA!\n` +
-    `• 3. Manutenção Pesada & Revitalização (Ano 3): Lavagem química intensiva de alta pressão e camada final de proteção. Isenção total de mão de obra mantida.`;
+    `• 3. Módulo de Extensão de Garantia (+1 ou +2 Anos): Ao final do 24º mês, o cliente goza da prerrogativa de renovar e estender a garantia com isenção total de mão de obra mantida.`;
   doc.text(doc.splitTextToSize(activePlanPdfText, pageWidth - 44), 22, curY + 12);
 
   // Foto Editorial: Macroestrutura Mineral & Quartzo em Cura Submersa
@@ -737,15 +737,15 @@ export function generateLuxuryCompendiumPdf(data: LuxuryCompendiumData = {}): js
   certY += 7;
   doc.setFontSize(10);
   doc.setTextColor(245, 158, 11);
-  doc.text('PLATAFORMA JHPCS • PLANO DE MANUTENÇÃO ATIVO (3 ANOS)', pageWidth / 2, certY, { align: 'center' });
+  doc.text('PLATAFORMA JHPCS • PLANO DE MANUTENÇÃO ATIVO (02 ANOS & EXTENSÃO)', pageWidth / 2, certY, { align: 'center' });
 
   certY += 12;
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(8.5);
   doc.setTextColor(226, 232, 240);
   const certP1 = 
-    `Atestamos por meio deste documento pericial oficial que a plataforma JHPCS (JHoston Pools Control System) concluiu com 100% de êxito todas as etapas de homologação para sustentar o Plano de Manutenção Ativo de 3 Anos.\n\n` +
-    `O ecossistema encontra-se homologado para auditar semanalmente o tratador da piscina sem mensalidade e garantir o suporte técnico das intervenções anuais (Ano 1, 2 e 3) com isenção total de mão de obra para esvaziamento, lavagem técnica e aplicação de resina protetora.`;
+    `Atestamos por meio deste documento pericial oficial que a plataforma JHPCS (JHoston Pools Control System) concluiu com 100% de êxito todas as etapas de homologação para sustentar o Plano de Manutenção Ativo de 02 Anos com Prerrogativa de Extensão de Garantia.\n\n` +
+    `O ecossistema encontra-se homologado para auditar semanalmente o tratador da piscina sem mensalidade e garantir o suporte técnico das intervenções anuais (Ano 1 e 2) com isenção total de mão de obra para esvaziamento, lavagem técnica e aplicação de resina protetora, além do módulo de extensão continuada.`;
   doc.text(doc.splitTextToSize(certP1, pageWidth - 48), 24, certY);
 
   certY += 34;
@@ -761,8 +761,8 @@ export function generateLuxuryCompendiumPdf(data: LuxuryCompendiumData = {}): js
     '[OK] Banco de Dados Live Supabase com Isolamento Multi-Tenant Homologado',
     '[OK] Cockpit de Telemetria F1 com Tacômetros Digitais e Cálculo Contínuo de LSI',
     '[OK] Auditoria Semanal Direta com o Tratador via WhatsApp sem Mensalidade',
-    '[OK] Registro de Intervenções Anuais (Ano 1, 2 e 3) com Mão de Obra Técnica 100% Isenta',
-    '[OK] Livro-Razão Forense Inviolável com Exportação CSV para Perícias e Garantia Trienal',
+    '[OK] Registro de Intervenções Anuais (Ano 1 e 2) com Mão de Obra Técnica 100% Isenta',
+    '[OK] Módulo Ativo de Extensão de Garantia (+1 ou +2 Anos) com Livro-Razão Pericial',
   ];
 
   let checkY = certY + 16;

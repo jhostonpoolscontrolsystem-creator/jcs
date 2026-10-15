@@ -114,7 +114,7 @@ export function ClientManagerDashboard() {
               onClick={() => setActiveSection('PLANO_ATIVO')}
               className="text-sm font-extrabold text-amber-400 hover:text-amber-300 flex items-center gap-1.5 cursor-pointer underline decoration-amber-500/50"
             >
-              Plano de Manutenção Ativo (3 Anos) ↗
+              Plano de Manutenção Ativo (02 Anos & Extensão) ↗
             </button>
           </div>
         </div>
@@ -143,7 +143,7 @@ export function ClientManagerDashboard() {
           }`}
         >
           <ShieldCheck className="w-4 h-4" />
-          <span>Plano de Manutenção Ativo (Garantia de 3 Anos)</span>
+          <span>Plano de Manutenção Ativo (Garantia de 02 Anos)</span>
         </button>
       </div>
 

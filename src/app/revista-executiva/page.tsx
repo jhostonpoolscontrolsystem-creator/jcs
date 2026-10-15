@@ -112,10 +112,10 @@ export default function RevistaExecutivaPage() {
 
           <div className="space-y-4 max-w-4xl">
             <h1 className="text-3xl sm:text-6xl font-black text-white tracking-tight leading-[1.1]">
-              A Bíblia Operacional & Soberana da <span className="bg-gradient-to-r from-amber-300 via-amber-400 to-amber-600 bg-clip-text text-transparent">Garantia Trienal Ativa</span>
+              A Bíblia Operacional & Soberana da <span className="bg-gradient-to-r from-amber-300 via-amber-400 to-amber-600 bg-clip-text text-transparent">Garantia Bienal Ativa (02 Anos)</span>
             </h1>
             <p className="text-slate-300 text-base sm:text-lg leading-relaxed font-normal">
-              A unificação editorial definitiva entre o <strong>Roteiro de Apresentação Executiva</strong>, o <strong>Manual do Usuário JHoston Pools</strong> com o <strong>Plano de Manutenção Ativo de 3 Anos</strong> (acompanhamento semanal sem mensalidade e intervenções anuais com mão de obra isenta), a <strong>Gestão de Campo do Tratador</strong> com isolamento por etiquetas QR Code, o <strong>Roteiro Oficial de Testes de Estresse</strong> e os <strong>Flyers de Boas-Vindas</strong>.
+              A unificação editorial definitiva entre o <strong>Roteiro de Apresentação Executiva</strong>, o <strong>Manual do Usuário JHoston Pools</strong> com o <strong>Plano de Manutenção Ativo de 02 Anos</strong> (acompanhamento semanal sem mensalidade, revisões anuais com mão de obra isenta e extensão programada de garantia), a <strong>Gestão de Campo do Tratador</strong> com isolamento por etiquetas QR Code, o <strong>Roteiro Oficial de Testes de Estresse</strong> e os <strong>Flyers de Boas-Vindas</strong>.
             </p>
           </div>
 
@@ -134,7 +134,7 @@ export default function RevistaExecutivaPage() {
             <div className="space-y-1">
               <span className="text-[10px] font-mono text-cyan-400 uppercase tracking-widest font-bold">Homologação Soberana</span>
               <h3 className="text-sm font-black text-cyan-200">JHoston Pools Brasil</h3>
-              <p className="text-xs text-slate-400">Garantia Ativa (3 Anos) Homologada</p>
+              <p className="text-xs text-slate-400">Garantia Ativa (02 Anos & Extensão) Homologada</p>
             </div>
           </div>
 
@@ -582,18 +582,18 @@ export default function RevistaExecutivaPage() {
             </div>
           </div>
 
-          {/* O NOVO PLANO DE MANUTENÇÃO ATIVO: 3 ANOS DE CUIDADO PROATIVO */}
+          {/* O NOVO PLANO DE MANUTENÇÃO ATIVO: 02 ANOS DE CUIDADO PROATIVO & EXTENSÃO */}
           <div className="p-8 rounded-3xl bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 border-2 border-amber-500/40 space-y-6">
             <div className="space-y-2">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 font-mono text-xs font-bold">
                 <Award className="w-3.5 h-3.5" />
-                DIRETRIZ OFICIAL DE PÓS-VENDA & GARANTIA ATIVA
+                DIRETRIZ OFICIAL DE PÓS-VENDA & GARANTIA ATIVA (02 ANOS)
               </div>
               <h3 className="text-2xl font-black text-white">
-                Plano de Manutenção Ativo: A Revolução no Pós-Venda e Garantia Trienal
+                Plano de Manutenção Ativo: A Revolução no Pós-Venda e Garantia de 02 Anos
               </h3>
               <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-4xl">
-                Esqueça os termos de garantia genéricos do mercado que apenas transferem a responsabilidade e a culpa para o cliente em caso de problemas. Nós assumimos o compromisso real com a longevidade estética e estrutural do seu investimento. Para isso, substituímos a garantia tradicional pelo nosso <strong>Plano de Manutenção Ativo</strong>, uma estratégia exclusiva de acompanhamento direto durante os <strong>3 primeiros anos</strong>, garantindo que o seu revestimento permaneça impecável:
+                Esqueça os termos de garantia genéricos do mercado que apenas transferem a responsabilidade e a culpa para o cliente em caso de problemas. Nós assumimos o compromisso real com a longevidade estética e estrutural do seu investimento. Para isso, substituímos a garantia tradicional pelo nosso <strong>Plano de Manutenção Ativo de 02 Anos</strong>, uma estratégia de acompanhamento direto com opção de <strong>extensão contínua de garantia</strong>:
               </p>
             </div>
 
@@ -615,16 +615,16 @@ export default function RevistaExecutivaPage() {
               </div>
 
               <div className="p-5 rounded-2xl bg-slate-950 border border-emerald-500/30 space-y-3 text-xs">
-                <span className="text-[10px] font-mono text-emerald-400 font-bold uppercase block">Pilar 3 • Ano 3</span>
-                <h4 className="text-white font-bold text-sm">Manutenção Pesada & Revitalização</h4>
+                <span className="text-[10px] font-mono text-emerald-400 font-bold uppercase block">Pilar 3 • Extensão</span>
+                <h4 className="text-white font-bold text-sm">Extensão Programada de Garantia</h4>
                 <p className="text-slate-300 leading-relaxed">
-                  No encerramento do ciclo, realizamos um check-up profundo com lavagem química intensiva (alta pressão) e camada final de proteção. <strong>Isenção total da nossa mão de obra mantida</strong>, cabendo ao cliente deslocamento e insumos. Ao final, você poderá optar pela renovação do plano.
+                  No encerramento do ciclo bienal de 02 anos, o cliente poderá estender formalmente sua garantia por novos períodos anuais (+1 ano ou +2 anos). <strong>A isenção total de mão de obra para novas revisões é mantida</strong>, garantindo proteção contínua sem surpresas.
                 </p>
               </div>
             </div>
 
             <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 text-center text-xs text-amber-300 italic">
-              &ldquo;Com o Plano de Manutenção Ativo, sua única preocupação será aproveitar o seu espaço de lazer. A responsabilidade técnica e o cuidado contínuo são nossos.&rdquo;
+              &ldquo;Com o Plano de Manutenção Ativo de 02 Anos, sua única preocupação será aproveitar o seu espaço de lazer. A responsabilidade técnica e o cuidado contínuo são nossos.&rdquo;
             </div>
 
             {/* Fotografia Editorial: Oásis Familiar & Lazer em Piscina de Areia */}
@@ -773,7 +773,7 @@ export default function RevistaExecutivaPage() {
             </span>
             <div>
               <span className="text-[10px] font-mono uppercase text-amber-400 font-bold tracking-widest">Capítulo VI da Revista</span>
-              <h2 className="text-2xl font-black text-white">Certificado Soberano de Homologação Trienal</h2>
+              <h2 className="text-2xl font-black text-white">Certificado Soberano de Homologação Bienal (02 Anos & Extensão)</h2>
             </div>
           </div>
 
@@ -789,17 +789,17 @@ export default function RevistaExecutivaPage() {
               </div>
 
               <h3 className="text-2xl sm:text-4xl font-black text-white">
-                Homologado no Plano de Manutenção Ativo (3 Anos)
+                Homologado no Plano de Manutenção Ativo (02 Anos & Extensão)
               </h3>
 
               <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                Certificamos para todos os fins de direito e engenharia que o <strong>JHoston Pools Control System (JHPCS)</strong> atende integralmente às diretrizes químicas do <strong>Plano de Manutenção Ativo de 3 Anos</strong>, garantindo auditoria semanal sem mensalidade e intervenções presenciais no 1º, 2º e 3º ano com isenção integral da mão de obra especializada.
+                Certificamos para todos os fins de direito e engenharia que o <strong>JHoston Pools Control System (JHPCS)</strong> atende integralmente às diretrizes químicas do <strong>Plano de Manutenção Ativo de 02 Anos</strong>, garantindo auditoria semanal sem mensalidade, intervenções presenciais anuais com isenção integral da mão de obra especializada e a elegibilidade para <strong>extensão de garantia anual sucessiva</strong>.
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-mono">
                 <div className="p-3 rounded-xl bg-slate-950 border border-slate-800">
                   <span className="text-slate-500 block text-[10px]">CÓDIGO DE HOMOLOGAÇÃO</span>
-                  <span className="text-amber-400 font-bold">JHPCS-TRIENNIAL-ACTIVE-PLAN-2026</span>
+                  <span className="text-amber-400 font-bold">JHPCS-BIENNIAL-ACTIVE-PLAN-2026</span>
                 </div>
                 <div className="p-3 rounded-xl bg-slate-950 border border-slate-800">
                   <span className="text-slate-500 block text-[10px]">HASH CRIPTOGRÁFICO SHA-256</span>

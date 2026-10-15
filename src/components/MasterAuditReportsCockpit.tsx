@@ -835,9 +835,9 @@ export function MasterAuditReportsCockpit({ onNavigateTab, onOpenWelcomeKit }: M
               <div className="w-8 h-8 rounded-lg bg-amber-950/80 border border-amber-800 text-amber-400 flex items-center justify-center font-bold text-xs">
                 03
               </div>
-              <h4 className="font-bold text-sm text-white">Plano de Manutenção Ativo (3 Anos)</h4>
+              <h4 className="font-bold text-sm text-white">Plano de Manutenção Ativo (02 Anos & Extensão)</h4>
               <p className="text-xs text-slate-400 leading-relaxed">
-                Superamos a garantia decenal passiva substituindo-a pelo acompanhamento proativo direto: <strong>Monitoramento Remoto Semanal</strong> (sem mensalidade) e <strong>Intervenções Anuais</strong> com mão de obra técnica 100% isenta para esvaziamento, lavagem e resina.
+                Superamos a garantia passiva tradicional substituindo-a pelo acompanhamento proativo direto: <strong>Monitoramento Remoto Semanal</strong> (sem mensalidade), <strong>Intervenções Anuais</strong> com mão de obra técnica 100% isenta e <strong>Extensão Contínua de Garantia</strong>.
               </p>
             </div>
           </div>
@@ -850,10 +850,10 @@ export function MasterAuditReportsCockpit({ onNavigateTab, onOpenWelcomeKit }: M
                   NOVA DIRETRIZ JURÍDICA E OPERACIONAL • PÓS-VENDA PROATIVO
                 </span>
                 <h4 className="text-base font-black text-white">
-                  Plano de Manutenção Ativo: A Revolução no Pós-Venda e Garantia Trienal
+                  Plano de Manutenção Ativo: A Revolução no Pós-Venda e Garantia de 02 Anos (Extensível)
                 </h4>
                 <p className="text-xs text-slate-400 max-w-3xl leading-relaxed">
-                  Em vez de aguardar o sinistro para culpar o cliente ou entrar em litígio judicial, a JHöston assume a proatividade técnica. Auditoria semanal no WhatsApp do tratador e check-up profundo presencial no 1º, 2º e 3º ano com isenção total de mão de obra.
+                  Em vez de aguardar o sinistro para culpar o cliente ou entrar em litígio judicial, a JHöston assume a proatividade técnica. Auditoria semanal no WhatsApp do tratador, revisões no 1º e 2º ano com isenção total de mão de obra e extensão continuada de garantia.
                 </p>
               </div>
 

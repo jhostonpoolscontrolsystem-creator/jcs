@@ -52,6 +52,11 @@ export interface Pool {
   trial_approved_by_director?: boolean;
   client_choice_plan?: SubscriptionTier;
   client_choice_at?: string;
+  // Campos de Garantia & Extensão Bienal (02 Anos)
+  warranty_years?: number; // Padrão: 2 anos
+  warranty_extended_years?: number; // Extensões adicionais (ex: +1 ou +2 anos)
+  warranty_extension_status?: 'STANDARD_ACTIVE' | 'EXTENSION_AVAILABLE' | 'EXTENSION_REQUESTED' | 'EXTENSION_ACTIVE' | 'EXPIRED';
+  warranty_extension_requested_at?: string;
 }
 
 export interface Product {

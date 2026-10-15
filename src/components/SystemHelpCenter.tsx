@@ -130,7 +130,7 @@ export function SystemHelpCenter({ onNavigateTab }: { onNavigateTab: (tab: any) 
             'Exportação CSV: Botão "Exportar CSV Pericial" para gerar laudo pericial pronto para anexar em defesas contratuais e conformidade LGPD.',
             'Matriz de Relatórios: Disparo e download em 1 clique dos 4 laudos executivos (Panorama Geral, Boletim Red Zone, Revista VIP em PDF e Laudo de Garantia).'
           ],
-          importantNotice: 'Os logs de auditoria do JHPCS são invioláveis e garantem a blindagem jurídica e técnica durante todo o ciclo do Plano de Manutenção Ativo (3 Anos), comprovando a isenção de mão de obra e o histórico químico inalterável.'
+          importantNotice: 'Os logs de auditoria do JHPCS são invioláveis e garantem a blindagem jurídica e técnica durante todo o ciclo do Plano de Manutenção Ativo (02 Anos) e suas extensões, comprovando a isenção de mão de obra e o histórico químico inalterável.'
         }
       ],
       faqs: [

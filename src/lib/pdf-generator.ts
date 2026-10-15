@@ -70,12 +70,12 @@ export function generateWarrantyCertificatePdf(pool: Pool, logs: MaintenanceLog[
   doc.setFontSize(10);
   doc.setFont('helvetica', 'bold');
   doc.setTextColor(15, 23, 42);
-  doc.text('DECLARAÇÃO DE CONFORMIDADE • PLANO DE MANUTENÇÃO ATIVO (3 ANOS)', 20, 184);
+  doc.text('DECLARAÇÃO DE CONFORMIDADE • PLANO DE MANUTENÇÃO ATIVO (02 ANOS)', 20, 184);
 
   doc.setFontSize(8);
   doc.setFont('helvetica', 'normal');
   doc.setTextColor(71, 85, 105);
-  const legalText = `Certificamos que as manutenções registradas atenderam estritamente ao protocolo químico do Plano de Manutenção Ativo JHoston Pools. O cliente goza de monitoramento remoto semanal sem mensalidade e intervenções presenciais anuais (esvaziamento, lavagem técnica e aplicação de resina preventiva) com mão de obra técnica 100% isenta durante o ciclo de 3 anos, cabendo ao cliente apenas o deslocamento e insumos de resina. Todas as leituras foram autenticadas por georreferenciamento e fotos in-app.`;
+  const legalText = `Certificamos que as manutenções registradas atenderam estritamente ao protocolo químico do Plano de Manutenção Ativo JHoston Pools. O cliente goza de monitoramento remoto semanal sem mensalidade e intervenções presenciais anuais (esvaziamento, lavagem técnica e aplicação de resina preventiva) com mão de obra técnica 100% isenta durante o ciclo de 02 anos (com possibilidade de extensão de garantia contratual), cabendo ao cliente apenas o deslocamento e insumos de resina. Todas as leituras foram autenticadas por georreferenciamento e fotos in-app.`;
   doc.text(doc.splitTextToSize(legalText, 170), 20, 191);
 
   // Assinatura Digital

@@ -65,9 +65,9 @@ export function SendMagazineModal({ isOpen, onClose, pdfType = 'EXECUTIVE' }: Se
 
   const getCaptionMessage = () => {
     if (selectedEdition === 'EXECUTIVE') {
-      return `👑 *JHPCS EXECUTIVE COMPENDIUM 2026 • EDIÇÃO ÚNICA*\n\nPrezada Diretoria e Gestores,\n\nSegue anexo o documento oficial em PDF de alta resolução da *Revista Executiva JHPCS 2026* contendo:\n• A Carta Aberta & Blindagem Forense da Engenharia Mineral\n• Manifesto GADAP Sistemas (Inovação, Ética & Solidez)\n• Cockpit de Telemetria F1 & Balanço ISA / Langelier\n• O Novo Plano de Manutenção Ativo de 3 Anos (Mão de Obra Isenta)\n• Etiquetas QR Code da Casa de Máquinas & Testes de Estresse EX-01 a EX-08.\n\n_Desenvolvido por Daniel Lopes & Patrícia Grübel (GADAP Sistemas)_`;
+      return `👑 *JHPCS EXECUTIVE COMPENDIUM 2026 • EDIÇÃO ÚNICA*\n\nPrezada Diretoria e Gestores,\n\nSegue anexo o documento oficial em PDF de alta resolução da *Revista Executiva JHPCS 2026* contendo:\n• A Carta Aberta & Blindagem Forense da Engenharia Mineral\n• Manifesto GADAP Sistemas (Inovação, Ética & Solidez)\n• Cockpit de Telemetria F1 & Balanço ISA / Langelier\n• O Novo Plano de Manutenção Ativo de 02 Anos (com Extensão de Garantia)\n• Etiquetas QR Code da Casa de Máquinas & Testes de Estresse EX-01 a EX-08.\n\n_Desenvolvido por Daniel Lopes & Patrícia Grübel (GADAP Sistemas)_`;
     }
-    return `💎 *REVISTA JHOSTON POOLS • GUIA DO PROPRIETÁRIO*\n\nPrezado(a) *${clientName}*,\n\nSegue anexo o seu exemplar em PDF da revista de acompanhamento do seu revestimento monolítico:\n• Status do seu Plano de Manutenção Ativo (3 Anos)\n• Acompanhamento contínuo da estabilidade mineral da água\n• Orientações vitais (proibição de ácidos)\n• Certificado de Conformidade do seu ativo.\n\n_JHoston Pools • Engenharia de Revestimentos Monolíticos_`;
+    return `💎 *REVISTA JHOSTON POOLS • GUIA DO PROPRIETÁRIO*\n\nPrezado(a) *${clientName}*,\n\nSegue anexo o seu exemplar em PDF da revista de acompanhamento do seu revestimento monolítico:\n• Status do seu Plano de Manutenção Ativo (02 Anos)\n• Acompanhamento contínuo da estabilidade mineral da água\n• Orientações vitais (proibição de ácidos)\n• Certificado de Conformidade & Extensão do seu ativo.\n\n_JHoston Pools • Engenharia de Revestimentos Monolíticos_`;
   };
 
   const handleSend = async () => {

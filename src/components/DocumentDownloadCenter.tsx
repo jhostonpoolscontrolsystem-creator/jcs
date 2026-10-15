@@ -128,7 +128,7 @@ export function DocumentDownloadCenter({ currentUserRole = 'MASTER' }: DocumentD
     },
     {
       id: 'doc-laudo-mensal-template',
-      title: 'Certificado Modelo de Garantia Monolítica JHostonTec (10 Anos)',
+      title: 'Certificado Modelo de Garantia Monolítica JHostonTec (02 Anos & Extensível)',
       description: 'Atestado de conformidade físico-química com selo digital e validade jurídica para seguro patrimonial e convenções.',
       category: 'CERTIFICADO',
       format: 'PDF',

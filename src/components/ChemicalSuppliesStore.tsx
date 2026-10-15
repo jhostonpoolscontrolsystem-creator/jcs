@@ -454,7 +454,7 @@ export function ChemicalSuppliesStore({ currentUserRole = 'MASTER' }: { currentU
           <div className="p-4 rounded-2xl bg-slate-950 border border-emerald-950/80 flex items-start gap-3 text-xs text-slate-400">
             <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
             <p>
-              O uso contínuo de químicos homologados JHostonTec mantém ativo o <strong>Certificado de Garantia de 10 Anos</strong> contra manchas, delaminação e perda de cor da piscina.
+              O uso contínuo de químicos homologados JHostonTec mantém ativo o <strong>Certificado de Garantia de 02 Anos (com Extensão Programada)</strong> contra manchas, delaminação e perda de cor da piscina.
             </p>
           </div>
         </div>

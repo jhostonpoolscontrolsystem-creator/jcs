@@ -18,7 +18,9 @@ import {
   BadgeCheck,
   RotateCcw,
   PhoneCall,
-  UserCheck
+  UserCheck,
+  PlusCircle,
+  Check
 } from 'lucide-react';
 
 interface ActiveWarrantyPlanHubProps {
@@ -34,14 +36,20 @@ export default function ActiveWarrantyPlanHub({
   installationYear = 2025,
   onDownloadTerm
 }: ActiveWarrantyPlanHubProps) {
-  const [activeCycleTab, setActiveCycleTab] = useState<'ANO_1' | 'ANO_2' | 'ANO_3' | 'POS_CICLO'>('ANO_1');
+  const [activeCycleTab, setActiveCycleTab] = useState<'ANO_1' | 'ANO_2' | 'EXTENSAO'>('ANO_1');
+  const [extensionRequested, setExtensionRequested] = useState(false);
+  const [selectedExtensionOption, setSelectedExtensionOption] = useState<'EXT_1_ANO' | 'EXT_2_ANOS'>('EXT_1_ANO');
 
-  // Cálculos de datas e ciclos
+  // Cálculos de datas e ciclos bienais (2 anos)
   const appDate = new Date(applicationDate);
   const now = new Date();
   const diffDays = Math.max(0, Math.floor((now.getTime() - appDate.getTime()) / (1000 * 3600 * 24)));
-  const currentYearOfCycle = Math.min(3, Math.max(1, Math.ceil(diffDays / 365)));
+  const currentYearOfCycle = Math.min(2, Math.max(1, Math.ceil(diffDays / 365)));
   const daysToNextIntervention = Math.max(0, 365 * currentYearOfCycle - diffDays);
+
+  const handleRequestExtension = () => {
+    setExtensionRequested(true);
+  };
 
   return (
     <div className="space-y-6">
@@ -52,17 +60,17 @@ export default function ActiveWarrantyPlanHub({
         <div className="space-y-4 max-w-4xl relative">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 font-mono text-xs font-bold">
             <Award className="w-3.5 h-3.5" />
-            NOVO PADRÃO JHÖSTON POOLS • PÓS-VENDA & GARANTIA ATIVA
+            NOVO PADRÃO JHÖSTON POOLS • PÓS-VENDA & GARANTIA BIENAL (02 ANOS)
           </div>
 
           <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-            Plano de Manutenção Ativo: <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-200">A Revolução no Pós-Venda</span>
+            Plano de Manutenção Ativo: <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-200">Garantia Ativa de 02 Anos com Extensão Programada</span>
           </h2>
 
           <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
             Esqueça os termos de garantia genéricos do mercado que apenas transferem a responsabilidade e a culpa para o cliente em caso de problemas. 
             Nós assumimos o <strong>compromisso real com a longevidade estética e estrutural do seu investimento</strong>. 
-            Substituímos a garantia passiva tradicional pelo nosso <strong>Plano de Manutenção Ativo de 3 Anos</strong>, garantindo que o seu revestimento permaneça impecável.
+            Substituímos a garantia passiva tradicional pelo nosso <strong>Plano de Manutenção Ativo de 02 Anos</strong> com acompanhamento direto, revisões anuais com mão de obra técnica isenta e a possibilidade soberana de <strong>extensão contínua de garantia</strong>.
           </p>
 
           {/* Status Live do Ativo */}
@@ -73,7 +81,7 @@ export default function ActiveWarrantyPlanHub({
               </div>
               <div>
                 <span className="text-[10px] font-mono uppercase text-slate-400 block font-bold">Status do Revestimento</span>
-                <span className="text-xs font-extrabold text-emerald-400">Plano Ativo • Ano {currentYearOfCycle} de 3</span>
+                <span className="text-xs font-extrabold text-emerald-400">Plano Ativo • Ano {currentYearOfCycle} de 2</span>
               </div>
             </div>
 
@@ -100,7 +108,7 @@ export default function ActiveWarrantyPlanHub({
         </div>
       </div>
 
-      {/* 2. Os 3 Pilares Estruturantes do Plano */}
+      {/* 2. Os 3 Pilares Estruturantes do Plano Bienal */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Pilar 1: Monitoramento Remoto Semanal */}
         <div className="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-500/40 transition space-y-4 flex flex-col justify-between">
@@ -139,7 +147,7 @@ export default function ActiveWarrantyPlanHub({
           </div>
 
           <div className="pt-3 border-t border-slate-800 text-[10px] font-mono text-cyan-400 font-bold">
-            • Acompanhamento contínuo dos 3 anos
+            • Acompanhamento contínuo dos 02 anos
           </div>
         </div>
 
@@ -160,7 +168,7 @@ export default function ActiveWarrantyPlanHub({
             </h3>
 
             <p className="text-xs text-slate-300 leading-relaxed">
-              Uma vez ao ano, nossa equipe especializada se desloca até o local para esvaziar a piscina, realizar lavagem técnica e reaplicar a resina protetora preventiva.
+              Anualmente, nossa equipe especializada se desloca até o local para esvaziar a piscina, realizar lavagem técnica e reaplicar a resina protetora preventiva.
             </p>
 
             <ul className="space-y-2 text-[11px] text-slate-400">
@@ -184,7 +192,7 @@ export default function ActiveWarrantyPlanHub({
           </div>
         </div>
 
-        {/* Pilar 3: Manutenção Pesada e Revitalização */}
+        {/* Pilar 3: Extensão de Garantia & Renovação */}
         <div className="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-emerald-500/40 transition space-y-4 flex flex-col justify-between">
           <div className="space-y-3">
             <div className="flex items-center justify-between">
@@ -192,55 +200,55 @@ export default function ActiveWarrantyPlanHub({
                 <Sparkles className="w-5 h-5" />
               </div>
               <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-950 text-emerald-300 border border-emerald-800">
-                CHECK-UP PROFUNDO & RENOVAÇÃO
+                EXTENSÃO PROGRAMADA
               </span>
             </div>
 
             <h3 className="font-black text-white text-base">
-              3. Revitalização Pesada (Ano 3)
+              3. Módulo de Extensão de Garantia
             </h3>
 
             <p className="text-xs text-slate-300 leading-relaxed">
-              No encerramento do ciclo de garantia estendida, realizamos um check-up profundo com lavagem química intensiva de alta pressão e camada final de proteção.
+              Ao final do ciclo bienal de 02 anos, o cliente poderá estender formalmente sua garantia por novos períodos anuais (+1 ano ou +2 anos) mediante check-up preventivo.
             </p>
 
             <ul className="space-y-2 text-[11px] text-slate-400">
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
-                <span>Mão de obra 100% isenta mantida no 3º ano.</span>
+                <span>Continuidade da isenção de mão de obra para novas revisões.</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
-                <span>Lavagem intensiva com maquinário e camada final de resina.</span>
+                <span>Auditoria e laudo pericial atualizados sem interrupção.</span>
               </li>
               <li className="flex items-start gap-2">
                 <RotateCcw className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
-                <span>Opção soberana de renovação do plano para novos ciclos.</span>
+                <span>Condições especiais e renovação simples em 1 clique.</span>
               </li>
             </ul>
           </div>
 
           <div className="pt-3 border-t border-slate-800 text-[10px] font-mono text-emerald-400 font-bold">
-            • Ciclo completo de 36 meses
+            • Extensões modulares de garantia ativa
           </div>
         </div>
       </div>
 
-      {/* 3. Cronograma Interativo dos 3 Anos (Linha do Tempo) */}
+      {/* 3. Cronograma Interativo Bienal (Linha do Tempo) */}
       <div className="p-6 rounded-2xl bg-slate-900 border border-slate-800 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
           <div>
             <span className="text-[10px] font-mono text-amber-400 font-bold uppercase tracking-wider block">
-              CRONOGRAMA DO CICLO TRIENAL
+              CRONOGRAMA DO CICLO BIENAL (02 ANOS)
             </span>
             <h3 className="text-lg font-black text-white">
               Linha do Tempo de Cuidado & Intervenções Presenciais
             </h3>
           </div>
 
-          {/* Abas dos Anos */}
+          {/* Abas dos Anos e Extensão */}
           <div className="flex items-center gap-1.5 bg-slate-950 p-1 rounded-xl border border-slate-800">
-            {(['ANO_1', 'ANO_2', 'ANO_3', 'POS_CICLO'] as const).map((tab) => (
+            {(['ANO_1', 'ANO_2', 'EXTENSAO'] as const).map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveCycleTab(tab)}
@@ -251,9 +259,8 @@ export default function ActiveWarrantyPlanHub({
                 }`}
               >
                 {tab === 'ANO_1' && 'Ano 1'}
-                {tab === 'ANO_2' && 'Ano 2'}
-                {tab === 'ANO_3' && 'Ano 3'}
-                {tab === 'POS_CICLO' && 'Renovação'}
+                {tab === 'ANO_2' && 'Ano 2 (Revisão & Extensão)'}
+                {tab === 'EXTENSAO' && 'Extensão de Garantia'}
               </button>
             ))}
           </div>
@@ -316,11 +323,11 @@ export default function ActiveWarrantyPlanHub({
 
             <div className="space-y-3 bg-slate-950 p-5 rounded-2xl border border-amber-500/30">
               <span className="text-amber-400 font-bold font-mono text-[11px] uppercase">
-                Mês 24 • 2ª Intervenção Presencial Anual
+                Mês 24 • 2ª Intervenção Presencial & Conclusão do Ciclo
               </span>
-              <h4 className="text-white font-bold text-sm">Segunda Selagem de Proteção Monolítica</h4>
+              <h4 className="text-white font-bold text-sm">Segunda Selagem & Habilitação de Extensão</h4>
               <p className="text-slate-300 leading-relaxed">
-                Nova lavagem técnica completa e aplicação da resina protetora anual para manter a impermeabilidade e toque suave de areia natural.
+                Nova lavagem técnica completa e aplicação da resina protetora anual. Neste marco, o cliente já recebe a oportunidade de prorrogação da garantia com benefícios exclusivos.
               </p>
               <div className="p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-1 text-[11px]">
                 <div className="flex justify-between text-slate-300">
@@ -336,54 +343,86 @@ export default function ActiveWarrantyPlanHub({
           </div>
         )}
 
-        {activeCycleTab === 'ANO_3' && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-fadeIn text-xs">
-            <div className="space-y-3 bg-slate-950 p-5 rounded-2xl border border-slate-800">
-              <span className="text-emerald-400 font-bold font-mono text-[11px] uppercase">
-                Mês 25 ao Mês 35 • Reta Final do Ciclo
-              </span>
-              <h4 className="text-white font-bold text-sm">Supervisão Preventiva Pré-Encerramento</h4>
-              <p className="text-slate-300 leading-relaxed">
-                Auditorias químicas semanais intensificadas para preparação do check-up profundo e histórico do primeiro triênio.
-              </p>
-              <div className="flex items-center gap-2 text-cyan-400 font-bold text-[11px]">
-                <CheckCircle2 className="w-4 h-4" />
-                <span>Histórico pericial completo arquivado no sistema</span>
+        {activeCycleTab === 'EXTENSAO' && (
+          <div className="p-6 rounded-2xl bg-gradient-to-r from-slate-950 to-slate-900 border border-emerald-500/30 space-y-6 text-xs">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2 text-emerald-400 font-bold text-sm">
+                <RotateCcw className="w-4 h-4" />
+                <span>Programa Oficial de Extensão de Garantia JHoston</span>
               </div>
+              <span className="px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-300 border border-emerald-500/30 font-mono text-[10px] font-bold">
+                NOVO RECURSO DISPONÍVEL
+              </span>
             </div>
 
-            <div className="space-y-3 bg-slate-950 p-5 rounded-2xl border border-emerald-500/40">
-              <span className="text-emerald-400 font-bold font-mono text-[11px] uppercase">
-                Mês 36 • Manutenção Pesada e Revitalização
-              </span>
-              <h4 className="text-white font-bold text-sm">Lavagem Química Intensiva & Camada Final</h4>
-              <p className="text-slate-300 leading-relaxed">
-                Uso de maquinário de alta pressão, higienização química profunda e aplicação da camada final de resina de alta resistência.
-              </p>
-              <div className="p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-1 text-[11px]">
-                <div className="flex justify-between text-slate-300">
-                  <span>Mão de obra pesada:</span>
-                  <strong className="text-emerald-400">ISENÇÃO TOTAL</strong>
-                </div>
-                <div className="flex justify-between text-slate-400">
-                  <span>Responsabilidade do cliente:</span>
-                  <span className="text-amber-300">Deslocamento da equipe + Insumos de resina</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {activeCycleTab === 'POS_CICLO' && (
-          <div className="p-6 rounded-2xl bg-gradient-to-r from-slate-950 to-slate-900 border border-emerald-500/30 space-y-4 text-xs">
-            <div className="flex items-center gap-2 text-emerald-400 font-bold text-sm">
-              <RotateCcw className="w-4 h-4" />
-              <span>Transparência Total & Renovação Sem Surpresas</span>
-            </div>
             <p className="text-slate-300 leading-relaxed">
-              Ao final do ciclo de 3 anos do <strong>Plano de Manutenção Ativo</strong>, você terá a tranquilidade de poder optar pela <strong>renovação do nosso plano de cuidados preditivos</strong> ou seguir com a manutenção padrão homologada. 
-              Sua piscina permanece com a mesma beleza, conforto e integridade do primeiro dia de entrega técnica.
+              Ao concluir o ciclo de <strong>02 anos de garantia contratual</strong>, você não precisa ficar desprotegido. 
+              Com a manutenção ativa e as diretrizes do monólito atendidas, seu ativo é elegível para extensão imediata por mais <strong>01 ano (+12 meses)</strong> ou <strong>02 anos (+24 meses)</strong>, assegurando que as intervenções anuais e a auditoria semanal permaneçam ativas.
             </p>
+
+            {/* Opções de Extensão */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div 
+                onClick={() => setSelectedExtensionOption('EXT_1_ANO')}
+                className={`p-4 rounded-xl border transition cursor-pointer space-y-2 ${
+                  selectedExtensionOption === 'EXT_1_ANO'
+                    ? 'bg-emerald-950/40 border-emerald-500 text-white shadow-lg'
+                    : 'bg-slate-950/60 border-slate-800 text-slate-400 hover:border-slate-700'
+                }`}
+              >
+                <div className="flex justify-between items-center">
+                  <span className="font-black text-emerald-400 text-sm">Extensão +1 Ano (Até 03 Anos)</span>
+                  {selectedExtensionOption === 'EXT_1_ANO' && <CheckCircle2 className="w-4 h-4 text-emerald-400" />}
+                </div>
+                <p className="text-[11px] text-slate-300">
+                  Mais 1 ano de auditoria semanal sem mensalidade + 1 intervenção anual com isenção total de mão de obra.
+                </p>
+              </div>
+
+              <div 
+                onClick={() => setSelectedExtensionOption('EXT_2_ANOS')}
+                className={`p-4 rounded-xl border transition cursor-pointer space-y-2 ${
+                  selectedExtensionOption === 'EXT_2_ANOS'
+                    ? 'bg-emerald-950/40 border-emerald-500 text-white shadow-lg'
+                    : 'bg-slate-950/60 border-slate-800 text-slate-400 hover:border-slate-700'
+                }`}
+              >
+                <div className="flex justify-between items-center">
+                  <span className="font-black text-amber-400 text-sm">Extensão +2 Anos (Até 04 Anos)</span>
+                  {selectedExtensionOption === 'EXT_2_ANOS' && <CheckCircle2 className="w-4 h-4 text-amber-400" />}
+                </div>
+                <p className="text-[11px] text-slate-300">
+                  Mais 2 anos de tranquilidade total: auditoria contínua, telemetria F1 e duas intervenções anuais com mão de obra gratuita.
+                </p>
+              </div>
+            </div>
+
+            {extensionRequested ? (
+              <div className="p-4 rounded-xl bg-emerald-950/60 border border-emerald-500/50 text-emerald-300 space-y-1">
+                <div className="flex items-center gap-2 font-bold text-sm">
+                  <Check className="w-4 h-4 text-emerald-400" />
+                  <span>Solicitação de Extensão de Garantia Enviada com Sucesso!</span>
+                </div>
+                <p className="text-[11px] text-slate-300">
+                  A Diretoria de Engenharia da JHoston Pools entrará em contato para agendar o check-up preventivo do 24º mês e emitir o aditivo de garantia.
+                </p>
+              </div>
+            ) : (
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
+                <span className="text-[11px] text-slate-400">
+                  *A extensão exige histórico de parâmetros químicos regulares no app.
+                </span>
+                <button
+                  type="button"
+                  onClick={handleRequestExtension}
+                  className="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs flex items-center gap-2 transition shadow-lg shadow-emerald-500/20 cursor-pointer"
+                >
+                  <PlusCircle className="w-4 h-4" />
+                  Solicitar Extensão de Garantia
+                </button>
+              </div>
+            )}
+
             <div className="flex items-center gap-2 text-[11px] text-amber-300 bg-amber-950/40 p-3 rounded-xl border border-amber-900/40">
               <Sparkles className="w-4 h-4 shrink-0 text-amber-400" />
               <span>&ldquo;Sua única preocupação será aproveitar o seu espaço de lazer. A responsabilidade técnica e o cuidado contínuo são nossos.&rdquo;</span>
@@ -396,7 +435,7 @@ export default function ActiveWarrantyPlanHub({
       <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-4">
         <h3 className="text-base font-black text-white flex items-center gap-2">
           <BadgeCheck className="w-5 h-5 text-amber-400" />
-          Por que o Plano de Manutenção Ativo é Superior ao Modelo Tradicional?
+          Por que o Plano de Manutenção Ativo (02 Anos) é Superior ao Modelo Tradicional?
         </h3>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
@@ -416,13 +455,13 @@ export default function ActiveWarrantyPlanHub({
           {/* Lado B: JHöston Pools */}
           <div className="p-4 rounded-xl bg-emerald-950/20 border border-emerald-900/40 space-y-2">
             <span className="text-emerald-400 font-mono font-bold text-[10px] uppercase block">
-              NOSSO PLANO DE MANUTENÇÃO ATIVO (PROATIVO)
+              NOSSO PLANO DE MANUTENÇÃO ATIVO (PROATIVO & EXPANSÍVEL)
             </span>
             <ul className="space-y-1.5 text-slate-200 text-[11px]">
               <li>✅ Nós ligamos semanalmente para o tratador (pH e Cloro auditados).</li>
-              <li>✅ Sem cobrança de mensalidade pelo monitoramento remoto.</li>
+              <li>✅ Sem cobrança de mensalidade pelo monitoramento remoto durante os 02 anos.</li>
               <li>✅ Visitas presenciais anuais com mão de obra técnica 100% gratuita.</li>
-              <li>✅ Esvaziamento, lavagem técnica especializada e reaplicação de resina protetora.</li>
+              <li>✅ Possibilidade de extensão de garantia contínua para novos ciclos futuros.</li>
             </ul>
           </div>
         </div>

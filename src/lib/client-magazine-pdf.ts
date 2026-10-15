@@ -176,14 +176,14 @@ export function generateClientMagazinePdf(data: ClientMagazineData): jsPDF {
     { title: 'IMPACTO DIRETO NO VALOR DA DIÁRIA', desc: 'Pesquisas comprovam: piscinas de areia e estética de praia elevam ocupação em até 27%.' },
     { title: 'AVALIAÇÕES 5 ESTRELAS NO TRIPADVISOR', desc: 'Água sem cheiro forte de cloro e com toque suave de seda encanta o hóspede mais exigente.' },
     { title: 'ZERO DIAS DE INTERDIÇÃO EM TEMPORADAS', desc: 'Controle LSI contínuo evita o pesadelo da água turva ou esverdeada em feriados prolongados.' },
-    { title: 'CERTIFICAÇÃO OFICIAL DE CONFORMIDADE', desc: 'Laudo pericial decenal protegendo a imagem e a infraestrutura do seu empreendimento.' },
+    { title: 'CERTIFICAÇÃO OFICIAL DE CONFORMIDADE', desc: 'Laudo pericial bienal (02 anos) com extensão, protegendo a imagem do empreendimento.' },
   ];
 
   const b2cTopics = [
     { title: 'CONVIVÊNCIA & MEMÓRIAS QUE MARCAM', desc: 'A piscina como o grande ponto de encontro para reunir filhos, netos e amigos.' },
     { title: 'ÁGUA SAUDÁVEL PARA PELES E OLHOS SENSÍVEIS', desc: 'Balanço Langelier perfeito: nunca mais olhos vermelhos ou cabelos ressecados pelo cloro.' },
     { title: 'ESTÉTICA NATURAL DE PRAIA PRIVATIVA', desc: 'A sensação de caminhar em uma praia caribenha dentro do conforto do seu lar.' },
-    { title: 'GARANTIA DECENAL SEM DOR DE CABEÇA', desc: 'O sistema audita o piscineiro para você não precisar se preocupar com nada técnico.' },
+    { title: 'GARANTIA BIENAL (02 ANOS) & EXTENSÃO', desc: 'Auditoria contínua do piscineiro, revisões anuais e extensão garantida de tranquilidade.' },
   ];
 
   const currentTopics = isHotel ? b2bTopics : b2cTopics;
@@ -489,7 +489,7 @@ export function generateClientMagazinePdf(data: ClientMagazineData): jsPDF {
 
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(17);
-  doc.text('TERMO DE REGULARIDADE DA GARANTIA DECENAL', 105, 57, { align: 'center' });
+  doc.text('TERMO DE REGULARIDADE DA GARANTIA BIENAL (02 ANOS)', 105, 57, { align: 'center' });
 
   doc.setTextColor(148, 163, 184);
   doc.setFontSize(8.5);
@@ -510,12 +510,13 @@ export function generateClientMagazinePdf(data: ClientMagazineData): jsPDF {
   const certClientText =
     `A JHoston Pools atesta por meio deste documento que o revestimento monolítico do cliente ${clientName}\n` +
     `encontra-se em condições térmicas, químicas e periciais plenamente regulares, com cobertura ativa da\n` +
-    `GARANTIA DECENAL de fábrica contra descolamentos ou degradação mineral.\n\n` +
+    `GARANTIA BIENAL (02 ANOS) de fábrica contra descolamentos ou degradação mineral, com elegibilidade ao\n` +
+    `PROGRAMA DE EXTENSÃO DE GARANTIA para novos ciclos anuais consecutivos.\n\n` +
     `• Amostragens Auditadas no Mês: 100% em conformidade com o Índice Langelier LSI.\n` +
     `• Produtos Proibidos: Nenhuma presença de ácido muriático ou limpa pedras corrosivos.\n` +
     `• Procedimentos de Campo: Realizados de acordo com as diretrizes do Manual do Usuário.\n\n` +
     `Parabenizamos o cliente pela dedicação ao seu patrimônio. Continuaremos monitorando seu ativo\n` +
-    `continuamente para assegurar beleza, sofisticação e segurança por toda a próxima década.`;
+    `continuamente para assegurar beleza, sofisticação e máxima durabilidade.`;
 
   doc.text(certClientText, 30, 84);
 

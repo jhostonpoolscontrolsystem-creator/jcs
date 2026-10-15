@@ -23,7 +23,7 @@ export interface MagazineEditionData {
  * Pág 2: Sumário Executivo & Editorial Oficial (Daniel Lopes - Responsável Editorial)
  * Pág 3: Cockpit de Telemetria F1 & Predição Meteorológica
  * Pág 4: Manual Ilustrado de Engenharia & 3 Regras de Ouro
- * Pág 5: Certificado Oficial de Garantia Decenal & Validação Criptográfica
+ * Pág 5: Certificado Oficial de Garantia Bienal (02 Anos) & Extensão Programada
  */
 export function generateExecutiveWelcomeKitPdf(data: MagazineEditionData = {}): jsPDF {
   const {
@@ -161,7 +161,7 @@ export function generateExecutiveWelcomeKitPdf(data: MagazineEditionData = {}): 
 
   const features = [
     { title: 'TELEMETRIA ESTILO FÓRMULA 1', desc: 'Tacômetros de precisão ao vivo, monitoramento contínuo de pH, cloro e balanço LSI.' },
-    { title: 'BLINDAGEM DA GARANTIA DECENAL', desc: 'Protocolo antifraude: fotos por satélite, verificação de GPS e proibição de ácidos corrosivos.' },
+    { title: 'BLINDAGEM DA GARANTIA BIENAL (02 ANOS)', desc: 'Protocolo antifraude: acompanhamento semanal, fotos, GPS, revisão anual e extensão programada.' },
     { title: 'IA MULTIMODAL & LEITURA DE FITAS', desc: 'Reconhecimento instantâneo de colorimetria e inspeção superficial da matriz mineral.' },
     { title: 'AUTONOMIA DE ALMOXARIFADO', desc: 'Cálculo estequiométrico por m³ e reabastecimento automático de insumos homologados.' }
   ];
@@ -230,7 +230,7 @@ export function generateExecutiveWelcomeKitPdf(data: MagazineEditionData = {}): 
   doc.setFontSize(7.5);
   doc.setTextColor(100, 116, 139);
   doc.text(
-    'Engenharia de Revestimentos Monolíticos • Blindagem Decenal & Telemetria em Tempo Real',
+    'Engenharia de Revestimentos Monolíticos • Garantia Bienal (02 Anos) & Extensão Programada',
     105,
     273,
     { align: 'center' }
@@ -273,7 +273,7 @@ export function generateExecutiveWelcomeKitPdf(data: MagazineEditionData = {}): 
     { page: '02', title: 'Sumário & Editorial Oficial', desc: 'Mensagem de abertura editorial, governança e arquitetura de proteção.' },
     { page: '03', title: 'Cockpit de Telemetria F1 & Predição Meteorológica', desc: 'Tacômetros em tempo real, Índice Langelier (LSI) e inteligência OpenWeather.' },
     { page: '04', title: 'Manual do Usuário & As 3 Regras de Ouro', desc: 'Diretrizes de campo, cura de 28 dias e insumos químicos homologados.' },
-    { page: '05', title: 'Certificado de Garantia Decenal & Laudo Pericial', desc: 'Atestado de conformidade jurídica com assinatura digital SHA-256.' },
+    { page: '05', title: 'Certificado de Garantia Bienal (02 Anos) & Extensão', desc: 'Atestado de conformidade jurídica com assinatura digital e módulo expansível.' },
   ];
 
   let indexY = 67;
@@ -560,7 +560,7 @@ export function generateExecutiveWelcomeKitPdf(data: MagazineEditionData = {}): 
   drawPageFooter('Manual Operacional Homologado');
 
   // ========================================================
-  // PÁGINA 5: CERTIFICADO DE GARANTIA DECENAL & LAUDO PERICIAL
+  // PÁGINA 5: CERTIFICADO DE GARANTIA BIENAL (02 ANOS) & EXTENSÃO
   // ========================================================
   doc.addPage();
   doc.setFillColor(11, 15, 25);
@@ -587,7 +587,7 @@ export function generateExecutiveWelcomeKitPdf(data: MagazineEditionData = {}): 
 
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(17);
-  doc.text('TERMO DE VALIDADE DA GARANTIA DECENAL', 105, 57, { align: 'center' });
+  doc.text('TERMO DE VALIDADE DA GARANTIA BIENAL (02 ANOS)', 105, 57, { align: 'center' });
 
   doc.setTextColor(148, 163, 184);
   doc.setFontSize(8.5);
@@ -609,7 +609,8 @@ export function generateExecutiveWelcomeKitPdf(data: MagazineEditionData = {}): 
     `• Incidência de Contaminação Ácida: 0 (Zero) detecções de ácido muriático ou limpa pedras.\n` +
     `• Rastreabilidade de Campo: Coletas assinadas via PWA Mobile com GPS de precisão.\n` +
     `• Estoque e Insumos: Produtos químicos homologados com controle de dosagem por metro cúbico.\n\n` +
-    `Este documento assegura a plena validade da GARANTIA DECENAL sobre o revestimento monolítico,\n` +
+    `Este documento assegura a plena validade da GARANTIA BIENAL (02 ANOS) sobre o revestimento monolítico,\n` +
+    `com prerrogativa contratual de EXTENSÃO DE GARANTIA para novos períodos anuais consecutivos,\n` +
     `protegendo o cliente final e a JHoston Pools contra qualquer sinistro de origem operacional.\n\n` +
     `Validação do documento em tempo real no portal: https://${officialDomain}`;
 

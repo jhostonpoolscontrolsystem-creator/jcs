@@ -56,10 +56,10 @@ export const CURATED_TOPICS: MagazineTopic[] = [
   {
     id: 'b2c-3',
     category: 'B2C_FAMILIA',
-    title: 'Blindagem Patrimonial: Por Que a Garantia Decenal Dá Paz de Espírito',
-    summary: 'Ter o Digital Twin do JHPCS auditando as visitas do tratador assegura que o investimento da família permaneça valorizado, sem riscos de reformas precoces causadas por ácido incorreto.',
-    sourceUrl: 'https://jcs-pools.vercel.app/artigos/garantia-decenal-familia',
-    impactMetrics: '10 Anos de Cobertura Garantida',
+    title: 'Blindagem Patrimonial: Por Que a Garantia de 02 Anos Dá Paz de Espírito',
+    summary: 'Ter o Digital Twin do JHPCS auditando as visitas do tratador assegura que o investimento da família permaneça valorizado, sem riscos de reformas precoces causadas por ácido incorreto, com possibilidade de extensão de garantia.',
+    sourceUrl: 'https://jcs-pools.vercel.app/artigos/garantia-familia',
+    impactMetrics: '02 Anos + Extensão Programada',
   },
 ];
 
