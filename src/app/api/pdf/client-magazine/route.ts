@@ -9,6 +9,7 @@ export async function GET(request: Request) {
     const clientType = (searchParams.get('clientType') as any) || 'B2B_HOTEL';
     const editionNumber = Number(searchParams.get('editionNumber')) || 1;
     const clientName = searchParams.get('clientName') || (clientType === 'B2B_HOTEL' ? 'Resort Terravista Trancoso' : 'Família Oliveira & Amigos');
+    const style = searchParams.get('style') || undefined;
 
     // Busca detalhes da piscina no Supabase
     let pool: any = { name: 'Piscina Principal Resort Terravista', volume_m3: 350 };
@@ -34,7 +35,8 @@ export async function GET(request: Request) {
       daysRemainingCura: 14,
       healthScore: pool.status === 'RED_ZONE' ? 78 : 98,
       avgLsi: 0.08,
-      responsibleName: 'Diretoria Executiva JHoston Pools'
+      responsibleName: 'Diretoria Executiva JHoston Pools',
+      editorialStyleId: style
     });
 
     const pdfBuffer = doc.output('arraybuffer');

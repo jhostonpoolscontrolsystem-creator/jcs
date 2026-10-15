@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
+import { EDITORIAL_STYLES, EditorialStyleId, getActiveEditorialStyle } from '@/lib/editorial-engine';
 
 export interface ClientEditionBatch {
   id: string;
@@ -13,6 +13,7 @@ export interface ClientEditionBatch {
   b2bCount: number;
   b2cCount: number;
   totalRecipients: number;
+  editorialStyleId: EditorialStyleId;
 }
 
 // Armazenamento em memória para demonstração imediata resiliente
@@ -25,12 +26,23 @@ let memoryBatch: ClientEditionBatch = {
   b2bCount: 8,
   b2cCount: 16,
   totalRecipients: 24,
+  editorialStyleId: 'LUXURY_ARCHITECTURAL',
   notes: 'Edição contendo Artigos B2B de Hotelaria (Reservas Diretas e TripAdvisor) e B2C (Saúde Familiar e Convivência).',
 };
 
 export async function GET() {
+  const currentStyle = getActiveEditorialStyle(memoryBatch.editorialStyleId);
+
   return NextResponse.json({
     batch: memoryBatch,
+    currentStyle,
+    availableStyles: Object.values(EDITORIAL_STYLES).map(s => ({
+      id: s.id,
+      name: s.name,
+      badge: s.badge,
+      tagline: s.tagline,
+      palette: s.palette,
+    })),
     recipientsPreview: [
       {
         id: 'rec-1',
@@ -39,7 +51,7 @@ export async function GET() {
         type: 'B2B_HOTEL',
         phone: '5573999992222',
         status: 'AGUARDANDO_APROVACAO',
-        pdfUrl: 'https://jcs-pools.vercel.app/api/pdf/client-magazine?poolId=p-1&clientType=B2B_HOTEL'
+        pdfUrl: `https://jcs-pools.vercel.app/api/pdf/client-magazine?poolId=p-1&clientType=B2B_HOTEL&style=${memoryBatch.editorialStyleId}`
       },
       {
         id: 'rec-2',
@@ -48,7 +60,7 @@ export async function GET() {
         type: 'B2B_HOTEL',
         phone: '5511999998888',
         status: 'AGUARDANDO_APROVACAO',
-        pdfUrl: 'https://jcs-pools.vercel.app/api/pdf/client-magazine?poolId=p-2&clientType=B2B_HOTEL'
+        pdfUrl: `https://jcs-pools.vercel.app/api/pdf/client-magazine?poolId=p-2&clientType=B2B_HOTEL&style=${memoryBatch.editorialStyleId}`
       },
       {
         id: 'rec-3',
@@ -57,7 +69,7 @@ export async function GET() {
         type: 'B2C_FAMILIA',
         phone: '5541999997777',
         status: 'AGUARDANDO_APROVACAO',
-        pdfUrl: 'https://jcs-pools.vercel.app/api/pdf/client-magazine?poolId=p-3&clientType=B2C_FAMILIA'
+        pdfUrl: `https://jcs-pools.vercel.app/api/pdf/client-magazine?poolId=p-3&clientType=B2C_FAMILIA&style=${memoryBatch.editorialStyleId}`
       },
     ]
   });
@@ -66,7 +78,22 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { action, approvedBy = 'Diretoria Executiva JHoston Pools', notes } = body;
+    const { action, approvedBy = 'Diretoria Executiva JHoston Pools', notes, editorialStyleId } = body;
+
+    // Atualização do estilo editorial mensal
+    if (action === 'CHANGE_STYLE' && editorialStyleId) {
+      if (EDITORIAL_STYLES[editorialStyleId as EditorialStyleId]) {
+        memoryBatch.editorialStyleId = editorialStyleId as EditorialStyleId;
+        const newStyle = EDITORIAL_STYLES[memoryBatch.editorialStyleId];
+        memoryBatch.notes = `Estilo editorial alterado para: ${newStyle.name} (${newStyle.badge}).`;
+        return NextResponse.json({
+          success: true,
+          message: `Linha editorial mensal alterada com sucesso para "${newStyle.name}"!`,
+          batch: memoryBatch,
+          currentStyle: newStyle
+        });
+      }
+    }
 
     if (action === 'APPROVE') {
       memoryBatch.status = 'APPROVED';
@@ -83,15 +110,10 @@ export async function POST(request: Request) {
 
     if (action === 'DISPATCH') {
       memoryBatch.status = 'DISPATCHED';
-      
-      // Simulação do disparo via Evolution API para os clientes
-      const evolutionUrl = process.env.EVOLUTION_API_URL || 'https://whatsapp-ecostone.onrender.com';
-      const evolutionApiKey = process.env.EVOLUTION_API_KEY || 'Gabriel2006!';
-      const instanceName = process.env.EVOLUTION_INSTANCE_NAME || 'ecostone';
 
       return NextResponse.json({
         success: true,
-        message: `Disparo da Revista realizado com sucesso para ${memoryBatch.totalRecipients} clientes homologados!`,
+        message: `Disparo da Revista realizado com sucesso para ${memoryBatch.totalRecipients} clientes homologados sob o estilo "${EDITORIAL_STYLES[memoryBatch.editorialStyleId]?.name}"!`,
         batch: memoryBatch,
         sla_seconds: 2.4
       });

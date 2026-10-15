@@ -1,5 +1,6 @@
 import { jsPDF } from 'jspdf';
 import { JHPCS_LOGO_BASE64 } from './logo-base64';
+import { getActiveEditorialStyle, EditorialStyleId } from './editorial-engine';
 
 export interface ClientMagazineData {
   clientName: string;
@@ -14,13 +15,14 @@ export interface ClientMagazineData {
   healthScore?: number;
   avgLsi?: number;
   responsibleName?: string;
+  editorialStyleId?: EditorialStyleId | string;
 }
 
 /**
  * Gerador de Revista Mensal do Cliente Final (B2B Hotelaria vs B2C Família)
  * Diagramação Premium de 4 páginas:
  * Pág 1: Capa Personalizada com o nome do cliente e do ativo
- * Pág 2: Editorial & Artigo Temático de Mercado / Família (Curadoria Especializada)
+ * Pág 2: Editorial & Artigo Temático com Estilo Mensal Dinâmico (Curadoria Especializada)
  * Pág 3: Telemetria & Termodinâmica da Piscina do Cliente (Digital Twin)
  * Pág 4: Certificado Mensal de Garantia & Cuidados Recomendados
  */
@@ -37,8 +39,11 @@ export function generateClientMagazinePdf(data: ClientMagazineData): jsPDF {
     daysRemainingCura = 0,
     healthScore = 98,
     avgLsi = 0.08,
-    responsibleName = 'Diretoria Executiva JHoston Pools'
+    responsibleName = 'Diretoria Executiva JHoston Pools',
+    editorialStyleId
   } = data;
+
+  const currentEditorialTheme = getActiveEditorialStyle(editorialStyleId as any);
 
   const doc = new jsPDF({
     orientation: 'portrait',
@@ -255,74 +260,60 @@ export function generateClientMagazinePdf(data: ClientMagazineData): jsPDF {
   doc.text(officialDomain, 105, 278, { align: 'center' });
 
   // ========================================================
-  // PÁGINA 2: EDITORIAL & ARTIGO TEMÁTICO DE MERCADO / FAMÍLIA
+  // PÁGINA 2: EDITORIAL & ARTIGO TEMÁTICO COM ESTILO MENSAL DINÂMICO
   // ========================================================
   doc.addPage();
   doc.setFillColor(11, 15, 25);
   doc.rect(0, 0, pageWidth, pageHeight, 'F');
-  drawHeader(isHotel ? 'CADERNO DE HOSPITALIDADE & RESULTADOS' : 'CADERNO DE BEM-ESTAR & QUALIDADE DE VIDA', 'PÁGINA 02');
+  drawHeader(
+    isHotel 
+      ? `CADERNO DE HOSPITALIDADE • ${currentEditorialTheme.badge}` 
+      : `CADERNO DE BEM-ESTAR • ${currentEditorialTheme.badge}`, 
+    'PÁGINA 02'
+  );
 
   doc.setTextColor(255, 255, 255);
-  doc.setFontSize(18);
+  doc.setFontSize(16);
   doc.setFont('helvetica', 'bold');
+  const heroTitle = isHotel ? currentEditorialTheme.b2bHeroTitle : currentEditorialTheme.b2cHeroTitle;
   doc.text(
-    isHotel ? 'A PISCINA COMO ATIVO ESTRATÉGICO DE HOTELARIA' : 'MEMÓRIAS QUE DURAM GERAÇÕES AO REDOR DA ÁGUA',
+    doc.splitTextToSize(heroTitle, pageWidth - 40),
     20,
     34
   );
 
   doc.setTextColor(148, 163, 184);
-  doc.setFontSize(9);
+  doc.setFontSize(8.5);
   doc.setFont('helvetica', 'normal');
+  const heroSubtitle = isHotel ? currentEditorialTheme.b2bHeroSubtitle : currentEditorialTheme.b2cHeroSubtitle;
   doc.text(
-    isHotel
-      ? 'Análise de mercado: a experiência aquática como motor de reservas, avaliações e fidelização de hóspedes.'
-      : 'Como o design monolítico e o cuidado mineral transformam sua residência em um refúgio privativo de bem-estar.',
+    doc.splitTextToSize(heroSubtitle, pageWidth - 40),
     20,
-    41
+    43
   );
 
-  // Artigo 1
+  // Artigo 1 - Tema Editorial do Mês
   doc.setFillColor(15, 23, 42);
   doc.setDrawColor(51, 65, 85);
-  doc.roundedRect(20, 48, pageWidth - 40, 105, 3, 3, 'FD');
+  doc.roundedRect(20, 50, pageWidth - 40, 104, 3, 3, 'FD');
 
   doc.setTextColor(245, 158, 11);
-  doc.setFontSize(10.5);
+  doc.setFontSize(10);
   doc.setFont('helvetica', 'bold');
+  const articleTitle = isHotel ? currentEditorialTheme.b2bArticleTitle : currentEditorialTheme.b2cArticleTitle;
   doc.text(
-    isHotel ? 'POR QUE A PISCINA DEFINE A NOTA DO HOTEL?' : 'A CIÊNCIA DA ÁGUA QUE CUIDA DA SUA FAMÍLIA',
+    doc.splitTextToSize(articleTitle, pageWidth - 56),
     28,
-    58
+    60
   );
 
   doc.setTextColor(203, 213, 225);
-  doc.setFontSize(8.5);
+  doc.setFontSize(8);
   doc.setFont('helvetica', 'normal');
 
-  const hotelArticleText =
-    'Empreendimentos de hospitalidade ultra-luxo que elegem piscinas de areia e revestimentos monolíticos ' +
-    'redefinem o ápice do design biofílico e da arquitetura sensorial. No turismo de elite mundial, ' +
-    'a piscina é o elemento escultural protagonista: ela estampa capas internacionais, protagoniza memórias ' +
-    'inesquecíveis e ancora onde o hóspede desfruta mais de 65% de suas horas de contemplação e lazer no resort.\n\n' +
-    'Contudo, a nobreza de uma praia privativa monolítica exige uma custódia química invisível e infalível. ' +
-    'Qualquer oscilação de transparência ou agressividade na água compromete a reputação do estabelecimento e o ' +
-    'valor intangível da marca. A custódia algorítmica do JHPCS garante o balanço termodinâmico contínuo (LSI neutro), ' +
-    'preservando o toque de seda da água, as tonalidades esmeralda e a integridade perene do ativo mineral.';
-
-  const familyArticleText =
-    'Possuir uma piscina de areia monolítica JHoston Pools é materializar uma obra de arte viva no coração ' +
-    'do seu patrimônio familiar. Inspirada nas mais exclusivas enseadas caribenhas, a superfície monolítica ' +
-    'combina a suavidade tátil da areia compactada com a solidez mineral do quartzo nobre, eliminando de forma definitiva ' +
-    'os rejuntes frios, ásperos e suscetíveis a fungos das piscinas convencionais.\n\n' +
-    'Por trás dessa experiência sensorial de refúgio particular, o JHPCS atua como um concierge científico permanente. ' +
-    'Ao auditar semanalmente os parâmetros físico-químicos, o sistema previne a corrosão ácida e assegura uma água ' +
-    'equilibrada em sua máxima pureza: sem ressecamento de pele, sem irritação ocular para as crianças e com o brilho ' +
-    'cristalino que celebra as memórias mais preciosas da sua família.';
-
-  const selectedArticle = isHotel ? hotelArticleText : familyArticleText;
+  const selectedArticle = isHotel ? currentEditorialTheme.b2bArticleBody : currentEditorialTheme.b2cArticleBody;
   const splitArticle = doc.splitTextToSize(selectedArticle, pageWidth - 56);
-  doc.text(splitArticle, 28, 66);
+  doc.text(splitArticle, 28, 68);
 
   // Quadro de Melhores Práticas
   doc.setFillColor(15, 23, 42);

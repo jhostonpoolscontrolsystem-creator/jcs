@@ -25,6 +25,8 @@ export function ClientMagazineApprovalPanel({ currentUserRole = 'DIRETORIA_JH' }
   const [loading, setLoading] = useState(false);
   const [batch, setBatch] = useState<any>(null);
   const [recipients, setRecipients] = useState<any[]>([]);
+  const [availableStyles, setAvailableStyles] = useState<any[]>([]);
+  const [currentStyle, setCurrentStyle] = useState<any>(null);
   const [selectedPersona, setSelectedPersona] = useState<'B2B_HOTEL' | 'B2C_FAMILIA'>('B2B_HOTEL');
   const [feedbackMsg, setFeedbackMsg] = useState<{ text: string; type: 'success' | 'error' } | null>(null);
 
@@ -36,6 +38,8 @@ export function ClientMagazineApprovalPanel({ currentUserRole = 'DIRETORIA_JH' }
       if (data.batch) {
         setBatch(data.batch);
         setRecipients(data.recipientsPreview || []);
+        if (data.availableStyles) setAvailableStyles(data.availableStyles);
+        if (data.currentStyle) setCurrentStyle(data.currentStyle);
       }
     } catch (e) {
       console.error(e);
@@ -47,6 +51,33 @@ export function ClientMagazineApprovalPanel({ currentUserRole = 'DIRETORIA_JH' }
   useEffect(() => {
     fetchBatch();
   }, []);
+
+  const handleSelectStyle = async (styleId: string) => {
+    setLoading(true);
+    setFeedbackMsg(null);
+    try {
+      const res = await fetch('/api/client-magazine/approval', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'CHANGE_STYLE', editorialStyleId: styleId })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setBatch(data.batch);
+        if (data.currentStyle) setCurrentStyle(data.currentStyle);
+        // Atualiza URLs de PDF nos destinatários
+        setRecipients(prev => prev.map(r => ({
+          ...r,
+          pdfUrl: `/api/pdf/client-magazine?poolId=${r.id}&clientType=${r.type}&editionNumber=${data.batch?.editionNumber || 1}&style=${styleId}`
+        })));
+        setFeedbackMsg({ text: `Estilo editorial alterado para: "${data.currentStyle?.name || styleId}"`, type: 'success' });
+      }
+    } catch (e) {
+      setFeedbackMsg({ text: 'Falha ao alterar estilo editorial.', type: 'error' });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleApprove = async () => {
     setLoading(true);
@@ -200,16 +231,74 @@ export function ClientMagazineApprovalPanel({ currentUserRole = 'DIRETORIA_JH' }
         </div>
       </div>
 
+      {/* SELETOR DE ESTILOS EDITORIAIS MENSAIS (CURADORIA DA DIRETORIA) */}
+      <div className="bg-slate-900/60 border border-slate-800 rounded-3xl p-6 space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-800">
+          <div>
+            <span className="text-[10px] font-mono font-bold text-amber-400 uppercase tracking-widest block">
+              LINHA EDITORIAL DO MÊS (CURADORIA MENSAL)
+            </span>
+            <h3 className="text-base font-bold text-white flex items-center gap-2 mt-0.5">
+              <Sparkles className="w-4 h-4 text-amber-400" />
+              Estilo Ativo: <span className="text-amber-300">{currentStyle?.name || 'Alta Engenharia Mineral & Luxo Imersivo'}</span>
+            </h3>
+          </div>
+          <span className="text-xs text-slate-400 font-mono">
+            Tema Selecionado: <strong className="text-cyan-400 font-bold">{currentStyle?.badge || 'LUXO & DESIGN'}</strong>
+          </span>
+        </div>
+
+        <p className="text-xs text-slate-400">
+          Alterne a linha editorial de todas as revistas mensais enviadas aos clientes. Cada estilo reformula automaticamente manchetes, paleta e argumentos técnicos para B2B e B2C.
+        </p>
+
+        {/* Grade de 5 Estilos Editoriais */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 pt-1">
+          {availableStyles.map((style) => {
+            const isSelected = (currentStyle?.id || 'LUXURY_ARCHITECTURAL') === style.id;
+            return (
+              <button
+                key={style.id}
+                onClick={() => handleSelectStyle(style.id)}
+                disabled={loading || !isDirectorOrMaster}
+                className={`p-3.5 rounded-2xl border text-left transition flex flex-col justify-between cursor-pointer ${
+                  isSelected
+                    ? 'bg-amber-500/10 border-amber-500 text-white shadow-lg shadow-amber-500/10 ring-1 ring-amber-500'
+                    : 'bg-slate-950/70 border-slate-800/80 hover:border-slate-700 text-slate-300 hover:text-white'
+                }`}
+              >
+                <div className="space-y-1.5">
+                  <div className="flex items-center justify-between">
+                    <span className={`text-[9px] font-mono font-black uppercase px-2 py-0.5 rounded ${
+                      isSelected ? 'bg-amber-500 text-slate-950' : 'bg-slate-800 text-slate-400'
+                    }`}>
+                      {style.badge}
+                    </span>
+                    {isSelected && <CheckCircle2 className="w-3.5 h-3.5 text-amber-400" />}
+                  </div>
+                  <strong className="text-xs font-bold block leading-snug">{style.name}</strong>
+                  <p className="text-[10.5px] text-slate-400 leading-tight line-clamp-2">{style.tagline}</p>
+                </div>
+
+                <div className="pt-2 text-[9px] font-mono text-slate-500">
+                  {isSelected ? '✓ Ativo no Lote' : 'Clique para ativar'}
+                </div>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
       {/* SELETOR DE PREVIEW EDITORIAL: B2B VS B2C */}
       <div className="bg-slate-900/60 border border-slate-800 rounded-3xl p-6 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-800 gap-3">
           <div>
             <h3 className="text-base font-bold text-white flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-amber-400" />
-              Pré-visualização Editorial por Persona
+              <Eye className="w-4 h-4 text-cyan-400" />
+              Pré-visualização Editorial por Persona ({currentStyle?.name || 'Estilo Atual'})
             </h3>
             <p className="text-xs text-slate-400">
-              Veja exatamente o que cada perfil de cliente receberá em seu exemplar oficial.
+              Veja o tom de voz e artigos que serão impressos no PDF oficial do cliente.
             </p>
           </div>
 
@@ -244,66 +333,60 @@ export function ClientMagazineApprovalPanel({ currentUserRole = 'DIRETORIA_JH' }
           {/* Card Esquerdo: Pautas de Curadoria */}
           <div className="p-5 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-4">
             <span className="text-[10px] font-mono font-bold text-amber-400 uppercase tracking-widest block">
-              PAUTAS HOMOLOGADAS NESTE EXEMPLAR
+              PAUTA DO MÊS ({currentStyle?.badge || 'LUXO'})
             </span>
 
             {selectedPersona === 'B2B_HOTEL' ? (
               <div className="space-y-3 text-xs text-slate-300">
-                <div className="p-3 rounded-xl bg-slate-900 border border-slate-800/80 space-y-1">
-                  <strong className="text-white block text-sm">A Piscina de Areia como Fator Decisivo na Diária Média (ADR)</strong>
-                  <p className="text-slate-400 text-[11px] leading-relaxed">
-                    Pesquisas de turismo de luxo mostram que piscinas com estética de praia elevam em até 27% a taxa de conversão direta de reservas.
+                <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800/80 space-y-1.5">
+                  <div className="text-[10px] font-mono font-bold text-amber-400 uppercase">
+                    {currentStyle?.headlinePrefix || 'DESTAQUE EXECUTIVO B2B'}
+                  </div>
+                  <strong className="text-white block text-sm">
+                    {currentStyle?.b2bArticleTitle || 'A PISCINA COMO ATIVO ESTRATÉGICO DE HOTELARIA'}
+                  </strong>
+                  <p className="text-slate-400 text-[11px] leading-relaxed line-clamp-4">
+                    {currentStyle?.b2bArticleBody || 'Análise sobre a valorização do metro quadrado e atratividade do resort.'}
                   </p>
                   <span className="inline-block mt-1 px-2 py-0.5 rounded bg-amber-500/10 text-amber-300 font-mono text-[10px] font-bold">
-                    Métrica: +27% de Conversão em Reservas
-                  </span>
-                </div>
-
-                <div className="p-3 rounded-xl bg-slate-900 border border-slate-800/80 space-y-1">
-                  <strong className="text-white block text-sm">Impacto nas Avaliações 5 Estrelas no TripAdvisor</strong>
-                  <p className="text-slate-400 text-[11px] leading-relaxed">
-                    Toque de seda nos cristais minerais e zero odor de cloro são elogiados espontaneamente por hóspedes exigentes.
-                  </p>
-                  <span className="inline-block mt-1 px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-300 font-mono text-[10px] font-bold">
-                    Métrica: 4.9/5 Nota Média de Hospitalidade
+                    Público-Alvo: Síndicos, Hoteleiros e Diretores Patrimoniais
                   </span>
                 </div>
               </div>
             ) : (
               <div className="space-y-3 text-xs text-slate-300">
-                <div className="p-3 rounded-xl bg-slate-900 border border-slate-800/80 space-y-1">
-                  <strong className="text-white block text-sm">A Convivência em Família e o Estímulo à Saúde das Crianças</strong>
-                  <p className="text-slate-400 text-[11px] leading-relaxed">
-                    Água em equilíbrio LSI protege a pele e os olhos sensíveis das crianças, tornando as brincadeiras diárias livres de ardor.
+                <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800/80 space-y-1.5">
+                  <div className="text-[10px] font-mono font-bold text-cyan-400 uppercase">
+                    {currentStyle?.headlinePrefix || 'BEM-ESTAR & QUALIDADE DE VIDA'}
+                  </div>
+                  <strong className="text-white block text-sm">
+                    {currentStyle?.b2cArticleTitle || 'MEMÓRIAS QUE DURAM GERAÇÕES AO REDOR DA ÁGUA'}
+                  </strong>
+                  <p className="text-slate-400 text-[11px] leading-relaxed line-clamp-4">
+                    {currentStyle?.b2cArticleBody || 'Como a arquitetura sensorial transforma o dia a dia familiar.'}
                   </p>
                   <span className="inline-block mt-1 px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-300 font-mono text-[10px] font-bold">
-                    Métrica: 100% Amigável a Peles Sensíveis
-                  </span>
-                </div>
-
-                <div className="p-3 rounded-xl bg-slate-900 border border-slate-800/80 space-y-1">
-                  <strong className="text-white block text-sm">O Conforto da Praia Privativa no Quintal de Casa</strong>
-                  <p className="text-slate-400 text-[11px] leading-relaxed">
-                    Entrada em rampa suave com acessibilidade total para crianças e idosos curtirem com máxima tranquilidade.
-                  </p>
-                  <span className="inline-block mt-1 px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-300 font-mono text-[10px] font-bold">
-                    Métrica: 10 Anos de Garantia Decenal Ativa
+                    Público-Alvo: Proprietários Residenciais & Famílias
                   </span>
                 </div>
               </div>
             )}
 
+            <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800 text-[11px] text-slate-400 italic">
+              {currentStyle?.editorialLetterQuote || '"A excelência na arquitetura de piscinas de areia aliada à ciência termodinâmica."'}
+            </div>
+
             <div className="pt-2">
               <a
                 href={selectedPersona === 'B2B_HOTEL' 
-                  ? '/api/pdf/client-magazine?poolId=p-1&clientType=B2B_HOTEL' 
-                  : '/api/pdf/client-magazine?poolId=p-3&clientType=B2C_FAMILIA'}
+                  ? `/api/pdf/client-magazine?poolId=p-1&clientType=B2B_HOTEL&style=${currentStyle?.id || 'LUXURY_ARCHITECTURAL'}` 
+                  : `/api/pdf/client-magazine?poolId=p-3&clientType=B2C_FAMILIA&style=${currentStyle?.id || 'LUXURY_ARCHITECTURAL'}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-amber-500/40 text-amber-300 font-bold text-xs flex items-center justify-center gap-2 transition cursor-pointer shadow-sm"
               >
                 <Download className="w-3.5 h-3.5" />
-                <span>Baixar PDF Demonstrativo da Persona ({selectedPersona === 'B2B_HOTEL' ? 'Hotel' : 'Família'})</span>
+                <span>Baixar PDF Demonstrativo ({selectedPersona === 'B2B_HOTEL' ? 'Hotel' : 'Família'} • {currentStyle?.name || 'Estilo'})</span>
                 <ExternalLink className="w-3 h-3 text-slate-500 ml-1" />
               </a>
             </div>
