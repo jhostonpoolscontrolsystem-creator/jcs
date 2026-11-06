@@ -1,0 +1,43 @@
+name: Keep Supabase Awake (Anti-Pause Pulse)
+
+on:
+  schedule:
+    # Executa a cada 3 dias às 06:00 UTC (segunda e quinta-feira)
+    # Garante que o Supabase nunca alcance a janela de 7 dias de inatividade
+    - cron: '0 6 */3 * *'
+  workflow_dispatch: # Permite disparo manual via painel do GitHub Actions a qualquer momento
+
+jobs:
+  ping-supabase:
+    name: Ping Database & Application Keep-Alive
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send Keep-Alive Pulse to Application Endpoint
+        run: |
+          echo "🚀 Disparando pulso de atividade para manter o Supabase ativo..."
+          RESPONSE=$(curl -s -w "\nHTTP_STATUS:%{http_code}" https://jhpcs.vercel.app/api/cron/keep-alive || curl -s -w "\nHTTP_STATUS:%{http_code}" https://jcs-pools.vercel.app/api/cron/keep-alive)
+          
+          BODY=$(echo "$RESPONSE" | sed -e '$d')
+          STATUS=$(echo "$RESPONSE" | tail -n1 | cut -d':' -f2)
+
+          echo "Response Body: $BODY"
+          echo "HTTP Status Code: $STATUS"
+
+          if [ "$STATUS" -ge 200 ] && [ "$STATUS" -lt 300 ]; then
+            echo "✅ Banco de dados e aplicação acordados com sucesso!"
+          else
+            echo "⚠️ Alerta: Retorno HTTP $STATUS recebido. Verifique as credenciais ou status da Vercel."
+          fi
+
+      - name: Direct REST Fallback Ping (Supabase Direct)
+        if: env.SUPABASE_URL != '' && env.SUPABASE_ANON_KEY != ''
+        env:
+          SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+        run: |
+          echo "📡 Executando ping REST direto na tabela de piscinas do Supabase..."
+          curl -s -X GET "${SUPABASE_URL}/rest/v1/pools?select=id&limit=1" \
+            -H "apikey: ${SUPABASE_ANON_KEY}" \
+            -H "Authorization: Bearer ${SUPABASE_ANON_KEY}"
+          echo "✅ Pulso REST direto enviado com sucesso!"
