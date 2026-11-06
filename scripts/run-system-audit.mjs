@@ -67,13 +67,19 @@ criticalVars.forEach(v => {
   }
 });
 
-// Teste de interdependência Supabase URL x Anon Key (formato JWT)
+// Teste de interdependência e formato de chave Supabase (suporta tanto o padrão novo sb_publishable_* quanto o formato clássico JWT eyJ*)
 const anonKey = env['NEXT_PUBLIC_SUPABASE_ANON_KEY'] || '';
-const isJwtValid = anonKey.split('.').length === 3;
-if (isJwtValid) {
-  cat1Logs.push({ test: 'JWT Interdependence Check', status: 'PASS', detail: 'Token JWT Anon com estrutura de 3 segmentos válida' });
+const isClassicJwt = anonKey.startsWith('eyJ') && anonKey.split('.').length === 3;
+const isModernSupabaseKey = anonKey.startsWith('sb_publishable_') && anonKey.length > 20;
+
+if (isModernSupabaseKey) {
+  cat1Score += 5;
+  cat1Logs.push({ test: 'Supabase Key Interdependence Check', status: 'PASS', detail: 'Chave Pública Supabase no moderno padrão oficial de alta segurança (sb_publishable_*)' });
+} else if (isClassicJwt) {
+  cat1Score += 5;
+  cat1Logs.push({ test: 'Supabase Key Interdependence Check', status: 'PASS', detail: 'Token JWT Anon clássico com estrutura de 3 segmentos válida' });
 } else {
-  cat1Logs.push({ test: 'JWT Interdependence Check', status: 'FAIL', detail: 'Formato de JWT inválido ou corrompido' });
+  cat1Logs.push({ test: 'Supabase Key Interdependence Check', status: 'FAIL', detail: 'Formato de chave Supabase não reconhecido ou corrompido' });
 }
 
 results.categories.push({
