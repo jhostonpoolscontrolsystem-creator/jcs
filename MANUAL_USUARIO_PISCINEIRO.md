@@ -26,20 +26,20 @@ Não é necessário procurar em lojas como Google Play ou Apple Store. Existem *
 ### 3.1. Método 1: Apontar a Câmera para o QR Code da Casa de Máquinas (Recomendado)
 1. Na porta da casa de máquinas ou na tampa do filtro da piscina existe um adesivo oficial **"JHPCS Tratador - QR Code de Ativação"**.
 2. Abra a câmera comum do seu celular e aponte para o QR Code.
-3. Toque no link que surgir na tela. O aplicativo se abrirá já reconhecendo o seu condomínio/piscina com o botão verde **"Instalar Aplicativo no Celular"**.
+3. O link direciona automaticamente para o app de campo dedicado: `https://jhpcs-campo.vercel.app`. O aplicativo se abrirá já reconhecendo o seu condomínio/piscina com o botão verde **"Instalar Aplicativo no Celular"**.
 4. Toque em instalar e pronto: o ícone do JHPCS Tratador aparecerá junto com seus outros aplicativos!
 
 ### 3.2. Método 2: Convite Direto no seu WhatsApp
-1. A administração do seu cliente ou a JHostonTec envia uma mensagem no seu WhatsApp contendo o seu link exclusivo de ativação.
+1. A administração do seu cliente ou a JHostonTec envia uma mensagem no seu WhatsApp contendo o link exclusivo de ativação (`https://jhpcs-campo.vercel.app`).
 2. Ao tocar no link, o navegador abre a tela de campo e exibe o botão **"Instalar no Celular"**.
 
 ### 3.3. Método 3: Instalação Manual via Navegador
 - **No Android (Google Chrome)**:
-  1. Acesse o endereço do PWA: `https://jcs-pools.vercel.app/pwa`.
+  1. Acesse o endereço oficial do app de campo: `https://jhpcs-campo.vercel.app`.
   2. Toque no botão **"Instalar no Celular"** no topo da tela.
   3. *(Ou toque nos 3 pontinhos `⋮` no canto superior direito e escolha "Instalar aplicativo" ou "Adicionar à tela inicial")*.
 - **No iPhone (Apple Safari)**:
-  1. Acesse `https://jcs-pools.vercel.app/pwa`.
+  1. Acesse `https://jhpcs-campo.vercel.app`.
   2. Toque no botão de compartilhar (o quadrado com uma seta para cima `⬆` na barra inferior).
   3. Escolha **"Adicionar à Tela de Início"** e toque em **"Adicionar"**.
 

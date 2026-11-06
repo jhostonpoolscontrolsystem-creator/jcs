@@ -39,10 +39,11 @@ export function PoolMachineRoomTagHub({ userRole = 'CLIENTE_FINAL', pools: initi
 
   const selectedPool = pools.find(p => p.id === selectedPoolId) || pools[0] || mockPools[0];
 
-  // URL direta de ativação vinculada à piscina
-  const appActivationUrl = typeof window !== 'undefined'
-    ? `${window.location.origin}/pwa?pool_id=${selectedPool.id}&auto_install=true`
-    : `https://jcs-pools.vercel.app/pwa?pool_id=${selectedPool.id}&auto_install=true`;
+  // URL oficial do PWA de Campo dedicado (Vercel isolado para tratadores)
+  const PWA_FIELD_URL = 'https://jhpcs-campo.vercel.app';
+
+  // URL direta de ativação vinculada à piscina no novo ambiente isolado
+  const appActivationUrl = `${PWA_FIELD_URL}?pool_id=${selectedPool.id}&auto_install=true`;
 
   // Carrega piscinas dinâmicas se não passadas
   useEffect(() => {

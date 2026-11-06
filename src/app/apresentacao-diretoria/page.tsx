@@ -136,9 +136,9 @@ export default function ApresentacaoDiretoriaPage() {
             <div className="w-10 h-10 rounded-xl bg-indigo-950 border border-indigo-800 flex items-center justify-center text-indigo-400">
               <Smartphone className="w-5 h-5" />
             </div>
-            <h3 className="font-bold text-white text-base">PWA Offline do Piscineiro</h3>
+            <h3 className="font-bold text-white text-base">PWA Offline de Campo</h3>
             <p className="text-xs text-slate-400 leading-relaxed">
-              Aplicativo independente na rota <code>/pwa</code>, funcionando em subsolos e casas de máquinas sem sinal de internet com sincronização automática.
+              Aplicativo PWA dedicado e isolado em <code>jhpcs-campo.vercel.app</code>, operando 100% offline em subsolos e casas de máquinas sem sinal de internet com sincronização automática e ativação por QR Code.
             </p>
           </div>
 

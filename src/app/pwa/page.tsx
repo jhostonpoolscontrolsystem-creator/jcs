@@ -53,6 +53,24 @@ export default function StandalonePwaPage() {
 
   return (
     <div className="flex-1 flex flex-col justify-between p-3 sm:p-6 max-w-2xl mx-auto w-full">
+      {/* Banner Informativo de Migração para Domínio Dedicado */}
+      <div className="mb-4 p-3 rounded-xl bg-gradient-to-r from-emerald-950/80 to-slate-900 border border-emerald-500/50 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs shadow-lg">
+        <div className="flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+          <span className="text-slate-200">
+            Ambiente Oficial de Campo: <strong className="text-emerald-400 font-mono">https://jhpcs-campo.vercel.app</strong>
+          </span>
+        </div>
+        <a
+          href="https://jhpcs-campo.vercel.app"
+          target="_blank"
+          rel="noreferrer"
+          className="px-3 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-[11px] whitespace-nowrap transition shadow"
+        >
+          Acessar App Dedicado ↗
+        </a>
+      </div>
+
       {/* Header Mobile Clean & Isolado */}
       <header className="flex items-center justify-between pb-4 border-b border-slate-900 mb-6">
         <div className="flex items-center gap-3">

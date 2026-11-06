@@ -847,25 +847,30 @@ export default function JHPCSApp() {
         {/* TAB 2: PWA PISCINEIRO (WIZARD OPERACIONAL OFFLINE-FIRST) */}
         {activeTab === 'pwa' && (
           <div className="space-y-4 animate-fadeIn">
-            {/* Banner de Acesso Direto Isolado para Celular */}
-            <div className="max-w-2xl mx-auto p-4 rounded-2xl bg-gradient-to-r from-cyan-950/60 to-slate-900 border border-cyan-800/60 flex items-center justify-between gap-4 shadow-lg">
-              <div className="space-y-1">
-                <div className="flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping" />
-                  <span className="text-xs font-bold text-white uppercase tracking-wider">PWA 100% Isolado & Independente</span>
+            {/* Banner de Acesso Direto ao Ambiente Isolado de Campo */}
+            <div className="max-w-2xl mx-auto p-4 rounded-2xl bg-gradient-to-r from-cyan-950/80 to-slate-900 border border-cyan-500/40 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl">
+              <div className="space-y-1 text-center sm:text-left">
+                <div className="flex items-center justify-center sm:justify-start gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
+                  <span className="text-xs font-black text-white uppercase tracking-wider">App de Campo Isolado no Ar</span>
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-950 text-emerald-300 border border-emerald-800">
+                    jhpcs-campo.vercel.app
+                  </span>
                 </div>
-                <p className="text-[11px] text-slate-300">
-                  Para o tratador instalar direto no celular sem menus do sistema: envie o link direto <strong className="text-cyan-400 font-mono">/pwa</strong>
+                <p className="text-[12px] text-slate-300">
+                  O aplicativo do piscineiro opera agora em ambiente independente de alta performance. Envie o link ou aponte o QR Code da casa de máquinas:
                 </p>
               </div>
-              <a
-                href="/pwa"
-                target="_blank"
-                rel="noreferrer"
-                className="px-4 py-2 bg-gradient-to-r from-cyan-500 to-sky-500 text-slate-950 font-black rounded-xl text-xs hover:opacity-95 transition-all shadow-md shadow-cyan-500/20 whitespace-nowrap cursor-pointer"
-              >
-                Abrir App Isolado ↗
-              </a>
+              <div className="flex items-center gap-2">
+                <a
+                  href="https://jhpcs-campo.vercel.app"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="px-4 py-2.5 bg-gradient-to-r from-emerald-500 to-cyan-500 text-slate-950 font-black rounded-xl text-xs hover:brightness-110 transition-all shadow-md shadow-cyan-500/20 whitespace-nowrap cursor-pointer flex items-center gap-1.5"
+                >
+                  Abrir App de Campo ↗
+                </a>
+              </div>
             </div>
 
             <MaintainerPwaWizard />

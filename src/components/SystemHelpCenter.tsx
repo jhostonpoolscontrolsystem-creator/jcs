@@ -199,9 +199,9 @@ export function SystemHelpCenter({ onNavigateTab }: { onNavigateTab: (tab: any) 
           title: 'Como Instalar o Aplicativo no Celular com Facilidade?',
           description: 'Para evitar que o tratador precise digitar links longos no navegador:',
           stepByStep: [
-            'Método 1 (QR Code Físico): Aponte a câmera do celular para o adesivo oficial colado na casa de máquinas. O link abre e o botão de instalação aparece imediatamente.',
-            'Método 2 (Link WhatsApp): A administração do cliente envia o link direto com 1 toque no WhatsApp do tratador.',
-            'Método 3 (PWA Direto): Acesse /pwa e toque em "Instalar no Celular" (Android ou iPhone).'
+            'Método 1 (QR Code Físico): Aponte a câmera do celular para o adesivo oficial colado na casa de máquinas. Ele abrirá diretamente o app dedicado https://jhpcs-campo.vercel.app e o botão de instalação aparece imediatamente.',
+            'Método 2 (Link WhatsApp): A administração do cliente envia o link direto com 1 toque no WhatsApp do tratador (apontando para o app oficial de campo).',
+            'Método 3 (PWA Direto): Acesse https://jhpcs-campo.vercel.app e toque em "Instalar no Celular" (Android ou iPhone).'
           ]
         },
         {
