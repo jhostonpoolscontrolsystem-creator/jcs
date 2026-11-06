@@ -12,6 +12,33 @@ const nextConfig: NextConfig = {
       },
     },
   },
+  // Configuração de Edge Caching & Performance para PDFs e Assets Públicos
+  async headers() {
+    return [
+      {
+        source: '/api/pdf/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800',
+          },
+          {
+            key: 'X-Edge-Cache-Status',
+            value: 'JHPCS-EDGE-OPTIMIZED',
+          },
+        ],
+      },
+      {
+        source: '/manuais/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=86400, s-maxage=604800',
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;

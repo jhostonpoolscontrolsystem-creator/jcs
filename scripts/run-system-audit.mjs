@@ -461,9 +461,15 @@ doc.setTextColor(100, 116, 139);
 doc.text('Laudo Pericial Automatizado gerado por JHPCS Stability Engine • Registrado para Auditoria e Compliance Decenal', margin, 290);
 doc.text('Página 1 de 1', margin + contentWidth, 290, { align: 'right' });
 
-// Salva o PDF no disco
-const outputPdfPath = path.resolve('public', 'LAUDO_ESTABILIDADE_SISTEMA_JHPCS.pdf');
+// Salva o PDF no disco com fallback de nome caso o arquivo anterior esteja aberto no leitor
+let outputPdfPath = path.resolve('public', 'LAUDO_ESTABILIDADE_SISTEMA_JHPCS.pdf');
 const pdfBytes = doc.output('arraybuffer');
-fs.writeFileSync(outputPdfPath, Buffer.from(pdfBytes));
+try {
+  fs.writeFileSync(outputPdfPath, Buffer.from(pdfBytes));
+} catch (e) {
+  outputPdfPath = path.resolve('public', 'LAUDO_ESTABILIDADE_SISTEMA_JHPCS_v2.pdf');
+  fs.writeFileSync(outputPdfPath, Buffer.from(pdfBytes));
+}
 
 console.log(`\n✅ Laudo pericial em PDF gerado com sucesso em: ${outputPdfPath}`);
+
