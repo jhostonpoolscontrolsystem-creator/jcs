@@ -6,10 +6,11 @@
 ---
 
 ## 📌 Status Atual do Ecossistema (Novembro/2026)
-- **Versão Homologada**: `JHPCS Core v5.5 (Custom Tenant Settings & Anvisa Sanitary Logbook Edition)`
+- **Versão Homologada**: `JHPCS Core v5.6 (SaaS Multi-Tenant & Modular Licensing Edition)`
 - **Índice de Estabilidade do Sistema**: **100 / 100** (Auditado via `scripts/run-system-audit.mjs`)
 - **Portais em Produção**:
   - 🖥️ **Portal Web Master & Clientes**: `https://jhpcs.vercel.app` (ou `https://jcs-pools.vercel.app`)
+  - 💳 **Gestão de Assinatura & Módulos**: `https://jhpcs.vercel.app/settings/subscription`
   - 📋 **Logbook Sanitário Digital Anvisa**: `https://jhpcs.vercel.app/logbook-sanitario`
   - ⚙️ **Configurações Multi-Tenant & PIX**: `https://jhpcs.vercel.app/configuracoes`
   - 🛒 **Receituário de Balcão & PIX**: `https://jhpcs.vercel.app/trade/balcao`
@@ -19,6 +20,28 @@
 ---
 
 ## 📅 Linha do Tempo & Histórico Detalhado de Evolução
+
+### [v5.6] - 09/11/2026: Matriz de Setores SaaS, Licenciamento Modular & Module Gates
+- **Modelagem Relacional de Licenciamento Supabase**:
+  - Criada a migration [`supabase/migrations/20261109_saas_modules_licensing.sql`](file:///C:/JHPCS/supabase/migrations/20261109_saas_modules_licensing.sql).
+  - Tabela `system_modules`: Catálogo dos módulos operacionais (`pwa_field`, `stock_deduction`, `fleet_routes`, `facility_logbook`, `retail_trade`, `guarantee_audit`, `fiscal_erp`).
+  - Tabela `subscription_tiers`: Formalização dos planos segmentados por setor:
+    1. **SOLO (Tratador Autônomo)**: R$ 49,90/mês, até 30 piscinas, 1 operador.
+    2. **FLEET (Frotas & Prestadoras)**: R$ 189,90/mês, até 150 piscinas, 5 operadores.
+    3. **FACILITY (Condomínios, Resorts & Clubes)**: R$ 290,00/mês, até 10 complexos, 8 operadores.
+    4. **RETAIL (Lojas de Piscinas & Revendas)**: R$ 149,00/mês, 3 operadores de balcão.
+    5. **ENTERPRISE GUARANTEE (JHoston Pools)**: R$ 990,00/mês, ilimitado com auditoria forense.
+  - Tabela `tenant_licenses`: Vínculo de licença, controle de ciclo de cobrança (Mensal/Anual), status (`ACTIVE`, `PAST_DUE`, etc.), contadores de uso e add-ons contratados.
+- **Camada de Controle de Acesso Modular (TypeScript / React)**:
+  - Desenvolvido em [`src/lib/licensing/moduleGuard.tsx`](file:///C:/JHPCS/src/lib/licensing/moduleGuard.tsx) com a função `hasModuleAccess()`, o hook `useModuleAccess()` e a barreira visual `<ModuleGate>`.
+  - Tratamento estrito para `fiscal_erp`: só libera se a feature flag `NEXT_PUBLIC_ENABLE_FISCAL_ERP === 'true'`.
+  - Proteção ativada nas telas de Balcão e Logbook Sanitário.
+- **Painel de Assinatura do Cliente**:
+  - Implementado em [`src/app/(dashboard)/settings/subscription/page.tsx`](file:///C:/JHPCS/src/app/(dashboard)/settings/subscription/page.tsx) com espelho em `/settings/subscription`.
+  - Exibe consumo de cotas (piscinas monitoradas e operadores), seletor de planos e catálogo de add-ons com contratação em 1 clique.
+  - Endpoint de API: [`src/app/api/tenant/license/route.ts`](file:///C:/JHPCS/src/app/api/tenant/license/route.ts).
+
+---
 
 ### [v5.5] - 09/11/2026: Configurações Multi-Tenant de PIX & Logbook Sanitário Anvisa com Geofencing 50m
 - **Tela de Configurações do Cliente (`/configuracoes`)**:

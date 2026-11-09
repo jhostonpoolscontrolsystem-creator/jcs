@@ -19,6 +19,7 @@ import {
   Phone
 } from 'lucide-react';
 import Link from 'next/link';
+import { ModuleGate } from '@/lib/licensing/moduleGuard';
 
 export default function CounterPrescriptionPage() {
   // Dados do Cliente
@@ -85,8 +86,9 @@ export default function CounterPrescriptionPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 p-4 md:p-8 selection:bg-amber-500 selection:text-slate-950">
-      <div className="max-w-6xl mx-auto space-y-8">
+    <ModuleGate module="retail_trade">
+      <div className="min-h-screen bg-slate-950 text-slate-100 p-4 md:p-8 selection:bg-amber-500 selection:text-slate-950">
+        <div className="max-w-6xl mx-auto space-y-8">
         
         {/* Header Superior da Loja / Revenda */}
         <header className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-800">
@@ -394,7 +396,7 @@ export default function CounterPrescriptionPage() {
 
         </div>
       </div>
-    </div>
+    </ModuleGate>
   );
 }
 

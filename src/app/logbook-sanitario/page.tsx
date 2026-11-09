@@ -17,6 +17,7 @@ import {
   Building2,
   RefreshCw
 } from 'lucide-react';
+import { ModuleGate } from '@/lib/licensing/moduleGuard';
 
 interface SanitaryRecord {
   id: string;
@@ -140,8 +141,9 @@ export default function LogbookSanitarioPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 p-4 md:p-8 font-sans">
-      <div className="max-w-6xl mx-auto space-y-8">
+    <ModuleGate module="facility_logbook">
+      <div className="min-h-screen bg-slate-950 text-slate-100 p-4 md:p-8 font-sans">
+        <div className="max-w-6xl mx-auto space-y-8">
         
         {/* Top Header */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between border-b border-slate-800 pb-6 gap-4">
@@ -463,5 +465,6 @@ export default function LogbookSanitarioPage() {
 
       </div>
     </div>
+    </ModuleGate>
   );
 }

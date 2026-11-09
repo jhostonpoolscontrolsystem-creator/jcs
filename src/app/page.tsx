@@ -43,7 +43,7 @@ import ClientPortfolioViewer from '@/components/ClientPortfolioViewer';
 import ExecutiveWelcomeKitModal, { WelcomeKitAudience } from '@/components/ExecutiveWelcomeKitModal';
 import { PoolMachineRoomTagHub } from '@/components/PoolMachineRoomTagHub';
 import { UserRole, Pool } from '@/types/database';
-import { LogIn, LogOut, Users, UserCheck, GraduationCap, HelpCircle, Crown, Download, ShoppingBag, Building2, ShieldCheck, QrCode, ClipboardList, Settings, Receipt } from 'lucide-react';
+import { LogIn, LogOut, Users, UserCheck, GraduationCap, HelpCircle, Crown, Download, ShoppingBag, Building2, ShieldCheck, QrCode, ClipboardList, Settings, Receipt, CreditCard } from 'lucide-react';
 
 export default function JHPCSApp() {
   const [activeTab, setActiveTab] = useState<'master' | 'master_audit' | 'commercial_orders' | 'dashboard' | 'clients' | 'client_portal' | 'machine_room_tag' | 'pwa' | 'whatsapp' | 'rbac' | 'audit_live' | 'users' | 'executive_reports' | 'training' | 'help' | 'downloads' | 'store'>('master');
@@ -472,6 +472,15 @@ export default function JHPCSApp() {
           >
             <Settings className="w-4 h-4 text-slate-400" />
             Configurações
+          </Link>
+
+          {/* PLANOS & ASSINATURA SAAS */}
+          <Link
+            href="/settings/subscription"
+            className="flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all text-sky-300 hover:text-white hover:bg-slate-900 border border-sky-500/30 bg-sky-950/20"
+          >
+            <CreditCard className="w-4 h-4 text-sky-400" />
+            Planos & Módulos
           </Link>
 
           {/* LOJA DE INSUMOS B2B (FASE 4): Master, Diretoria JH e Clientes */}

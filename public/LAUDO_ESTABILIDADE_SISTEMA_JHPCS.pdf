@@ -33,7 +33,7 @@ BT
 10.3499999999999996 TL
 0.58 0.639 0.722 rg
 45.354330708661422 756.8506299212598378 Td
-(Data da Auditoria: 09/11/2026, 14:35:53  |  Ambiente: Vercel Serverless + Supabase) Tj
+(Data da Auditoria: 09/11/2026, 14:40:44  |  Ambiente: Vercel Serverless + Supabase) Tj
 ET
 BT
 /F1 9 Tf
@@ -274,7 +274,7 @@ BT
 9.1999999999999993 TL
 0.796 0.835 0.882 rg
 102.0472440944882067 385.5120472440944468 Td
-(Supabase REST Read \(pools\): Conexão OK \(1999ms\) - 5 registros lidos) Tj
+(Supabase REST Read \(pools\): Conexão OK \(1516ms\) - 5 registros lidos) Tj
 ET
 BT
 /F1 8 Tf
@@ -288,7 +288,7 @@ BT
 9.1999999999999993 TL
 0.796 0.835 0.882 rg
 102.0472440944882067 371.3388188976377364 Td
-(Database Latency SLA: Latência elevada \(1999ms\)) Tj
+(Database Latency SLA: Latência elevada \(1516ms\)) Tj
 ET
 BT
 /F1 8 Tf
@@ -333,7 +333,7 @@ BT
 9.1999999999999993 TL
 0.796 0.835 0.882 rg
 102.0472440944882067 303.3073228346455608 Td
-(LSI High-Throughput Calculation: 50000 cálculos estequiométricos executados em 24ms \(2083333 ops/seg\)) Tj
+(LSI High-Throughput Calculation: 50000 cálculos estequiométricos executados em 34ms \(1470588 ops/seg\)) Tj
 ET
 BT
 /F1 8 Tf
@@ -654,7 +654,7 @@ endobj
 19 0 obj
 <<
 /Producer (jsPDF 4.2.1)
-/CreationDate (D:20261109143553-03'00')
+/CreationDate (D:20261109144044-03'00')
 >>
 endobj
 20 0 obj
@@ -693,7 +693,7 @@ trailer
 /Size 21
 /Root 20 0 R
 /Info 19 0 R
-/ID [ <A918AF2E0ADD513B5F8615508D705392> <A918AF2E0ADD513B5F8615508D705392> ]
+/ID [ <0C71A96875A90757A3D77C39D225B6D5> <0C71A96875A90757A3D77C39D225B6D5> ]
 >>
 startxref
 14220

@@ -65,6 +65,13 @@ Acessível em `/configuracoes`:
 - Cada cliente da plataforma cadastra sua própria chave PIX direta (CPF, CNPJ, Telefone, E-mail ou Chave Aleatória) e dados de titularidade, garantindo recebimento direto e sem intermediação da plataforma.
 - Personalização de marca (White-label), tolerância de geofencing e turnos operacionais.
 
-### 3.6. Gestão da Infraestrutura Custo Zero & Anti-Pausa
+### 3.6. Licenciamento Modular, Planos SaaS & Module Gates
+Acessível em `/settings/subscription`:
+- **Matriz de Setores**: Gestão dos 5 perfis de clientes (Tratador Solo, Frotas, Condomínios/Clubes, Lojas de Piscinas e JHoston Enterprise).
+- **Module Gates**: Barreira inteligente em tempo de execução (`<ModuleGate>`) que protege rotas e recursos de acordo com os módulos contratados pelo Tenant.
+- **Standby Fiscal Controlado**: Proteção global onde o módulo `fiscal_erp` permanece inativo até autorização pela flag `NEXT_PUBLIC_ENABLE_FISCAL_ERP`.
+- **Monitoramento de Cotas**: Acompanhamento em tempo real de piscinas ativas e assentos de operadores com cálculo de excedentes.
+
+### 3.7. Gestão da Infraestrutura Custo Zero & Anti-Pausa
 - **Keep-Alive Supabase**: Rotina automatizada no GitHub Actions disparando um pulso de leitura a cada 3 dias (`.github/workflows/keep-supabase-awake.yml`), impedindo o congelamento do banco no plano gratuito.
 - **Cloudflare R2**: Armazenamento ilimitado de fotos sem taxas de download.
