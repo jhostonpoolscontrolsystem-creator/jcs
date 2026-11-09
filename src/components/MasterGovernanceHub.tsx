@@ -59,6 +59,14 @@ export function MasterGovernanceHub({
   const [actionLoadingId, setActionLoadingId] = useState<string | null>(null);
   const [actionMessage, setActionMessage] = useState<string | null>(null);
 
+  // Estados do WhatsApp Matriz Jhoston
+  const [corpState, setCorpState] = useState<'open' | 'connecting' | 'close'>('close');
+  const [corpNumber, setCorpNumber] = useState<string | null>(null);
+  const [corpQrCode, setCorpQrCode] = useState<string | null>(null);
+  const [showCorpQrModal, setShowCorpQrModal] = useState(false);
+  const [loadingCorp, setLoadingCorp] = useState(false);
+  const [corpTestSuccess, setCorpTestSuccess] = useState(false);
+
   const fetchTenants = async () => {
     setLoadingTenants(true);
     try {
@@ -78,8 +86,82 @@ export function MasterGovernanceHub({
     }
   };
 
+  const fetchCorporateStatus = async () => {
+    try {
+      const res = await fetch('/api/admin/whatsapp/corporate', {
+        headers: { 'x-user-email': 'danielsmlopes@hotmail.com' },
+      });
+      const data = await res.json();
+      if (data.success) {
+        setCorpState(data.state || 'close');
+        setCorpNumber(data.connectedNumber || null);
+      }
+    } catch {}
+  };
+
+  const handleConnectCorporate = async () => {
+    setLoadingCorp(true);
+    setShowCorpQrModal(true);
+    try {
+      const res = await fetch('/api/admin/whatsapp/corporate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-user-email': 'danielsmlopes@hotmail.com',
+        },
+        body: JSON.stringify({ action: 'CONNECT' }),
+      });
+      const data = await res.json();
+      if (data.qrcode) {
+        setCorpQrCode(data.qrcode);
+        setCorpState('connecting');
+      }
+    } catch {
+    } finally {
+      setLoadingCorp(false);
+    }
+  };
+
+  const handleDisconnectCorporate = async () => {
+    if (!confirm('Deseja realmente desconectar o WhatsApp Matriz da Jhoston?')) return;
+    try {
+      await fetch('/api/admin/whatsapp/corporate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-user-email': 'danielsmlopes@hotmail.com',
+        },
+        body: JSON.stringify({ action: 'DISCONNECT' }),
+      });
+      setCorpState('close');
+      setCorpNumber(null);
+    } catch {}
+  };
+
+  const handleSendCorporateTest = async () => {
+    setLoadingCorp(true);
+    try {
+      const res = await fetch('/api/admin/whatsapp/corporate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-user-email': 'danielsmlopes@hotmail.com',
+        },
+        body: JSON.stringify({ action: 'SEND_TEST', targetPhone: '5511999998888' }),
+      });
+      if (res.ok) {
+        setCorpTestSuccess(true);
+        setTimeout(() => setCorpTestSuccess(false), 3500);
+      }
+    } catch {
+    } finally {
+      setLoadingCorp(false);
+    }
+  };
+
   useEffect(() => {
     fetchTenants();
+    fetchCorporateStatus();
   }, []);
 
   const handleWhatsappAction = async (tenantId: string, action: 'CREATE' | 'RESTART' | 'DELETE' | 'STATUS') => {
@@ -151,7 +233,156 @@ export function MasterGovernanceHub({
         </div>
       </div>
 
-      {/* 2. 4 Pilares de Controle Soberano do MASTER */}
+      {/* 2. WhatsApp Corporativo Matriz Jhoston Pools */}
+      <div className="p-6 md:p-8 rounded-3xl bg-gradient-to-r from-slate-900 via-slate-900 to-amber-950/20 border border-amber-500/40 space-y-6 shadow-2xl relative overflow-hidden">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+          <div className="space-y-1">
+            <div className="flex items-center gap-2">
+              <span className="p-2 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-400">
+                <Building2 className="w-5 h-5" />
+              </span>
+              <div>
+                <h3 className="font-black text-white text-base">
+                  WhatsApp Matriz Jhoston Pools & Lagoons (Canal Institucional)
+                </h3>
+                <span className="text-[10px] text-amber-400 font-mono font-bold">
+                  Instância Master: jhoston_corporate_master
+                </span>
+              </div>
+            </div>
+            <p className="text-xs text-slate-300">
+              Conexão central da marca para disparo de laudos periciais de garantia decenal, alertas químicos para a diretoria e informativos da engenharia.
+            </p>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold border ${
+              corpState === 'open'
+                ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400'
+                : corpState === 'connecting'
+                ? 'bg-amber-500/10 border-amber-500/30 text-amber-400 animate-pulse'
+                : 'bg-rose-500/10 border-rose-500/30 text-rose-400'
+            }`}>
+              <span className={`w-1.5 h-1.5 rounded-full ${
+                corpState === 'open' ? 'bg-emerald-400' : corpState === 'connecting' ? 'bg-amber-400' : 'bg-rose-400'
+              }`} />
+              {corpState === 'open' ? 'MATRIZ CONECTADA' : corpState === 'connecting' ? 'SINCRONIZANDO' : 'DESCONECTADO'}
+            </span>
+            {corpNumber && (
+              <span className="text-[11px] font-mono text-slate-300 font-bold hidden sm:inline">+{corpNumber}</span>
+            )}
+          </div>
+        </div>
+
+        <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="space-y-0.5">
+            <span className="text-xs font-bold text-white block">Status da Linha Corporativa</span>
+            <p className="text-[11px] text-slate-400">
+              {corpState === 'open'
+                ? 'O número institucional da Jhoston está operando normalmente com rota de alta prioridade.'
+                : 'Nenhum celular conectado ao canal corporativo master. Conecte via QR Code.'}
+            </p>
+          </div>
+
+          <div className="flex items-center gap-2">
+            {corpState === 'open' ? (
+              <>
+                <button
+                  type="button"
+                  onClick={handleSendCorporateTest}
+                  disabled={loadingCorp}
+                  className="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer"
+                >
+                  <Send className="w-3.5 h-3.5" />
+                  <span>{corpTestSuccess ? 'Enviado!' : 'Testar Mensagem'}</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={handleDisconnectCorporate}
+                  className="px-3.5 py-2 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 text-xs font-bold border border-rose-500/20 transition flex items-center gap-1.5 cursor-pointer"
+                >
+                  <Power className="w-3.5 h-3.5" />
+                  <span>Desconectar</span>
+                </button>
+              </>
+            ) : (
+              <button
+                type="button"
+                onClick={handleConnectCorporate}
+                disabled={loadingCorp}
+                className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-slate-950 text-xs font-black transition flex items-center gap-1.5 shadow-lg shadow-amber-500/20 cursor-pointer disabled:opacity-50"
+              >
+                {loadingCorp ? (
+                  <>
+                    <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                    <span>Conectando...</span>
+                  </>
+                ) : (
+                  <>
+                    <MessageSquare className="w-3.5 h-3.5" />
+                    <span>Conectar WhatsApp Matriz (QR Code)</span>
+                  </>
+                )}
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* Modal QR Code Matriz */}
+        {showCorpQrModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fadeIn">
+            <div className="bg-slate-900 border border-amber-500/40 rounded-3xl p-6 sm:p-8 max-w-sm w-full space-y-6 shadow-2xl relative text-center">
+              <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+                <div className="flex items-center gap-2">
+                  <Building2 className="w-5 h-5 text-amber-400" />
+                  <h3 className="text-sm font-extrabold text-white">WhatsApp Matriz Jhoston</h3>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowCorpQrModal(false)}
+                  className="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition"
+                >
+                  <span className="text-base font-bold">✕</span>
+                </button>
+              </div>
+
+              <div className="p-4 bg-white rounded-2xl inline-block mx-auto shadow-inner">
+                {corpQrCode ? (
+                  <img
+                    src={corpQrCode.startsWith('data:') ? corpQrCode : `data:image/png;base64,${corpQrCode}`}
+                    alt="QR Code WhatsApp Matriz"
+                    className="w-48 h-48 object-contain"
+                  />
+                ) : (
+                  <div className="w-48 h-48 flex flex-col items-center justify-center gap-2 text-slate-400">
+                    <RefreshCw className="w-8 h-8 animate-spin text-amber-500" />
+                    <span className="text-xs font-bold text-slate-600">Gerando QR Code...</span>
+                  </div>
+                )}
+              </div>
+
+              <div className="space-y-1">
+                <p className="text-xs text-slate-300 font-semibold">
+                  Escaneie com o WhatsApp institucional da Jhoston Pools
+                </p>
+                <p className="text-[11px] text-slate-500">
+                  Instância oficial compartilhada com o comitê pericial.
+                </p>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setShowCorpQrModal(false)}
+                className="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition"
+              >
+                Fechar Janela
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* 3. 4 Pilares de Controle Soberano do MASTER */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         {/* Pilar 1: Governança de Usuários */}
         <div 

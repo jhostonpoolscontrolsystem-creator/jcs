@@ -6,10 +6,11 @@
 ---
 
 ## 📌 Status Atual do Ecossistema (Novembro/2026)
-- **Versão Homologada**: `JHPCS Core v6.4 (Automated Periodic WhatsApp Reports Cron & Vercel Schedule Edition)`
+- **Versão Homologada**: `JHPCS Core v6.5 (Corporate WhatsApp Connector, Receita Federal Auto-Complete & Client Onboarding Flow)`
 - **Índice de Estabilidade do Sistema**: **100 / 100** (Auditado via `scripts/run-system-audit.mjs`)
 - **Portais em Produção**:
   - 🖥️ **Portal Web Master & Clientes**: `https://jhpcs.vercel.app` (ou `https://jcs-pools.vercel.app`)
+  - 🚀 **Onboarding & Ativação de Novos Clientes**: `https://jhpcs.vercel.app/onboarding`
   - 👑 **Centro de Comando & Governança SUPER ADMIN**: `https://jhpcs.vercel.app/` (Visão Soberana Master)
   - 🛡️ **Perícia de Garantia JHoston**: `https://jhpcs.vercel.app/garantia-pericial`
   - 💵 **JHPCS Financeiro & Contratos**: `https://jhpcs.vercel.app/financeiro`
@@ -25,6 +26,28 @@
 ---
 
 ## 📅 Linha do Tempo & Histórico Detalhado de Evolução
+
+### [v6.5] - 09/11/2026: Conector WhatsApp Matriz Jhoston, Auto-Busca CNPJ & Onboarding Completo
+- **Conector Institucional da Matriz Jhoston ([`src/components/MasterGovernanceHub.tsx`](file:///C:/JHPCS/src/components/MasterGovernanceHub.tsx))**:
+  - Adicionado card exclusivo no painel do Super Admin para controle da instância master `jhoston_corporate_master`.
+  - Exibição de status da conexão ao vivo, modal interativo com QR Code para leitura do aparelho oficial da Jhoston e disparo de mensagem de homologação.
+  - Endpoint dedicado [`/api/admin/whatsapp/corporate`](file:///C:/JHPCS/src/app/api/admin/whatsapp/corporate/route.ts).
+- **Consulta Automatizada de CNPJ na Receita Federal ([`/api/onboarding/cnpj`](file:///C:/JHPCS/src/app/api/onboarding/cnpj/route.ts))**:
+  - Consulta primária na BrasilAPI com fallback para ReceitaWS.
+  - Sanitização de dados cadastrais (Razão Social, Nome Fantasia, Endereço completo, Situação Cadastral).
+  - Alerta de impedimento automático para empresas que não estejam com situação "ATIVA".
+- **Fluxo Guiado de Onboarding & Cadastro ([`/onboarding`](file:///C:/JHPCS/src/app/onboarding/page.tsx))**:
+  - Experiência moderna em Stepper de 4 etapas:
+    * **Etapa 1 (Planos)**: Solo (R$ 89), Fleet (R$ 299), Facility (R$ 490), Retail (R$ 189).
+    * **Etapa 2 (Dados)**: Toggle PJ/PF com preenchimento instantâneo dos dados da empresa ao digitar o CNPJ.
+    * **Etapa 3 (Ativação)**: PIX Instantâneo com 7 dias grátis e Cartão de Crédito em Standby (controlado via flag).
+    * **Etapa 4 (Acesso)**: Resumo do ambiente criado com link direto para o Cockpit.
+- **Wizard de Primeiro Acesso ([`src/components/onboarding/WelcomeWizardModal.tsx`](file:///C:/JHPCS/src/components/onboarding/WelcomeWizardModal.tsx))**:
+  - Modal onboarding em 3 passos para novos usuários: "Configure seu PIX", "Conecte seu WhatsApp" e "Cadastre sua primeira piscina".
+- **Atalho no Menu Superior ([`src/app/page.tsx`](file:///C:/JHPCS/src/app/page.tsx))**:
+  - Inserido botão **"Criar Conta / Onboarding"** no cabeçalho com acesso direto à jornada de novos clientes.
+
+---
 
 ### [v6.4] - 09/11/2026: Automação de Cron Jobs Periódicos (Laudos Quinzenais PJ e Mensais PF)
 - **Engine Automatizada de Relatórios Periódicos ([`/api/cron/periodic-reports`](file:///C:/JHPCS/src/app/api/cron/periodic-reports/route.ts))**:

@@ -239,3 +239,4 @@ async function handleDispatch(req: NextRequest) {
     return NextResponse.json({ error: err.message || 'Erro no cron de laudos quinzenais/mensais.' }, { status: 500 });
   }
 }
+

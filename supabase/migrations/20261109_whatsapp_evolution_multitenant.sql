@@ -63,3 +63,4 @@ VALUES
 ON CONFLICT (tenant_id) DO UPDATE SET
   whatsapp_instance_name = EXCLUDED.whatsapp_instance_name,
   whatsapp_instance_status = EXCLUDED.whatsapp_instance_status;
+

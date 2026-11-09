@@ -513,6 +513,15 @@ export default function JHPCSApp() {
             Garantia JHoston (Perícia)
           </Link>
 
+          {/* ONBOARDING & ATIVAÇÃO DE NOVOS CLIENTES */}
+          <Link
+            href="/onboarding"
+            className="flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all text-cyan-300 hover:text-white hover:bg-slate-900 border border-cyan-500/30 bg-cyan-950/20"
+          >
+            <Sparkles className="w-4 h-4 text-cyan-400" />
+            Criar Conta / Onboarding
+          </Link>
+
           {/* PLANOS & ASSINATURA SAAS */}
           <Link
             href="/settings/subscription"
