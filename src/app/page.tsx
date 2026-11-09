@@ -447,6 +447,15 @@ export default function JHPCSApp() {
             </button>
           )}
 
+          {/* RECEITUÁRIO DE BALCÃO & PIX (LOJAS / TRADE) */}
+          <Link
+            href="/trade/balcao"
+            className="flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all text-amber-300 hover:text-white hover:bg-slate-900 border border-amber-500/30 bg-amber-950/20"
+          >
+            <Receipt className="w-4 h-4 text-amber-400" />
+            Receituário de Balcão (PIX)
+          </Link>
+
           {/* LOJA DE INSUMOS B2B (FASE 4): Master, Diretoria JH e Clientes */}
           {(!currentUser || currentUser.role === 'MASTER' || currentUser.role === 'DIRETORIA_JH' || currentUser.role === 'GERENCIA_CLI' || currentUser.role === 'TECNICO_CLI') && (
             <button
