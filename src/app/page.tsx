@@ -44,7 +44,7 @@ import ClientPortfolioViewer from '@/components/ClientPortfolioViewer';
 import ExecutiveWelcomeKitModal, { WelcomeKitAudience } from '@/components/ExecutiveWelcomeKitModal';
 import { PoolMachineRoomTagHub } from '@/components/PoolMachineRoomTagHub';
 import { UserRole, Pool } from '@/types/database';
-import { LogIn, LogOut, Users, UserCheck, GraduationCap, HelpCircle, Crown, Download, ShoppingBag, Building2, ShieldCheck, QrCode, ClipboardList, Settings, Receipt, CreditCard, Award, Cpu } from 'lucide-react';
+import { LogIn, LogOut, Users, UserCheck, GraduationCap, HelpCircle, Crown, Download, ShoppingBag, Building2, ShieldCheck, QrCode, ClipboardList, Settings, Receipt, CreditCard, Award, Cpu, Wallet } from 'lucide-react';
 
 export default function JHPCSApp() {
   const [activeTab, setActiveTab] = useState<'master' | 'master_audit' | 'commercial_orders' | 'dashboard' | 'clients' | 'client_portal' | 'machine_room_tag' | 'pwa' | 'whatsapp' | 'rbac' | 'audit_live' | 'users' | 'executive_reports' | 'training' | 'help' | 'downloads' | 'store'>('master');
@@ -492,6 +492,17 @@ export default function JHPCSApp() {
             <Cpu className="w-4 h-4 text-cyan-400" />
             Plaqueta Metálica NFC
           </Link>
+
+          {/* MÓDULO FINANCEIRO & MENSALIDADES (Oculto estritamente para plano FACILITY) */}
+          {currentUser?.role !== 'TECNICO_CLI' && (
+            <Link
+              href="/financeiro"
+              className="flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all text-emerald-300 hover:text-white hover:bg-slate-900 border border-emerald-500/30 bg-emerald-950/20"
+            >
+              <Wallet className="w-4 h-4 text-emerald-400" />
+              Financeiro
+            </Link>
+          )}
 
           {/* PLANOS & ASSINATURA SAAS */}
           <Link

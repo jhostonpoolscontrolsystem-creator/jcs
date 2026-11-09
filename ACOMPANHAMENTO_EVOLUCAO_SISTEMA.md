@@ -6,10 +6,11 @@
 ---
 
 ## 📌 Status Atual do Ecossistema (Novembro/2026)
-- **Versão Homologada**: `JHPCS Core v5.9 (Industrial Laser NFC Metal Plate Edition)`
+- **Versão Homologada**: `JHPCS Core v6.0 (Financial ERP, Contracts & Commissions Edition)`
 - **Índice de Estabilidade do Sistema**: **100 / 100** (Auditado via `scripts/run-system-audit.mjs`)
 - **Portais em Produção**:
   - 🖥️ **Portal Web Master & Clientes**: `https://jhpcs.vercel.app` (ou `https://jcs-pools.vercel.app`)
+  - 💵 **JHPCS Financeiro & Contratos**: `https://jhpcs.vercel.app/financeiro`
   - ⚙️ **Gerador de Plaqueta Metálica NFC (Laser CNC)**: `https://jhpcs.vercel.app/plaqueta-nfc`
   - 🏅 **Selo de Conformidade & Totem de Recepção**: `https://jhpcs.vercel.app/selo`
   - 💳 **Gestão de Assinatura & Módulos**: `https://jhpcs.vercel.app/settings/subscription`
@@ -22,6 +23,25 @@
 ---
 
 ## 📅 Linha do Tempo & Histórico Detalhado de Evolução
+
+### [v6.0] - 09/11/2026: JHPCS Financeiro, Contratos Recorrentes & Standby Fiscal
+- **Modelagem Relacional de Finanças & Contratos**:
+  - Implementada a migration [`supabase/migrations/20261109_erp_financial_modules.sql`](file:///C:/JHPCS/supabase/migrations/20261109_erp_financial_modules.sql).
+  - Tabela `financial_contracts`: Contratos de mensalidade com dia de vencimento, telefone mascarado (LGPD) e comissão por visita.
+  - Tabela `financial_entries`: Lançamentos de receitas e despesas operacionais com campos preparados em standby para o ERP Fiscal (`fiscal_ready`, `fiscal_invoice_ref`).
+  - Módulos registrados: `fin_recurring`, `fin_commissions`, `fin_cashflow`.
+- **Regras de Governança Estrita & Ocultação para Facility**:
+  - Planos Solo, Fleet e Retail têm acesso aos módulos financeiros correspondentes.
+  - O plano **FACILITY** (Hotéis, Resorts e Condomínios) tem **acesso estritamente bloqueado** e o menu Financeiro é completamente ocultado da interface.
+- **Painel JHPCS Financeiro ([`/financeiro`](file:///C:/JHPCS/src/app/financeiro/page.tsx))**:
+  - **Aba 1 (Mensalidades & Cobrança)**: Indicadores de total previsto, liquidado, em aberto e inadimplente, com botões para "Copiar PIX" e "Lembrar no WhatsApp".
+  - **Aba 2 (Comissões da Equipe)**: Fechamento de rateio por técnico com botão "Marcar Comissão como Paga".
+  - **Aba 3 (Fluxo de Caixa & Contas)**: Demonstrativo de entradas e saídas operacionais (químicos, bombas, combustível).
+  - **Badge de Standby Fiscal**: Aviso de que a emissão fiscal (NFC-e/NFS-e) permanece em standby corporativo sob demanda.
+- **Atalho no Menu Superior**:
+  - Inserido botão **"Financeiro"** no cabeçalho para perfis autorizados ([`src/app/page.tsx`](file:///C:/JHPCS/src/app/page.tsx)).
+
+---
 
 ### [v5.9] - 09/11/2026: Plaqueta Metálica NFC & Gerador Vetorial de Gravação a Laser
 - **Motor Vetorial de Gravação Laser Fiber ([`/api/laser/plate-svg`](file:///C:/JHPCS/src/app/api/laser/plate-svg/route.ts))**:

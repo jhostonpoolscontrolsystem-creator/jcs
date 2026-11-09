@@ -9,7 +9,10 @@ export type SystemModuleKey =
   | 'facility_logbook'
   | 'retail_trade'
   | 'guarantee_audit'
-  | 'fiscal_erp';
+  | 'fiscal_erp'
+  | 'fin_recurring'
+  | 'fin_commissions'
+  | 'fin_cashflow';
 
 export interface SubscriptionTier {
   id: string;
@@ -45,7 +48,7 @@ export const DEFAULT_TIERS: Record<string, SubscriptionTier> = {
     base_monthly_price: 49.90,
     max_pools: 30,
     max_users: 1,
-    included_modules: ['pwa_field'],
+    included_modules: ['pwa_field', 'fin_recurring'],
     overage_pool_price: 1.50,
     overage_user_price: 0,
   },
@@ -56,7 +59,7 @@ export const DEFAULT_TIERS: Record<string, SubscriptionTier> = {
     base_monthly_price: 189.90,
     max_pools: 150,
     max_users: 5,
-    included_modules: ['pwa_field', 'stock_deduction', 'fleet_routes'],
+    included_modules: ['pwa_field', 'stock_deduction', 'fleet_routes', 'fin_recurring', 'fin_commissions', 'fin_cashflow'],
     overage_pool_price: 1.20,
     overage_user_price: 25.00,
   },
@@ -67,7 +70,7 @@ export const DEFAULT_TIERS: Record<string, SubscriptionTier> = {
     base_monthly_price: 290.00,
     max_pools: 10,
     max_users: 8,
-    included_modules: ['pwa_field', 'facility_logbook'],
+    included_modules: ['pwa_field', 'facility_logbook'], // Estritamente sem módulos financeiros
     overage_pool_price: 15.00,
     overage_user_price: 15.00,
   },
@@ -78,7 +81,7 @@ export const DEFAULT_TIERS: Record<string, SubscriptionTier> = {
     base_monthly_price: 149.00,
     max_pools: 0,
     max_users: 3,
-    included_modules: ['retail_trade'],
+    included_modules: ['retail_trade', 'fin_cashflow'],
     overage_pool_price: 0,
     overage_user_price: 20.00,
   },
@@ -96,6 +99,9 @@ export const DEFAULT_TIERS: Record<string, SubscriptionTier> = {
       'facility_logbook',
       'retail_trade',
       'guarantee_audit',
+      'fin_recurring',
+      'fin_commissions',
+      'fin_cashflow',
     ],
     overage_pool_price: 0,
     overage_user_price: 0,
@@ -200,6 +206,9 @@ export function UpgradePlanBanner({ moduleKey }: { moduleKey: SystemModuleKey })
     retail_trade: 'Receituário de Balcão & Cobrança PIX',
     guarantee_audit: 'Auditoria de Garantia Monolítica JHoston',
     fiscal_erp: 'Módulo Fiscal NFC-e (Em Standby)',
+    fin_recurring: 'Gestão de Mensalidades Recorrentes',
+    fin_commissions: 'Apuração de Comissões de Técnicos',
+    fin_cashflow: 'Contas a Pagar e Fluxo de Caixa',
   };
 
   return (
