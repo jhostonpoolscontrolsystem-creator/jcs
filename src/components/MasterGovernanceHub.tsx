@@ -48,14 +48,14 @@ export function MasterGovernanceHub({
                 Painel Supremo • MASTER
               </span>
               <span className="text-xs text-slate-400 font-mono">
-                Homologação de Contas & Governança Geral
+                Homologação de Contas • Blindagem LGPD Ativa
               </span>
             </div>
             <h1 className="text-2xl md:text-3xl font-black text-white tracking-tight">
-              Centro de Comando & Governança <span className="text-amber-400">JHPCS</span>
+              Centro de Comando & Governança <span className="text-amber-400">SUPER ADMIN</span>
             </h1>
             <p className="text-xs md:text-sm text-slate-300 max-w-2xl leading-relaxed">
-              Ambiente restrito e soberano de Daniel Lopes e Patrícia Grübel. Controle da árvore hierárquica, aprovação formal de usuários, auditoria de integridade do banco de dados e disparo executivo.
+              Ambiente soberano de Daniel Lopes e Patrícia Grübel. Painel com proteção LGPD ativada: métricas operacionais e de infraestrutura globais com anonimização mandatória de dados pessoais e sigilo de terceiros.
             </p>
           </div>
 

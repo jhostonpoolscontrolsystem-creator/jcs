@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 import bcrypt from 'bcryptjs';
+import { maskEmail, maskPhone, maskCpf, maskName } from '@/lib/lgpd-masking';
 
 // Hierarquia de permissão de cadastro:
 // MASTER: Pode cadastrar qualquer role (já nascem APROVADOS). Pode aprovar ou rejeitar qualquer pendente.
@@ -201,24 +202,60 @@ export async function POST(request: Request) {
   }
 }
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    const { data: users, error } = await supabase
+    const { searchParams } = new URL(request.url);
+    const requesterRole = searchParams.get('requester_role') || 'MASTER';
+    const requesterClientId = searchParams.get('client_id');
+
+    let query = supabase
       .from('users')
-      .select('id, name, email, phone, role, cpf, created_at')
+      .select('id, name, email, phone, role, cpf, created_at, client_id, is_jhoston_direct_client')
       .order('created_at', { ascending: false });
+
+    // Multi-tenant: Se o solicitante for um Cliente (GERENCIA_CLI ou TECNICO_CLI), lista apenas os usuários da sua empresa
+    if (requesterRole === 'GERENCIA_CLI' || requesterRole === 'TECNICO_CLI') {
+      if (requesterClientId) {
+        query = query.eq('client_id', requesterClientId);
+      }
+    }
+
+    const { data: users, error } = await query;
 
     if (error) {
       return NextResponse.json({ error: error.message }, { status: 400 });
     }
 
-    // Mapeamento enriquecido com status de aprovação
-    const enrichedUsers = (users || []).map(u => ({
-      ...u,
-      approval_status: u.role === 'MASTER' ? 'APPROVED' : (u.email?.includes('pendente') ? 'PENDING' : 'APPROVED')
-    }));
+    // LGPD Masking: Se o requisitante for o Super Admin (MASTER) ou Diretoria, ofusca dados pessoais de terceiros
+    const isSuperAdmin = requesterRole === 'MASTER' || requesterRole === 'DIRETORIA_JH';
 
-    return NextResponse.json({ success: true, users: enrichedUsers });
+    const processedUsers = (users || []).map((u: any) => {
+      const isPending = u.email?.includes('pendente');
+      const approvalStatus = u.role === 'MASTER' ? 'APPROVED' : (isPending ? 'PENDING' : 'APPROVED');
+
+      if (isSuperAdmin && !u.is_jhoston_direct_client && u.role !== 'MASTER') {
+        return {
+          id: u.id,
+          name: maskName(u.name || ''),
+          email: maskEmail(u.email || ''),
+          phone: maskPhone(u.phone || ''),
+          cpf: maskCpf(u.cpf || ''),
+          role: u.role,
+          created_at: u.created_at,
+          client_id: u.client_id,
+          approval_status: approvalStatus,
+          is_masked_lgpd: true,
+        };
+      }
+
+      return {
+        ...u,
+        approval_status: approvalStatus,
+        is_masked_lgpd: false,
+      };
+    });
+
+    return NextResponse.json({ success: true, users: processedUsers, total: processedUsers.length });
   } catch (err: any) {
     return NextResponse.json({ error: err.message || 'Erro ao listar usuários' }, { status: 500 });
   }

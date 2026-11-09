@@ -47,7 +47,8 @@ export function UserManagementPanel({ onOpenRegisterModal, currentUser }: UserMa
   const fetchUsers = async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/users/create');
+      const url = `/api/users/create?requester_role=${currentUser?.role || 'MASTER'}&client_id=${currentUser?.client_id || ''}`;
+      const res = await fetch(url);
       const data = await res.json();
       if (data.users) {
         setUsers(data.users);
@@ -194,17 +195,22 @@ export function UserManagementPanel({ onOpenRegisterModal, currentUser }: UserMa
 
       {/* Pending Approvals Notice for MASTER */}
       {isMaster && (
-        <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-between gap-4">
+        <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <div className="p-2 rounded-xl bg-amber-500/20 text-amber-400">
               <Clock className="w-5 h-5" />
             </div>
             <div>
-              <h4 className="text-sm font-bold text-amber-300">
-                Fila de Homologação MASTER: {pendingCount} {pendingCount === 1 ? 'usuário pendente' : 'usuários pendentes'}
-              </h4>
+              <div className="flex items-center gap-2">
+                <h4 className="text-sm font-bold text-amber-300">
+                  Fila de Homologação SUPER ADMIN: {pendingCount} {pendingCount === 1 ? 'usuário pendente' : 'usuários pendentes'}
+                </h4>
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-800 font-mono">
+                  LGPD Masking Ativo
+                </span>
+              </div>
               <p className="text-xs text-slate-400">
-                Novos usuários cadastrados pela equipe JHoston ou clientes aguardando sua autorização expressa para logar.
+                Aprovação formal com proteção de privacidade: dados pessoais de terceiros permanecem anonimizados.
               </p>
             </div>
           </div>
