@@ -426,3 +426,4 @@ export default function PlanosPricingPage() {
     </div>
   );
 }
+

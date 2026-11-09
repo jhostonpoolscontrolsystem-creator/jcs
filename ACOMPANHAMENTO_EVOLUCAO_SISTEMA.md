@@ -6,16 +6,17 @@
 ---
 
 ## 📌 Status Atual do Ecossistema (Novembro/2026)
-- **Versão Homologada**: `JHPCS Core v6.8 (Transparent Pricing Matrix & Next.js 16 Turbopack Production Ready)`
+- **Versão Homologada**: `JHPCS Core v6.9 (Decennial Warranty Authority & Chemical Forensic Defense Edition)`
 - **Índice de Estabilidade do Sistema**: **100 / 100** (Auditado via `scripts/run-system-audit.mjs`)
 - **Portais em Produção**:
   - 🌐 **Landing Page Institucional & Comercial**: `https://jhpcs.vercel.app/` (Grupo de Rotas Marketing)
+  - 🛡️ **Página Pericial de Garantia Decenal JHoston**: `https://jhpcs.vercel.app/garantia-jhoston`
   - 🧭 **Página de Setores & Soluções Especializadas**: `https://jhpcs.vercel.app/solucoes`
   - 💳 **Tabela de Preços & Comparativo de Planos**: `https://jhpcs.vercel.app/planos`
   - 🖥️ **Portal Web Master & Cockpit Operacional**: `https://jhpcs.vercel.app/` (ou `https://jcs-pools.vercel.app`)
   - 🚀 **Onboarding & Ativação de Novos Clientes**: `https://jhpcs.vercel.app/onboarding`
   - 👑 **Centro de Comando & Governança SUPER ADMIN**: `https://jhpcs.vercel.app/` (Visão Soberana Master)
-  - 🛡️ **Perícia de Garantia JHoston**: `https://jhpcs.vercel.app/garantia-pericial`
+  - 🛡️ **Perícia de Garantia JHoston (Interna)**: `https://jhpcs.vercel.app/garantia-pericial`
   - 💵 **JHPCS Financeiro & Contratos**: `https://jhpcs.vercel.app/financeiro`
   - ⚙️ **Gerador de Plaqueta Metálica NFC (Laser CNC)**: `https://jhpcs.vercel.app/plaqueta-nfc`
   - 🏅 **Selo de Conformidade & Totem de Recepção**: `https://jhpcs.vercel.app/selo`
@@ -29,6 +30,22 @@
 ---
 
 ## 📅 Linha do Tempo & Histórico Detalhado de Evolução
+
+### [v6.9] - 09/11/2026: Página de Autoridade Pericial e Garantia Decenal JHoston
+- **Construção da Rota de Autoridade Técnica ([`src/app/(marketing)/garantia-jhoston/page.tsx`](file:///C:/JHPCS/src/app/(marketing)/garantia-jhoston/page.tsx))**:
+  - Consulta pública de autenticidade de Certificados de Garantia Decenal com códigos como `JH-2026-DECENAL-PF-001` e `JH-2026-DECENAL-PJ-084`.
+  - Apresentação da **Matriz de Degradação Química**:
+    * Ataque Ácido (ISL < -0.30) e corrosão de ligantes poliméricos.
+    * Água Incrustante (ISL > +0.50) e precipitação de calcário abrasivo.
+    * Bloqueio algorítmico do ácido muriático e preservação de gelcoats.
+  - **O Protocolo dos 28 Dias de Cura**:
+    * Fase 1 (Dias 1 a 7): Hidratação & Estabilização sem choque químico.
+    * Fase 2 (Dias 8 a 21): Passivação da matriz mineral e dureza cálcica.
+    * Fase 3 (Dias 22 a 28): Homologação pericial e emissão de certificado.
+  - Modelo visual do **Laudo Pericial Oficial com Hash SHA-256**.
+  - Seção de credenciamento B2B para Construtoras, Arquitetos e Engenheiros.
+
+---
 
 ### [v6.8] - 09/11/2026: Tabela Oficial de Preços, Comparativo de Recursos & Resolução do Build Turbopack
 - **Página de Preços & Planos ([`src/app/(marketing)/planos/page.tsx`](file:///C:/JHPCS/src/app/(marketing)/planos/page.tsx))**:
