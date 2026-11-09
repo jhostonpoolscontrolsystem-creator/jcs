@@ -504,6 +504,15 @@ export default function JHPCSApp() {
             </Link>
           )}
 
+          {/* PERÍCIA DE GARANTIA JHOSTON (PF/PJ & INFORMES) */}
+          <Link
+            href="/garantia-pericial"
+            className="flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all text-amber-300 hover:text-white hover:bg-slate-900 border border-amber-500/30 bg-amber-950/20"
+          >
+            <ShieldCheck className="w-4 h-4 text-amber-400" />
+            Garantia JHoston (Perícia)
+          </Link>
+
           {/* PLANOS & ASSINATURA SAAS */}
           <Link
             href="/settings/subscription"

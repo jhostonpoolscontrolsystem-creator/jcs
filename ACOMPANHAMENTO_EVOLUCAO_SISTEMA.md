@@ -6,10 +6,11 @@
 ---
 
 ## 📌 Status Atual do Ecossistema (Novembro/2026)
-- **Versão Homologada**: `JHPCS Core v6.0 (Financial ERP, Contracts & Commissions Edition)`
+- **Versão Homologada**: `JHPCS Core v6.1 (Decennial Warranty SLA & Base64 Health Reports Edition)`
 - **Índice de Estabilidade do Sistema**: **100 / 100** (Auditado via `scripts/run-system-audit.mjs`)
 - **Portais em Produção**:
   - 🖥️ **Portal Web Master & Clientes**: `https://jhpcs.vercel.app` (ou `https://jcs-pools.vercel.app`)
+  - 🛡️ **Perícia de Garantia JHoston**: `https://jhpcs.vercel.app/garantia-pericial`
   - 💵 **JHPCS Financeiro & Contratos**: `https://jhpcs.vercel.app/financeiro`
   - ⚙️ **Gerador de Plaqueta Metálica NFC (Laser CNC)**: `https://jhpcs.vercel.app/plaqueta-nfc`
   - 🏅 **Selo de Conformidade & Totem de Recepção**: `https://jhpcs.vercel.app/selo`
@@ -23,6 +24,24 @@
 ---
 
 ## 📅 Linha do Tempo & Histórico Detalhado de Evolução
+
+### [v6.1] - 09/11/2026: Governança de Garantia JHoston, Termo Escalonado PF/PJ e Laudos em Base64
+- **Termo de Compromisso e Garantia Decenal Escalonada (PF vs PJ)**:
+  - Implementada a migration [`supabase/migrations/20261109_jhoston_warranty_commitment_sla.sql`](file:///C:/JHPCS/supabase/migrations/20261109_jhoston_warranty_commitment_sla.sql).
+  - **Pessoa Física (PF)**: Obrigação de pelo menos 1 medição por semana; Laudo Pericial de Saúde com emissão **mensal**.
+  - **Pessoa Jurídica (PJ)**: Condomínios e resorts obrigados a reportar no mínimo 3 medições por semana (ou diário por turno); Laudo Pericial com emissão **quinzenal**.
+- **Informes Automáticos em Tempo Real à Diretoria JHoston**:
+  - Endpoint [`/api/warranty/notify-deviation`](file:///C:/JHPCS/src/app/api/warranty/notify-deviation/route.ts).
+  - Alerta via WhatsApp imediatamente quando uma piscina sob garantia apresenta desvio químico crítico (ISL &lt; -0.30, pH &lt; 7.0), uso proibido de ácido muriático sem diluição ou omissão prolongada de dados.
+- **Laudo Pericial de Saúde em Base64 ([`/api/warranty/health-report-base64`](file:///C:/JHPCS/src/app/api/warranty/health-report-base64/route.ts))**:
+  - Geração de laudo pericial oficial em PDF A4 com jsPDF e conversão direta para string Base64 (`mediaMessage.media`).
+  - Transmissão direta pelo WhatsApp da Evolution API com download nativo no browser.
+- **Interface da Central de Perícia de Garantia ([`/garantia-pericial`](file:///C:/JHPCS/src/app/garantia-pericial/page.tsx))**:
+  - Painel com cards comparativos PF e PJ, simulador de alertas para a diretoria e emissor de laudos periódicos em Base64.
+- **Atalho no Menu Superior**:
+  - Inserido botão **"Garantia JHoston (Perícia)"** no cabeçalho ([`src/app/page.tsx`](file:///C:/JHPCS/src/app/page.tsx)).
+
+---
 
 ### [v6.0] - 09/11/2026: JHPCS Financeiro, Contratos Recorrentes & Standby Fiscal
 - **Modelagem Relacional de Finanças & Contratos**:

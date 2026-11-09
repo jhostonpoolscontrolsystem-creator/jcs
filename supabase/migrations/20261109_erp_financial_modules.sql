@@ -130,3 +130,4 @@ VALUES
   ('22222222-0000-0000-0000-000000000002', 'DESPESA', 'COMBUSTIVEL', 'Abastecimento Semanal Caminhonete BRA-2026', 320.00, (current_date - interval '2 days')::date, now(), 'PAID', 'CARTAO_CREDITO'),
   ('22222222-0000-0000-0000-000000000002', 'DESPESA', 'MANUTENCAO_BOMBAS', 'Troca de Rolamento Bomba 2CV Alphaville', 280.00, (current_date + interval '4 days')::date, NULL, 'PENDING', 'PIX')
 ON CONFLICT DO NOTHING;
+
