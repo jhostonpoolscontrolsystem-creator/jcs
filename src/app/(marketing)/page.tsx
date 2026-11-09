@@ -94,6 +94,12 @@ export default function MarketingLandingPage() {
 
           <div className="flex items-center gap-3 sm:gap-4">
             <Link
+              href="/solucoes"
+              className="text-xs font-bold text-slate-300 hover:text-cyan-400 transition px-3 py-2 rounded-xl hover:bg-slate-900 hidden sm:inline-block"
+            >
+              Setores & Soluções
+            </Link>
+            <Link
               href="/"
               className="text-xs font-bold text-slate-300 hover:text-white transition px-3 py-2 rounded-xl hover:bg-slate-900 hidden md:inline-block"
             >

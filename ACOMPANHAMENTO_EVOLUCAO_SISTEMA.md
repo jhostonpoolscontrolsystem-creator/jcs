@@ -6,10 +6,11 @@
 ---
 
 ## 📌 Status Atual do Ecossistema (Novembro/2026)
-- **Versão Homologada**: `JHPCS Core v6.6 (High-Authority Marketing Landing Page & Engineering Showcase Edition)`
+- **Versão Homologada**: `JHPCS Core v6.7 (Tailored Market Sector Solutions & Deep Landing Architecture Edition)`
 - **Índice de Estabilidade do Sistema**: **100 / 100** (Auditado via `scripts/run-system-audit.mjs`)
 - **Portais em Produção**:
   - 🌐 **Landing Page Institucional & Comercial**: `https://jhpcs.vercel.app/` (Grupo de Rotas Marketing)
+  - 🧭 **Página de Setores & Soluções Especializadas**: `https://jhpcs.vercel.app/solucoes`
   - 🖥️ **Portal Web Master & Cockpit Operacional**: `https://jhpcs.vercel.app/` (ou `https://jcs-pools.vercel.app`)
   - 🚀 **Onboarding & Ativação de Novos Clientes**: `https://jhpcs.vercel.app/onboarding`
   - 👑 **Centro de Comando & Governança SUPER ADMIN**: `https://jhpcs.vercel.app/` (Visão Soberana Master)
@@ -27,6 +28,18 @@
 ---
 
 ## 📅 Linha do Tempo & Histórico Detalhado de Evolução
+
+### [v6.7] - 09/11/2026: Página Aprofundada de Setores & Soluções Especializadas
+- **Construção da Rota Especializada ([`src/app/(marketing)/solucoes/page.tsx`](file:///C:/JHPCS/src/app/(marketing)/solucoes/page.tsx))**:
+  - Navegação por abas responsivas cobrindo os 5 perfis da cadeia aquática:
+    * **Tratador Autônomo (Solo)**: Eliminação de tempo perdido em cobranças manuais e desvalorização do trabalho; comprovante digital instantâneo com marca própria.
+    * **Empresas & Frotas (Fleet)**: Fim do sumiço de produtos químicos e incerteza de visitas com Geofencing GPS (50m) e baixa estequiométrica automática no veículo por m³.
+    * **Condomínios, Resorts, Hotéis & Clubes (Facility)**: Eliminação de pranchetas de papel e menus financeiros inúteis; Logbook sanitário por turnos NBR 10.818 e Totem de recepção para hóspedes.
+    * **Lojas de Piscinas & Revendas (Retail)**: Fim de erros de dosagem por atendentes de balcão; receituário express com fita de teste, carrinho de compras consultivo e PIX dinâmico.
+    * **Construtoras & Fabricantes (Chancela Jhoston)**: Blindagem pericial decenal contra negligência química e acionamentos indevidos de garantia com telemetria dos 28 dias de cura.
+  - CTAs dedicados com pré-seleção no stepper de onboarding (`/onboarding?plan=solo`, `/onboarding?plan=fleet`, etc.).
+
+---
 
 ### [v6.6] - 09/11/2026: Landing Page Institucional & Comercial de Alta Autoridade Técnica
 - **Construção da Nova Home Comercial ([`src/app/(marketing)/page.tsx`](file:///C:/JHPCS/src/app/(marketing)/page.tsx))**:
