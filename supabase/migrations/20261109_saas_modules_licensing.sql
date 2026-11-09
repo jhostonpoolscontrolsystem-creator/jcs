@@ -111,3 +111,4 @@ ON CONFLICT (id) DO NOTHING;
 INSERT INTO public.tenant_licenses (tenant_id, tier_id, status, billing_cycle, custom_enabled_modules, active_pools_count, active_users_count, expires_at) VALUES
 ('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 'enterprise_jhoston', 'ACTIVE', 'ANNUAL', '[]'::jsonb, 42, 12, timezone('utc'::text, now() + interval '1 year'))
 ON CONFLICT DO NOTHING;
+

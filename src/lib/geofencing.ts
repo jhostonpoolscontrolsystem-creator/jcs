@@ -59,3 +59,4 @@ export function validateGeofencePresence(
       : `Alerta de Geofencing: O técnico está a ${distance}m da piscina (limite máximo permitido: ${radiusAllowedMeters}m).`,
   };
 }
+
