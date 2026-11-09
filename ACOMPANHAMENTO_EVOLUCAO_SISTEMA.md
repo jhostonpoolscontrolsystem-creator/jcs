@@ -6,10 +6,11 @@
 ---
 
 ## 📌 Status Atual do Ecossistema (Novembro/2026)
-- **Versão Homologada**: `JHPCS Core v5.8 (Interactive Hotel Seal & Public Verification Edition)`
+- **Versão Homologada**: `JHPCS Core v5.9 (Industrial Laser NFC Metal Plate Edition)`
 - **Índice de Estabilidade do Sistema**: **100 / 100** (Auditado via `scripts/run-system-audit.mjs`)
 - **Portais em Produção**:
   - 🖥️ **Portal Web Master & Clientes**: `https://jhpcs.vercel.app` (ou `https://jcs-pools.vercel.app`)
+  - ⚙️ **Gerador de Plaqueta Metálica NFC (Laser CNC)**: `https://jhpcs.vercel.app/plaqueta-nfc`
   - 🏅 **Selo de Conformidade & Totem de Recepção**: `https://jhpcs.vercel.app/selo`
   - 💳 **Gestão de Assinatura & Módulos**: `https://jhpcs.vercel.app/settings/subscription`
   - 📋 **Logbook Sanitário Digital Anvisa**: `https://jhpcs.vercel.app/logbook-sanitario`
@@ -21,6 +22,22 @@
 ---
 
 ## 📅 Linha do Tempo & Histórico Detalhado de Evolução
+
+### [v5.9] - 09/11/2026: Plaqueta Metálica NFC & Gerador Vetorial de Gravação a Laser
+- **Motor Vetorial de Gravação Laser Fiber ([`/api/laser/plate-svg`](file:///C:/JHPCS/src/app/api/laser/plate-svg/route.ts))**:
+  - Geração de arte vetorial pura em SVG escala 1:1 (dimensão padrão industrial 100 mm x 150 mm) pronta para importação direta em softwares industriais como LightBurn e EZCad.
+  - Gabarito mecânico com 4 furos de Ø 4,0 mm nos cantos para fixação com parafusos inox 316 ou rebites em ambientes de alta corrosão por cloro e umidade.
+  - Especificação para usinagem em chapa de **Alumínio Naval Anodizado 5052-H32** (espessura 1,5mm a 2,0mm).
+- **Sensor Dual: Chip NFC Embutido + QR Code 2D**:
+  - A plaqueta possui marcação do leitor por aproximação NFC (NTAG213/215 a 13.56 MHz) e código QR óptico de alta definição com correção de erro nível H.
+  - Abertura imediata do PWA de campo com validação do raio de 50 metros por Geofencing GPS.
+- **Interface Visual do Gerador ([`/plaqueta-nfc`](file:///C:/JHPCS/src/app/plaqueta-nfc/page.tsx))**:
+  - Painel de configuração com seletor de destinação: **Casa de Máquinas** ou **Totem de Recepção**.
+  - Visualização em tempo real do acabamento metálico escovado e botão para download imediato do arquivo `.svg`.
+- **Atalho no Topo de Navegação**:
+  - Inserido botão **"Plaqueta Metálica NFC"** com ícone `Cpu` no menu de topo ([`src/app/page.tsx`](file:///C:/JHPCS/src/app/page.tsx)).
+
+---
 
 ### [v5.8] - 09/11/2026: Selo Digital Interativo para Hotéis/Condomínios & Widget de Incorporação
 - **Selo Digital de Qualidade da Água & Segurança ([`/selo`](file:///C:/JHPCS/src/app/selo/page.tsx))**:
