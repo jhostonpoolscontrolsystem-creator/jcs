@@ -6,7 +6,7 @@
 ---
 
 ## 📌 Status Atual do Ecossistema (Novembro/2026)
-- **Versão Homologada**: `JHPCS Core v5.1 (LGPD Privacy Guard & Multi-Tenant Security Edition)`
+- **Versão Homologada**: `JHPCS Core v5.2 (LGPD Privacy Guard & Garantia Exclusiva JHoston)`
 - **Índice de Estabilidade do Sistema**: **100 / 100** (Auditado via `scripts/run-system-audit.mjs`)
 - **Portais em Produção**:
   - 🖥️ **Portal Web Master & Clientes**: `https://jhpcs.vercel.app` (ou `https://jcs-pools.vercel.app`)
@@ -17,42 +17,40 @@
 
 ## 📅 Linha do Tempo & Histórico Detalhado de Evolução
 
-### [v5.1] - 09/11/2026: Segurança da Informação (LGPD) & Prioridade de Garantia JHoston
+### [v5.2] - 09/11/2026: Blindagem LGPD do Super Admin & Bandeira de Garantia Ativa JHoston
+- **Tratamento Especial para Piscinas JHoston (Garantia Ativa)**:
+  - Adicionado ao schema de piscinas ([`src/types/database.ts`](file:///C:/JHPCS/src/types/database.ts)) os campos: `is_jhoston_asset: boolean` e `warranty_certificate_number: string`.
+  - **Consentimento Explícito (Termo LGPD de Telemetria)**: O cadastro valida `lgpd_consent_accepted: true` com carimbo imutável `lgpd_consent_timestamp`.
+  - **Filtro Rápido no Dashboard**: Inserido botão de alternância no [`src/app/page.tsx`](file:///C:/JHPCS/src/app/page.tsx) permitindo à Diretoria da JHoston filtrar instantaneamente apenas as piscinas com garantia de obras próprias (`?jhoston_only=true`).
+- **A Nova Postura do Super Administrador (Blindagem LGPD Estrita)**:
+  - **O que o Super Admin VÊ**: Métricas globais de infraestrutura, volume de piscinas ativas, consumo do Cloudflare R2, integridade do motor químico e status dos servidores.
+  - **O que o Super Admin NÃO VÊ (Mascaramento/Hash)**:
+    - Nomes completos ofuscados como `D**** S**** L****` (`maskName`).
+    - Telefones e WhatsApp mascarados como `(11) 9****-**88` (`maskPhone`).
+    - Endereços com rua e número ocultados (exibindo apenas Cidade/UF para OpenWeather/ISL via `sanitizeAddressForTelemetry`).
+    - Margens de lucro de lojistas e valores cobrados por tratadores autônomos estritamente bloqueados.
+
+---
+
+### [v5.1] - 09/11/2026: Segurança da Informação & Proteção de Dados
 - **Implementação do Módulo LGPD Privacy Guard**:
-  - Criação do módulo [`src/lib/lgpd-masking.ts`](file:///C:/JHPCS/src/lib/lgpd-masking.ts) com anonimização mandatória de dados sensíveis (e-mails, CPFs e telefones).
-  - Atualização do RBAC em [`src/lib/rbac.ts`](file:///C:/JHPCS/src/lib/rbac.ts): a permissão `canViewUnmaskedSensitiveData` foi definida como `false` para o Super Usuário (Master / Diretoria), impedindo espionagem ou vazamento de dados pessoais de clientes de terceiros.
-- **Refatoração da Rota de Auditoria Forense (`/api/audit/logs`)**:
-  - Mascaramento em tempo de execução de e-mails de usuários e ofuscação de octetos finais de endereço IP nos relatórios periciais.
-- **Transparência LGPD na Tela de Autenticação (`AuthModal.tsx`)**:
-  - Inserção de aviso de conformidade com a LGPD e selo de prioridade para piscinas sob garantia decenal da JHoston Pools.
-- **Priorização de Ativos Próprios (`is_jhoston_reformed`)**:
-  - Atualização do endpoint [`/api/pools/list`](file:///C:/JHPCS/src/app/api/pools/list/route.ts) para suportar o filtro `jhoston_only=true`, separando a esteira de ativos de garantia da JHoston do ecossistema geral de terceiros.
+  - Criação do módulo [`src/lib/lgpd-masking.ts`](file:///C:/JHPCS/src/lib/lgpd-masking.ts).
+  - RBAC atualizado com `canViewUnmaskedSensitiveData: false` para o Super Usuário em [`src/lib/rbac.ts`](file:///C:/JHPCS/src/lib/rbac.ts).
+  - Mascaramento em tempo de execução na rota de auditoria forense ([`/api/audit/logs`](file:///C:/JHPCS/src/app/api/audit/logs/route.ts)).
 
 ---
 
 ### [v5.0] - 09/11/2026: A Virada PoolTech & Expansão para o Mercado Aberto
 - **Agnosticismo Químico Multi-Substrato**:
-  - Criação do motor [`src/lib/substrate-rules.ts`](file:///C:/JHPCS/src/lib/substrate-rules.ts) com suporte a 5 acabamentos: *Monolítico Sand, Fibra de Vidro, Vinil, Pastilha Cerâmica e Alvenaria Pintada*.
-  - Cálculo de Índice de Saturação de Langelier (ISL) dinâmico entre -0.3 e +0.3 com tolerâncias por material.
-- **Armazenamento de Alta Capacidade com Custo Zero de Saída (Cloudflare R2)**:
-  - Integração do cliente S3 oficial [`src/lib/r2.ts`](file:///C:/JHPCS/src/lib/r2.ts) conectado ao bucket `jhpcs-fotos-inspecoes`.
-  - Rota de upload [`/api/storage/upload-evidence`](file:///C:/JHPCS/src/app/api/storage/upload-evidence/route.ts) com prioridade R2 e fallback no Supabase.
+  - Motor [`src/lib/substrate-rules.ts`](file:///C:/JHPCS/src/lib/substrate-rules.ts) com suporte a *Monolítico, Fibra, Vinil, Pastilha e Alvenaria*.
+- **Cloudflare R2 (Custo Zero & Egress Grátis)**:
+  - Bucket `jhpcs-fotos-inspecoes` conectado via [`src/lib/r2.ts`](file:///C:/JHPCS/src/lib/r2.ts).
 - **Baixa Estequiométrica de Estoque Volante**:
-  - Criação de [`src/lib/stock-auto-deduction.ts`](file:///C:/JHPCS/src/lib/stock-auto-deduction.ts) para dedução automática de insumos no veículo do técnico com base no volume ($m^3$) tratado.
+  - Dedução automática de insumos por $m^3$ tratado em [`src/lib/stock-auto-deduction.ts`](file:///C:/JHPCS/src/lib/stock-auto-deduction.ts).
 - **Receituário Digital de Balcão & Checkout PIX**:
-  - Rota [`/api/trade/counter-prescription`](file:///C:/JHPCS/src/app/api/trade/counter-prescription/route.ts) que converte o desequilíbrio químico da água de balcão em carrinho de compras com QR Code PIX.
-- **Arquitetura de ERP Fiscal em Standby**:
-  - Implementação de [`src/app/api/erp/fiscal-gateway`](file:///C:/JHPCS/src/app/api/erp/fiscal-gateway/route.ts) protegido por Feature Flag (`NEXT_PUBLIC_ENABLE_FISCAL_ERP=false`).
-
----
-
-### [v4.4] - 06/11/2026: Resiliência Máxima, Observabilidade & Keep-Alive
-- **Keep-Alive Automatizado (Anti-Pause do Supabase)**:
-  - Criação do endpoint [`/api/cron/keep-alive`](file:///C:/JHPCS/src/app/api/cron/keep-alive/route.ts) e workflow [`.github/workflows/keep-supabase-awake.yml`](file:///C:/JHPCS/.github/workflows/keep-supabase-awake.yml) a cada 3 dias.
-- **Circuit Breaker com Retentativas Exponenciais**:
-  - Módulo [`src/lib/circuit-breaker.ts`](file:///C:/JHPCS/src/lib/circuit-breaker.ts) blindando chamadas da Evolution API e OpenWeather.
-- **Suite Automatizada de Estresse & Caos**:
-  - Criação do script pericial [`scripts/run-system-audit.mjs`](file:///C:/JHPCS/scripts/run-system-audit.mjs) emitindo laudo oficial pontuado em **100/100**.
+  - Rota [`/api/trade/counter-prescription`](file:///C:/JHPCS/src/app/api/trade/counter-prescription/route.ts).
+- **ERP Fiscal em Standby**:
+  - Rota [`/api/erp/fiscal-gateway`](file:///C:/JHPCS/src/app/api/erp/fiscal-gateway/route.ts) em standby por feature flag.
 
 ---
 

@@ -57,6 +57,13 @@ export interface Pool {
   warranty_extended_years?: number; // Extensões adicionais (ex: +1 ou +2 anos)
   warranty_extension_status?: 'STANDARD_ACTIVE' | 'EXTENSION_AVAILABLE' | 'EXTENSION_REQUESTED' | 'EXTENSION_ACTIVE' | 'EXPIRED';
   warranty_extension_requested_at?: string;
+  // Campos LGPD & Bandeira JHoston Pools
+  is_jhoston_asset?: boolean; // Bandeira: Piscina construída/reformada pela JHoston Pools
+  warranty_certificate_number?: string; // Número do Certificado Oficial de Garantia (ex: "JH-2026-0891")
+  lgpd_consent_accepted?: boolean; // Consentimento explícito do proprietário para telemetria pericial
+  lgpd_consent_timestamp?: string; // Timestamp imutável da aceitação do termo
+  city?: string; // Cidade (apenas dados geográficos não-sensíveis para OpenWeather / ISL)
+  state?: string; // UF
 }
 
 export interface Product {

@@ -14,12 +14,26 @@ export async function POST(request: Request) {
       gps_lat,
       gps_lng,
       application_date,
+      is_jhoston_asset = false,
+      warranty_certificate_number,
+      lgpd_consent_accepted = false,
+      city,
+      state,
+      substrate_type = 'MONOLITICO_SAND',
     } = body;
 
     // 1. Validação de campos obrigatórios
     if (!name || !facility_type || !volume_m3 || !pump_flow_m3_h || !gps_lat || !gps_lng || !application_date) {
       return NextResponse.json(
         { error: 'Todos os campos cadastrais do ativo são obrigatórios para a criação do Digital Twin.' },
+        { status: 400 }
+      );
+    }
+
+    // 1.1. Validação de Garantia & LGPD para Piscinas JHoston
+    if (is_jhoston_asset && !lgpd_consent_accepted) {
+      return NextResponse.json(
+        { error: 'Para piscinas com Garantia Oficial JHoston, o consentimento do termo de telemetria pericial (LGPD) é obrigatório.' },
         { status: 400 }
       );
     }
@@ -49,6 +63,13 @@ export async function POST(request: Request) {
       gps_lng: Number(gps_lng),
       application_date,
       status: initialStatus,
+      is_jhoston_asset: Boolean(is_jhoston_asset),
+      warranty_certificate_number: is_jhoston_asset ? (warranty_certificate_number || `JH-${Date.now().toString().slice(-6)}`) : null,
+      lgpd_consent_accepted: Boolean(lgpd_consent_accepted),
+      lgpd_consent_timestamp: lgpd_consent_accepted ? new Date().toISOString() : null,
+      city: city || 'Não informado',
+      state: state || 'BR',
+      substrate_type,
       created_at: new Date().toISOString(),
     };
 

@@ -57,6 +57,7 @@ export default function JHPCSApp() {
   // Dados Reais Carregados do Supabase
   const [livePools, setLivePools] = useState<Pool[]>(mockPools);
   const [isLoadingPools, setIsLoadingPools] = useState(false);
+  const [filterJhostonOnly, setFilterJhostonOnly] = useState(false); // Segmentação LGPD / Garantia JHoston
 
   // Usuário Autenticado (Inicia como Master Daniel Lopes por conveniência)
   const [currentUser, setCurrentUser] = useState<{
@@ -71,11 +72,12 @@ export default function JHPCSApp() {
     role: 'MASTER',
   });
 
-  // Busca dados reais do banco
+  // Busca dados reais do banco com filtro de garantia própria
   const fetchLivePools = async () => {
     setIsLoadingPools(true);
     try {
-      const res = await fetch('/api/pools/list');
+      const url = filterJhostonOnly ? '/api/pools/list?jhoston_only=true' : '/api/pools/list';
+      const res = await fetch(url);
       const data = await res.json();
       if (data.success && data.pools && data.pools.length > 0) {
         setLivePools(data.pools);
@@ -89,7 +91,7 @@ export default function JHPCSApp() {
 
   useEffect(() => {
     fetchLivePools();
-  }, []);
+  }, [filterJhostonOnly]);
 
   // Estado da Simulação Operacional do PWA do Piscineiro
   const [selectedPoolId, setSelectedPoolId] = useState('p-2');
@@ -549,6 +551,20 @@ export default function JHPCSApp() {
               </div>
 
               <div className="flex items-center gap-3">
+                {/* Toggle Segmentação LGPD / Piscinas Garantia JHoston */}
+                <button
+                  onClick={() => setFilterJhostonOnly(!filterJhostonOnly)}
+                  className={`px-3 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 border cursor-pointer ${
+                    filterJhostonOnly
+                      ? 'bg-amber-500 text-slate-950 border-amber-400 shadow-md shadow-amber-500/20'
+                      : 'bg-slate-900 text-slate-300 border-slate-700 hover:border-slate-500'
+                  }`}
+                  title="Filtrar apenas piscinas reformadas/construídas pela JHoston Pools com garantia contratual ativa"
+                >
+                  <ShieldCheck className="w-3.5 h-3.5" />
+                  <span>{filterJhostonOnly ? '★ Garantia JHoston (Ativo)' : 'Todas as Piscinas'}</span>
+                </button>
+
                 <button
                   onClick={fetchLivePools}
                   disabled={isLoadingPools}
