@@ -110,3 +110,4 @@ export const weatherApiBreaker = new CircuitBreaker('OpenWeatherAPI', {
   timeoutMs: 5000,
   maxRetries: 2
 });
+

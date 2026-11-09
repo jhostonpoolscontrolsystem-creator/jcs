@@ -51,9 +51,20 @@ O sistema calcula automaticamente a agressividade termodinâmica da água basead
 - **Pastilha Cerâmica**: Proteção ativa contra a dissolução do rejunte cimentício.
 
 ### 3.3. Trade & Receituário de Balcão (Checkout PIX)
-Acessível na aba corporativa:
+Acessível na aba corporativa ou diretamente em `/trade/balcao`:
 - Permite transformar laudos e medições trazidas por clientes em carrinhos de compra instantâneos com QR Code PIX Copia e Cola dinâmico, faturando direto no balcão de atendimento.
 
-### 3.4. Gestão da Infraestrutura Custo Zero & Anti-Pausa
+### 3.4. Logbook Sanitário Digital da Anvisa & Geofencing 50m
+Acessível em `/logbook-sanitario`:
+- **Auditoria Sanitária por Turno**: Registra as inspeções diárias obrigatórias (Manhã, Tarde e Noite) exigidas pela Vigilância Sanitária em condomínios, clubes e resorts (pH, cloro livre/combinado, clareza e banhistas).
+- **Validação Presencial por GPS (50m)**: Utiliza a fórmula de Haversine para atestar que o operador estava fisicamente na borda da piscina no instante da medição.
+- **Emissão Oficial**: Botão nativo para impressão do Livro Diário homologado para apresentação a fiscais sanitários.
+
+### 3.5. Configurações Multi-Tenant & Chaves PIX do Cliente
+Acessível em `/configuracoes`:
+- Cada cliente da plataforma cadastra sua própria chave PIX direta (CPF, CNPJ, Telefone, E-mail ou Chave Aleatória) e dados de titularidade, garantindo recebimento direto e sem intermediação da plataforma.
+- Personalização de marca (White-label), tolerância de geofencing e turnos operacionais.
+
+### 3.6. Gestão da Infraestrutura Custo Zero & Anti-Pausa
 - **Keep-Alive Supabase**: Rotina automatizada no GitHub Actions disparando um pulso de leitura a cada 3 dias (`.github/workflows/keep-supabase-awake.yml`), impedindo o congelamento do banco no plano gratuito.
 - **Cloudflare R2**: Armazenamento ilimitado de fotos sem taxas de download.

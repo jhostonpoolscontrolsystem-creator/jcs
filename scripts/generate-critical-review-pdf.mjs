@@ -268,3 +268,4 @@ const pdfBytes = doc.output('arraybuffer');
 fs.writeFileSync(outputPdfPath, Buffer.from(pdfBytes));
 
 console.log(`✅ Parecer crítico em PDF gerado com sucesso em: ${outputPdfPath}`);
+

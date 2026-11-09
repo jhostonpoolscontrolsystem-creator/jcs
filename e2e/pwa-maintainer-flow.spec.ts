@@ -44,3 +44,4 @@ test.describe('Piscineiro / Tratador de Campo - Fluxo Completo de Auditoria', ()
     console.log('📶 Conexão restabelecida.');
   });
 });
+

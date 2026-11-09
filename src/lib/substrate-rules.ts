@@ -123,3 +123,4 @@ export function calculateLSI(params: {
     isSafe: Math.abs(lsi) <= 0.3,
   };
 }
+

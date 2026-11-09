@@ -81,3 +81,4 @@ A JHoston deixa de vender apenas "m² de revestimento" e passa a entregar uma **
 > *"Sr. Cliente, outras empresas de piscina entregam a obra e vão embora; se a água manchar o piso daqui a 6 meses, eles dirão que a culpa foi do seu piscineiro.*  
 >  
 > *Na JHoston Pools, nós entregamos o **Plano de Manutenção Ativo de 02 Anos**. Sua piscina ganha um Gêmeo Digital, seu tratador recebe um aplicativo de campo em 1 toque na casa de máquinas e nossa engenharia monitora a estabilidade química toda semana, com mão de obra técnica isenta nas revisões anuais. Seu investimento fica 100% blindado."*
+

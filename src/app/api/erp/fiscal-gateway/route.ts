@@ -72,3 +72,4 @@ export async function GET(request: Request) {
     is_active: true,
   });
 }
+

@@ -43,7 +43,7 @@ import ClientPortfolioViewer from '@/components/ClientPortfolioViewer';
 import ExecutiveWelcomeKitModal, { WelcomeKitAudience } from '@/components/ExecutiveWelcomeKitModal';
 import { PoolMachineRoomTagHub } from '@/components/PoolMachineRoomTagHub';
 import { UserRole, Pool } from '@/types/database';
-import { LogIn, LogOut, Users, UserCheck, GraduationCap, HelpCircle, Crown, Download, ShoppingBag, Building2, ShieldCheck, QrCode } from 'lucide-react';
+import { LogIn, LogOut, Users, UserCheck, GraduationCap, HelpCircle, Crown, Download, ShoppingBag, Building2, ShieldCheck, QrCode, ClipboardList, Settings, Receipt } from 'lucide-react';
 
 export default function JHPCSApp() {
   const [activeTab, setActiveTab] = useState<'master' | 'master_audit' | 'commercial_orders' | 'dashboard' | 'clients' | 'client_portal' | 'machine_room_tag' | 'pwa' | 'whatsapp' | 'rbac' | 'audit_live' | 'users' | 'executive_reports' | 'training' | 'help' | 'downloads' | 'store'>('master');
@@ -454,6 +454,24 @@ export default function JHPCSApp() {
           >
             <Receipt className="w-4 h-4 text-amber-400" />
             Receituário de Balcão (PIX)
+          </Link>
+
+          {/* LOGBOOK SANITÁRIO ANVISA (FASE 3) */}
+          <Link
+            href="/logbook-sanitario"
+            className="flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all text-emerald-300 hover:text-white hover:bg-slate-900 border border-emerald-500/30 bg-emerald-950/20"
+          >
+            <ClipboardList className="w-4 h-4 text-emerald-400" />
+            Logbook Sanitário (Anvisa)
+          </Link>
+
+          {/* CONFIGURAÇÕES DO CLIENTE (PIX & REGRAS) */}
+          <Link
+            href="/configuracoes"
+            className="flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all text-slate-300 hover:text-white hover:bg-slate-900 border border-slate-700 bg-slate-900/40"
+          >
+            <Settings className="w-4 h-4 text-slate-400" />
+            Configurações
           </Link>
 
           {/* LOJA DE INSUMOS B2B (FASE 4): Master, Diretoria JH e Clientes */}

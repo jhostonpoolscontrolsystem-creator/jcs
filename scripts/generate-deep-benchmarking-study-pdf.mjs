@@ -447,3 +447,4 @@ const pdfBytes = doc.output('arraybuffer');
 fs.writeFileSync(outputPdfPath, Buffer.from(pdfBytes));
 
 console.log(`✅ Estudo profundo de benchmarking e prompts em PDF gerado em: ${outputPdfPath}`);
+

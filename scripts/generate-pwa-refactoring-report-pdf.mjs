@@ -238,3 +238,4 @@ const pdfBytes = doc.output('arraybuffer');
 fs.writeFileSync(outputPdfPath, Buffer.from(pdfBytes));
 
 console.log(`✅ Relatório de refatoração em PDF gerado em: ${outputPdfPath}`);
+

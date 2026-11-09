@@ -41,3 +41,4 @@ jobs:
             -H "apikey: ${SUPABASE_ANON_KEY}" \
             -H "Authorization: Bearer ${SUPABASE_ANON_KEY}"
           echo "✅ Pulso REST direto enviado com sucesso!"
+

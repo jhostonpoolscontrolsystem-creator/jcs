@@ -69,3 +69,4 @@ export async function executeAutomatedStockDeduction(params: DeductStockParams):
     message: `Baixa estequiométrica automática calculada para ${volumeM3}m³: ${chlorineGrams}g cloro, ${alkalinityGrams}g alcalinizante.`,
   };
 }
+

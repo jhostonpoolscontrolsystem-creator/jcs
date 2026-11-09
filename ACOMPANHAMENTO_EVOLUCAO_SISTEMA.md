@@ -6,10 +6,12 @@
 ---
 
 ## 📌 Status Atual do Ecossistema (Novembro/2026)
-- **Versão Homologada**: `JHPCS Core v5.4 (Trade Balcão & Checkout PIX Edition)`
+- **Versão Homologada**: `JHPCS Core v5.5 (Custom Tenant Settings & Anvisa Sanitary Logbook Edition)`
 - **Índice de Estabilidade do Sistema**: **100 / 100** (Auditado via `scripts/run-system-audit.mjs`)
 - **Portais em Produção**:
   - 🖥️ **Portal Web Master & Clientes**: `https://jhpcs.vercel.app` (ou `https://jcs-pools.vercel.app`)
+  - 📋 **Logbook Sanitário Digital Anvisa**: `https://jhpcs.vercel.app/logbook-sanitario`
+  - ⚙️ **Configurações Multi-Tenant & PIX**: `https://jhpcs.vercel.app/configuracoes`
   - 🛒 **Receituário de Balcão & PIX**: `https://jhpcs.vercel.app/trade/balcao`
   - 📱 **App PWA de Campo (Isolado)**: `https://jhpcs-campo.vercel.app`
   - 💾 **Storage Global de Evidências**: Cloudflare R2 (`pub-0698df4992464295bd9d323e91a2aee4.r2.dev`)
@@ -17,6 +19,22 @@
 ---
 
 ## 📅 Linha do Tempo & Histórico Detalhado de Evolução
+
+### [v5.5] - 09/11/2026: Configurações Multi-Tenant de PIX & Logbook Sanitário Anvisa com Geofencing 50m
+- **Tela de Configurações do Cliente (`/configuracoes`)**:
+  - Implementação em [`src/app/configuracoes/page.tsx`](file:///C:/JHPCS/src/app/configuracoes/page.tsx) e API [`src/app/api/tenant/settings/route.ts`](file:///C:/JHPCS/src/app/api/tenant/settings/route.ts).
+  - Permite que cada cliente/empresa configure sua própria chave PIX (CPF, CNPJ, Email, Celular ou Chave Aleatória) e dados de titularidade, garantindo recebimento direto e sem intermediação.
+  - Customização de identidade visual (White-label), raio de tolerância do Geofencing GPS e chaveamento de turnos sanitários.
+- **Logbook Sanitário Digital da Anvisa (`/logbook-sanitario`)**:
+  - Interface desenvolvida em [`src/app/logbook-sanitario/page.tsx`](file:///C:/JHPCS/src/app/logbook-sanitario/page.tsx) e API em [`src/app/api/sanitary/logbook/route.ts`](file:///C:/JHPCS/src/app/api/sanitary/logbook/route.ts).
+  - Registro diário de inspeções técnicas por turnos (Manhã, Tarde, Noite) para atendimento a condomínios, resorts, hotéis e clubes conforme normas sanitárias.
+  - Registro de parâmetros: pH, Cloro Livre, Cloro Combinado, Temperatura da Água, Carga de Banhistas e Clareza da Água.
+  - **Motor de Geofencing por GPS (50 Metros)**: Implementado em [`src/lib/geofencing.ts`](file:///C:/JHPCS/src/lib/geofencing.ts), validando a presença física real do técnico na borda da piscina via fórmula de Haversine. Registros fora do raio de 50m são sinalizados em desacordo técnico.
+  - **Impressão Pericial**: Botão "Imprimir Livro Anvisa" integrado na tela para fiscalizações da Vigilância Sanitária.
+- **Atalhos no Topo do Sistema**:
+  - Inseridos links de acesso direto no cabeçalho de navegação ([`src/app/page.tsx`](file:///C:/JHPCS/src/app/page.tsx)).
+
+---
 
 ### [v5.4] - 09/11/2026: Interface Visual do Receituário de Balcão & Cobrança PIX
 - **Lançamento da Tela `/trade/balcao`**:

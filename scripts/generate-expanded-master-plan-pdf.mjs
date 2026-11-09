@@ -381,3 +381,4 @@ const pdfBytes = doc.output('arraybuffer');
 fs.writeFileSync(outputPdfPath, Buffer.from(pdfBytes));
 
 console.log(`✅ Master Plan consolidado em PDF gerado em: ${outputPdfPath}`);
+

@@ -21,9 +21,10 @@
 [Concluído]  Sprint 2: Infraestrutura Resiliente, Cloudflare R2 e Keep-Alive Anti-Pause
 [Concluído]  Sprint 3: Motor ISL Multi-Substrato e Baixa Estequiométrica Automática
 [Concluído]  Sprint 4: Receituário de Balcão com Checkout PIX e ERP em Standby
-[Em Curso]   Sprint 5: Refatoração do PWA de Campo (Janela c:\JHPCS-campo)
-[Planejado]  Sprint 6: Geofencing por GPS & Logbook Sanitário Anvisa para Hotéis/Clubes
-[Planejado]  Sprint 7: Ativação sob Demanda do ERP Fiscal Completo (Focus / PlugNotas)
+[Concluído]  Sprint 5: Configurações Multi-Tenant de PIX e Customização White-label
+[Concluído]  Sprint 6: Geofencing por GPS (50m) & Logbook Sanitário Anvisa para Hotéis/Clubes
+[Em Curso]   Sprint 7: Refatoração do PWA de Campo (Janela c:\JHPCS-campo)
+[Planejado]  Sprint 8: Ativação sob Demanda do ERP Fiscal Completo (Focus / PlugNotas)
 ```
 
 ---
@@ -41,20 +42,20 @@
 
 ---
 
-### 🟡 FASE 2: AGNOSTICISMO & MONETIZAÇÃO DE BALCÃO (ATUAL - Q4/2026)
+### 🟡 FASE 2: AGNOSTICISMO & MONETIZAÇÃO DE BALCÃO (CONCLUÍDA - 100%)
 *Foco: Abrir o sistema para qualquer piscina do Brasil e gerar transações financeiras.*
 - [x] **Agnosticismo Multi-Substrato**: Suporte nativo a Vinil, Fibra, Pastilha, Alvenaria e Monolítico com faixas químicas ideais por acabamento.
 - [x] **Dedução Estequiométrica**: Baixa automática de estoque de químicos no carro do técnico com base no volume ($m^3$) tratado.
 - [x] **Receituário Digital de Balcão**: Tela de diagnóstico da água em lojas com geração instantânea de lista de compras e cobrança via **PIX Copia e Cola / QR Code**.
+- [x] **Configurações Multi-Tenant de PIX**: Tela `/configuracoes` para lojistas e tratadores configurarem suas próprias chaves PIX de recebimento direto.
 - [x] **ERP Fiscal em Standby**: Estrutura modular pronta protegida por Feature Flag (`NEXT_PUBLIC_ENABLE_FISCAL_ERP=false`).
-- [ ] **Alinhamento na Janela `c:\JHPCS-campo`**: Atualizar o PWA de campo com o seletor de substrato e credenciais do Cloudflare R2 (Guia disponível em `public/RELATORIO_REFATORACAO_PWA_CAMPO.pdf`).
 
 ---
 
-### 🔵 FASE 3: FACILITY, CLUBS & LOGBOOK ANVISA (Q1/2027)
+### 🔵 FASE 3: FACILITY, CLUBS & LOGBOOK ANVISA (EM IMPLEMENTAÇÃO AVANÇADA - 75%)
 *Foco: Conquistar condomínios de grande porte, academias e resorts.*
-- [ ] **Geofencing com Raio de 50m**: Validação matemática de GPS garantindo que o técnico estava na borda da piscina no instante da foto.
-- [ ] **Logbook Sanitário Digital**: Painel de conformidade com exigências das Secretarias de Saúde e Anvisa, exportando livro de registros em PDF assinado eletronicamente.
+- [x] **Geofencing com Raio de 50m**: Validação matemática de GPS garantindo que o técnico estava na borda da piscina no instante da inspeção (`src/lib/geofencing.ts`).
+- [x] **Logbook Sanitário Digital**: Tela `/logbook-sanitario` e API `/api/sanitary/logbook` com registro de turnos (Manhã, Tarde, Noite), parâmetros de vigilância e impressão direta de livro de registros Anvisa.
 - [ ] **Plaqueta Metálica NFC**: Placa física em alumínio com chip NFC embutido para substituição de etiquetas adesivas em condomínios de alto padrão.
 - [ ] **Selo Interativo para Hotéis**: Widget para exibição em sites e recepções: *"Qualidade da Água Monitorada por JHoston Pools & Lagoons"*.
 

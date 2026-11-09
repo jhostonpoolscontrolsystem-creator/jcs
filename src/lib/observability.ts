@@ -70,3 +70,4 @@ class JhpcsObservability {
 }
 
 export const telemetry = new JhpcsObservability();
+
