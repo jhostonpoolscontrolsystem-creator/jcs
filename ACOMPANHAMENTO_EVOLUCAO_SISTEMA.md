@@ -6,7 +6,7 @@
 ---
 
 ## 📌 Status Atual do Ecossistema (Novembro/2026)
-- **Versão Homologada**: `JHPCS Core v6.3 (Super Admin Evolution Provisioning & Master Governance Hub Edition)`
+- **Versão Homologada**: `JHPCS Core v6.4 (Automated Periodic WhatsApp Reports Cron & Vercel Schedule Edition)`
 - **Índice de Estabilidade do Sistema**: **100 / 100** (Auditado via `scripts/run-system-audit.mjs`)
 - **Portais em Produção**:
   - 🖥️ **Portal Web Master & Clientes**: `https://jhpcs.vercel.app` (ou `https://jcs-pools.vercel.app`)
@@ -25,6 +25,19 @@
 ---
 
 ## 📅 Linha do Tempo & Histórico Detalhado de Evolução
+
+### [v6.4] - 09/11/2026: Automação de Cron Jobs Periódicos (Laudos Quinzenais PJ e Mensais PF)
+- **Engine Automatizada de Relatórios Periódicos ([`/api/cron/periodic-reports`](file:///C:/JHPCS/src/app/api/cron/periodic-reports/route.ts))**:
+  - Implementação do endpoint de despacho automatizado executado às 08:00 nos dias 1 e 16 de cada mês (`0 8 1,16 * *`).
+  - **Lógica de Escalonamento Inteligente**:
+    * **Dia 1**: Despacho dos laudos mensais de **Pessoa Física (PF)** (obrigação de 1 medição semanal) e da 2ª quinzena de **Pessoa Jurídica (PJ)**.
+    * **Dia 16**: Despacho dos laudos quinzenais da 1ª quinzena de **Pessoa Jurídica (PJ)** (obrigação de 3 medições semanais).
+  - Geração nativa dos PDFs A4 via `jsPDF`, conversão direta para string Base64 e disparo via Evolution API através de `sendMediaDocument` com legenda pericial oficial.
+- **Configuração de Crons na Vercel ([`vercel.json`](file:///C:/JHPCS/vercel.json))**:
+  - Inclusão do agendador `0 8 1,16 * *` para o endpoint `/api/cron/periodic-reports`.
+  - Inclusão do agendador `0 8 * * *` para lembrete diário de mensalidades `/api/cron/invoice-reminders`.
+
+---
 
 ### [v6.3] - 09/11/2026: Provisionamento Soberano Master de WhatsApp (Evolution API) & Auto-Provisioning
 - **Rota de API Restrita ao Super Admin ([`/api/admin/whatsapp/provision`](file:///C:/JHPCS/src/app/api/admin/whatsapp/provision/route.ts))**:

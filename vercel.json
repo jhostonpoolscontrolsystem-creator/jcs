@@ -5,6 +5,14 @@
       "schedule": "0 0 * * *"
     },
     {
+      "path": "/api/cron/invoice-reminders",
+      "schedule": "0 8 * * *"
+    },
+    {
+      "path": "/api/cron/periodic-reports",
+      "schedule": "0 8 1,16 * *"
+    },
+    {
       "path": "/api/cron/monthly-reports",
       "schedule": "0 8 1 * *"
     },
