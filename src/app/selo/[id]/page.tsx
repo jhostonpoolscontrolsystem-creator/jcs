@@ -272,3 +272,4 @@ export default function SealVerificationPage({ params }: { params?: { id?: strin
     </div>
   );
 }
+

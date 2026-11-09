@@ -95,3 +95,4 @@ export default function SealEmbedPage({ params }: { params?: { id?: string } }) 
     </div>
   );
 }
+

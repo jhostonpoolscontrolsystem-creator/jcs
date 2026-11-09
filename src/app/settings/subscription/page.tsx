@@ -1,2 +1,3 @@
-export { default } from '../(dashboard)/settings/subscription/page';
+export { default } from '@/app/(dashboard)/settings/subscription/page';
+
 

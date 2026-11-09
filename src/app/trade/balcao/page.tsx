@@ -396,6 +396,7 @@ export default function CounterPrescriptionPage() {
 
         </div>
       </div>
+    </div>
     </ModuleGate>
   );
 }
