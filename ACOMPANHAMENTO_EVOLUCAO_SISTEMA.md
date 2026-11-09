@@ -6,10 +6,11 @@
 ---
 
 ## 📌 Status Atual do Ecossistema (Novembro/2026)
-- **Versão Homologada**: `JHPCS Core v6.2 (Multi-Instance WhatsApp Evolution & Automated Cron Reminders Edition)`
+- **Versão Homologada**: `JHPCS Core v6.3 (Super Admin Evolution Provisioning & Master Governance Hub Edition)`
 - **Índice de Estabilidade do Sistema**: **100 / 100** (Auditado via `scripts/run-system-audit.mjs`)
 - **Portais em Produção**:
   - 🖥️ **Portal Web Master & Clientes**: `https://jhpcs.vercel.app` (ou `https://jcs-pools.vercel.app`)
+  - 👑 **Centro de Comando & Governança SUPER ADMIN**: `https://jhpcs.vercel.app/` (Visão Soberana Master)
   - 🛡️ **Perícia de Garantia JHoston**: `https://jhpcs.vercel.app/garantia-pericial`
   - 💵 **JHPCS Financeiro & Contratos**: `https://jhpcs.vercel.app/financeiro`
   - ⚙️ **Gerador de Plaqueta Metálica NFC (Laser CNC)**: `https://jhpcs.vercel.app/plaqueta-nfc`
@@ -24,6 +25,27 @@
 ---
 
 ## 📅 Linha do Tempo & Histórico Detalhado de Evolução
+
+### [v6.3] - 09/11/2026: Provisionamento Soberano Master de WhatsApp (Evolution API) & Auto-Provisioning
+- **Rota de API Restrita ao Super Admin ([`/api/admin/whatsapp/provision`](file:///C:/JHPCS/src/app/api/admin/whatsapp/provision/route.ts))**:
+  - Proteção estrita por e-mail para os governantes supremos (`danielsmlopes@hotmail.com` e `patigrubel@gmail.com`).
+  - Suporte completo às ações:
+    * `CREATE`: Criação da instância na Evolution API (`jhpcs_tenant_<clean_12>`), registro no Supabase e retorno do status.
+    * `RESTART`: Reinicialização remota de instâncias travadas sem necessidade de acesso ao terminal da VPS.
+    * `DELETE`: Exclusão da instância na Evolution API e desvinculação limpa no banco `tenant_settings`.
+    * `STATUS`: Sincronização em tempo real do estado da conexão e número proprietário.
+- **Painel Supremo do Super Admin ([`src/components/MasterGovernanceHub.tsx`](file:///C:/JHPCS/src/components/MasterGovernanceHub.tsx))**:
+  - Nova seção no cockpit: **Gerenciamento de Instâncias WhatsApp (Evolution API Multi-Tenant)**.
+  - Tabela com listagem completa dos tenants cadastrados e homologados:
+    * Botão com 1 clique `+ Criar Instância WhatsApp` para clientes sem instância.
+    * Badges visuais de status ao vivo: 🟢 Conectado (+55 11 9****-**88), 🟡 Sincronizando / Aguardando QR Code, 🔴 Desativada.
+    * Ações rápidas de suporte: Botão de sincronização manual, Reiniciar Sessão e Excluir Instância.
+- **Auto-Provisionamento no Cadastro / Homologação**:
+  - Integração em [`src/app/api/users/approve/route.ts`](file:///C:/JHPCS/src/app/api/users/approve/route.ts) para auto-provisionar a instância na Evolution API em background assim que o Master aprova o novo operador/empresa.
+- **Listagem Segura de Tenants ([`/api/admin/tenants/list`](file:///C:/JHPCS/src/app/api/admin/tenants/list/route.ts))**:
+  - Endpoint dedicado para enriquecer a listagem de tenants com dados consolidados de instâncias ativas e números conectados.
+
+---
 
 ### [v6.2] - 09/11/2026: Multi-Instância Evolution API (WhatsApp White-Label) & Cron Job de Cobrança
 - **Arquitetura Multi-Tenant de Mensageria (Evolution API)**:

@@ -184,3 +184,35 @@ export async function disconnectInstance(instanceName: string): Promise<{ succes
     return { success: false, error: err.message };
   }
 }
+
+/**
+ * 7. Reinicia a sessão da instância na Evolution API
+ */
+export async function restartInstance(instanceName: string): Promise<{ success: boolean; data?: any; error?: string }> {
+  try {
+    const res = await fetch(`${EVOLUTION_API_URL}/instance/restart/${instanceName}`, {
+      method: 'PUT',
+      headers: getHeaders(),
+    });
+    const data = await res.json().catch(() => ({}));
+    return { success: res.ok, data };
+  } catch (err: any) {
+    return { success: false, error: err.message };
+  }
+}
+
+/**
+ * 8. Deleta permanentemente a instância na Evolution API
+ */
+export async function deleteInstance(instanceName: string): Promise<{ success: boolean; data?: any; error?: string }> {
+  try {
+    const res = await fetch(`${EVOLUTION_API_URL}/instance/delete/${instanceName}`, {
+      method: 'DELETE',
+      headers: getHeaders(),
+    });
+    const data = await res.json().catch(() => ({}));
+    return { success: res.ok, data };
+  } catch (err: any) {
+    return { success: false, error: err.message };
+  }
+}

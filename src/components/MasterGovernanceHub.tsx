@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Crown, 
   ShieldCheck, 
@@ -18,9 +18,29 @@ import {
   Cpu,
   RefreshCw,
   Search,
-  ExternalLink
+  ExternalLink,
+  MessageSquare,
+  Power,
+  Trash2,
+  PlusCircle,
+  Building2,
+  Smartphone
 } from 'lucide-react';
 import { UserRole } from '@/types/database';
+
+interface TenantWhatsAppItem {
+  id: string;
+  name: string;
+  trade_name?: string;
+  document: string;
+  target_sector: string;
+  contact_email: string;
+  contact_phone?: string;
+  is_active: boolean;
+  whatsapp_instance_name?: string | null;
+  whatsapp_instance_status?: 'DISCONNECTED' | 'CONNECTING' | 'CONNECTED';
+  whatsapp_connected_number?: string | null;
+}
 
 interface MasterGovernanceHubProps {
   onNavigateTab: (tab: any) => void;
@@ -34,6 +54,60 @@ export function MasterGovernanceHub({
   onOpenRegisterPool,
 }: MasterGovernanceHubProps) {
   const [dbStatus, setDbStatus] = useState<'CONNECTED' | 'CHECKING'>('CONNECTED');
+  const [tenants, setTenants] = useState<TenantWhatsAppItem[]>([]);
+  const [loadingTenants, setLoadingTenants] = useState(false);
+  const [actionLoadingId, setActionLoadingId] = useState<string | null>(null);
+  const [actionMessage, setActionMessage] = useState<string | null>(null);
+
+  const fetchTenants = async () => {
+    setLoadingTenants(true);
+    try {
+      const res = await fetch('/api/admin/tenants/list', {
+        headers: {
+          'x-user-email': 'danielsmlopes@hotmail.com',
+        },
+      });
+      const data = await res.json();
+      if (data.tenants) {
+        setTenants(data.tenants);
+      }
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoadingTenants(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchTenants();
+  }, []);
+
+  const handleWhatsappAction = async (tenantId: string, action: 'CREATE' | 'RESTART' | 'DELETE' | 'STATUS') => {
+    setActionLoadingId(`${tenantId}_${action}`);
+    setActionMessage(null);
+    try {
+      const res = await fetch('/api/admin/whatsapp/provision', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-user-email': 'danielsmlopes@hotmail.com',
+        },
+        body: JSON.stringify({ tenantId, action }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setActionMessage(data.message || 'Operação realizada com sucesso!');
+        await fetchTenants();
+        setTimeout(() => setActionMessage(null), 4000);
+      } else {
+        alert(data.error || 'Erro na operação de WhatsApp');
+      }
+    } catch (e: any) {
+      alert(e.message || 'Erro ao comunicar com a Evolution API');
+    } finally {
+      setActionLoadingId(null);
+    }
+  };
 
   return (
     <div className="space-y-8 animate-fadeIn">
@@ -246,6 +320,159 @@ export function MasterGovernanceHub({
               Wizard offline-first com câmera, GPS e dosagem assistida.
             </p>
           </button>
+        </div>
+      </div>
+
+      {/* 4. Gestão e Provisionamento de Instâncias WhatsApp Evolution (Multi-Tenant Master) */}
+      <div className="p-6 rounded-3xl bg-slate-900/60 border border-slate-800/90 space-y-6 shadow-xl">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+          <div className="space-y-1">
+            <div className="flex items-center gap-2">
+              <MessageSquare className="w-5 h-5 text-emerald-400" />
+              <h3 className="font-extrabold text-white text-base">
+                Gerenciamento de Instâncias WhatsApp (Evolution API Multi-Tenant)
+              </h3>
+            </div>
+            <p className="text-xs text-slate-400">
+              Provisione instâncias isoladas com 1 clique para clientes e empresas homologadas. Cada tenant opera com número próprio ou fallback corporativo.
+            </p>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              onClick={fetchTenants}
+              disabled={loadingTenants}
+              className="px-3.5 py-2 rounded-xl bg-slate-950 border border-slate-800 hover:border-slate-700 text-slate-300 text-xs font-bold flex items-center gap-1.5 transition cursor-pointer disabled:opacity-50"
+            >
+              <RefreshCw className={`w-3.5 h-3.5 ${loadingTenants ? 'animate-spin' : ''}`} />
+              <span>Atualizar Lista</span>
+            </button>
+          </div>
+        </div>
+
+        {actionMessage && (
+          <div className="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-bold flex items-center gap-2 animate-fadeIn">
+            <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+            <span>{actionMessage}</span>
+          </div>
+        )}
+
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-xs text-slate-300 border-collapse">
+            <thead>
+              <tr className="border-b border-slate-800 text-[11px] text-slate-400 uppercase tracking-wider font-semibold">
+                <th className="py-3 px-4">Empresa / Tenant</th>
+                <th className="py-3 px-4">Setor de Atuação</th>
+                <th className="py-3 px-4">Instância WhatsApp</th>
+                <th className="py-3 px-4">Status ao Vivo</th>
+                <th className="py-3 px-4 text-right">Ações Rápidas (Master)</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-800/60">
+              {tenants.map((t) => {
+                const hasInstance = Boolean(t.whatsapp_instance_name);
+                const isConnected = t.whatsapp_instance_status === 'CONNECTED';
+                const isConnecting = t.whatsapp_instance_status === 'CONNECTING';
+
+                return (
+                  <tr key={t.id} className="hover:bg-slate-800/20 transition">
+                    <td className="py-3 px-4">
+                      <div className="font-bold text-white flex items-center gap-1.5">
+                        <Building2 className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+                        <span>{t.trade_name || t.name}</span>
+                      </div>
+                      <span className="text-[10px] text-slate-500 font-mono">{t.contact_email}</span>
+                    </td>
+                    <td className="py-3 px-4">
+                      <span className="px-2 py-0.5 rounded-md bg-slate-800 text-[10px] font-mono text-slate-300">
+                        {t.target_sector || 'SOLO'}
+                      </span>
+                    </td>
+                    <td className="py-3 px-4 font-mono text-[11px]">
+                      {hasInstance ? (
+                        <span className="text-cyan-300 font-bold">{t.whatsapp_instance_name}</span>
+                      ) : (
+                        <span className="text-slate-600 italic">Não provisionada</span>
+                      )}
+                    </td>
+                    <td className="py-3 px-4">
+                      {hasInstance ? (
+                        isConnected ? (
+                          <div className="flex items-center gap-1.5">
+                            <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
+                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                              🟢 Conectado
+                            </span>
+                            <span className="text-[10px] font-mono text-slate-400 hidden lg:inline">
+                              {t.whatsapp_connected_number || '+55 (11) 9****-**88'}
+                            </span>
+                          </div>
+                        ) : isConnecting ? (
+                          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-500/10 border border-amber-500/30 text-amber-400 animate-pulse">
+                            <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+                            🟡 Sincronizando
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-yellow-500/10 border border-yellow-500/30 text-yellow-400">
+                            <span className="w-1.5 h-1.5 rounded-full bg-yellow-400" />
+                            🟡 Aguardando QR Code
+                          </span>
+                        )
+                      ) : (
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold bg-rose-500/10 border border-rose-500/20 text-rose-400">
+                          🔴 Desativada
+                        </span>
+                      )}
+                    </td>
+                    <td className="py-3 px-4 text-right">
+                      {!hasInstance ? (
+                        <button
+                          onClick={() => handleWhatsappAction(t.id, 'CREATE')}
+                          disabled={actionLoadingId === `${t.id}_CREATE`}
+                          className="px-3 py-1.5 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 font-bold text-[11px] inline-flex items-center gap-1 transition cursor-pointer disabled:opacity-50"
+                        >
+                          <PlusCircle className="w-3.5 h-3.5 text-emerald-400" />
+                          <span>+ Criar Instância WhatsApp</span>
+                        </button>
+                      ) : (
+                        <div className="flex items-center justify-end gap-1.5">
+                          <button
+                            title="Sincronizar Status"
+                            onClick={() => handleWhatsappAction(t.id, 'STATUS')}
+                            disabled={actionLoadingId === `${t.id}_STATUS`}
+                            className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 transition"
+                          >
+                            <RefreshCw className={`w-3.5 h-3.5 ${actionLoadingId === `${t.id}_STATUS` ? 'animate-spin' : ''}`} />
+                          </button>
+                          <button
+                            title="Reiniciar Sessão"
+                            onClick={() => handleWhatsappAction(t.id, 'RESTART')}
+                            disabled={actionLoadingId === `${t.id}_RESTART`}
+                            className="px-2.5 py-1 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/20 text-cyan-300 font-semibold text-[10px] inline-flex items-center gap-1 transition"
+                          >
+                            <Power className="w-3 h-3" />
+                            <span>Reiniciar</span>
+                          </button>
+                          <button
+                            title="Excluir Instância"
+                            onClick={() => {
+                              if (confirm(`Deseja realmente excluir a instância WhatsApp do tenant ${t.name}?`)) {
+                                handleWhatsappAction(t.id, 'DELETE');
+                              }
+                            }}
+                            disabled={actionLoadingId === `${t.id}_DELETE`}
+                            className="p-1.5 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 transition"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      )}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
