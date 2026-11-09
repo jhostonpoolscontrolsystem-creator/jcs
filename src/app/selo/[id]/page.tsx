@@ -25,8 +25,13 @@ export default function SealVerificationPage({ params }: { params?: { id?: strin
   const [loading, setLoading] = useState(true);
   const [copiedLink, setCopiedLink] = useState(false);
   const [widgetType, setWidgetType] = useState<'totem' | 'card' | 'badge'>('totem');
+  const [currentTime, setCurrentTime] = useState<string>('08:00');
 
   const poolId = params?.id || 'resort-vista-bela';
+
+  useEffect(() => {
+    setCurrentTime(new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }));
+  }, []);
 
   useEffect(() => {
     async function loadSeal() {
@@ -195,7 +200,7 @@ export default function SealVerificationPage({ params }: { params?: { id?: strin
               </div>
               <div className="text-right">
                 <span className="text-[10px] text-slate-400 flex items-center gap-1">
-                  <Clock className="w-3 h-3 text-emerald-400" /> Atualizado em {new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
+                  <Clock className="w-3 h-3 text-emerald-400" /> Atualizado em {currentTime}
                 </span>
               </div>
             </div>

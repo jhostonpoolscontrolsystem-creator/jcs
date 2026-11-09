@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 
-export const dynamic = 'force-dynamic';
-
 const MASTER_EMAILS = ['danielsmlopes@hotmail.com', 'patigrubel@gmail.com'];
 
 export async function GET(req: NextRequest) {

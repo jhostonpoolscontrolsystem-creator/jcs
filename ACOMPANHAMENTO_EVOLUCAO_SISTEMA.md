@@ -6,11 +6,12 @@
 ---
 
 ## 📌 Status Atual do Ecossistema (Novembro/2026)
-- **Versão Homologada**: `JHPCS Core v6.7 (Tailored Market Sector Solutions & Deep Landing Architecture Edition)`
+- **Versão Homologada**: `JHPCS Core v6.8 (Transparent Pricing Matrix & Next.js 16 Turbopack Production Ready)`
 - **Índice de Estabilidade do Sistema**: **100 / 100** (Auditado via `scripts/run-system-audit.mjs`)
 - **Portais em Produção**:
   - 🌐 **Landing Page Institucional & Comercial**: `https://jhpcs.vercel.app/` (Grupo de Rotas Marketing)
   - 🧭 **Página de Setores & Soluções Especializadas**: `https://jhpcs.vercel.app/solucoes`
+  - 💳 **Tabela de Preços & Comparativo de Planos**: `https://jhpcs.vercel.app/planos`
   - 🖥️ **Portal Web Master & Cockpit Operacional**: `https://jhpcs.vercel.app/` (ou `https://jcs-pools.vercel.app`)
   - 🚀 **Onboarding & Ativação de Novos Clientes**: `https://jhpcs.vercel.app/onboarding`
   - 👑 **Centro de Comando & Governança SUPER ADMIN**: `https://jhpcs.vercel.app/` (Visão Soberana Master)
@@ -28,6 +29,19 @@
 ---
 
 ## 📅 Linha do Tempo & Histórico Detalhado de Evolução
+
+### [v6.8] - 09/11/2026: Tabela Oficial de Preços, Comparativo de Recursos & Resolução do Build Turbopack
+- **Página de Preços & Planos ([`src/app/(marketing)/planos/page.tsx`](file:///C:/JHPCS/src/app/(marketing)/planos/page.tsx))**:
+  - Seletor dinâmico de faturamento Mensal vs Anual (16% de desconto / 2 meses grátis).
+  - Cards detalhados para os 4 planos: Solo (R$ 49,90), Fleet (R$ 189,90), Facility (R$ 290,00) e Retail (R$ 149,00).
+  - Tabela comparativa exaustiva de funcionalidades e garantias com selos LGPD e checkout PIX.
+- **Resolução Arquitetural do Build Next.js 16 (Turbopack / Vercel)**:
+  - Eliminação de rotas paralelas duplicadas entre `(dashboard)` e rotas raiz.
+  - Remoção de `export const dynamic = 'force-dynamic'` em APIs para compatibilidade plena com `cacheComponents` do Next.js 16.
+  - Correção de hidratação e prerender em `src/app/selo/[id]/page.tsx` com `currentTime` isolado em `useEffect`.
+  - Sucesso pleno na compilação estática (`npm run build` gerando as 82 páginas).
+
+---
 
 ### [v6.7] - 09/11/2026: Página Aprofundada de Setores & Soluções Especializadas
 - **Construção da Rota Especializada ([`src/app/(marketing)/solucoes/page.tsx`](file:///C:/JHPCS/src/app/(marketing)/solucoes/page.tsx))**:

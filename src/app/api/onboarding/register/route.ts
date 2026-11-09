@@ -3,8 +3,6 @@ import { supabase } from '@/lib/supabase';
 import { createInstance } from '@/lib/whatsapp/evolutionClient';
 import bcrypt from 'bcryptjs';
 
-export const dynamic = 'force-dynamic';
-
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();

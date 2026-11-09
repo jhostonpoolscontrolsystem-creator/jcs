@@ -2,8 +2,6 @@ import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 import { validateGeofencePresence } from '@/lib/geofencing';
 
-export const dynamic = 'force-dynamic';
-
 export interface ShiftInspectionLog {
   id: string;
   poolId: string;

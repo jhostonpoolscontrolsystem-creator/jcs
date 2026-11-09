@@ -7,8 +7,6 @@ import {
   sendTextMessage 
 } from '@/lib/whatsapp/evolutionClient';
 
-export const dynamic = 'force-dynamic';
-
 const MASTER_EMAILS = ['danielsmlopes@hotmail.com', 'patigrubel@gmail.com'];
 const CORPORATE_INSTANCE_NAME = 'jhoston_corporate_master';
 

@@ -1,8 +1,6 @@
 import { NextResponse } from 'next/server';
 import { calculateLSI } from '@/lib/substrate-rules';
 
-export const dynamic = 'force-dynamic';
-
 export interface PrescriptionItem {
   id: string;
   name: string;

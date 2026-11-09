@@ -2,8 +2,6 @@ import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
-export const dynamic = 'force-dynamic';
-
 export async function GET(request: Request) {
   try {
     const pdfPath = path.resolve(process.cwd(), 'public', 'LAUDO_ESTABILIDADE_SISTEMA_JHPCS.pdf');

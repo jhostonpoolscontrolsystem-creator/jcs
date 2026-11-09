@@ -3,8 +3,6 @@ import { supabase } from '@/lib/supabase';
 import { sendMediaDocument, sendTextMessage } from '@/lib/whatsapp/evolutionClient';
 import jsPDF from 'jspdf';
 
-export const dynamic = 'force-dynamic';
-
 /**
  * Cron Job Automatizado de Despacho Quinzenal e Mensal
  * Disparado via Vercel Cron às 08:00 (dias 1 e 16 de cada mês)
