@@ -6,10 +6,11 @@
 ---
 
 ## 📌 Status Atual do Ecossistema (Novembro/2026)
-- **Versão Homologada**: `JHPCS Core v5.7 (Demo Environments, Auto-Reset & Commercial Sales Edition)`
+- **Versão Homologada**: `JHPCS Core v5.8 (Interactive Hotel Seal & Public Verification Edition)`
 - **Índice de Estabilidade do Sistema**: **100 / 100** (Auditado via `scripts/run-system-audit.mjs`)
 - **Portais em Produção**:
   - 🖥️ **Portal Web Master & Clientes**: `https://jhpcs.vercel.app` (ou `https://jcs-pools.vercel.app`)
+  - 🏅 **Selo de Conformidade & Totem de Recepção**: `https://jhpcs.vercel.app/selo`
   - 💳 **Gestão de Assinatura & Módulos**: `https://jhpcs.vercel.app/settings/subscription`
   - 📋 **Logbook Sanitário Digital Anvisa**: `https://jhpcs.vercel.app/logbook-sanitario`
   - ⚙️ **Configurações Multi-Tenant & PIX**: `https://jhpcs.vercel.app/configuracoes`
@@ -20,6 +21,21 @@
 ---
 
 ## 📅 Linha do Tempo & Histórico Detalhado de Evolução
+
+### [v5.8] - 09/11/2026: Selo Digital Interativo para Hotéis/Condomínios & Widget de Incorporação
+- **Selo Digital de Qualidade da Água & Segurança ([`/selo`](file:///C:/JHPCS/src/app/selo/page.tsx))**:
+  - Construção da página pública de certificação em [`src/app/selo/[id]/page.tsx`](file:///C:/JHPCS/src/app/selo/[id]/page.tsx).
+  - Exibe o totem pericial diagramado com a chancela *"Qualidade da Água Auditada por JHoston Pools & Lagoons"*, parâmetros de pH, Cloro Livre, Temperatura e Índice de Segurança do Banhista (Grau de Pureza A).
+  - Certificação NBR 10.818 / RDC Anvisa com menção ao Responsável Técnico (CREA/CRQ).
+- **QR Code Dinâmico para Recepções e Balcões**:
+  - Geração automática de QR Code apontando para o laudo em tempo real. Hóspedes e condôminos escaneiam com a câmera do smartphone para atestar a segurança sanitária da água.
+- **Widget Embed para Sites de Hotéis e Condomínios**:
+  - Página dedicada em [`src/app/selo/embed/[id]/page.tsx`](file:///C:/JHPCS/src/app/selo/embed/[id]/page.tsx) gerando código `<iframe>` leve para inclusão no rodapé ou na página de lazer do site do empreendimento.
+  - Endpoint de dados públicos: [`src/app/api/seal/verify/route.ts`](file:///C:/JHPCS/src/app/api/seal/verify/route.ts).
+- **Atalho no Menu Superior**:
+  - Inserido botão **"Selo de Conformidade"** no header de navegação principal ([`src/app/page.tsx`](file:///C:/JHPCS/src/app/page.tsx)).
+
+---
 
 ### [v5.7] - 09/11/2026: Ambientes Demo Multi-Setor, Auto-Reset no Logout e Manuais Oficiais
 - **5 Ambientes de Demonstração Pré-Configurados**:

@@ -145,3 +145,4 @@ Para comprovar que o sistema restaura o estado inicial:
 2. Clique no ícone de **Sair / Desconectar** no topo direito.
 3. A rota `/api/auth/logout` detecta a conta demo, executa a procedure `fn_reset_demo_tenant_data` e restaura o banco de dados para os valores padrão de fábrica.
 4. Faça login novamente: o ambiente estará 100% limpo e pronto para o próximo treinamento!
+
