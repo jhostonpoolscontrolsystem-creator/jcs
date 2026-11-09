@@ -6,6 +6,7 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const maintainerId = searchParams.get('maintainer_id');
     const clientId = searchParams.get('client_id');
+    const jhostonOnly = searchParams.get('jhoston_only') === 'true';
 
     // 1. Se for um piscineiro específico, busca somente as piscinas vinculadas a ele
     if (maintainerId) {
@@ -16,11 +17,17 @@ export async function GET(request: Request) {
 
       if (!assignError && assignments && assignments.length > 0) {
         const poolIds = assignments.map(a => a.pool_id);
-        const { data: pools, error: poolsError } = await supabase
+        let poolsQuery = supabase
           .from('pools')
           .select('*')
           .in('id', poolIds)
           .order('created_at', { ascending: false });
+
+        if (jhostonOnly) {
+          poolsQuery = poolsQuery.eq('is_jhoston_reformed', true);
+        }
+
+        const { data: pools, error: poolsError } = await poolsQuery;
 
         if (!poolsError && pools) {
           return NextResponse.json({ success: true, pools, source: 'supabase_scoped_maintainer' });
@@ -32,6 +39,9 @@ export async function GET(request: Request) {
     let query = supabase.from('pools').select('*').order('created_at', { ascending: false });
     if (clientId) {
       query = query.eq('client_id', clientId);
+    }
+    if (jhostonOnly) {
+      query = query.eq('is_jhoston_reformed', true);
     }
 
     const { data, error } = await query;

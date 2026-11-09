@@ -424,12 +424,19 @@ export function AuthModal({ isOpen, onClose, onLoginSuccess, currentUser }: Auth
                     </div>
                   </div>
 
-                  {/* Garantia de Segurança Criptografada */}
-                  <div className="pt-2 pb-1">
-                    <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800 text-[11px] text-slate-400 flex items-center gap-2">
-                      <ShieldCheck className="w-4 h-4 text-cyan-400 shrink-0" />
+                  {/* Garantia de Segurança Criptografada & LGPD Privacy Guard */}
+                  <div className="pt-2 pb-1 space-y-2">
+                    <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800 text-[11px] text-slate-400 flex items-start gap-2">
+                      <ShieldCheck className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
                       <span>
-                        Ambiente protegido com criptografia de ponta a ponta e controle hierárquico RLS. Insira suas credenciais cadastradas.
+                        Ambiente protegido por criptografia e controle multi-tenant. O sistema opera em conformidade com a <strong>LGPD</strong>: dados pessoais e faturamentos de terceiros são estritamente anonimizados.
+                      </span>
+                    </div>
+
+                    <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-[10px] text-amber-300 flex items-center justify-between">
+                      <span className="flex items-center gap-1.5">
+                        <Droplet className="w-3.5 h-3.5 text-amber-400" />
+                        <strong>Garantia Especial JHoston Pools:</strong> Piscinas de obras e reformas próprias têm prioridade com laudo pericial contínuo.
                       </span>
                     </div>
                   </div>

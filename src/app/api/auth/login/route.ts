@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 import bcrypt from 'bcryptjs';
 import { checkRateLimit, registerFailedAttempt, registerSuccessfulLogin } from '@/lib/security';
+import { maskEmail, maskPhone, maskCpf } from '@/lib/lgpd-masking';
 
 export async function POST(request: Request) {
   try {
@@ -152,6 +153,9 @@ export async function POST(request: Request) {
         email: user.email,
         phone: user.phone,
         role: user.role,
+        is_jhoston_direct_client: Boolean(user.is_jhoston_direct_client),
+        lgpd_compliant: true,
+        privacy_policy_version: '2026.2',
       },
       token: `jwt-jhpcs-${user.id}-${Date.now()}`,
     });

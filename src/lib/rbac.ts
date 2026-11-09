@@ -9,13 +9,15 @@ export interface RolePermissions {
   canApproveChemicalPurchases: boolean;
   canInsertMaintenanceLogs: boolean;
   canViewFinancials: boolean;
+  canViewUnmaskedSensitiveData: boolean; // LGPD: Se falso, dados pessoais são ofuscados
+  canFilterJhostonExclusivePools: boolean; // Segmenta piscinas reformadas pela JHoston
   scope: 'GLOBAL' | 'CLIENT_ONLY' | 'ASSIGNED_POOLS_ONLY';
 }
 
 export const ROLE_DEFINITIONS: Record<UserRole, { label: string; description: string; permissions: RolePermissions }> = {
   MASTER: {
-    label: 'Master (Administração Geral)',
-    description: 'Acesso absoluto ao ecossistema. Gerencia instâncias WhatsApp, parametriza o motor químico e credenciais executivas.',
+    label: 'Master (Administração Geral & Governança)',
+    description: 'Acesso à infraestrutura, segurança e telemetria. Por compliance com a LGPD, visualiza dados pessoais e bancários de terceiros de forma anonimizada.',
     permissions: {
       canAccessMasterSettings: true,
       canViewGlobalBI: true,
@@ -25,13 +27,15 @@ export const ROLE_DEFINITIONS: Record<UserRole, { label: string; description: st
       canApproveChemicalPurchases: true,
       canInsertMaintenanceLogs: true,
       canViewFinancials: true,
+      canViewUnmaskedSensitiveData: false, // LGPD Estrita: Superusuário não espiona dados pessoais de clientes de terceiros
+      canFilterJhostonExclusivePools: true, // Prioriza acompanhamento de piscinas entregues pela JHoston
       scope: 'GLOBAL',
     },
   },
 
   DIRETORIA_JH: {
-    label: 'Diretoria JHostonTec',
-    description: 'Visão executiva e analítica (Dashboards BI). Acompanha KPIs de saúde da marca, conformidade global e SLAs.',
+    label: 'Diretoria JHoston Pools & Lagoons',
+    description: 'Acompanhamento exclusivo das piscinas executadas pela JHoston, garantias ativas e funil de originação de reformas de alto padrão.',
     permissions: {
       canAccessMasterSettings: false,
       canViewGlobalBI: true,
@@ -41,13 +45,29 @@ export const ROLE_DEFINITIONS: Record<UserRole, { label: string; description: st
       canApproveChemicalPurchases: false,
       canInsertMaintenanceLogs: false,
       canViewFinancials: true,
+      canViewUnmaskedSensitiveData: false,
+      canFilterJhostonExclusivePools: true,
       scope: 'GLOBAL',
     },
   },
 
   TECNICO_JH: {
-    label: 'Equipe Técnica JHostonTec',
-    description: 'Visão tática e pericial. Atua nas Red Zones (piscinas em risco), emite laudos periciais e revalida/suspende garantias.',
+    label: 'Equipe Técnica & Pericial JHoston',
+    description: 'Visão pericial e arbitral. Atua prioritariamente nas Red Zones das piscinas sob garantia decenal da JHoston.',
+    permissions: {
+      canAccessMasterSettings: false,
+      canViewGlobalBI: false,
+      canAuditRedZones: true,
+      canSuspendWarranty: true,
+      canManageMaintainers: true,
+      canApproveChemicalPurchases: false,
+      canInsertMaintenanceLogs: false,
+      canViewFinancials: false,
+      canViewUnmaskedSensitiveData: false,
+      canFilterJhostonExclusivePools: true,
+      scope: 'GLOBAL',
+    },
+  },
     permissions: {
       canAccessMasterSettings: false,
       canViewGlobalBI: false,
