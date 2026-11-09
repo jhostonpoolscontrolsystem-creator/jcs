@@ -6,7 +6,7 @@
 ---
 
 ## 📌 Status Atual do Ecossistema (Novembro/2026)
-- **Versão Homologada**: `JHPCS Core v5.6 (SaaS Multi-Tenant & Modular Licensing Edition)`
+- **Versão Homologada**: `JHPCS Core v5.7 (Demo Environments, Auto-Reset & Commercial Sales Edition)`
 - **Índice de Estabilidade do Sistema**: **100 / 100** (Auditado via `scripts/run-system-audit.mjs`)
 - **Portais em Produção**:
   - 🖥️ **Portal Web Master & Clientes**: `https://jhpcs.vercel.app` (ou `https://jcs-pools.vercel.app`)
@@ -20,6 +20,25 @@
 ---
 
 ## 📅 Linha do Tempo & Histórico Detalhado de Evolução
+
+### [v5.7] - 09/11/2026: Ambientes Demo Multi-Setor, Auto-Reset no Logout e Manuais Oficiais
+- **5 Ambientes de Demonstração Pré-Configurados**:
+  - Implementada a migration [`supabase/migrations/20261109_demo_tenants_and_reset.sql`](file:///C:/JHPCS/supabase/migrations/20261109_demo_tenants_and_reset.sql).
+  - Ambientes criados:
+    1. **Solo**: `teste.solo@teste.com` (Plano SOLO, piscinas de vinil/fibra).
+    2. **Frota**: `teste.frota@teste.com` (Plano FLEET, caminhonete BRA-2026 com estoque volante e baixa estequiométrica).
+    3. **Facility**: `teste.facility@teste.com` (Plano FACILITY, Resort Vista Bela com logbook de 3 turnos).
+    4. **Loja**: `teste.loja@teste.com` (Plano RETAIL, balcão express e checkout PIX dinâmico).
+    5. **Enterprise**: `teste.jhoston@teste.com` (Plano ENTERPRISE, piscina com anomalia proposital ISL -0.72 para contestação de garantia).
+- **Gatilho de Auto-Reset no Logout**:
+  - Implementado em [`src/app/api/auth/logout/route.ts`](file:///C:/JHPCS/src/app/api/auth/logout/route.ts).
+  - Invoca a procedure `fn_reset_demo_tenant_data` que limpa testes recentes da sessão e restaura estoques e status de fábrica ao deslogar.
+- **Documentação Oficial de Expansão Comercial e Onboarding**:
+  - [`docs/MANUAL_APRESENTACAO_COMERCIAL.md`](file:///C:/JHPCS/docs/MANUAL_APRESENTACAO_COMERCIAL.md): Sales script de 15 minutos dividido por setor (Solo 3m, Frota 4m, Facility 4m, Loja 4m e Jhoston).
+  - [`docs/MANUAL_TREINAMENTO_OPERACIONAL.md`](file:///C:/JHPCS/docs/MANUAL_TREINAMENTO_OPERACIONAL.md): Trilha prática de onboarding de 7 dias para novos clientes e operadores.
+  - Sincronização automática para [`public/manuais/`](file:///C:/JHPCS/public/manuais/).
+
+---
 
 ### [v5.6] - 09/11/2026: Matriz de Setores SaaS, Licenciamento Modular & Module Gates
 - **Modelagem Relacional de Licenciamento Supabase**:

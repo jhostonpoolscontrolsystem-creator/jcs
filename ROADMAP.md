@@ -24,8 +24,9 @@
 [Concluído]  Sprint 5: Configurações Multi-Tenant de PIX e Customização White-label
 [Concluído]  Sprint 6: Geofencing por GPS (50m) & Logbook Sanitário Anvisa para Hotéis/Clubes
 [Concluído]  Sprint 7: Matriz de Setores SaaS, Licenciamento Modular e Module Gates
-[Em Curso]   Sprint 8: Refatoração do PWA de Campo (Janela c:\JHPCS-campo)
-[Planejado]  Sprint 9: Ativação sob Demanda do ERP Fiscal Completo (Focus / PlugNotas)
+[Concluído]  Sprint 8: Ambientes Demo Multi-Setor, Auto-Reset e Manuais Comerciais
+[Em Curso]   Sprint 9: Refatoração do PWA de Campo (Janela c:\JHPCS-campo)
+[Planejado]  Sprint 10: Ativação sob Demanda do ERP Fiscal Completo (Focus / PlugNotas)
 ```
 
 ---

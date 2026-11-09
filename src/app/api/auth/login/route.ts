@@ -93,6 +93,85 @@ export async function POST(request: Request) {
         });
       }
 
+      // ─── AMBIENTES DE DEMONSTRAÇÃO COMERCIAIS (Senha: teste123) ───
+      if (password === 'teste123') {
+        if (cleanEmail === 'teste.solo@teste.com') {
+          return NextResponse.json({
+            success: true,
+            must_change_password: false,
+            user: {
+              id: '11111111-1111-1111-1111-000000000001',
+              name: 'Carlos Tratador (Demo Solo)',
+              email: 'teste.solo@teste.com',
+              role: 'PISCINEIRO',
+              tenant_id: '11111111-0000-0000-0000-000000000001',
+              tenant_name: 'AcquaClean Tratador Autônomo',
+              tier_id: 'solo',
+            },
+          });
+        }
+        if (cleanEmail === 'teste.frota@teste.com') {
+          return NextResponse.json({
+            success: true,
+            must_change_password: false,
+            user: {
+              id: '22222222-2222-2222-2222-000000000002',
+              name: 'Marcos Gerente (Demo Frota)',
+              email: 'teste.frota@teste.com',
+              role: 'GERENCIA_CLI',
+              tenant_id: '22222222-0000-0000-0000-000000000002',
+              tenant_name: 'PoolMaster Serviços & Frotas',
+              tier_id: 'fleet',
+            },
+          });
+        }
+        if (cleanEmail === 'teste.facility@teste.com') {
+          return NextResponse.json({
+            success: true,
+            must_change_password: false,
+            user: {
+              id: '33333333-3333-3333-3333-000000000003',
+              name: 'Renata Governança (Demo Facility)',
+              email: 'teste.facility@teste.com',
+              role: 'TECNICO_CLI',
+              tenant_id: '33333333-0000-0000-0000-000000000003',
+              tenant_name: 'Resort & Spa Vista Bela',
+              tier_id: 'facility',
+            },
+          });
+        }
+        if (cleanEmail === 'teste.loja@teste.com') {
+          return NextResponse.json({
+            success: true,
+            must_change_password: false,
+            user: {
+              id: '44444444-4444-4444-4444-000000000004',
+              name: 'Lucas Balcão (Demo Loja)',
+              email: 'teste.loja@teste.com',
+              role: 'TECNICO_CLI',
+              tenant_id: '44444444-0000-0000-0000-000000000004',
+              tenant_name: 'AcquaShop Químicos & Acessórios',
+              tier_id: 'retail',
+            },
+          });
+        }
+        if (cleanEmail === 'teste.jhoston@teste.com') {
+          return NextResponse.json({
+            success: true,
+            must_change_password: false,
+            user: {
+              id: '55555555-5555-5555-5555-000000000005',
+              name: 'Eng. Pericial Jhoston (Demo Enterprise)',
+              email: 'teste.jhoston@teste.com',
+              role: 'DIRETORIA_JH',
+              tenant_id: '55555555-0000-0000-0000-000000000005',
+              tenant_name: 'Jhoston Pools & Lagoons (Auditoria)',
+              tier_id: 'enterprise_jhoston',
+            },
+          });
+        }
+      }
+
       registerFailedAttempt(ip);
       return NextResponse.json({ error: 'Usuário não encontrado.' }, { status: 401 });
     }
@@ -110,6 +189,17 @@ export async function POST(request: Request) {
       } else if (user.email === 'patigrubel@gmail.com' && password === 'Maraca132') {
         isPasswordValid = true;
       } else if ((user.email === 'jhostontec@jhostontec.com.br' || user.email === 'tecnico@jhostontec.com.br') && password === '123456') {
+        isPasswordValid = true;
+      } else if (
+        [
+          'teste.solo@teste.com',
+          'teste.frota@teste.com',
+          'teste.facility@teste.com',
+          'teste.loja@teste.com',
+          'teste.jhoston@teste.com',
+        ].includes(user.email) &&
+        password === 'teste123'
+      ) {
         isPasswordValid = true;
       }
     }
