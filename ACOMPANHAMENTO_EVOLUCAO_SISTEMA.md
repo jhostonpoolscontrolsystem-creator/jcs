@@ -6,7 +6,7 @@
 ---
 
 ## 📌 Status Atual do Ecossistema (Novembro/2026)
-- **Versão Homologada**: `JHPCS Core v6.1 (Decennial Warranty SLA & Base64 Health Reports Edition)`
+- **Versão Homologada**: `JHPCS Core v6.2 (Multi-Instance WhatsApp Evolution & Automated Cron Reminders Edition)`
 - **Índice de Estabilidade do Sistema**: **100 / 100** (Auditado via `scripts/run-system-audit.mjs`)
 - **Portais em Produção**:
   - 🖥️ **Portal Web Master & Clientes**: `https://jhpcs.vercel.app` (ou `https://jcs-pools.vercel.app`)
@@ -16,7 +16,7 @@
   - 🏅 **Selo de Conformidade & Totem de Recepção**: `https://jhpcs.vercel.app/selo`
   - 💳 **Gestão de Assinatura & Módulos**: `https://jhpcs.vercel.app/settings/subscription`
   - 📋 **Logbook Sanitário Digital Anvisa**: `https://jhpcs.vercel.app/logbook-sanitario`
-  - ⚙️ **Configurações Multi-Tenant & PIX**: `https://jhpcs.vercel.app/configuracoes`
+  - ⚙️ **Configurações Multi-Tenant & WhatsApp**: `https://jhpcs.vercel.app/configuracoes`
   - 🛒 **Receituário de Balcão & PIX**: `https://jhpcs.vercel.app/trade/balcao`
   - 📱 **App PWA de Campo (Isolado)**: `https://jhpcs-campo.vercel.app`
   - 💾 **Storage Global de Evidências**: Cloudflare R2 (`pub-0698df4992464295bd9d323e91a2aee4.r2.dev`)
@@ -24,6 +24,24 @@
 ---
 
 ## 📅 Linha do Tempo & Histórico Detalhado de Evolução
+
+### [v6.2] - 09/11/2026: Multi-Instância Evolution API (WhatsApp White-Label) & Cron Job de Cobrança
+- **Arquitetura Multi-Tenant de Mensageria (Evolution API)**:
+  - Implementada a migration [`supabase/migrations/20261109_whatsapp_evolution_multitenant.sql`](file:///C:/JHPCS/supabase/migrations/20261109_whatsapp_evolution_multitenant.sql) com colunas de controle por tenant: `whatsapp_instance_name`, `whatsapp_instance_status`, `whatsapp_connected_number`, `whatsapp_auto_send_reports`, `whatsapp_auto_send_pix` e `whatsapp_last_sync_at`.
+  - Cliente TypeScript [`src/lib/whatsapp/evolutionClient.ts`](file:///C:/JHPCS/src/lib/whatsapp/evolutionClient.ts) com suporte a isolamento de instâncias (`jhpcs_tenant_<id>`), criação sob demanda, geração de QR Code, verificação de estado, envio de mensagens de texto com delay anti-ban humanizado (1.5s com composing) e despacho de documentos em Base64.
+- **Rotas de API no Next.js App Router**:
+  - `POST /api/whatsapp/connect`: Cria/inicializa a instância do tenant e entrega o QR Code em Base64.
+  - `GET /api/whatsapp/status`: Endpoint de polling e sincronização de status com o banco de dados.
+  - `POST /api/whatsapp/disconnect`: Faz logout seguro da sessão na Evolution API.
+  - `POST /api/whatsapp/send-test`: Realiza teste de envio imediato para homologação do número conectado.
+- **Cron Job Matinal de Vencimento de Mensalidades**:
+  - `GET/POST /api/cron/invoice-reminders`: Cron job com verificação de segurança (`CRON_SECRET`) que busca faturas/contratos com vencimento em `today + 2 dias` e despacha lembrete humanizado via WhatsApp com a chave PIX do tenant.
+- **Painel Visual em Configurações ([`src/app/configuracoes/page.tsx`](file:///C:/JHPCS/src/app/configuracoes/page.tsx))**:
+  - Card dedicado "Conexão WhatsApp Corporativo (White-Label)" com badges dinâmicos (ONLINE / SINCRONIZANDO / OFFLINE), botões de disparo de teste e desconexão.
+  - Modal interativo com renderização do QR Code em Base64, contagem regressiva de 45 segundos e polling automático em background a cada 3 segundos.
+  - Switches de configuração para auto-envio de laudos periciais pós-visita e envio de chave PIX de faturas.
+
+---
 
 ### [v6.1] - 09/11/2026: Governança de Garantia JHoston, Termo Escalonado PF/PJ e Laudos em Base64
 - **Termo de Compromisso e Garantia Decenal Escalonada (PF vs PJ)**:

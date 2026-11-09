@@ -47,3 +47,4 @@ SET is_jhoston_asset = TRUE,
     report_frequency = 'QUINZENAL',
     warranty_certificate_number = 'JH-2026-DECENAL-PJ-084'
 WHERE name LIKE '%Resort%' OR name LIKE '%Olímpica%';
+

@@ -114,3 +114,4 @@ A Diretoria deve acionar imediatamente o proprietário ou o tratador responsáve
     return NextResponse.json({ success: false, error: err.message }, { status: 500 });
   }
 }
+
