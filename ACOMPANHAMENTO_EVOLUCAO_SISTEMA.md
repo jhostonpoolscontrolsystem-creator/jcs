@@ -6,10 +6,11 @@
 ---
 
 ## 📌 Status Atual do Ecossistema (Novembro/2026)
-- **Versão Homologada**: `JHPCS Core v6.5 (Corporate WhatsApp Connector, Receita Federal Auto-Complete & Client Onboarding Flow)`
+- **Versão Homologada**: `JHPCS Core v6.6 (High-Authority Marketing Landing Page & Engineering Showcase Edition)`
 - **Índice de Estabilidade do Sistema**: **100 / 100** (Auditado via `scripts/run-system-audit.mjs`)
 - **Portais em Produção**:
-  - 🖥️ **Portal Web Master & Clientes**: `https://jhpcs.vercel.app` (ou `https://jcs-pools.vercel.app`)
+  - 🌐 **Landing Page Institucional & Comercial**: `https://jhpcs.vercel.app/` (Grupo de Rotas Marketing)
+  - 🖥️ **Portal Web Master & Cockpit Operacional**: `https://jhpcs.vercel.app/` (ou `https://jcs-pools.vercel.app`)
   - 🚀 **Onboarding & Ativação de Novos Clientes**: `https://jhpcs.vercel.app/onboarding`
   - 👑 **Centro de Comando & Governança SUPER ADMIN**: `https://jhpcs.vercel.app/` (Visão Soberana Master)
   - 🛡️ **Perícia de Garantia JHoston**: `https://jhpcs.vercel.app/garantia-pericial`
@@ -26,6 +27,30 @@
 ---
 
 ## 📅 Linha do Tempo & Histórico Detalhado de Evolução
+
+### [v6.6] - 09/11/2026: Landing Page Institucional & Comercial de Alta Autoridade Técnica
+- **Construção da Nova Home Comercial ([`src/app/(marketing)/page.tsx`](file:///C:/JHPCS/src/app/(marketing)/page.tsx))**:
+  - Paleta visual nobre *Dark Slate* com acentos em *Ciano Neon* e *Dourado/Âmbar* (reforço da chancela construtiva da Jhoston Pools & Lagoons).
+  - **Hero Section com Alta Conversão**:
+    * Badge de destaque: "⚡ A Primeira Plataforma Unificada com Motor Químico ISL & Garantia Pericial".
+    * Headline e subheadline focadas na união entre inteligência estequiométrica e preservação patrimonial.
+    * CTA duplo: "Iniciar Teste Gratuito de 7 Dias" (direcionamento para `/onboarding`) e "Ver Demonstração Interativa" (atalho para o cockpit demo).
+    * Mockup flutuante de campo simulando o laudo com leitura de fita, cálculo do ISL (+0.12 Equilibrada) e comprovante WhatsApp instantâneo.
+  - **Faixa de Credenciais e Autoridade**:
+    * Engenharia Construtiva Jhoston (Garantia Decenal de Revestimento).
+    * Conformidade Sanitária Total (NBR 10.818 / RDC Anvisa).
+    * Armazenamento Global de Evidências no Cloudflare R2.
+    * Blindagem e Isolamento sob a LGPD (Lei 13.709/18).
+  - **Apresentação dos 4 Setores de Mercado**:
+    * Cards interativos detalhando os planos Solo, Fleet, Facility e Retail.
+  - **Infográfico "Como Funciona o Ecossistema Fechado"**:
+    * Ciclo em 4 passos: Leitura na Borda/Balcão -> Motor ISL -> Prescrição & Baixa de Estoque -> Laudo Inviolável no WhatsApp.
+  - **FAQ Interativo em Accordion**:
+    * Respostas técnicas sobre funcionamento offline PWA, privacidade LGPD, módulo fiscal e teste de 7 dias grátis.
+  - **CTA Final de Fechamento**:
+    * Formulário com captura rápida de e-mail e selo de suporte pericial 24/7.
+
+---
 
 ### [v6.5] - 09/11/2026: Conector WhatsApp Matriz Jhoston, Auto-Busca CNPJ & Onboarding Completo
 - **Conector Institucional da Matriz Jhoston ([`src/components/MasterGovernanceHub.tsx`](file:///C:/JHPCS/src/components/MasterGovernanceHub.tsx))**:

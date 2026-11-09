@@ -98,3 +98,4 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: err.message || 'Erro ao processar cadastro de onboarding.' }, { status: 500 });
   }
 }
+

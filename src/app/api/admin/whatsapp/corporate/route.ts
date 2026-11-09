@@ -96,3 +96,4 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: err.message || 'Erro interno no conector corporativo.' }, { status: 500 });
   }
 }
+
