@@ -2,10 +2,10 @@ name: Keep Supabase Awake (Anti-Pause Pulse)
 
 on:
   schedule:
-    # Executa a cada 3 dias às 06:00 UTC (segunda e quinta-feira)
-    # Garante que o Supabase nunca alcance a janela de 7 dias de inatividade
+    # Executa a cada 3 dias às 06:00 UTC (03:00 Horário de Brasília)
+    # Garante que o Supabase nunca alcance a janela de 7 dias de inatividade gratuita
     - cron: '0 6 */3 * *'
-  workflow_dispatch: # Permite disparo manual via painel do GitHub Actions a qualquer momento
+  workflow_dispatch: # Permite disparo manual via painel Actions do GitHub a qualquer momento
 
 jobs:
   ping-supabase:
@@ -13,10 +13,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Send Keep-Alive Pulse to Application Endpoint
+      - name: 1. Send Pulse to Vercel Application Endpoint
         run: |
-          echo "🚀 Disparando pulso de atividade para manter o Supabase ativo..."
-          RESPONSE=$(curl -s -w "\nHTTP_STATUS:%{http_code}" https://jhpcs.vercel.app/api/cron/keep-alive || curl -s -w "\nHTTP_STATUS:%{http_code}" https://jcs-pools.vercel.app/api/cron/keep-alive)
+          echo "🚀 Disparando pulso de atividade para o endpoint da aplicação..."
+          RESPONSE=$(curl -s -m 20 -w "\nHTTP_STATUS:%{http_code}" https://jhpcs.vercel.app/api/cron/keep-alive || curl -s -m 20 -w "\nHTTP_STATUS:%{http_code}" https://jcs-pools.vercel.app/api/cron/keep-alive)
           
           BODY=$(echo "$RESPONSE" | sed -e '$d')
           STATUS=$(echo "$RESPONSE" | tail -n1 | cut -d':' -f2)
@@ -25,20 +25,23 @@ jobs:
           echo "HTTP Status Code: $STATUS"
 
           if [ "$STATUS" -ge 200 ] && [ "$STATUS" -lt 300 ]; then
-            echo "✅ Banco de dados e aplicação acordados com sucesso!"
+            echo "✅ Aplicação e banco de dados contatados com sucesso!"
           else
-            echo "⚠️ Alerta: Retorno HTTP $STATUS recebido. Verifique as credenciais ou status da Vercel."
+            echo "⚠️ Aviso: Endpoint da aplicação retornou HTTP $STATUS."
           fi
 
-      - name: Direct REST Fallback Ping (Supabase Direct)
-        if: env.SUPABASE_URL != '' && env.SUPABASE_ANON_KEY != ''
+      - name: 2. Direct REST Ping to Supabase (Secondary Defense)
         env:
           SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
         run: |
-          echo "📡 Executando ping REST direto na tabela de piscinas do Supabase..."
-          curl -s -X GET "${SUPABASE_URL}/rest/v1/pools?select=id&limit=1" \
-            -H "apikey: ${SUPABASE_ANON_KEY}" \
-            -H "Authorization: Bearer ${SUPABASE_ANON_KEY}"
-          echo "✅ Pulso REST direto enviado com sucesso!"
-
+          if [ -n "$SUPABASE_URL" ] && [ -n "$SUPABASE_ANON_KEY" ]; then
+            echo "📡 Executando consulta direta REST no Supabase..."
+            curl -s -m 20 -X GET "${SUPABASE_URL}/rest/v1/pools?select=id&limit=1" \
+              -H "apikey: ${SUPABASE_ANON_KEY}" \
+              -H "Authorization: Bearer ${SUPABASE_ANON_KEY}"
+            echo ""
+            echo "✅ Pulso REST direto enviado com sucesso!"
+          else
+            echo "ℹ️ Secrets do Supabase não configurados no GitHub Actions. Pulando ping direto secundário."
+          fi

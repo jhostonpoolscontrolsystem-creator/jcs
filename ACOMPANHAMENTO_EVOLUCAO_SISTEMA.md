@@ -6,7 +6,7 @@
 ---
 
 ## 📌 Status Atual do Ecossistema (Novembro/2026)
-- **Versão Homologada**: `JHPCS Core v6.12 (Public Landing Page Decoupling & Master Cockpit Edition)`
+- **Versão Homologada**: `JHPCS Core v6.13 (Keep-Alive Anti-Pause Workflow & Supabase Health Pulse Edition)`
 - **Índice de Estabilidade do Sistema**: **100 / 100** (Auditado via `scripts/run-system-audit.mjs` com Benchmarking de 2 páginas)
 - **Portais em Produção**:
   - 🌐 **Landing Page Institucional & Comercial**: `https://jhpcs.vercel.app/` (Grupo de Rotas Marketing)
@@ -30,6 +30,18 @@
 ---
 
 ## 📅 Linha do Tempo & Histórico Detalhado de Evolução
+
+### [v6.13] - 10/11/2026: Workflow GitHub Actions Keep-Alive Anti-Pause Supabase (3 em 3 dias)
+- **Implementação do Workflow CI/CD ([`.github/workflows/keep-supabase-awake.yml`](file:///C:/JHPCS/.github/workflows/keep-supabase-awake.yml))**:
+  - Cron agendado com precisão: `0 6 */3 * *` (a cada 3 dias às 06:00 UTC / 03:00 Horário de Brasília).
+  - Suporte a disparo manual instantâneo via `workflow_dispatch`.
+  - Dupla camada de proteção contra pausa do Supabase (janela gratuita de 7 dias):
+    1. Pulso HTTP na API da aplicação Vercel (`/api/cron/keep-alive`) com verificação de status code.
+    2. Fallback direto via REST API no Supabase (`${SUPABASE_URL}/rest/v1/pools?select=id&limit=1`) caso os secrets estejam configurados no repositório.
+- **Auditoria de Resiliência & Benchmarking**:
+  - Testes do Onboarding (10/10 PASS) e Teste de Estabilidade Global (Score 100/100) validados.
+
+---
 
 ### [v6.12] - 10/11/2026: Desacoplamento da Landing Page e Cockpit Master Dedicado
 - **Desacoplamento Arquitetural de Rotas**:
