@@ -25,8 +25,9 @@
 [Concluído]  Sprint 6: Geofencing por GPS (50m) & Logbook Sanitário Anvisa para Hotéis/Clubes
 [Concluído]  Sprint 7: Matriz de Setores SaaS, Licenciamento Modular e Module Gates
 [Concluído]  Sprint 8: Ambientes Demo Multi-Setor, Auto-Reset e Manuais Comerciais
-[Em Curso]   Sprint 9: Refatoração do PWA de Campo (Janela c:\JHPCS-campo)
-[Planejado]  Sprint 10: Ativação sob Demanda do ERP Fiscal Completo (Focus / PlugNotas)
+[Concluído]  Sprint 9: Marketing Institucional, Onboarding Público, Consulta CNPJ & Segurança Next.js 16
+[Em Curso]   Sprint 10: Refatoração do PWA de Campo (Janela c:\JHPCS-campo)
+[Planejado]  Sprint 11: Ativação sob Demanda do ERP Fiscal Completo (Focus / PlugNotas)
 ```
 
 ---
@@ -48,6 +49,27 @@
 *Foco: Abrir o sistema para qualquer piscina do Brasil e gerar transações financeiras.*
 - [x] **Agnosticismo Multi-Substrato**: Suporte nativo a Vinil, Fibra, Pastilha, Alvenaria e Monolítico com faixas químicas ideais por acabamento.
 - [x] **Dedução Estequiométrica**: Baixa automática de estoque de químicos no carro do técnico com base no volume ($m^3$) tratado.
+- [x] **Receituário de Balcão**: Prescrição instantânea em lojas de piscinas com geração de QR Code PIX de checkout.
+- [x] **Geofencing GPS de 50 metros**: Check-in/out à beira da piscina para empresas de manutenção e condomínios.
+- [x] **Caderno Sanitário Anvisa & NBR 10.818**: Logbook digital com selo público e widget embed para resorts e hotéis.
+
+---
+
+### 🔵 FASE 3: GOVERNANÇA INSTITUCIONAL, SEGURANÇA & ONBOARDING (CONCLUÍDA - 100%)
+*Foco: Expansão comercial SaaS, blindagem de segurança e governança de agentes.*
+- [x] **Área Pública / Marketing**: Landing Page de alta conversão, soluções por setor, planos e comparativo de preços transparentes.
+- [x] **Central Pericial de Garantia Decenal**: Consulta de autenticidade de certificados com QR Code forense e protocolo dos 28 dias de cura.
+- [x] **Onboarding com Consulta CNPJ na Receita Federal**: Autopreenchimento de dados cadastrais e provisionamento com cartão em standby.
+- [x] **Conector Corporativo Matriz Jhoston**: Controle centralizado de WhatsApp oficial para comunicados institucionais.
+- [x] **Auditoria Contínua com Benchmarking**: Bateria automatizada de segurança de banco (RLS), rotas, estresse e benchmarking concorrencial gerando laudo PDF de 2 páginas.
+- [x] **Atualização de Segurança do Next.js**: Upgrade seguro para `16.4.5` com compilação de 83 páginas sem regressões.
+
+---
+
+### 🟣 FASE 4: REFATORAÇÃO DE CAMPO & ATIVAÇÃO FISCAL (EM CURSO / PLANEJADA)
+*Foco: Excelência no app móvel nativo e emissão de notas fiscais automáticas.*
+- [ ] **Refatoração do App de Campo (`c:\JHPCS-campo`)**: Sincronização offline com IndexedDB, captura WebP direta no Cloudflare R2 e geofencing GPS integrado ao Core v6.10.
+- [ ] **Ativação do ERP Fiscal em Standby**: Conexão com Focus NFe/PlugNotas após validação executiva da diretoria.
 - [x] **Receituário Digital de Balcão**: Tela de diagnóstico da água em lojas com geração instantânea de lista de compras e cobrança via **PIX Copia e Cola / QR Code**.
 - [x] **Configurações Multi-Tenant de PIX**: Tela `/configuracoes` para lojistas e tratadores configurarem suas próprias chaves PIX de recebimento direto.
 - [x] **ERP Fiscal em Standby**: Estrutura modular pronta protegida por Feature Flag (`NEXT_PUBLIC_ENABLE_FISCAL_ERP=false`).

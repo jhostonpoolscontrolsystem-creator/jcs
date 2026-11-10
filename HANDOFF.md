@@ -77,9 +77,10 @@ O sistema possui 5 perfis pré-configurados que podem ser acessados diretamente 
 Toda e qualquer evolução técnica no ecossistema JHPCS deve manter a documentação viva e sincronizada nos seguintes pontos de contato:
 
 1. **Changelog Vivo:** [`ACOMPANHAMENTO_EVOLUCAO_SISTEMA.md`](file:///c:/JHPCS/ACOMPANHAMENTO_EVOLUCAO_SISTEMA.md) — histórico cronológico de cada versão, sprints, melhorias e correções implementadas.
-2. **Guia e Central de Ajuda do Cliente:** `/guia-cliente` — manual interativo dentro da plataforma para operadores de campo, síndicos e gerentes.
-3. **Manuais e Compêndios Técnicos:**
-   - Laudo de Estabilidade: `public/LAUDO_ESTABILIDADE_SISTEMA_JHPCS.pdf`
+2. **Roadmap Estratégico:** [`ROADMAP.md`](file:///c:/JHPCS/ROADMAP.md) — evolução dos módulos e status das sprints estratégicas (Concluídas, Em Curso e Planejadas).
+3. **Guia e Central de Ajuda do Cliente:** `/guia-cliente` — manual interativo dentro da plataforma para operadores de campo, síndicos e gerentes.
+4. **Manuais, Laudos e Compêndios Técnicos:**
+   - Laudo Pericial de Estabilidade, Segurança & Benchmarking: `public/LAUDO_ESTABILIDADE_SISTEMA_JHPCS.pdf` (gerado via `scripts/run-system-audit.mjs` com testes de banco, rotas, caos e benchmarking concorrencial).
    - Relatório de Refatoração de Campo: `public/RELATORIO_REFATORACAO_PWA_CAMPO.pdf`
    - Revista Executiva / Compêndio de Treinamento: `/revista-executiva` e endpoints de PDF em `/api/pdf/*`.
 

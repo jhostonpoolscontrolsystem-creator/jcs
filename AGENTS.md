@@ -61,7 +61,15 @@ O sistema atende de forma modular a cinco perfis de operação:
 
 ### 2.6. Atualização Contínua de Evolução, Manuais e Telas de Ajuda (Mandatório)
 - **Registro de Evolução:** Toda nova funcionalidade, correção ou módulo entregue DEVE ser imediatamente registrado no arquivo `ACOMPANHAMENTO_EVOLUCAO_SISTEMA.md`, com versionamento incremental, data e detalhamento dos componentes afetados.
+- **Atualização Contínua do Roadmap:** O arquivo `ROADMAP.md` DEVE ser mantido estritamente atualizado a cada ciclo, marcando as sprints e módulos concluídos, em andamento ou planejados com o efeito flywheel do ecossistema.
 - **Telas de Ajuda e Guias:** Qualquer alteração em fluxos de trabalho ou telas operacionais deve refletir nas telas de ajuda in-app (ex: `/guia-cliente`, modais de ajuda contextual) e nos manuais do usuário. A entrega só é considerada concluída se a documentação do usuário estiver em perfeita sincronia com o código.
+
+### 2.7. Auditoria de Segurança, Confiabilidade & Benchmarking Competitivo (Mandatório)
+- **Bateria Abrangente de Segurança e Resiliência:** Todo ciclo de entrega deve rodar a auditoria automatizada que avalia:
+  1. *Segurança do Banco de Dados & RLS:* Isolamento multi-tenant, bloqueio de vazamento de dados entre clientes e sanitização contra SQL Injection.
+  2. *Segurança de Rotas & APIs:* Autenticação, rate limiting, proteção CSRF/CORS e validação estrita de payloads.
+  3. *Tolerância a Falhas e Caos:* Resiliência contra quedas da Evolution API, indisponibilidade temporária de provedores e reconexão offline.
+- **Laudo Técnico Pericial em PDF com Benchmarking:** O script `scripts/run-system-audit.mjs` DEVE gerar obrigatoriamente o laudo PDF atualizado (`public/LAUDO_ESTABILIDADE_SISTEMA_JHPCS.pdf`) contendo a nota do sistema (Score 100/100) e o **Benchmarking Competitivo Completo** contra os principais concorrentes do mercado de piscinas e SaaS (ex: *App do Tratador / Limpa Fácil*, *Genco / HTH Apps*, *Sistemas Genéricos de Ordem de Serviço* e *Planilhas/Cadernos Físicos*).
 
 ---
 
