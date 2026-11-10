@@ -58,6 +58,7 @@
 ### 🔵 FASE 3: GOVERNANÇA INSTITUCIONAL, SEGURANÇA & ONBOARDING (CONCLUÍDA - 100%)
 *Foco: Expansão comercial SaaS, blindagem de segurança e governança de agentes.*
 - [x] **Área Pública / Marketing**: Landing Page de alta conversão, soluções por setor, planos e comparativo de preços transparentes.
+- [x] **Desacoplamento da Rota Raiz & Cockpit**: Rota `/` dedicada à Landing Page pública institucional e Cockpit de Operação/Governança movido para `/cockpit`.
 - [x] **Central Pericial de Garantia Decenal**: Consulta de autenticidade de certificados com QR Code forense e protocolo dos 28 dias de cura.
 - [x] **Onboarding com Consulta CNPJ na Receita Federal**: Autopreenchimento de dados cadastrais e provisionamento com cartão em standby.
 - [x] **Conector Corporativo Matriz Jhoston**: Controle centralizado de WhatsApp oficial para comunicados institucionais.

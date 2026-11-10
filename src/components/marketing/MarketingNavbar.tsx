@@ -106,7 +106,7 @@ export function MarketingNavbar() {
                   return (
                     <Link
                       key={i}
-                      href={`/?demo_email=${encodeURIComponent(acc.email)}`}
+                      href={`/cockpit?demo_email=${encodeURIComponent(acc.email)}`}
                       onClick={() => setDemoDropdownOpen(false)}
                       className="p-2.5 rounded-xl hover:bg-slate-800 flex items-center gap-2.5 transition text-left group"
                     >
@@ -128,11 +128,11 @@ export function MarketingNavbar() {
           </div>
 
           <Link
-            href="/login"
+            href="/cockpit"
             className="px-3.5 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-900 border border-transparent hover:border-slate-800 text-xs font-bold transition-all flex items-center gap-1.5"
           >
             <LogIn className="w-3.5 h-3.5 text-slate-400" />
-            <span>Entrar</span>
+            <span>Cockpit Master</span>
           </Link>
 
           <Link
@@ -207,7 +207,7 @@ export function MarketingNavbar() {
               {DEMO_ACCOUNTS.map((acc, i) => (
                 <Link
                   key={i}
-                  href={`/?demo_email=${encodeURIComponent(acc.email)}`}
+                  href={`/cockpit?demo_email=${encodeURIComponent(acc.email)}`}
                   onClick={() => setMobileMenuOpen(false)}
                   className="p-2.5 rounded-lg bg-slate-900 text-xs font-bold text-slate-200 flex items-center justify-between hover:bg-slate-800 transition"
                 >
@@ -220,11 +220,11 @@ export function MarketingNavbar() {
 
           <div className="pt-2 flex flex-col gap-2">
             <Link
-              href="/login"
+              href="/cockpit"
               onClick={() => setMobileMenuOpen(false)}
               className="w-full py-2.5 rounded-xl bg-slate-900 text-slate-300 hover:text-white text-xs font-bold text-center block border border-slate-800 transition"
             >
-              Entrar
+              Acessar Cockpit Master
             </Link>
             <Link
               href="/onboarding"

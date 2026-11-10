@@ -35,6 +35,8 @@ Este documento registra o estado exato da arte da plataforma JHPCS, incluindo a 
 
 | Rota | Descrição Operacional | Acesso / Perfil |
 | :--- | :--- | :--- |
+| `/` | Landing Page Comercial e Institucional de alta autoridade e conversão. | Público |
+| `/cockpit` | Centro de Comando & Governança SUPER ADMIN, visão pericial e operação. | Operação / Master |
 | `/trade/balcao` | Diagnóstico express de química de água no balcão de lojas com geração imediata de QR Code PIX para compra de reagentes. | Retail (Lojas) |
 | `/logbook-sanitario` | Caderno sanitário digital em conformidade com as exigências da Anvisa e NBR 10.818 com validação de Geofencing GPS (50 metros). | Facility (Hotéis/Condomínios) |
 | `/financeiro` | Gestão de contratos de manutenção recorrente, fluxo de caixa e cálculo automatizado de comissões por piscina (bloqueado para Facility). | Solo, Fleet, Enterprise |

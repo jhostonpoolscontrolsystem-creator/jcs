@@ -46,10 +46,10 @@ export default function GuiaClientePage() {
               <span>Baixar Guia em PDF</span>
             </a>
             <Link
-              href="/"
+              href="/cockpit"
               className="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs border border-slate-800 transition"
             >
-              Acessar Portal
+              Acessar Cockpit Master
             </Link>
           </div>
         </div>

@@ -6,14 +6,14 @@
 ---
 
 ## 📌 Status Atual do Ecossistema (Novembro/2026)
-- **Versão Homologada**: `JHPCS Core v6.11 (Onboarding Automated Test Suite & Governance Edition)`
+- **Versão Homologada**: `JHPCS Core v6.12 (Public Landing Page Decoupling & Master Cockpit Edition)`
 - **Índice de Estabilidade do Sistema**: **100 / 100** (Auditado via `scripts/run-system-audit.mjs` com Benchmarking de 2 páginas)
 - **Portais em Produção**:
   - 🌐 **Landing Page Institucional & Comercial**: `https://jhpcs.vercel.app/` (Grupo de Rotas Marketing)
   - 🛡️ **Página Pericial de Garantia Decenal JHoston**: `https://jhpcs.vercel.app/garantia-jhoston`
   - 🧭 **Página de Setores & Soluções Especializadas**: `https://jhpcs.vercel.app/solucoes`
   - 💳 **Tabela de Preços & Comparativo de Planos**: `https://jhpcs.vercel.app/planos`
-  - 🖥️ **Portal Web Master & Cockpit Operacional**: `https://jhpcs.vercel.app/` (ou `https://jcs-pools.vercel.app`)
+  - 👑 **Centro de Comando & Cockpit SUPER ADMIN**: `https://jhpcs.vercel.app/cockpit` (Visão Soberana Master)
   - 🚀 **Onboarding & Ativação de Novos Clientes**: `https://jhpcs.vercel.app/onboarding`
   - 👑 **Centro de Comando & Governança SUPER ADMIN**: `https://jhpcs.vercel.app/` (Visão Soberana Master)
   - 🛡️ **Perícia de Garantia JHoston (Interna)**: `https://jhpcs.vercel.app/garantia-pericial`
@@ -30,6 +30,16 @@
 ---
 
 ## 📅 Linha do Tempo & Histórico Detalhado de Evolução
+
+### [v6.12] - 10/11/2026: Desacoplamento da Landing Page e Cockpit Master Dedicado
+- **Desacoplamento Arquitetural de Rotas**:
+  - A rota pública raiz `/` agora serve de forma nativa e exclusiva a **Landing Page Comercial & Institucional** (`src/app/(marketing)/page.tsx`) com o `<MarketingNavbar />` e `<MarketingFooter />`.
+  - O Centro de Comando e Governança foi isolado na rota dedicada: [`src/app/(dashboard)/cockpit/page.tsx`](file:///C:/JHPCS/src/app/(dashboard)/cockpit/page.tsx) (`/cockpit`), garantindo que visitantes não caiam no login interno de tratador.
+  - Atualização do menu de navegação e do `/guia-cliente` para direcionamento automático ao Cockpit Master.
+  - Validação estática: `npx tsc --noEmit` aprovado com 0 erros.
+  - Auditoria completa mantida com Score **100 / 100** e laudo em PDF atualizado.
+
+---
 
 ### [v6.11] - 10/11/2026: Bateria Automatizada de Testes do Onboarding & Governança Expandida
 - **Criação da Suite Automatizada ([`scripts/test-onboarding-flow.mjs`](file:///C:/JHPCS/scripts/test-onboarding-flow.mjs))**:
