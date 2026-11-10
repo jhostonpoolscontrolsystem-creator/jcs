@@ -4,7 +4,10 @@ import path from 'path';
 
 export async function GET(request: Request) {
   try {
-    const pdfPath = path.resolve(process.cwd(), 'public', 'LAUDO_ESTABILIDADE_SISTEMA_JHPCS.pdf');
+    let pdfPath = path.resolve(process.cwd(), 'public', 'LAUDO_ESTABILIDADE_SISTEMA_JHPCS_v2.pdf');
+    if (!fs.existsSync(pdfPath)) {
+      pdfPath = path.resolve(process.cwd(), 'public', 'LAUDO_ESTABILIDADE_SISTEMA_JHPCS.pdf');
+    }
 
     if (!fs.existsSync(pdfPath)) {
       return NextResponse.json({ error: 'Laudo ainda não gerado. Execute scripts/run-system-audit.mjs' }, { status: 404 });

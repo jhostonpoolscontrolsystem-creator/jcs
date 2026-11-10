@@ -6,7 +6,7 @@
 ---
 
 ## 📌 Status Atual do Ecossistema (Novembro/2026)
-- **Versão Homologada**: `JHPCS Core v6.16 (Benchmarking & Score 100 Commercial Landing Page Engine Edition)`
+- **Versão Homologada**: `JHPCS Core v6.17 (KMS Fiscal Vault, Offline PWA NCM Catalog & Serverless Sefaz Webhook Edition)`
 - **Índice de Estabilidade do Sistema**: **100 / 100** (Auditado via `scripts/run-system-audit.mjs` com Benchmarking e Laudo de 3 Páginas)
 - **Portais em Produção**:
   - 🌐 **Landing Page Institucional & Comercial**: `https://jhpcs.vercel.app/` (Grupo de Rotas Marketing com Banner Score 100)
@@ -19,6 +19,8 @@
   - 🛡️ **Perícia de Garantia JHoston (Interna)**: `https://jhpcs.vercel.app/garantia-pericial`
   - 💵 **JHPCS Financeiro & Contratos**: `https://jhpcs.vercel.app/financeiro` (Integrado à Governança Fiscal)
   - 🧾 **Motor Fiscal Eletrônico (NF-e & NFS-e)**: `https://jhpcs.vercel.app/api/fiscal/emit` (Standby Controlado por Super Usuário)
+  - 🔐 **Cofre de Certificados Digitais A1 (KMS Vault)**: `https://jhpcs.vercel.app/api/fiscal/certificate` (AES-256-CBC)
+  - 📡 **Worker Serverless Webhook Sefaz**: `https://jhpcs.vercel.app/api/webhooks/sefaz` (Recepção de Lote em Tempo Real)
   - ⚙️ **Gerador de Plaqueta Metálica NFC (Laser CNC)**: `https://jhpcs.vercel.app/plaqueta-nfc`
   - 🏅 **Selo de Conformidade & Totem de Recepção**: `https://jhpcs.vercel.app/selo`
   - 💳 **Gestão de Assinatura & Módulos**: `https://jhpcs.vercel.app/settings/subscription`
@@ -31,6 +33,22 @@
 ---
 
 ## 📅 Linha do Tempo & Histórico Detalhado de Evolução
+
+### [v6.17] - 10/11/2026: Tripla Implantação de Infraestrutura Fiscal (Vault A1, PWA Offline e Sefaz Webhook)
+- **1. Certificado Digital A1 no Supabase Vault com Criptografia KMS ([`supabase/migrations/20261110_fiscal_vault_certificates.sql`](file:///c:/JHPCS/supabase/migrations/20261110_fiscal_vault_certificates.sql))**:
+  - Criação da tabela segura `tenant_fiscal_certificates` com blindagem RLS e isolamento por `tenant_id`.
+  - Endpoint de upload e custódia: [`/api/fiscal/certificate`](file:///c:/JHPCS/src/app/api/fiscal/certificate/route.ts).
+  - Criptografia simétrica com chave mestra KMS (`AES-256-CBC` com salt/IV aleatório de 16 bytes). O arquivo `.pfx` e a senha nunca são gravados em texto claro.
+- **2. Catálogo Fiscal NCM & CFOP Offline-First para o PWA ([`src/lib/fiscal/offlineFiscalCatalog.ts`](file:///c:/JHPCS/src/lib/fiscal/offlineFiscalCatalog.ts))**:
+  - Pré-carregamento dos insumos químicos homologados da cadeia aquática (Hipoclorito de Cálcio `28289011`, Dicloro Estabilizado `29336919`, Barrilha `28362010`, Bicarbonato `28363000`, Sulfato ST `28332200` e Algicida `38089990`).
+  - Motor local de cálculo tributário e orçamento de carrinho capaz de calcular ICMS, PIS e COFINS sem conexão à internet.
+  - Teste automatizado validado: [`scripts/test-fiscal-offline.mjs`](file:///c:/JHPCS/scripts/test-fiscal-offline.mjs) (100% PASS).
+- **3. Worker Serverless de Webhooks Sefaz em Tempo Real ([`src/app/api/webhooks/sefaz/route.ts`](file:///c:/JHPCS/src/app/api/webhooks/sefaz/route.ts))**:
+  - Endpoint serverless na Vercel Edge (`runtime = 'nodejs'`) preparado para receber retornos assíncronos de autorização de lote (cStat 100), rejeição ou cancelamento.
+  - Atualização automática dos lotes fiscais na tabela `fiscal_invoice_batches` com vínculo direto à chave de acesso de 44 dígitos e link do DANFE/XML.
+  - SLA de resposta imediata (< 500ms) com handshake homologado para a Sefaz e gateways fiscais.
+
+---
 
 ### [v6.16] - 10/11/2026: Transformação do Score 100/100 e Benchmarking em Ferramenta Comercial de Marketing
 - **Nova Página Pública de Benchmarking Competitivo ([`src/app/benchmarking/page.tsx`](file:///c:/JHPCS/src/app/benchmarking/page.tsx))**:
