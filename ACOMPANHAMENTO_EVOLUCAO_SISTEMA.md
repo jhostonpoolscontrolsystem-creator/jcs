@@ -6,7 +6,7 @@
 ---
 
 ## 📌 Status Atual do Ecossistema (Novembro/2026)
-- **Versão Homologada**: `JHPCS Core v6.18 (PWA Field App Refactoring Blueprint & Prompt Matrix Edition)`
+- **Versão Homologada**: `JHPCS Core v6.19 (Investor Pitch Deck & Multi-Sector Welcome Kit Edition)`
 - **Índice de Estabilidade do Sistema**: **100 / 100** (Auditado via `scripts/run-system-audit.mjs` com Benchmarking e Laudo de 3 Páginas)
 - **Portais em Produção**:
   - 🌐 **Landing Page Institucional & Comercial**: `https://jhpcs.vercel.app/` (Grupo de Rotas Marketing com Banner Score 100)
@@ -22,6 +22,7 @@
   - 🔐 **Cofre de Certificados Digitais A1 (KMS Vault)**: `https://jhpcs.vercel.app/api/fiscal/certificate` (AES-256-CBC)
   - 📡 **Worker Serverless Webhook Sefaz**: `https://jhpcs.vercel.app/api/webhooks/sefaz` (Recepção de Lote em Tempo Real)
   - 📄 **Relatório Pericial de Refatoração do PWA**: `https://jhpcs.vercel.app/api/pdf/pwa-refactoring` (Download/View de Laudo A4 em 4 Páginas)
+  - 💼 **Roteiro Canva & Kit do Investidor**: `ROTEIRO_APRESENTACAO_INVESTIDORES_CANVA.md` (Pitch Deck de 12 Slides + Credenciais)
   - ⚙️ **Gerador de Plaqueta Metálica NFC (Laser CNC)**: `https://jhpcs.vercel.app/plaqueta-nfc`
   - 🏅 **Selo de Conformidade & Totem de Recepção**: `https://jhpcs.vercel.app/selo`
   - 💳 **Gestão de Assinatura & Módulos**: `https://jhpcs.vercel.app/settings/subscription`
@@ -34,6 +35,14 @@
 ---
 
 ## 📅 Linha do Tempo & Histórico Detalhado de Evolução
+
+### [v6.19] - 10/11/2026: Pitch Deck Executivo para Investidores (12 Slides Canva) e Kit de Boas-Vindas Multi-Setor
+- **1. Roteiro Completo para o Canva ([`ROTEIRO_APRESENTACAO_INVESTIDORES_CANVA.md`](file:///c:/JHPCS/ROTEIRO_APRESENTACAO_INVESTIDORES_CANVA.md))**:
+  - Estruturação de 12 slides de alto impacto desenhados especificamente para conversão de fundos de Venture Capital (Seed / Pre-Series A).
+  - Inclui paleta de cores hexadecimais, tipografias recomendadas, layouts de cartões, notas do apresentador e o efeito Flywheel.
+- **2. Kit de Boas-Vindas com Chaves de Teste em Produção**:
+  - Matriz de credenciais reais para os 5 perfis da cadeia (Super Admin Master, Loja de Piscinas, Hotel/Resort, Frotas de Manutenção e Tratador no PWA de Campo).
+  - Roteiro de degustação rápida de 5 minutos com links diretos e download dos laudos periciais em PDF.
 
 ### [v6.18] - 10/11/2026: Diagnóstico Pericial e Matriz Canônica de Prompts para Refatoração do PWA de Campo (c:\JHPCS-campo)
 - **1. Laudo Técnico e Relatório Executivo em PDF ([`public/RELATORIO_REFATORACAO_PWA_CAMPO.pdf`](file:///c:/JHPCS/public/RELATORIO_REFATORACAO_PWA_CAMPO.pdf))**:
