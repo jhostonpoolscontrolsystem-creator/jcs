@@ -6,8 +6,8 @@
 ---
 
 ## 📌 Status Atual do Ecossistema (Novembro/2026)
-- **Versão Homologada**: `JHPCS Core v6.9 (Decennial Warranty Authority & Chemical Forensic Defense Edition)`
-- **Índice de Estabilidade do Sistema**: **100 / 100** (Auditado via `scripts/run-system-audit.mjs`)
+- **Versão Homologada**: `JHPCS Core v6.11 (Onboarding Automated Test Suite & Governance Edition)`
+- **Índice de Estabilidade do Sistema**: **100 / 100** (Auditado via `scripts/run-system-audit.mjs` com Benchmarking de 2 páginas)
 - **Portais em Produção**:
   - 🌐 **Landing Page Institucional & Comercial**: `https://jhpcs.vercel.app/` (Grupo de Rotas Marketing)
   - 🛡️ **Página Pericial de Garantia Decenal JHoston**: `https://jhpcs.vercel.app/garantia-jhoston`
@@ -31,7 +31,29 @@
 
 ## 📅 Linha do Tempo & Histórico Detalhado de Evolução
 
-### [v6.9] - 09/11/2026: Página de Autoridade Pericial e Garantia Decenal JHoston
+### [v6.11] - 10/11/2026: Bateria Automatizada de Testes do Onboarding & Governança Expandida
+- **Criação da Suite Automatizada ([`scripts/test-onboarding-flow.mjs`](file:///C:/JHPCS/scripts/test-onboarding-flow.mjs))**:
+  - Validação estrita de 14 dígitos e sanitização de máscaras de CNPJ (`33.000.167/0001-01` ➔ `33000167000101`).
+  - Teste ao vivo de integração com provedores da Receita Federal (BrasilAPI com fallback automático para ReceitaWS).
+  - Verificação de payload do registro (`/api/onboarding/register`): bloqueio de cadastros incompletos e validação de parâmetros completos.
+  - Teste de concessão exata de 7 dias de trial sem cobrança inicial.
+  - Geração padronizada de slug seguro para provisionamento de instâncias WhatsApp Evolution API.
+  - Validação criptográfica de hashes de senha via Bcrypt (`bcryptjs`).
+  - **Resultado:** 10 / 10 testes aprovados com 100% de sucesso.
+- **Formalização nos Documentos de Governança (`AGENTS.md` & `HANDOFF.md`)**:
+  - Obrigatoriedade de atualização contínua do `ACOMPANHAMENTO_EVOLUCAO_SISTEMA.md`, `ROADMAP.md` e manuais do usuário.
+  - Auditoria com nota 100/100 e geração obrigatória de laudo PDF com Benchmarking Competitivo frente aos concorrentes do setor.
+
+---
+
+### [v6.10] - 10/11/2026: Marketing Navbar, Footer Corporativo & Patch de Segurança Next.js 16.4.5
+- **Navegação & Rodapé Públicos ([`MarketingNavbar.tsx`](file:///C:/JHPCS/src/components/marketing/MarketingNavbar.tsx), [`MarketingFooter.tsx`](file:///C:/JHPCS/src/components/marketing/MarketingFooter.tsx))**:
+  - Navbar fixa no topo com efeito blur e gradiente ciano corporativo, links setoriais, seletor de contas demo e menu mobile.
+  - Rodapé corporativo de 4 colunas com chancela Jhoston, compliance NBR 10.818, LGPD e indicador de 100% Uptime.
+- **Atualização de Segurança Next.js 16.4.5**:
+  - Executada via Git Worktree isolado, com compilação de 83 rotas no Turbopack com 0 erros.
+
+---
 - **Construção da Rota de Autoridade Técnica ([`src/app/(marketing)/garantia-jhoston/page.tsx`](file:///C:/JHPCS/src/app/(marketing)/garantia-jhoston/page.tsx))**:
   - Consulta pública de autenticidade de Certificados de Garantia Decenal com códigos como `JH-2026-DECENAL-PF-001` e `JH-2026-DECENAL-PJ-084`.
   - Apresentação da **Matriz de Degradação Química**:
