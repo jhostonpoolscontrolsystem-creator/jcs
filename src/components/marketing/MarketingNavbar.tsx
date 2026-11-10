@@ -7,7 +7,6 @@ import {
   X, 
   ChevronDown, 
   Sparkles, 
-  ArrowRight, 
   User, 
   Users, 
   Hotel, 
@@ -15,7 +14,7 @@ import {
   ShieldCheck, 
   LogIn, 
   PlayCircle,
-  ExternalLink
+  Waves
 } from 'lucide-react';
 
 interface DemoAccount {
@@ -39,43 +38,45 @@ export function MarketingNavbar() {
   const [demoDropdownOpen, setDemoDropdownOpen] = useState(false);
 
   return (
-    <header className="border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-md sticky top-0 z-50">
+    <header className="sticky top-0 z-50 backdrop-blur-md bg-slate-950/85 border-b border-slate-800/80 transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         
-        {/* LOGO & BRAND */}
+        {/* BLOCO ESQUERDO: BRAND IDENTITY */}
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-cyan-500 via-sky-400 to-emerald-400 flex items-center justify-center font-black text-slate-950 text-xl shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition">
-            J
+          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-cyan-500 via-sky-500 to-blue-600 flex items-center justify-center font-black text-slate-950 text-xl shadow-lg shadow-cyan-500/20 group-hover:scale-105 group-hover:shadow-cyan-500/30 transition-all duration-300">
+            <Waves className="w-5 h-5 text-slate-950 stroke-[2.5]" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-extrabold text-base text-white tracking-wider block">JHPCS</span>
+              <span className="font-extrabold text-base bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-400 bg-clip-text text-transparent tracking-wider block">
+                JHPCS
+              </span>
               <span className="px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 text-[10px] font-mono font-bold border border-cyan-500/30">
-                by Jhoston
+                by Jhoston Pools & Lagoons
               </span>
             </div>
             <span className="text-[10px] text-slate-400 block font-medium">PoolTech Ecosystem</span>
           </div>
         </Link>
 
-        {/* LINKS CENTRAIS (DESKTOP) */}
+        {/* BLOCO CENTRAL: NAVEGAÇÃO DESKTOP */}
         <nav className="hidden lg:flex items-center gap-6 text-xs font-bold text-slate-300">
-          <Link href="/" className="hover:text-cyan-400 transition py-1">
+          <Link href="/" className="hover:text-cyan-400 transition-colors py-1">
             Início
           </Link>
-          <Link href="/solucoes" className="hover:text-cyan-400 transition py-1">
+          <Link href="/solucoes" className="hover:text-cyan-400 transition-colors py-1">
             Soluções por Setor
           </Link>
-          <Link href="/planos" className="hover:text-cyan-400 transition py-1">
+          <Link href="/planos" className="hover:text-cyan-400 transition-colors py-1">
             Planos & Preços
           </Link>
-          <Link href="/garantia-jhoston" className="hover:text-amber-400 transition py-1 flex items-center gap-1 text-amber-300">
+          <Link href="/garantia-jhoston" className="hover:text-amber-400 transition-colors py-1 flex items-center gap-1.5 text-amber-300">
             <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
             <span>Garantia Jhoston</span>
           </Link>
         </nav>
 
-        {/* BOTÕES À DIREITA (DESKTOP) */}
+        {/* BLOCO DIREITO: AÇÕES RÁPIDAS & ACESSOS (DESKTOP) */}
         <div className="hidden lg:flex items-center gap-3">
           
           {/* Dropdown Ambientes Demo */}
@@ -83,16 +84,16 @@ export function MarketingNavbar() {
             <button
               type="button"
               onClick={() => setDemoDropdownOpen(!demoDropdownOpen)}
-              className="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white text-xs font-bold border border-slate-800 transition flex items-center gap-1.5 cursor-pointer"
+              className="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white text-xs font-bold border border-slate-800 transition-all flex items-center gap-1.5 cursor-pointer"
             >
               <PlayCircle className="w-3.5 h-3.5 text-cyan-400" />
               <span>Ambientes Demo</span>
-              <ChevronDown className="w-3.5 h-3.5 text-slate-500" />
+              <ChevronDown className={`w-3.5 h-3.5 text-slate-500 transition-transform duration-200 ${demoDropdownOpen ? 'rotate-180' : ''}`} />
             </button>
 
             {demoDropdownOpen && (
               <div 
-                className="absolute right-0 mt-2 w-72 rounded-2xl bg-slate-900 border border-slate-800 p-2 shadow-2xl space-y-1 animate-fadeIn z-50"
+                className="absolute right-0 mt-2 w-72 rounded-2xl bg-slate-900/95 backdrop-blur-md border border-slate-800 p-2 shadow-2xl space-y-1 z-50 animate-in fade-in slide-in-from-top-2 duration-150"
                 onMouseLeave={() => setDemoDropdownOpen(false)}
               >
                 <div className="px-3 py-2 border-b border-slate-800/80">
@@ -109,13 +110,13 @@ export function MarketingNavbar() {
                       onClick={() => setDemoDropdownOpen(false)}
                       className="p-2.5 rounded-xl hover:bg-slate-800 flex items-center gap-2.5 transition text-left group"
                     >
-                      <div className="p-2 rounded-lg bg-slate-950 text-cyan-400 group-hover:scale-105 transition">
+                      <div className="p-2 rounded-lg bg-slate-950 text-cyan-400 group-hover:scale-105 transition-transform">
                         <Icon className="w-4 h-4" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between">
                           <strong className="text-xs text-white block truncate">{acc.name}</strong>
-                          <span className="text-[9px] font-mono text-cyan-400">{acc.sector}</span>
+                          <span className="text-[9px] font-mono text-cyan-400 font-semibold">{acc.sector}</span>
                         </div>
                         <span className="text-[10px] text-slate-400 block truncate">{acc.role}</span>
                       </div>
@@ -127,34 +128,35 @@ export function MarketingNavbar() {
           </div>
 
           <Link
-            href="/"
-            className="px-3.5 py-2 rounded-xl text-slate-300 hover:text-white text-xs font-bold transition flex items-center gap-1.5"
+            href="/login"
+            className="px-3.5 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-900 border border-transparent hover:border-slate-800 text-xs font-bold transition-all flex items-center gap-1.5"
           >
             <LogIn className="w-3.5 h-3.5 text-slate-400" />
-            <span>Entrar no Sistema</span>
+            <span>Entrar</span>
           </Link>
 
           <Link
             href="/onboarding"
-            className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 via-sky-400 to-emerald-400 hover:brightness-110 text-slate-950 font-black text-xs transition shadow-lg shadow-cyan-500/20 flex items-center gap-1.5"
+            className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 via-sky-400 to-cyan-400 hover:brightness-110 text-slate-950 font-black text-xs transition-all shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/30 flex items-center gap-1.5"
           >
             <Sparkles className="w-3.5 h-3.5" />
-            <span>Criar Conta</span>
+            <span>Criar Conta / Teste Grátis</span>
           </Link>
         </div>
 
-        {/* HAMBÚRGUER MOBILE */}
+        {/* NAVEGAÇÃO MOBILE (HAMBÚRGUER) */}
         <div className="flex lg:hidden items-center gap-2">
           <Link
             href="/onboarding"
             className="px-3 py-1.5 rounded-lg bg-cyan-500 text-slate-950 font-black text-xs"
           >
-            Criar Conta
+            Teste Grátis
           </Link>
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white"
+            className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white transition"
+            aria-label="Abrir menu"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -162,35 +164,35 @@ export function MarketingNavbar() {
 
       </div>
 
-      {/* MENU MOBILE EXPANSÍVEL */}
+      {/* MENU SUSPENSO / DRAWER MOBILE */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-slate-950 border-b border-slate-800 px-6 py-6 space-y-4 animate-fadeIn">
+        <div className="lg:hidden bg-slate-950/95 backdrop-blur-md border-b border-slate-800 px-6 py-6 space-y-4">
           <nav className="flex flex-col space-y-3 text-xs font-bold text-slate-300">
             <Link
               href="/"
               onClick={() => setMobileMenuOpen(false)}
-              className="p-2 rounded-lg hover:bg-slate-900 hover:text-white"
+              className="p-2.5 rounded-lg hover:bg-slate-900 hover:text-white transition"
             >
               Início
             </Link>
             <Link
               href="/solucoes"
               onClick={() => setMobileMenuOpen(false)}
-              className="p-2 rounded-lg hover:bg-slate-900 hover:text-white"
+              className="p-2.5 rounded-lg hover:bg-slate-900 hover:text-white transition"
             >
               Soluções por Setor
             </Link>
             <Link
               href="/planos"
               onClick={() => setMobileMenuOpen(false)}
-              className="p-2 rounded-lg hover:bg-slate-900 hover:text-white"
+              className="p-2.5 rounded-lg hover:bg-slate-900 hover:text-white transition"
             >
               Planos & Preços
             </Link>
             <Link
               href="/garantia-jhoston"
               onClick={() => setMobileMenuOpen(false)}
-              className="p-2 rounded-lg hover:bg-slate-900 text-amber-300 flex items-center gap-2"
+              className="p-2.5 rounded-lg hover:bg-slate-900 text-amber-300 flex items-center gap-2 transition"
             >
               <ShieldCheck className="w-4 h-4 text-amber-400" />
               <span>Garantia Jhoston (Perícia)</span>
@@ -207,22 +209,29 @@ export function MarketingNavbar() {
                   key={i}
                   href={`/?demo_email=${encodeURIComponent(acc.email)}`}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="p-2 rounded-lg bg-slate-900 text-xs font-bold text-slate-200 flex items-center justify-between"
+                  className="p-2.5 rounded-lg bg-slate-900 text-xs font-bold text-slate-200 flex items-center justify-between hover:bg-slate-800 transition"
                 >
                   <span>{acc.name}</span>
-                  <span className="text-[10px] text-cyan-400 font-mono">{acc.sector}</span>
+                  <span className="text-[10px] text-cyan-400 font-mono font-bold">{acc.sector}</span>
                 </Link>
               ))}
             </div>
           </div>
 
-          <div className="pt-2">
+          <div className="pt-2 flex flex-col gap-2">
             <Link
-              href="/"
+              href="/login"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full py-2.5 rounded-xl bg-slate-900 text-slate-300 text-xs font-bold text-center block"
+              className="w-full py-2.5 rounded-xl bg-slate-900 text-slate-300 hover:text-white text-xs font-bold text-center block border border-slate-800 transition"
             >
-              Entrar no Cockpit
+              Entrar
+            </Link>
+            <Link
+              href="/onboarding"
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-full py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-sky-400 text-slate-950 font-black text-xs text-center block shadow-lg shadow-cyan-500/20"
+            >
+              Criar Conta / Teste Grátis
             </Link>
           </div>
         </div>
