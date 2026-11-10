@@ -3,7 +3,7 @@ name: Keep Supabase Awake (Anti-Pause Pulse)
 on:
   schedule:
     # Executa a cada 3 dias às 06:00 UTC (03:00 Horário de Brasília)
-    # Garante que o Supabase nunca alcance a janela de 7 dias de inatividade gratuita
+    # Impede que o Supabase atinja a janela de 7 dias de inatividade gratuita
     - cron: '0 6 */3 * *'
   workflow_dispatch: # Permite disparo manual via painel Actions do GitHub a qualquer momento
 
@@ -13,10 +13,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 1. Send Pulse to Vercel Application Endpoint
+      - name: Send Keep-Alive Pulse to Application & Database
         run: |
           echo "🚀 Disparando pulso de atividade para o endpoint da aplicação..."
-          RESPONSE=$(curl -s -m 20 -w "\nHTTP_STATUS:%{http_code}" https://jhpcs.vercel.app/api/cron/keep-alive || curl -s -m 20 -w "\nHTTP_STATUS:%{http_code}" https://jcs-pools.vercel.app/api/cron/keep-alive)
+          RESPONSE=$(curl -s -m 25 -w "\nHTTP_STATUS:%{http_code}" https://jhpcs.vercel.app/api/cron/keep-alive || curl -s -m 25 -w "\nHTTP_STATUS:%{http_code}" https://jcs-pools.vercel.app/api/cron/keep-alive)
           
           BODY=$(echo "$RESPONSE" | sed -e '$d')
           STATUS=$(echo "$RESPONSE" | tail -n1 | cut -d':' -f2)
@@ -25,23 +25,7 @@ jobs:
           echo "HTTP Status Code: $STATUS"
 
           if [ "$STATUS" -ge 200 ] && [ "$STATUS" -lt 300 ]; then
-            echo "✅ Aplicação e banco de dados contatados com sucesso!"
+            echo "✅ Banco de dados PostgreSQL (Supabase) e aplicação acordados com sucesso!"
           else
-            echo "⚠️ Aviso: Endpoint da aplicação retornou HTTP $STATUS."
-          fi
-
-      - name: 2. Direct REST Ping to Supabase (Secondary Defense)
-        env:
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL || secrets.NEXT_PUBLIC_SUPABASE_URL || '' }}
-          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY || secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY || '' }}
-        run: |
-          if [ -n "$SUPABASE_URL" ] && [ -n "$SUPABASE_ANON_KEY" ]; then
-            echo "📡 Executando consulta direta REST no Supabase..."
-            curl -s -m 20 -X GET "${SUPABASE_URL}/rest/v1/pools?select=id&limit=1" \
-              -H "apikey: ${SUPABASE_ANON_KEY}" \
-              -H "Authorization: Bearer ${SUPABASE_ANON_KEY}"
-            echo ""
-            echo "✅ Pulso REST direto enviado com sucesso!"
-          else
-            echo "ℹ️ Secrets do Supabase não configurados no GitHub Actions. Pulando ping direto secundário."
+            echo "⚠️ Aviso: Endpoint retornou HTTP $STATUS."
           fi
