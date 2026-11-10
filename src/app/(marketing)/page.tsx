@@ -28,7 +28,9 @@ import {
   ExternalLink,
   HelpCircle,
   Clock,
-  PhoneCall
+  PhoneCall,
+  X,
+  User
 } from 'lucide-react';
 
 interface FaqItem {
@@ -50,15 +52,67 @@ const FAQS: FaqItem[] = [
     answer: 'A arquitetura do módulo fiscal já está totalmente estruturada em standby no banco de dados e no código (com campos preparados para CFOP, NCM, alíquotas e payload de NFS-e/NFC-e). A emissão direta será ativada sob demanda comercial mediante homologação do gateway bancário.',
   },
   {
+    question: 'Por que o ácido muriático bruto é expressamente proibido pela plataforma?',
+    answer: 'O ácido muriático bruto ataca agressivamente os polímeros de cura da resina em revestimentos monolíticos, provoca a lixiviação de cobalto em piscinas de fibra e destrói os rejuntes cimentícios de pastilhas. O motor químico ISL do JHPCS bloqueia receitas com este composto para assegurar a vigência da Garantia Decenal da piscina.',
+  },
+  {
     question: 'Como funciona o teste gratuito de 7 dias?',
     answer: 'Ao concluir o cadastro rápido (com preenchimento automático de CNPJ via Receita Federal), sua conta é liberada imediatamente com todas as ferramentas ativas, inclusive a sua instância dedicada do WhatsApp na Evolution API. Você testa por 7 dias completos sem cobrança prévia e sem necessidade de cartão de crédito.',
   },
 ];
 
+const DEMO_PROFILES = [
+  {
+    name: 'AcquaClean Solo',
+    role: 'Tratador Autônomo',
+    sector: 'SOLO',
+    email: 'teste.solo@teste.com',
+    desc: 'Diagnóstico rápido com ISL, fotos no Cloudflare R2 e envio com marca própria no WhatsApp.',
+    icon: User,
+    badgeColor: 'text-cyan-400 border-cyan-500/30 bg-cyan-500/10'
+  },
+  {
+    name: 'PoolMaster Frotas',
+    role: 'Empresa de Manutenção & Rotas',
+    sector: 'FLEET',
+    email: 'teste.frota@teste.com',
+    desc: 'Geofencing GPS de 50 metros, baixa de químicos no carro por m³ e gestão de rotas da equipe.',
+    icon: Users,
+    badgeColor: 'text-sky-400 border-sky-500/30 bg-sky-500/10'
+  },
+  {
+    name: 'Resort Vista Bela',
+    role: 'Condomínios, Hotéis & Clubes',
+    sector: 'FACILITY',
+    email: 'teste.facility@teste.com',
+    desc: 'Caderno sanitário digital NBR 10.818 / Anvisa, selo de conformidade pública e alerta ao síndico.',
+    icon: Hotel,
+    badgeColor: 'text-emerald-400 border-emerald-500/30 bg-emerald-500/10'
+  },
+  {
+    name: 'AcquaShop Balcão',
+    role: 'Lojas de Piscinas & Revendas',
+    sector: 'RETAIL',
+    email: 'teste.loja@teste.com',
+    desc: 'Receituário estequiométrico no balcão, checkout dinâmico PIX e cupom térmico 80mm.',
+    icon: Store,
+    badgeColor: 'text-indigo-400 border-indigo-500/30 bg-indigo-500/10'
+  },
+  {
+    name: 'Jhoston Engenharia',
+    role: 'Construtora & Perícia Decenal',
+    sector: 'ENTERPRISE',
+    email: 'teste.jhoston@teste.com',
+    desc: 'Rastreabilidade de 10 anos, perícia forense de substratos e governança master multi-tenant.',
+    icon: ShieldCheck,
+    badgeColor: 'text-amber-400 border-amber-500/30 bg-amber-500/10'
+  }
+];
+
 export default function MarketingLandingPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [emailInput, setEmailInput] = useState('');
-  const [emailSubmitted, setEmailSubmitted] = useState(false);
+  const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
 
   const toggleFaq = (idx: number) => {
     setOpenFaq(openFaq === idx ? null : idx);
@@ -72,50 +126,8 @@ export default function MarketingLandingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 selection:bg-cyan-500 selection:text-slate-950 font-sans">
+    <div className="bg-slate-950 text-slate-100 selection:bg-cyan-500 selection:text-slate-950 font-sans">
       
-      {/* 0. Barra Superior Institucional */}
-      <nav className="border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-xl sticky top-0 z-50 px-6 py-4">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-cyan-500 via-sky-400 to-emerald-400 flex items-center justify-center font-black text-slate-950 text-xl shadow-lg shadow-cyan-500/20">
-              J
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="font-extrabold text-base text-white tracking-wider">JHPCS ECOSYSTEM</span>
-                <span className="hidden sm:inline-block px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 text-[10px] font-mono font-bold border border-cyan-500/30">
-                  v6.5 Enterprise
-                </span>
-              </div>
-              <span className="text-[10px] text-slate-400 block font-medium">Engenharia Química & Inteligência de Borda para Piscinas</span>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3 sm:gap-4">
-            <Link
-              href="/solucoes"
-              className="text-xs font-bold text-slate-300 hover:text-cyan-400 transition px-3 py-2 rounded-xl hover:bg-slate-900 hidden sm:inline-block"
-            >
-              Setores & Soluções
-            </Link>
-            <Link
-              href="/"
-              className="text-xs font-bold text-slate-300 hover:text-white transition px-3 py-2 rounded-xl hover:bg-slate-900 hidden md:inline-block"
-            >
-              Cockpit do Sistema
-            </Link>
-            <Link
-              href="/onboarding"
-              className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 via-sky-400 to-emerald-400 hover:brightness-110 text-slate-950 font-black text-xs transition shadow-lg shadow-cyan-500/20 flex items-center gap-1.5"
-            >
-              <span>Criar Conta Grátis</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
-        </div>
-      </nav>
-
       {/* 1. HERO SECTION (Acima da Dobra) */}
       <section className="relative overflow-hidden pt-12 pb-20 md:pt-20 md:pb-32 px-6">
         {/* Glows Decorativos em Cyan & Amber */}
@@ -150,13 +162,14 @@ export default function MarketingLandingPage() {
               <ArrowRight className="w-4 h-4" />
             </Link>
 
-            <Link
-              href="/"
-              className="w-full sm:w-auto px-7 py-4 rounded-2xl bg-slate-900/80 hover:bg-slate-800 text-slate-200 font-bold text-sm border border-slate-800 hover:border-slate-700 flex items-center justify-center gap-2 transition"
+            <button
+              type="button"
+              onClick={() => setIsDemoModalOpen(true)}
+              className="w-full sm:w-auto px-7 py-4 rounded-2xl bg-slate-900/80 hover:bg-slate-800 text-slate-200 font-bold text-sm border border-slate-800 hover:border-slate-700 flex items-center justify-center gap-2 transition cursor-pointer shadow-lg hover:text-white"
             >
               <PlayCircle className="w-4 h-4 text-cyan-400" />
               <span>Ver Demonstração Interativa</span>
-            </Link>
+            </button>
           </div>
 
           {/* MOCKUP FLUTUANTE DE CAMPO & WHATSAPP */}
@@ -200,9 +213,9 @@ export default function MarketingLandingPage() {
                     Revestimento Monolítico Sand preservado contra incrustações ou lixiviação ácida.
                   </span>
                 </div>
-                <div className="flex items-center gap-1.5 text-[11px] font-mono text-slate-400">
-                  <Send className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>PDF Base64 disparado no WhatsApp</span>
+                <div className="flex items-center gap-1.5 text-cyan-400 font-mono text-[11px] self-end sm:self-auto">
+                  <Send className="w-3.5 h-3.5" />
+                  <span>WhatsApp Enviado</span>
                 </div>
               </div>
             </div>
@@ -211,92 +224,160 @@ export default function MarketingLandingPage() {
         </div>
       </section>
 
-      {/* 2. FAIXA DE CREDENCIAIS & AUTORIDADE */}
-      <section className="border-y border-slate-800 bg-slate-900/40 py-10 px-6">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="flex items-start gap-3.5 p-4 rounded-2xl bg-slate-950/60 border border-slate-800/80">
-            <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-400 shrink-0">
-              <ShieldCheck className="w-5 h-5" />
-            </div>
-            <div className="space-y-0.5">
-              <h4 className="text-xs font-black text-white uppercase tracking-wider">Engenharia Construtiva</h4>
-              <p className="text-[11px] text-slate-400">Garantia Decenal de Revestimento chancelada pela Jhoston Pools & Lagoons.</p>
-            </div>
-          </div>
+      {/* MODAL DE DEMONSTRAÇÃO INTERATIVA */}
+      {isDemoModalOpen && (
+        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 space-y-6 shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
+            <button
+              type="button"
+              onClick={() => setIsDemoModalOpen(false)}
+              className="absolute top-5 right-5 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition cursor-pointer"
+            >
+              <X className="w-5 h-5" />
+            </button>
 
-          <div className="flex items-start gap-3.5 p-4 rounded-2xl bg-slate-950/60 border border-slate-800/80">
-            <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 shrink-0">
-              <FileText className="w-5 h-5" />
+            <div className="space-y-2">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 text-xs font-mono font-bold border border-cyan-500/30">
+                <PlayCircle className="w-3.5 h-3.5" />
+                <span>Ambientes de Teste Interativo</span>
+              </div>
+              <h3 className="text-xl sm:text-2xl font-black text-white">
+                Experimente o JHPCS na Prática
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-300">
+                Selecione o perfil que melhor representa a sua operação aquática para entrar com 1 clique no Cockpit configurado:
+              </p>
             </div>
-            <div className="space-y-0.5">
-              <h4 className="text-xs font-black text-white uppercase tracking-wider">Conformidade Sanitária</h4>
-              <p className="text-[11px] text-slate-400">Aderência estrita à NBR 10.818 e diretrizes de vigilância sanitária da Anvisa.</p>
-            </div>
-          </div>
 
-          <div className="flex items-start gap-3.5 p-4 rounded-2xl bg-slate-950/60 border border-slate-800/80">
-            <div className="p-2.5 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 shrink-0">
-              <Cloud className="w-5 h-5" />
-            </div>
-            <div className="space-y-0.5">
-              <h4 className="text-xs font-black text-white uppercase tracking-wider">Cloudflare R2 Global</h4>
-              <p className="text-[11px] text-slate-400">Armazenamento permanente de fotos e laudos de campo com zero custo de tráfego.</p>
-            </div>
-          </div>
+            <div className="grid grid-cols-1 gap-2.5 max-h-[60vh] overflow-y-auto pr-1">
+              {DEMO_PROFILES.map((profile, i) => {
+                const Icon = profile.icon;
+                return (
+                  <Link
+                    key={i}
+                    href={`/cockpit?demo_email=${encodeURIComponent(profile.email)}`}
+                    onClick={() => setIsDemoModalOpen(false)}
+                    className="p-3.5 rounded-2xl bg-slate-950/80 hover:bg-slate-800/90 border border-slate-800 hover:border-cyan-500/50 transition-all flex items-center justify-between gap-4 group"
+                  >
+                    <div className="flex items-center gap-3.5">
+                      <div className="w-10 h-10 rounded-xl bg-slate-900 group-hover:scale-105 border border-slate-800 flex items-center justify-center text-cyan-400 transition-transform">
+                        <Icon className="w-5 h-5" />
+                      </div>
+                      <div className="text-left space-y-0.5">
+                        <div className="flex items-center gap-2">
+                          <strong className="text-sm text-white group-hover:text-cyan-300 transition-colors">
+                            {profile.name}
+                          </strong>
+                          <span className={`px-2 py-0.5 rounded-md text-[9px] font-mono font-bold border ${profile.badgeColor}`}>
+                            {profile.sector}
+                          </span>
+                        </div>
+                        <span className="text-xs text-slate-400 block font-medium">
+                          {profile.role}
+                        </span>
+                        <p className="text-[11px] text-slate-400 leading-tight">
+                          {profile.desc}
+                        </p>
+                      </div>
+                    </div>
 
-          <div className="flex items-start gap-3.5 p-4 rounded-2xl bg-slate-950/60 border border-slate-800/80">
-            <div className="p-2.5 rounded-xl bg-purple-500/10 border border-purple-500/30 text-purple-400 shrink-0">
-              <Lock className="w-5 h-5" />
+                    <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all shrink-0" />
+                  </Link>
+                );
+              })}
             </div>
-            <div className="space-y-0.5">
-              <h4 className="text-xs font-black text-white uppercase tracking-wider">Blindagem LGPD</h4>
-              <p className="text-[11px] text-slate-400">Isolamento absoluto de dados entre tenants (Lei 13.709/18) com anonimização ativa.</p>
+
+            <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
+              <span>* Não requer senha nem cadastro inicial.</span>
+              <button
+                type="button"
+                onClick={() => setIsDemoModalOpen(false)}
+                className="text-xs text-slate-300 hover:text-white font-bold cursor-pointer"
+              >
+                Fechar
+              </button>
             </div>
           </div>
         </div>
+      )}
+
+      {/* 2. FAIXA DE CREDENCIAIS & AUTORIDADE */}
+      <section className="border-y border-slate-800/80 bg-slate-900/50 py-10 px-6">
+        <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          
+          <div className="space-y-1">
+            <div className="flex items-center justify-center text-amber-400 mb-2">
+              <ShieldCheck className="w-7 h-7" />
+            </div>
+            <strong className="text-2xl sm:text-3xl font-black font-mono text-white block">10 Anos</strong>
+            <span className="text-xs text-slate-400 font-medium">Garantia Decenal de Revestimento</span>
+          </div>
+
+          <div className="space-y-1">
+            <div className="flex items-center justify-center text-cyan-400 mb-2">
+              <Activity className="w-7 h-7" />
+            </div>
+            <strong className="text-2xl sm:text-3xl font-black font-mono text-white block">ISL Calibrado</strong>
+            <span className="text-xs text-slate-400 font-medium">Equilíbrio Químico Multi-Substrato</span>
+          </div>
+
+          <div className="space-y-1">
+            <div className="flex items-center justify-center text-emerald-400 mb-2">
+              <Compass className="w-7 h-7" />
+            </div>
+            <strong className="text-2xl sm:text-3xl font-black font-mono text-white block">GPS 50m</strong>
+            <span className="text-xs text-slate-400 font-medium">Geofencing Real na Piscina</span>
+          </div>
+
+          <div className="space-y-1">
+            <div className="flex items-center justify-center text-sky-400 mb-2">
+              <Cloud className="w-7 h-7" />
+            </div>
+            <strong className="text-2xl sm:text-3xl font-black font-mono text-white block">Zero Egress</strong>
+            <span className="text-xs text-slate-400 font-medium">Evidências em Cloudflare R2</span>
+          </div>
+
+        </div>
       </section>
 
-      {/* 3. GRADE DOS 4 SETORES DE MERCADO ATENDIDOS */}
+      {/* 3. SETORES ATENDIDOS & BENEFÍCIOS */}
       <section className="py-20 md:py-28 px-6 max-w-7xl mx-auto space-y-12">
         <div className="text-center space-y-3 max-w-2xl mx-auto">
           <span className="text-xs font-mono font-bold text-cyan-400 tracking-widest uppercase">
-            Adaptabilidade Modular Multi-Tenant
+            Flexibilidade Modular
           </span>
           <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
-            Uma Solução Especializada para Cada Setor da Indústria Aquática
+            Soluções Feitas Sob Medida para o Seu Modelo de Negócio
           </h2>
           <p className="text-xs sm:text-sm text-slate-400">
-            A interface, os privilégios e os relatórios adaptam-se dinamicamente ao modelo de operação da sua empresa.
+            Diga adeus a planilhas manuais, anotações de papel e laudos genéricos. O JHPCS entrega o que cada perfil precisa.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           
-          {/* SETOR 1: SOLO */}
-          <div className="p-6 rounded-3xl bg-slate-900/60 border border-slate-800 hover:border-cyan-500/50 transition flex flex-col justify-between group space-y-6">
-            <div className="space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 group-hover:scale-105 transition">
+          {/* Card 1: Solo */}
+          <div className="p-6 rounded-3xl bg-slate-900/60 border border-slate-800 hover:border-cyan-500/40 transition flex flex-col justify-between space-y-6">
+            <div className="space-y-3">
+              <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
                 <Smartphone className="w-6 h-6" />
               </div>
-              <div className="space-y-1">
-                <span className="text-[10px] font-mono font-bold text-cyan-400 uppercase">Plano Solo • R$ 89/mês</span>
-                <h3 className="text-lg font-black text-white">Tratador Autônomo</h3>
-              </div>
+              <h3 className="text-lg font-bold text-white">Tratadores Autônomos</h3>
               <p className="text-xs text-slate-400 leading-relaxed">
-                App PWA 100% offline para o celular. Cálculo de ISL multi-substrato na borda, upload de fotos no Cloudflare R2 e envio automático de comprovante no WhatsApp com a sua marca própria.
+                App PWA ultraleve que funciona mesmo sem sinal de celular. Diagnóstico em 15 segundos, fotos ilimitadas de evidências e comprovante profissional no WhatsApp com o seu logotipo.
               </p>
               <ul className="space-y-2 text-xs text-slate-300 pt-2 border-t border-slate-800">
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-                  <span>Até 30 piscinas ativas</span>
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                  <span>Cálculo do ISL na hora</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-                  <span>Relatório WhatsApp White-Label</span>
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                  <span>Comprovante WhatsApp automático</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-                  <span>Chave PIX própria sem taxas</span>
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                  <span>Cobrança facilitada no início do mês</span>
                 </li>
               </ul>
             </div>
@@ -309,72 +390,65 @@ export default function MarketingLandingPage() {
             </Link>
           </div>
 
-          {/* SETOR 2: FLEET */}
-          <div className="p-6 rounded-3xl bg-slate-900/80 border border-cyan-500/40 shadow-xl shadow-cyan-500/5 flex flex-col justify-between group space-y-6 relative">
-            <span className="absolute -top-3 right-6 px-3 py-0.5 rounded-full bg-cyan-500 text-slate-950 font-black text-[10px] uppercase shadow-md">
-              Mais Escolhido
+          {/* Card 2: Fleet */}
+          <div className="p-6 rounded-3xl bg-slate-900/60 border border-cyan-500/30 hover:border-cyan-400 transition flex flex-col justify-between space-y-6 relative">
+            <span className="absolute -top-3 right-6 px-3 py-1 rounded-full bg-cyan-500 text-slate-950 font-black text-[10px] uppercase tracking-wider shadow-md">
+              Mais Usado por Empresas
             </span>
-
-            <div className="space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-cyan-500 to-sky-400 flex items-center justify-center text-slate-950 group-hover:scale-105 transition">
+            <div className="space-y-3">
+              <div className="w-12 h-12 rounded-2xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400">
                 <Users className="w-6 h-6" />
               </div>
-              <div className="space-y-1">
-                <span className="text-[10px] font-mono font-bold text-cyan-400 uppercase">Plano Fleet • R$ 299/mês</span>
-                <h3 className="text-lg font-black text-white">Empresas e Frotas</h3>
-              </div>
-              <p className="text-xs text-slate-300 leading-relaxed">
-                Gestão centralizada de múltiplos técnicos. Despacho de rotas com Geofencing GPS (50m), controle de estoque volante na caminhonete com baixa estequiométrica automática e rateio de comissões.
+              <h3 className="text-lg font-bold text-white">Empresas & Frotas</h3>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Controle operacional rigoroso: check-in por Geofencing GPS (50m), baixa automática de produtos químicos na viatura por m³ tratado e cálculo automatizado de comissões.
               </p>
               <ul className="space-y-2 text-xs text-slate-300 pt-2 border-t border-slate-800">
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                  <span>Controle de múltiplos técnicos</span>
+                  <span>Geofencing GPS de 50 metros</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                  <span>Check-in GPS com raio de 50 metros</span>
+                  <span>Baixa de químicos no carro</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                  <span>Baixa de estoque por m³ tratado</span>
+                  <span>Comissão por piscina atendida</span>
                 </li>
               </ul>
             </div>
 
             <Link
               href="/onboarding"
-              className="w-full py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-sky-400 text-slate-950 text-xs font-black text-center block transition shadow-lg shadow-cyan-500/20"
+              className="w-full py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black text-xs text-center block transition shadow-lg shadow-cyan-500/20"
             >
               Começar com Fleet
             </Link>
           </div>
 
-          {/* SETOR 3: FACILITY */}
-          <div className="p-6 rounded-3xl bg-slate-900/60 border border-slate-800 hover:border-amber-500/50 transition flex flex-col justify-between group space-y-6">
-            <div className="space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 group-hover:scale-105 transition">
+          {/* Card 3: Facility */}
+          <div className="p-6 rounded-3xl bg-slate-900/60 border border-slate-800 hover:border-cyan-500/40 transition flex flex-col justify-between space-y-6">
+            <div className="space-y-3">
+              <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
                 <Hotel className="w-6 h-6" />
               </div>
-              <div className="space-y-1">
-                <span className="text-[10px] font-mono font-bold text-amber-400 uppercase">Plano Facility • R$ 490/mês</span>
-                <h3 className="text-lg font-black text-white">Hotéis & Condomínios</h3>
-              </div>
+              <h3 className="text-lg font-bold text-white">Condomínios & Hotéis</h3>
               <p className="text-xs text-slate-400 leading-relaxed">
-                Logbook sanitário digital por turnos em compliance rigoroso com a Anvisa. Totem de recepção com Selo de Conformidade dinâmico e opções financeiras ocultadas para os operadores de bordo.
+                Caderno sanitário digital em conformidade com a Anvisa e NBR 10.818. Selos públicos interativos via QR Code na portaria e recepção para tranquilidade dos hóspedes e moradores.
               </p>
               <ul className="space-y-2 text-xs text-slate-300 pt-2 border-t border-slate-800">
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                  <span>Logbook Sanitário Digital Anvisa</span>
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                  <span>Logbook Sanitário Digital</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                  <span>Selo Público & Totem de Recepção</span>
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                  <span>Selo Público QR Code / Embed</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                  <span>Módulo Financeiro Ocultado</span>
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                  <span>Alerta imediato de contaminação</span>
                 </li>
               </ul>
             </div>
@@ -387,16 +461,13 @@ export default function MarketingLandingPage() {
             </Link>
           </div>
 
-          {/* SETOR 4: RETAIL */}
-          <div className="p-6 rounded-3xl bg-slate-900/60 border border-slate-800 hover:border-emerald-500/50 transition flex flex-col justify-between group space-y-6">
-            <div className="space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 group-hover:scale-105 transition">
+          {/* Card 4: Retail */}
+          <div className="p-6 rounded-3xl bg-slate-900/60 border border-slate-800 hover:border-cyan-500/40 transition flex flex-col justify-between space-y-6">
+            <div className="space-y-3">
+              <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400">
                 <Store className="w-6 h-6" />
               </div>
-              <div className="space-y-1">
-                <span className="text-[10px] font-mono font-bold text-emerald-400 uppercase">Plano Retail • R$ 189/mês</span>
-                <h3 className="text-lg font-black text-white">Lojas & Revendas</h3>
-              </div>
+              <h3 className="text-lg font-bold text-white">Lojas de Piscinas</h3>
               <p className="text-xs text-slate-400 leading-relaxed">
                 Receituário químico de balcão express. Leitura visual da fita de teste, cálculo do carrinho de produtos ideal, checkout PIX instantâneo e impressão térmica de 80mm com a marca da loja.
               </p>
@@ -514,7 +585,7 @@ export default function MarketingLandingPage() {
                 <button
                   type="button"
                   onClick={() => toggleFaq(idx)}
-                  className="w-full p-5 text-left flex items-center justify-between gap-4 font-bold text-sm text-white hover:text-cyan-400 transition"
+                  className="w-full p-5 text-left flex items-center justify-between gap-4 font-bold text-sm text-white hover:text-cyan-400 transition cursor-pointer"
                 >
                   <span>{faq.question}</span>
                   {isOpen ? (
@@ -583,36 +654,6 @@ export default function MarketingLandingPage() {
           </div>
         </div>
       </section>
-
-      {/* 7. RODAPÉ INSTITUCIONAL */}
-      <footer className="border-t border-slate-800 bg-slate-950 py-12 px-6">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-slate-500">
-          <div className="flex items-center gap-3">
-            <div className="w-7 h-7 rounded-xl bg-cyan-500 text-slate-950 flex items-center justify-center font-black text-xs">
-              J
-            </div>
-            <span className="font-bold text-slate-300">JHPCS PoolTech Ecosystem</span>
-            <span>•</span>
-            <span>Jhoston Pools & Lagoons Engenharia</span>
-          </div>
-
-          <div className="flex items-center gap-6">
-            <Link href="/onboarding" className="hover:text-slate-300 transition">
-              Onboarding
-            </Link>
-            <Link href="/configuracoes" className="hover:text-slate-300 transition">
-              Configurações
-            </Link>
-            <Link href="/" className="hover:text-slate-300 transition">
-              Cockpit Master
-            </Link>
-          </div>
-
-          <span className="font-mono text-[11px]">
-            © 2026 JHPCS. Blindagem LGPD & NBR 10.818.
-          </span>
-        </div>
-      </footer>
 
     </div>
   );
