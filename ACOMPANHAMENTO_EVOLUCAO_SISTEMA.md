@@ -6,7 +6,7 @@
 ---
 
 ## 📌 Status Atual do Ecossistema (Novembro/2026)
-- **Versão Homologada**: `JHPCS Core v6.17 (KMS Fiscal Vault, Offline PWA NCM Catalog & Serverless Sefaz Webhook Edition)`
+- **Versão Homologada**: `JHPCS Core v6.18 (PWA Field App Refactoring Blueprint & Prompt Matrix Edition)`
 - **Índice de Estabilidade do Sistema**: **100 / 100** (Auditado via `scripts/run-system-audit.mjs` com Benchmarking e Laudo de 3 Páginas)
 - **Portais em Produção**:
   - 🌐 **Landing Page Institucional & Comercial**: `https://jhpcs.vercel.app/` (Grupo de Rotas Marketing com Banner Score 100)
@@ -21,6 +21,7 @@
   - 🧾 **Motor Fiscal Eletrônico (NF-e & NFS-e)**: `https://jhpcs.vercel.app/api/fiscal/emit` (Standby Controlado por Super Usuário)
   - 🔐 **Cofre de Certificados Digitais A1 (KMS Vault)**: `https://jhpcs.vercel.app/api/fiscal/certificate` (AES-256-CBC)
   - 📡 **Worker Serverless Webhook Sefaz**: `https://jhpcs.vercel.app/api/webhooks/sefaz` (Recepção de Lote em Tempo Real)
+  - 📄 **Relatório Pericial de Refatoração do PWA**: `https://jhpcs.vercel.app/api/pdf/pwa-refactoring` (Download/View de Laudo A4 em 4 Páginas)
   - ⚙️ **Gerador de Plaqueta Metálica NFC (Laser CNC)**: `https://jhpcs.vercel.app/plaqueta-nfc`
   - 🏅 **Selo de Conformidade & Totem de Recepção**: `https://jhpcs.vercel.app/selo`
   - 💳 **Gestão de Assinatura & Módulos**: `https://jhpcs.vercel.app/settings/subscription`
@@ -33,6 +34,18 @@
 ---
 
 ## 📅 Linha do Tempo & Histórico Detalhado de Evolução
+
+### [v6.18] - 10/11/2026: Diagnóstico Pericial e Matriz Canônica de Prompts para Refatoração do PWA de Campo (c:\JHPCS-campo)
+- **1. Laudo Técnico e Relatório Executivo em PDF ([`public/RELATORIO_REFATORACAO_PWA_CAMPO.pdf`](file:///c:/JHPCS/public/RELATORIO_REFATORACAO_PWA_CAMPO.pdf))**:
+  - Elaboração de documento A4 em 4 páginas com identidade visual corporativa (Dark Slate / Ciano / Esmeralda).
+  - **Página 1**: Diagnóstico forense da base atual de `c:\JHPCS-campo` e matriz de discrepâncias (As-Is vs To-Be).
+  - **Página 2**: Arquitetura modular alvo e plano de engenharia estruturado em 5 fases contínuas.
+  - **Página 3**: Matriz executável de Prompts de Engenharia para as Fases 1 (Modularização do Wizard), 2 (Catálogo Fiscal Offline) e 3 (Trava de Geofencing 50m).
+  - **Página 4**: Matriz executável de Prompts para as Fases 4 (Compressão WebP e Upload Direto R2) e 5 (Service Worker com Background Sync API), acompanhado de checklist de certificação estrita com Score 100/100.
+- **2. Gerador Automatizado de Laudo em Script ([`scripts/generate-pwa-refactoring-report.mjs`](file:///c:/JHPCS/scripts/generate-pwa-refactoring-report.mjs))**:
+  - Script em Node.js com `jspdf` parametrizado para geração instantânea do PDF sem dependência de browser headless ou Chromium.
+- **3. Endpoint Serverless de Visualização e Download do Laudo ([`/api/pdf/pwa-refactoring`](file:///c:/JHPCS/src/app/api/pdf/pwa-refactoring/route.ts))**:
+  - Rota de entrega segura de buffer com cabeçalhos HTTP `Content-Type: application/pdf` e `Content-Disposition: inline`.
 
 ### [v6.17] - 10/11/2026: Tripla Implantação de Infraestrutura Fiscal (Vault A1, PWA Offline e Sefaz Webhook)
 - **1. Certificado Digital A1 no Supabase Vault com Criptografia KMS ([`supabase/migrations/20261110_fiscal_vault_certificates.sql`](file:///c:/JHPCS/supabase/migrations/20261110_fiscal_vault_certificates.sql))**:

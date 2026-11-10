@@ -26,8 +26,8 @@
 [Concluído]  Sprint 7: Matriz de Setores SaaS, Licenciamento Modular e Module Gates
 [Concluído]  Sprint 8: Ambientes Demo Multi-Setor, Auto-Reset e Manuais Comerciais
 [Concluído]  Sprint 9: Marketing Institucional, Onboarding Público, Consulta CNPJ & Segurança Next.js 16
-[Em Curso]   Sprint 10: Refatoração do PWA de Campo (Janela c:\JHPCS-campo)
-[Em Desenvolvimento] Sprint 11: Módulo Fiscal Completo (NF-e & NFS-e em Homologação/Produção Standby)
+[Em Curso]   Sprint 10: Refatoração do PWA de Campo (Janela c:\JHPCS-campo) — Blueprint & Prompts Homologados (v6.18)
+[Em Desenvolvimento] Sprint 11: Módulo Fiscal Completo (NF-e & NFS-e em Homologação/Produção Standby + Vault A1)
 ```
 
 ---
