@@ -24,7 +24,11 @@ import {
   Trash2,
   PlusCircle,
   Building2,
-  Smartphone
+  Smartphone,
+  Receipt,
+  X,
+  Lock,
+  Check
 } from 'lucide-react';
 import { UserRole } from '@/types/database';
 
@@ -40,6 +44,13 @@ interface TenantWhatsAppItem {
   whatsapp_instance_name?: string | null;
   whatsapp_instance_status?: 'DISCONNECTED' | 'CONNECTING' | 'CONNECTED';
   whatsapp_connected_number?: string | null;
+  fiscal_config?: {
+    isFiscalEnabled: boolean;
+    environment: 'HOMOLOGATION' | 'PRODUCTION';
+    defaultNfeCfop?: string;
+    defaultNfseCode?: string;
+    issTaxRate?: number;
+  };
 }
 
 interface MasterGovernanceHubProps {
@@ -66,6 +77,63 @@ export function MasterGovernanceHub({
   const [showCorpQrModal, setShowCorpQrModal] = useState(false);
   const [loadingCorp, setLoadingCorp] = useState(false);
   const [corpTestSuccess, setCorpTestSuccess] = useState(false);
+
+  // Estados do Modal de Governança Fiscal Master
+  const [selectedFiscalTenant, setSelectedFiscalTenant] = useState<TenantWhatsAppItem | null>(null);
+  const [fiscalModalOpen, setFiscalModalOpen] = useState(false);
+  const [fiscalSaving, setFiscalSaving] = useState(false);
+  const [fiscalForm, setFiscalForm] = useState({
+    isFiscalEnabled: false,
+    environment: 'HOMOLOGATION' as 'HOMOLOGATION' | 'PRODUCTION',
+    defaultNfeCfop: '5102',
+    defaultNfseCode: '07.10',
+    issTaxRate: 3.0,
+    autoEmitOnPayment: false,
+  });
+
+  const handleOpenFiscalModal = (tenant: TenantWhatsAppItem) => {
+    setSelectedFiscalTenant(tenant);
+    setFiscalForm({
+      isFiscalEnabled: tenant.fiscal_config?.isFiscalEnabled ?? false,
+      environment: tenant.fiscal_config?.environment ?? 'HOMOLOGATION',
+      defaultNfeCfop: tenant.fiscal_config?.defaultNfeCfop ?? '5102',
+      defaultNfseCode: tenant.fiscal_config?.defaultNfseCode ?? '07.10',
+      issTaxRate: tenant.fiscal_config?.issTaxRate ?? 3.0,
+      autoEmitOnPayment: false,
+    });
+    setFiscalModalOpen(true);
+  };
+
+  const handleSaveFiscalConfig = async () => {
+    if (!selectedFiscalTenant) return;
+    setFiscalSaving(true);
+    try {
+      const res = await fetch('/api/admin/fiscal/config', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-user-email': 'danielsmlopes@hotmail.com',
+        },
+        body: JSON.stringify({
+          tenantId: selectedFiscalTenant.id,
+          ...fiscalForm,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setActionMessage(data.message || 'Chave fiscal atualizada!');
+        setFiscalModalOpen(false);
+        await fetchTenants();
+        setTimeout(() => setActionMessage(null), 4000);
+      } else {
+        alert(data.error || 'Erro ao atualizar chave fiscal');
+      }
+    } catch (e: any) {
+      alert(e.message || 'Erro ao comunicar com a API fiscal');
+    } finally {
+      setFiscalSaving(false);
+    }
+  };
 
   const fetchTenants = async () => {
     setLoadingTenants(true);
@@ -595,7 +663,8 @@ export function MasterGovernanceHub({
                 <th className="py-3 px-4">Empresa / Tenant</th>
                 <th className="py-3 px-4">Setor de Atuação</th>
                 <th className="py-3 px-4">Instância WhatsApp</th>
-                <th className="py-3 px-4">Status ao Vivo</th>
+                <th className="py-3 px-4">Chave Fiscal (NF-e/NFS-e)</th>
+                <th className="py-3 px-4">Status WhatsApp</th>
                 <th className="py-3 px-4 text-right">Ações Rápidas (Master)</th>
               </tr>
             </thead>
@@ -625,6 +694,24 @@ export function MasterGovernanceHub({
                       ) : (
                         <span className="text-slate-600 italic">Não provisionada</span>
                       )}
+                    </td>
+                    <td className="py-3 px-4">
+                      <button
+                        onClick={() => handleOpenFiscalModal(t)}
+                        className={`px-2.5 py-1 rounded-lg border text-[10px] font-bold flex items-center gap-1.5 transition cursor-pointer ${
+                          t.fiscal_config?.isFiscalEnabled
+                            ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300 hover:bg-emerald-500/20'
+                            : 'bg-slate-800/60 border-slate-700 text-slate-400 hover:text-slate-200 hover:border-slate-600'
+                        }`}
+                        title="Configurar Chave Fiscal deste Tenant (Super Admin)"
+                      >
+                        <Receipt className="w-3.5 h-3.5" />
+                        <span>
+                          {t.fiscal_config?.isFiscalEnabled 
+                            ? `Liberado (${t.fiscal_config.environment === 'PRODUCTION' ? 'PROD' : 'HOMOLOG'})` 
+                            : 'Bloqueado (Standby)'}
+                        </span>
+                      </button>
                     </td>
                     <td className="py-3 px-4">
                       {hasInstance ? (
@@ -706,6 +793,152 @@ export function MasterGovernanceHub({
           </table>
         </div>
       </div>
+
+      {/* Modal Soberano de Liberação da Chave Fiscal */}
+      {fiscalModalOpen && selectedFiscalTenant && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fadeIn">
+          <div className="relative w-full max-w-lg rounded-3xl bg-slate-900 border border-amber-500/40 p-6 md:p-8 shadow-2xl space-y-6">
+            <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+              <div className="flex items-center gap-2.5">
+                <span className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-400">
+                  <Receipt className="w-5 h-5" />
+                </span>
+                <div>
+                  <h3 className="font-black text-white text-base">
+                    Governança Fiscal • Super Usuário
+                  </h3>
+                  <p className="text-xs text-amber-400 font-mono">
+                    {selectedFiscalTenant.trade_name || selectedFiscalTenant.name}
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => setFiscalModalOpen(false)}
+                className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 transition"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="space-y-4 text-xs">
+              {/* Chave Mestre de Liberação */}
+              <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-3">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <span className="font-bold text-white text-sm block">Status da Chave Fiscal</span>
+                    <span className="text-slate-400 text-[11px]">
+                      Habilita o motor de NF-e e NFS-e para este tenant específico
+                    </span>
+                  </div>
+                  <button
+                    onClick={() => setFiscalForm(f => ({ ...f, isFiscalEnabled: !f.isFiscalEnabled }))}
+                    className={`px-4 py-2 rounded-xl font-black text-xs transition cursor-pointer flex items-center gap-1.5 ${
+                      fiscalForm.isFiscalEnabled
+                        ? 'bg-emerald-500 text-slate-950 shadow-lg shadow-emerald-500/20'
+                        : 'bg-slate-800 text-slate-400 border border-slate-700'
+                    }`}
+                  >
+                    {fiscalForm.isFiscalEnabled ? <Check className="w-4 h-4" /> : <Lock className="w-4 h-4" />}
+                    <span>{fiscalForm.isFiscalEnabled ? 'LIBERADO' : 'BLOQUEADO'}</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Ambiente: Homologação vs Produção */}
+              <div className="space-y-1.5">
+                <label className="font-bold text-slate-300 block">Ambiente Operacional Sefaz / Prefeitura</label>
+                <select
+                  value={fiscalForm.environment}
+                  onChange={(e) => setFiscalForm(f => ({ ...f, environment: e.target.value as any }))}
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white font-mono focus:border-amber-400 outline-none"
+                >
+                  <option value="HOMOLOGATION">HOMOLOGAÇÃO (Ambiente de Testes / Sem valor jurídico)</option>
+                  <option value="PRODUCTION">PRODUÇÃO (Sefaz Oficial com Validade Jurídica e Fiscal)</option>
+                </select>
+              </div>
+
+              {/* CFOP Padrão para NF-e */}
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-1.5">
+                  <label className="font-bold text-slate-300 block">CFOP Padrão (NF-e)</label>
+                  <select
+                    value={fiscalForm.defaultNfeCfop}
+                    onChange={(e) => setFiscalForm(f => ({ ...f, defaultNfeCfop: e.target.value }))}
+                    className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white font-mono focus:border-amber-400 outline-none"
+                  >
+                    <option value="5102">5102 - Venda Mercadoria Dentro do Estado</option>
+                    <option value="5405">5405 - Venda com Substituição Tributária (ST)</option>
+                    <option value="6102">6102 - Venda Mercadoria Fora do Estado</option>
+                  </select>
+                </div>
+
+                {/* Código de Serviço NFS-e */}
+                <div className="space-y-1.5">
+                  <label className="font-bold text-slate-300 block">Item Serviço (NFS-e LC 116)</label>
+                  <select
+                    value={fiscalForm.defaultNfseCode}
+                    onChange={(e) => setFiscalForm(f => ({ ...f, defaultNfseCode: e.target.value }))}
+                    className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white font-mono focus:border-amber-400 outline-none"
+                  >
+                    <option value="07.10">07.10 - Limpeza, Manutenção de Piscinas</option>
+                    <option value="07.02">07.02 - Execução e Reforma Civil</option>
+                    <option value="17.01">17.01 - Consultoria Técnica Pericial</option>
+                  </select>
+                </div>
+              </div>
+
+              {/* Alíquota de ISS e Emissão Automática */}
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-1.5">
+                  <label className="font-bold text-slate-300 block">Alíquota ISS Municipal (%)</label>
+                  <input
+                    type="number"
+                    step="0.1"
+                    min="2"
+                    max="5"
+                    value={fiscalForm.issTaxRate}
+                    onChange={(e) => setFiscalForm(f => ({ ...f, issTaxRate: parseFloat(e.target.value) || 3.0 }))}
+                    className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white font-mono focus:border-amber-400 outline-none"
+                  />
+                </div>
+
+                <div className="space-y-1.5 flex flex-col justify-end">
+                  <label className="font-bold text-slate-300 block mb-1">Emissão Automática ao Pagar PIX</label>
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      id="autoEmitCheck"
+                      checked={fiscalForm.autoEmitOnPayment}
+                      onChange={(e) => setFiscalForm(f => ({ ...f, autoEmitOnPayment: e.target.checked }))}
+                      className="w-4 h-4 rounded text-amber-500 bg-slate-950 border-slate-700"
+                    />
+                    <label htmlFor="autoEmitCheck" className="text-[11px] text-slate-300">
+                      Disparar NFS-e automática
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-800">
+              <button
+                onClick={() => setFiscalModalOpen(false)}
+                className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition"
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={handleSaveFiscalConfig}
+                disabled={fiscalSaving}
+                className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-slate-950 text-xs font-black shadow-lg shadow-amber-500/20 transition flex items-center gap-2 disabled:opacity-50"
+              >
+                {fiscalSaving && <RefreshCw className="w-3.5 h-3.5 animate-spin" />}
+                <span>Salvar Permissões Fiscais</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

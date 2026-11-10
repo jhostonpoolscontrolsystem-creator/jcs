@@ -388,6 +388,19 @@ export default function CounterPrescriptionPage() {
                       </button>
                     </div>
                   </div>
+
+                  {/* Status da Emissão Fiscal */}
+                  <div className="p-3 bg-slate-900/60 rounded-xl border border-slate-800 text-[11px] flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <Receipt className="w-4 h-4 text-amber-400 shrink-0" />
+                      <span className="text-slate-400">
+                        Chave Fiscal (NFC-e / Cupom Fiscal): <strong className="text-slate-300">Standby (Super Admin)</strong>
+                      </span>
+                    </div>
+                    <span className="px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-400 font-mono">
+                      CFOP 5102 / 5405
+                    </span>
+                  </div>
                 </div>
 
               </div>

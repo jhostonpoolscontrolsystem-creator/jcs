@@ -88,13 +88,32 @@ export async function GET(req: NextRequest) {
       settings.forEach((s) => settingsMap.set(s.tenant_id, s));
     }
 
+    // 3. Busca estados fiscais
+    let fiscalMap: Record<string, any> = {};
+    try {
+      const fiscalRes = await fetch(`${req.nextUrl.origin}/api/admin/fiscal/config`);
+      if (fiscalRes.ok) {
+        const fiscalData = await fiscalRes.json();
+        fiscalMap = fiscalData.fiscalConfigs || {};
+      }
+    } catch {}
+
     const enriched = tenantList.map((t) => {
       const s = settingsMap.get(t.id);
+      const f = fiscalMap[t.id] || {
+        tenantId: t.id,
+        isFiscalEnabled: false,
+        environment: 'HOMOLOGATION',
+        defaultNfeCfop: '5102',
+        defaultNfseCode: '07.10',
+        issTaxRate: 3.0,
+      };
       return {
         ...t,
         whatsapp_instance_name: s?.whatsapp_instance_name || null,
         whatsapp_instance_status: s?.whatsapp_instance_status || 'DISCONNECTED',
         whatsapp_connected_number: s?.whatsapp_connected_number || null,
+        fiscal_config: f,
       };
     });
 

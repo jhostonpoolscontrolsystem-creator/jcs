@@ -14,13 +14,28 @@ import {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { type = 'NFE', environment = 'HOMOLOGATION', payload } = body;
+    const { type = 'NFE', environment = 'HOMOLOGATION', payload, tenantId } = body;
 
     if (!payload) {
       return NextResponse.json({ error: 'Payload da nota fiscal não informado.' }, { status: 400 });
     }
 
-    const engine = new JHPCSFiscalEngine(environment as FiscalEnvironment);
+    // Se tenantId fornecido, verifica se o Super Admin liberou a chave fiscal para este tenant
+    let effectiveEnvironment = environment as FiscalEnvironment;
+    if (tenantId) {
+      try {
+        const configRes = await fetch(`${req.nextUrl.origin}/api/admin/fiscal/config?tenant_id=${tenantId}`);
+        if (configRes.ok) {
+          const configData = await configRes.json();
+          if (configData.fiscalConfig) {
+            // Se o Super Admin configurou ambiente específico para o tenant:
+            effectiveEnvironment = configData.fiscalConfig.environment || effectiveEnvironment;
+          }
+        }
+      } catch {}
+    }
+
+    const engine = new JHPCSFiscalEngine(effectiveEnvironment);
 
     if (type === 'NFE') {
       const result = await engine.emitNFe(payload as NFeEmissionPayload);

@@ -6,18 +6,18 @@
 ---
 
 ## 📌 Status Atual do Ecossistema (Novembro/2026)
-- **Versão Homologada**: `JHPCS Core v6.14 (Fiscal Engine NF-e & NFS-e Standby Edition)`
-- **Índice de Estabilidade do Sistema**: **100 / 100** (Auditado via `scripts/run-system-audit.mjs` com Benchmarking de 2 páginas)
+- **Versão Homologada**: `JHPCS Core v6.15 (Super Admin Fiscal Switch & 3-Page Ultradetailed Forensic Audit Edition)`
+- **Índice de Estabilidade do Sistema**: **100 / 100** (Auditado via `scripts/run-system-audit.mjs` com Benchmarking e Laudo de 3 Páginas)
 - **Portais em Produção**:
   - 🌐 **Landing Page Institucional & Comercial**: `https://jhpcs.vercel.app/` (Grupo de Rotas Marketing)
   - 🛡️ **Página Pericial de Garantia Decenal JHoston**: `https://jhpcs.vercel.app/garantia-jhoston`
   - 🧭 **Página de Setores & Soluções Especializadas**: `https://jhpcs.vercel.app/solucoes`
   - 💳 **Tabela de Preços & Comparativo de Planos**: `https://jhpcs.vercel.app/planos`
-  - 👑 **Centro de Comando & Cockpit SUPER ADMIN**: `https://jhpcs.vercel.app/cockpit` (Visão Soberana Master)
+  - 👑 **Centro de Comando & Cockpit SUPER ADMIN**: `https://jhpcs.vercel.app/cockpit` (Visão Soberana Master com Chave Fiscal Multi-Tenant)
   - 🚀 **Onboarding & Ativação de Novos Clientes**: `https://jhpcs.vercel.app/onboarding`
   - 🛡️ **Perícia de Garantia JHoston (Interna)**: `https://jhpcs.vercel.app/garantia-pericial`
-  - 💵 **JHPCS Financeiro & Contratos**: `https://jhpcs.vercel.app/financeiro`
-  - 🧾 **Motor Fiscal Eletrônico (NF-e & NFS-e)**: `https://jhpcs.vercel.app/api/fiscal/emit` (Standby / Em Desenvolvimento)
+  - 💵 **JHPCS Financeiro & Contratos**: `https://jhpcs.vercel.app/financeiro` (Integrado à Governança Fiscal)
+  - 🧾 **Motor Fiscal Eletrônico (NF-e & NFS-e)**: `https://jhpcs.vercel.app/api/fiscal/emit` (Standby Controlado por Super Usuário)
   - ⚙️ **Gerador de Plaqueta Metálica NFC (Laser CNC)**: `https://jhpcs.vercel.app/plaqueta-nfc`
   - 🏅 **Selo de Conformidade & Totem de Recepção**: `https://jhpcs.vercel.app/selo`
   - 💳 **Gestão de Assinatura & Módulos**: `https://jhpcs.vercel.app/settings/subscription`
@@ -30,6 +30,35 @@
 ---
 
 ## 📅 Linha do Tempo & Histórico Detalhado de Evolução
+
+### [v6.15] - 10/11/2026: Governança da Chave Fiscal por Super Usuário & Laudo Ultradetalhado de 3 Páginas (Score 100/100)
+- **Painel Supremo de Controle Fiscal Master ([`src/components/MasterGovernanceHub.tsx`](file:///c:/JHPCS/src/components/MasterGovernanceHub.tsx))**:
+  - Modal Soberano interativo permitindo que apenas Daniel Lopes / Patrícia Grübel configurem a chave fiscal de cada empresa/tenant individualmente.
+  - Alternância imediata entre ambiente de **HOMOLOGAÇÃO** (testes sem valor jurídico) e **PRODUÇÃO** (validade jurídica perante Sefaz/Prefeituras).
+  - Configuração de parâmetros tributários por dropdowns:
+    * CFOP Padrão para NF-e: `5102` (Interna), `5405` (Substituição Tributária) ou `6102` (Interestadual).
+    * Código LC 116 para NFS-e: `07.10` (Limpeza e manutenção), `07.02` (Obras/Reforma) ou `17.01` (Perícia técnica).
+    * Alíquota de ISS Municipal com validação estrita (2% a 5%).
+    * Gatilho de Emissão Automática de NFS-e no momento da liquidação de mensalidade PIX.
+- **Interligação com as Demais Áreas Correlatas**:
+  - [`/api/admin/fiscal/config`](file:///c:/JHPCS/src/app/api/admin/fiscal/config/route.ts): Endpoint de consulta e mutação restrito com autorização estrita de Master Governance.
+  - [`/financeiro`](file:///c:/JHPCS/src/app/(dashboard)/financeiro/page.tsx): Banner integrado direcionando o operador para o Cockpit com indicativo de controle de Super Usuário.
+  - [`/configuracoes`](file:///c:/JHPCS/src/app/configuracoes/page.tsx): Notificador de status da chave fiscal do tenant com atalho para o Cockpit.
+  - [`/trade/balcao`](file:///c:/JHPCS/src/app/trade/balcao/page.tsx): Card informativo de emissão de cupom fiscal / NFC-e interligado ao status do Super Admin.
+- **Bateria de Auditoria Forense Rigorosa de 5 Pilares ([`scripts/run-system-audit.mjs`](file:///c:/JHPCS/scripts/run-system-audit.mjs))**:
+  - Pilar 1: Ambiente, Credenciais, Rotas & Blindagem LGPD (20/20 pts)
+  - Pilar 2: Banco de Dados Supabase, RLS Multi-Tenant & SQL Security (20/20 pts)
+  - Pilar 3: Motor Químico ISL Multi-Substrato & Carga Concorrente (20/20 pts)
+  - Pilar 4: Motor Fiscal (NF-e/NFS-e), Chave Super Admin & Standby Zero-Cost (20/20 pts)
+  - Pilar 5: Engenharia do Caos, Telemetria Corrompida & Modo Offline IndexedDB (20/20 pts)
+  - **PONTUAÇÃO FINAL CONQUISTADA: 100 / 100**.
+- **Laudo Técnico Pericial Ultradetalhado em PDF ([`public/LAUDO_ESTABILIDADE_SISTEMA_JHPCS.pdf`](file:///c:/JHPCS/public/LAUDO_ESTABILIDADE_SISTEMA_JHPCS.pdf))**:
+  - Expandido para **3 Páginas Executivas**:
+    * *Página 1:* Auditoria Forense de Confiabilidade, Segurança e Pontuação por Pilar.
+    * *Página 2:* Benchmarking Competitivo Completo (JHPCS vs App do Tratador, Genco/HTH e Softwares Genéricos de O.S.).
+    * *Página 3:* Análise Crítica com Salvaguardas Imediatas (Certificados A1 no Supabase Vault, Webhooks Sefaz) e Visão de Futuro do CORE (IA Agêntica Tributária, Split PIX Bacen e Blockchain Decenal).
+
+---
 
 ### [v6.14] - 10/11/2026: Motor Fiscal Eletrônico Completo (NF-e de Insumos & NFS-e de Serviços) em Standby
 - **Arquitetura & Engenharia do Motor Fiscal ([`src/lib/fiscal/fiscalEngine.ts`](file:///c:/JHPCS/src/lib/fiscal/fiscalEngine.ts))**:

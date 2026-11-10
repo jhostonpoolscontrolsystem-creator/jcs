@@ -560,6 +560,27 @@ export default function TenantSettingsPage() {
                   className="w-4 h-4 rounded text-cyan-500 focus:ring-0 bg-slate-900 border-slate-700 cursor-pointer"
                 />
               </div>
+
+              {/* Status da Chave Fiscal */}
+              <div className="flex items-center justify-between p-4 rounded-2xl bg-amber-950/20 border border-amber-500/30">
+                <div className="space-y-0.5">
+                  <div className="flex items-center gap-2">
+                    <strong className="text-xs text-white block">Módulo Fiscal (NF-e de Insumos & NFS-e de Serviços)</strong>
+                    <span className="px-2 py-0.5 rounded text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 font-bold">
+                      SUPER ADMIN
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-slate-400">
+                    A liberação e o modo de operação (Homologação / Produção) são gerenciados exclusivamente pelo Super Admin Daniel Lopes / Patrícia Grübel.
+                  </p>
+                </div>
+                <Link
+                  href="/cockpit"
+                  className="px-3 py-1.5 rounded-xl bg-slate-950 border border-amber-500/40 text-amber-400 text-xs font-bold hover:bg-amber-500/10 transition"
+                >
+                  Ver no Cockpit
+                </Link>
+              </div>
             </div>
           </div>
 

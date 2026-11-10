@@ -408,17 +408,30 @@ export default function FinancialDashboardPage() {
           </div>
         )}
 
-        {/* Banner de Standby Fiscal */}
-        <div className="p-4 bg-slate-900 border border-slate-800 rounded-2xl flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-2">
-          <div className="flex items-center gap-2">
-            <Lock className="w-4 h-4 text-amber-400" />
-            <span>
-              <strong>Modo Operacional Ativo:</strong> Módulo Fiscal (NFC-e / NFS-e / SAT) mantido em standby sob demanda corporativa.
-            </span>
+        {/* Banner de Standby Fiscal / Liberação Super Admin */}
+        <div className="p-4 bg-slate-900 border border-slate-800 rounded-2xl flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-3">
+          <div className="flex items-center gap-2.5">
+            <div className="p-2 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400">
+              <Lock className="w-4 h-4" />
+            </div>
+            <div>
+              <div className="text-white font-bold flex items-center gap-2">
+                <span>Módulo Fiscal Corporativo (NF-e de Insumos & NFS-e de Serviços)</span>
+                <span className="px-2 py-0.5 rounded text-[10px] bg-amber-950/60 text-amber-400 border border-amber-800/40 font-mono">
+                  Super Admin Controlled
+                </span>
+              </div>
+              <p className="text-[11px] text-slate-400 mt-0.5">
+                A emissão de notas é liberada e calibrada exclusivamente pelo <strong>Super Usuário Master</strong> via Centro de Comando (Homologação ou Produção).
+              </p>
+            </div>
           </div>
-          <span className="text-[10px] font-mono text-slate-500">
-            FLAG: NEXT_PUBLIC_ENABLE_FISCAL_ERP=false
-          </span>
+          <Link
+            href="/cockpit"
+            className="px-3 py-1.5 rounded-xl bg-slate-950 border border-slate-700 hover:border-amber-500/50 text-slate-300 hover:text-amber-400 text-xs font-bold transition whitespace-nowrap"
+          >
+            Ver Chave no Cockpit
+          </Link>
         </div>
 
       </div>
