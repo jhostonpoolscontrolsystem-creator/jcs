@@ -27,7 +27,7 @@
 [Concluído]  Sprint 8: Ambientes Demo Multi-Setor, Auto-Reset e Manuais Comerciais
 [Concluído]  Sprint 9: Marketing Institucional, Onboarding Público, Consulta CNPJ & Segurança Next.js 16
 [Em Curso]   Sprint 10: Refatoração do PWA de Campo (Janela c:\JHPCS-campo)
-[Planejado]  Sprint 11: Ativação sob Demanda do ERP Fiscal Completo (Focus / PlugNotas)
+[Em Desenvolvimento] Sprint 11: Módulo Fiscal Completo (NF-e & NFS-e em Homologação/Produção Standby)
 ```
 
 ---

@@ -6,7 +6,7 @@
 ---
 
 ## 📌 Status Atual do Ecossistema (Novembro/2026)
-- **Versão Homologada**: `JHPCS Core v6.13 (Keep-Alive Anti-Pause Workflow & Supabase Health Pulse Edition)`
+- **Versão Homologada**: `JHPCS Core v6.14 (Fiscal Engine NF-e & NFS-e Standby Edition)`
 - **Índice de Estabilidade do Sistema**: **100 / 100** (Auditado via `scripts/run-system-audit.mjs` com Benchmarking de 2 páginas)
 - **Portais em Produção**:
   - 🌐 **Landing Page Institucional & Comercial**: `https://jhpcs.vercel.app/` (Grupo de Rotas Marketing)
@@ -15,9 +15,9 @@
   - 💳 **Tabela de Preços & Comparativo de Planos**: `https://jhpcs.vercel.app/planos`
   - 👑 **Centro de Comando & Cockpit SUPER ADMIN**: `https://jhpcs.vercel.app/cockpit` (Visão Soberana Master)
   - 🚀 **Onboarding & Ativação de Novos Clientes**: `https://jhpcs.vercel.app/onboarding`
-  - 👑 **Centro de Comando & Governança SUPER ADMIN**: `https://jhpcs.vercel.app/` (Visão Soberana Master)
   - 🛡️ **Perícia de Garantia JHoston (Interna)**: `https://jhpcs.vercel.app/garantia-pericial`
   - 💵 **JHPCS Financeiro & Contratos**: `https://jhpcs.vercel.app/financeiro`
+  - 🧾 **Motor Fiscal Eletrônico (NF-e & NFS-e)**: `https://jhpcs.vercel.app/api/fiscal/emit` (Standby / Em Desenvolvimento)
   - ⚙️ **Gerador de Plaqueta Metálica NFC (Laser CNC)**: `https://jhpcs.vercel.app/plaqueta-nfc`
   - 🏅 **Selo de Conformidade & Totem de Recepção**: `https://jhpcs.vercel.app/selo`
   - 💳 **Gestão de Assinatura & Módulos**: `https://jhpcs.vercel.app/settings/subscription`
@@ -30,6 +30,33 @@
 ---
 
 ## 📅 Linha do Tempo & Histórico Detalhado de Evolução
+
+### [v6.14] - 10/11/2026: Motor Fiscal Eletrônico Completo (NF-e de Insumos & NFS-e de Serviços) em Standby
+- **Arquitetura & Engenharia do Motor Fiscal ([`src/lib/fiscal/fiscalEngine.ts`](file:///c:/JHPCS/src/lib/fiscal/fiscalEngine.ts))**:
+  - Implementação unificada com suporte a ambientes de **Homologação** (`HOMOLOGATION`) e **Produção** (`PRODUCTION`).
+  - **NF-e (Nota Fiscal de Produto)**:
+    - Validação matemática de NCM (8 dígitos numéricos, com catálogo de químicos: cloro, barrilha, sulfato, algicidas, decantadores).
+    - Mapeamento estrito de CFOP (5102 interna, 5405 substituição tributária, 6102 interestadual).
+    - Validação de regras tributárias de ICMS, PIS, COFINS, CST e CSOSN para empresas do Simples Nacional ou Lucro Presumido/Real.
+    - Geração de Chave de Acesso estruturada de 44 dígitos (UF + AAMM + CNPJ + Mod + Série + Número + Código Numérico + DV).
+  - **NFS-e (Nota Fiscal de Serviços)**:
+    - Mapeamento do item da Lista de Serviços LC 116/2003 (ex: `07.10` - Limpeza, manutenção e conservação de piscinas).
+    - Validação de Código IBGE do Município emissor (ex: `3550308` para São Paulo / SP) e alíquotas de ISS.
+    - Tratamento de retenções na fonte (ISS, PIS, COFINS, INSS, CSLL, IRRF) e controle de Número de RPS.
+- **Camada de Standby e Proteção Financeira Zero-Cost**:
+  - Controlado rigidamente pela Feature Flag `NEXT_PUBLIC_ENABLE_FISCAL_ERP=false`.
+  - Operação em modo **Simulação/Emulação Segura**: nenhuma cobrança de gateway (Focus NFe, PlugNotas) e nenhum envio real à Sefaz/Prefeituras ocorre sem ativação explícita da Diretoria Executiva.
+  - Endpoints REST criados: `POST /api/fiscal/emit` e `GET /api/fiscal/emit?id=...`.
+- **Bateria de Testes Automatizados ([`scripts/test-fiscal-engine.mjs`](file:///c:/JHPCS/scripts/test-fiscal-engine.mjs))**:
+  - Teste 1: Bloqueio e rejeição estrita de NCM inválido.
+  - Teste 2: Emissão simulada de NF-e em ambiente de homologação com cálculo de totais.
+  - Teste 3: Emissão simulada de NFS-e de serviço de manutenção em produção.
+  - Teste 4: Verificação da blindagem do modo Standby via Feature Flag.
+  - **Resultado**: 4 testes executados, 4 aprovados com 100% de sucesso.
+- **Governança & Documentação**:
+  - Atualizado o Centro de Ajuda (`SystemHelpCenter.tsx`) e `ROADMAP.md` (Sprint 11 marcada como Em Desenvolvimento).
+
+---
 
 ### [v6.13] - 10/11/2026: Workflow GitHub Actions Keep-Alive Anti-Pause Supabase (3 em 3 dias)
 - **Implementação do Workflow CI/CD ([`.github/workflows/keep-supabase-awake.yml`](file:///C:/JHPCS/.github/workflows/keep-supabase-awake.yml))**:

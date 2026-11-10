@@ -459,6 +459,16 @@ export function SystemHelpCenter({ onNavigateTab }: { onNavigateTab: (tab: any) 
           title: 'Pulso Automático Anti-Pausa do Supabase (A cada 3 dias)',
           description: 'Para garantir disponibilidade ininterrupta sem custos de infraestrutura, o GitHub Actions executa a cada 3 dias um cron automatizado que dispara o endpoint /api/cron/keep-alive, acordando o banco de dados PostgreSQL antes do limite de 7 dias do plano gratuito.',
           importantNotice: 'O script é totalmente autônomo e não requer nenhuma intervenção manual ou segredo de infraestrutura exposto.'
+        },
+        {
+          title: 'Módulo de Emissão Fiscal (NF-e & NFS-e) [EM DESENVOLVIMENTO / STANDBY]',
+          description: 'O motor de emissão de Documentos Fiscais Eletrônicos (NF-e para venda de produtos químicos e NFS-e para ordens de serviço de manutenção) já está totalmente modelado, estruturado e com testes automatizados nos ambientes de Homologação e Produção.',
+          stepByStep: [
+            'NF-e de Produtos: Validação estrita de NCM (8 dígitos), CFOP (ex: 5102, 5405), alíquotas de ICMS/PIS/COFINS e geração de chave de acesso de 44 dígitos.',
+            'NFS-e de Serviços: Validação de código tributário municipal (ex: Item 07.10 da LC 116/03), código IBGE do município, alíquota de ISS e número de RPS.',
+            'Ambientes Suportados: HOMOLOGAÇÃO (testes e espelho) e PRODUÇÃO (validade jurídica).'
+          ],
+          importantNotice: 'STATUS: EM DESENVOLVIMENTO / STANDBY ARQUITETURAL. O módulo permanece adormecido via feature flag NEXT_PUBLIC_ENABLE_FISCAL_ERP=false e não gera obrigações fiscais perante a Sefaz ou Prefeituras até contratação de gateway comercial.'
         }
       ],
       faqs: [
