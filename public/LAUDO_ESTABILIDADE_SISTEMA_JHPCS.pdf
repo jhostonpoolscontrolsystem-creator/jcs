@@ -33,7 +33,7 @@ BT
 9.7749999999999986 TL
 0.58 0.639 0.722 rg
 39.6850393700787407 762.5199212598424765 Td
-(Data da Auditoria: 10/11/2026, 09:59:59  |  Ambiente: Vercel Serverless + Supabase REST) Tj
+(Data da Auditoria: 10/11/2026, 13:52:54  |  Ambiente: Vercel Serverless + Supabase REST) Tj
 ET
 BT
 /F1 8.5 Tf
@@ -274,7 +274,7 @@ BT
 8.625 TL
 0.796 0.835 0.882 rg
 90.708661417322844 443.6222834645668627 Td
-(Supabase REST Read \(pools\): Conexão OK \(1917ms\) - 5 registros lidos) Tj
+(Supabase REST Read \(pools\): Conexão OK \(1918ms\) - 5 registros lidos) Tj
 ET
 BT
 /F1 7.5 Tf
@@ -288,7 +288,7 @@ BT
 8.625 TL
 0.796 0.835 0.882 rg
 90.708661417322844 430.8663779527558404 Td
-(Database Latency SLA: Latência sob controle \(1917ms\)) Tj
+(Database Latency SLA: Latência sob controle \(1918ms\)) Tj
 ET
 BT
 /F1 7.5 Tf
@@ -1055,7 +1055,7 @@ endobj
 21 0 obj
 <<
 /Producer (jsPDF 4.2.1)
-/CreationDate (D:20261110095959-03'00')
+/CreationDate (D:20261110135254-03'00')
 >>
 endobj
 22 0 obj
@@ -1096,7 +1096,7 @@ trailer
 /Size 23
 /Root 22 0 R
 /Info 21 0 R
-/ID [ <9893D2AE6D29C1F16F7D82E54DCE5335> <9893D2AE6D29C1F16F7D82E54DCE5335> ]
+/ID [ <8D6A3B22A9D955CE8C71F60ED64110D3> <8D6A3B22A9D955CE8C71F60ED64110D3> ]
 >>
 startxref
 23407

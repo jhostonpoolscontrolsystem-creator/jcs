@@ -445,6 +445,20 @@ export function SystemHelpCenter({ onNavigateTab }: { onNavigateTab: (tab: any) 
           title: 'Painel Comercial de Pedidos B2B & Expedição Nacional',
           description: 'A aba "Pedidos B2B & Expedição" permite ao Master e à Diretoria acompanhar o faturamento de insumos (Barrilha Leve, Cloro Concentrado, Bicarbonato puro), atualizar o status de transporte e carimbar o Selo de Garantia Blindada na ficha do cliente.',
           importantNotice: 'A utilização de insumos homologados adquiridos na loja B2B comprova o cumprimento das diretrizes técnicas do Termo de Garantia Decenal.'
+        },
+        {
+          title: 'Navegação Pública, Landing Page & Cockpit Master Desacoplados',
+          description: 'A partir da versão v6.12, a rota raiz (/) serve exclusivamente a Landing Page comercial institucional com o novo modal de demonstração interativa. O Cockpit Super Admin reside na rota segura /cockpit com todas as ferramentas de governança preservadas.',
+          stepByStep: [
+            'Visitantes externos e clientes acessam https://jhpcs.vercel.app/ e conhecem os 4 planos e a Garantia Decenal.',
+            'O botão "Ver Demonstração Interativa" abre instantaneamente os 5 perfis operacionais com 1 clique.',
+            'Administradores Master e operadores acessam diretamente pelo atalho "Cockpit Master" ou via /cockpit.'
+          ]
+        },
+        {
+          title: 'Pulso Automático Anti-Pausa do Supabase (A cada 3 dias)',
+          description: 'Para garantir disponibilidade ininterrupta sem custos de infraestrutura, o GitHub Actions executa a cada 3 dias um cron automatizado que dispara o endpoint /api/cron/keep-alive, acordando o banco de dados PostgreSQL antes do limite de 7 dias do plano gratuito.',
+          importantNotice: 'O script é totalmente autônomo e não requer nenhuma intervenção manual ou segredo de infraestrutura exposto.'
         }
       ],
       faqs: [
@@ -459,6 +473,12 @@ export function SystemHelpCenter({ onNavigateTab }: { onNavigateTab: (tab: any) 
           question: 'A JHoston envia equipe física quando ocorre um Red Flag de pH ácido?',
           answer: 'Não. Como as piscinas estão espalhadas pelo Brasil inteiro e o tratador é funcionário do cliente final, a JHoston atua por Supervisão Pericial Remota. O sistema notifica o Corpo Técnico e despacha a orientação estequiométrica no WhatsApp do piscineiro local, iniciando a janela de tolerância de 48 horas.',
           tags: ['red flag', 'engenharia', 'sla', 'brasil', 'piscineiro']
+        },
+        {
+          id: 'faq-keepalive-1',
+          question: 'O banco de dados pode pausar se ninguém usar o sistema por uma semana?',
+          answer: 'Não! O workflow GitHub Actions Keep-Alive dispara automaticamente a cada 3 dias uma consulta leve de contagem de piscinas, garantindo que o Supabase permaneça 100% ativo e online perpetuamente.',
+          tags: ['supabase', 'keep-alive', 'anti-pause', 'github actions', 'estabilidade']
         }
       ]
     }
