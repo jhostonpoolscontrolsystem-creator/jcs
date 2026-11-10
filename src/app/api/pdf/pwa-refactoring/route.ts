@@ -2,8 +2,6 @@ import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
-export const dynamic = 'force-dynamic';
-
 /**
  * Endpoint para visualização/download do Relatório Executivo de Refatoração do PWA de Campo (c:\JHPCS-campo)
  */
@@ -36,3 +34,4 @@ export async function GET() {
     );
   }
 }
+

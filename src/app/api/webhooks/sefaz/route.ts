@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 
-export const runtime = 'nodejs'; // Suporte para webhooks serverless na Vercel
-
 /**
  * Worker Serverless para Recepção de Webhooks da Sefaz e Prefeituras
  * Processa autorizações assíncronas de lote, cancelamentos e eventos de contingência.
@@ -85,3 +83,4 @@ export async function GET() {
     timestamp: new Date().toISOString(),
   });
 }
+

@@ -634,3 +634,4 @@ generatePwaRefactoringReport().catch(err => {
   console.error('[Relatório PWA] Erro na geração:', err);
   process.exit(1);
 });
+

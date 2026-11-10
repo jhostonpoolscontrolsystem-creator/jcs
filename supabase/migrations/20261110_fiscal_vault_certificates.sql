@@ -74,3 +74,4 @@ USING (
 -- Comentários de Auditoria e Governança
 COMMENT ON TABLE tenant_fiscal_certificates IS 'Armazenamento de Certificados A1 com criptografia PGP em conformidade com ICP-Brasil e LGPD.';
 COMMENT ON TABLE fiscal_invoice_batches IS 'Livro-razão de protocolos de autorização e webhooks assíncronos da Sefaz e Prefeituras.';
+

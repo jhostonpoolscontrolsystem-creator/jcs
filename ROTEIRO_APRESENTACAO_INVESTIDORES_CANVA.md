@@ -188,3 +188,4 @@ Preparamos ambientes de demonstração isolados para que o investidor possa expe
 2. **Passo 2 (Prescrição Rápida de Balcão):** Acesse [https://jhpcs.vercel.app/trade/balcao](https://jhpcs.vercel.app/trade/balcao), selecione um volume de piscina (ex: 45m³), marque pH 6.8 e veja a estequiometria gerar o orçamento e o PIX na hora.
 3. **Passo 3 (Governança Soberana):** Acesse [https://jhpcs.vercel.app/cockpit](https://jhpcs.vercel.app/cockpit) com as credenciais master e clique no botão **"Governança Fiscal"** para inspecionar a liberação de chaves NF-e/NFS-e por tenant.
 4. **Passo 4 (Laudos Oficiais):** Baixe o [Laudo Pericial de Estabilidade (PDF)](https://jhpcs.vercel.app/api/pdf/system-stability) para conferir a chancela técnica do sistema.
+

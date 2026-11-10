@@ -166,3 +166,4 @@ Demonstrar de forma prática, comercial e técnica a qualquer stakeholder (Diret
 | **Caderno Anvisa** | `https://jhpcs.vercel.app/logbook-sanitario` | `resort@jhpcs.com.br` | `DemoResort2026!` |
 | **Frotas GPS** | `https://jhpcs.vercel.app/demo?sector=maintenance` | `frota@jhpcs.com.br` | `DemoFrota2026!` |
 | **PWA Campo** | `https://jhpcs-campo.vercel.app` | `123.456.789-00` | `1234` |
+

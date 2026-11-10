@@ -37,3 +37,4 @@ if (Math.abs(cartResult.totalAmountBrl - expectedTotal) < 0.01) {
 }
 
 console.log('\n🎉 TODOS OS TESTES DO CATÁLOGO FISCAL OFFLINE PASSARAM COM SUCESSO!');
+
