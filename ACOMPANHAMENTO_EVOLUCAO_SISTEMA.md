@@ -6,10 +6,11 @@
 ---
 
 ## 📌 Status Atual do Ecossistema (Novembro/2026)
-- **Versão Homologada**: `JHPCS Core v6.15 (Super Admin Fiscal Switch & 3-Page Ultradetailed Forensic Audit Edition)`
+- **Versão Homologada**: `JHPCS Core v6.16 (Benchmarking & Score 100 Commercial Landing Page Engine Edition)`
 - **Índice de Estabilidade do Sistema**: **100 / 100** (Auditado via `scripts/run-system-audit.mjs` com Benchmarking e Laudo de 3 Páginas)
 - **Portais em Produção**:
-  - 🌐 **Landing Page Institucional & Comercial**: `https://jhpcs.vercel.app/` (Grupo de Rotas Marketing)
+  - 🌐 **Landing Page Institucional & Comercial**: `https://jhpcs.vercel.app/` (Grupo de Rotas Marketing com Banner Score 100)
+  - 🏆 **Página de Benchmarking Competitivo & Score 100**: `https://jhpcs.vercel.app/benchmarking` (Arma Comercial & Matriz Competitiva)
   - 🛡️ **Página Pericial de Garantia Decenal JHoston**: `https://jhpcs.vercel.app/garantia-jhoston`
   - 🧭 **Página de Setores & Soluções Especializadas**: `https://jhpcs.vercel.app/solucoes`
   - 💳 **Tabela de Preços & Comparativo de Planos**: `https://jhpcs.vercel.app/planos`
@@ -30,6 +31,19 @@
 ---
 
 ## 📅 Linha do Tempo & Histórico Detalhado de Evolução
+
+### [v6.16] - 10/11/2026: Transformação do Score 100/100 e Benchmarking em Ferramenta Comercial de Marketing
+- **Nova Página Pública de Benchmarking Competitivo ([`src/app/benchmarking/page.tsx`](file:///c:/JHPCS/src/app/benchmarking/page.tsx))**:
+  - Hero comemorativo destacando o Score Oficial 100/100 com métricas de vazão estequiométrica (1.6M+ cálculos/s), Geofencing GPS de 50 metros e Custo Zero no Cloudflare R2.
+  - Matriz comparativa tabular ultradetalhada: **JHPCS PoolTech** vs. **App do Tratador / Limpa Fácil**, **Genco / HTH Apps** e **Sistemas Genéricos de Ordem de Serviço**.
+  - Detalhamento visual dos 5 Pilares de Engenharia certificados (LGPD, Supabase RLS, Estresse LSI, Motor Fiscal e Engenharia do Caos).
+  - Download em 1 clique do Laudo Técnico Pericial Oficial em PDF de 3 páginas (`/api/pdf/system-stability`).
+  - CTA integrado para ativação do Teste Gratuito de 7 dias com auto-preenchimento de CNPJ.
+- **Integração na Navbar e Landing Page Raiz**:
+  - [`MarketingNavbar.tsx`](file:///c:/JHPCS/src/components/marketing/MarketingNavbar.tsx): Adicionado link de destaque dourado/esmeralda `Score 100 & Benchmarking`.
+  - [`(marketing)/page.tsx`](file:///c:/JHPCS/src/app/(marketing)/page.tsx): Inserido banner de autoridade institucional logo abaixo dos números de garantia decenal, direcionando o lead para a análise comparativa de mercado.
+
+---
 
 ### [v6.15] - 10/11/2026: Governança da Chave Fiscal por Super Usuário & Laudo Ultradetalhado de 3 Páginas (Score 100/100)
 - **Painel Supremo de Controle Fiscal Master ([`src/components/MasterGovernanceHub.tsx`](file:///c:/JHPCS/src/components/MasterGovernanceHub.tsx))**:

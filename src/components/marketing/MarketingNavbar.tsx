@@ -14,7 +14,8 @@ import {
   ShieldCheck, 
   LogIn, 
   PlayCircle,
-  Waves
+  Waves,
+  Award
 } from 'lucide-react';
 
 interface DemoAccount {
@@ -69,6 +70,10 @@ export function MarketingNavbar() {
           </Link>
           <Link href="/planos" className="hover:text-cyan-400 transition-colors py-1">
             Planos & Preços
+          </Link>
+          <Link href="/benchmarking" className="hover:text-emerald-400 transition-colors py-1 flex items-center gap-1.5 text-emerald-300 font-extrabold">
+            <Award className="w-3.5 h-3.5 text-emerald-400" />
+            <span>Score 100 & Benchmarking</span>
           </Link>
           <Link href="/garantia-jhoston" className="hover:text-amber-400 transition-colors py-1 flex items-center gap-1.5 text-amber-300">
             <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />

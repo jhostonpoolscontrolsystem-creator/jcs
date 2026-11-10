@@ -301,42 +301,78 @@ export default function MarketingLandingPage() {
         </div>
       )}
 
-      {/* 2. FAIXA DE CREDENCIAIS & AUTORIDADE */}
+      {/* 2. FAIXA DE CREDENCIAIS & AUTORIDADE COM BADGE SCORE 100 */}
       <section className="border-y border-slate-800/80 bg-slate-900/50 py-10 px-6">
-        <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          
-          <div className="space-y-1">
-            <div className="flex items-center justify-center text-amber-400 mb-2">
-              <ShieldCheck className="w-7 h-7" />
+        <div className="max-w-6xl mx-auto space-y-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            
+            <div className="space-y-1">
+              <div className="flex items-center justify-center text-amber-400 mb-2">
+                <ShieldCheck className="w-7 h-7" />
+              </div>
+              <strong className="text-2xl sm:text-3xl font-black font-mono text-white block">10 Anos</strong>
+              <span className="text-xs text-slate-400 font-medium">Garantia Decenal de Revestimento</span>
             </div>
-            <strong className="text-2xl sm:text-3xl font-black font-mono text-white block">10 Anos</strong>
-            <span className="text-xs text-slate-400 font-medium">Garantia Decenal de Revestimento</span>
+
+            <div className="space-y-1">
+              <div className="flex items-center justify-center text-cyan-400 mb-2">
+                <Activity className="w-7 h-7" />
+              </div>
+              <strong className="text-2xl sm:text-3xl font-black font-mono text-white block">ISL Calibrado</strong>
+              <span className="text-xs text-slate-400 font-medium">Equilíbrio Químico Multi-Substrato</span>
+            </div>
+
+            <div className="space-y-1">
+              <div className="flex items-center justify-center text-emerald-400 mb-2">
+                <Compass className="w-7 h-7" />
+              </div>
+              <strong className="text-2xl sm:text-3xl font-black font-mono text-white block">GPS 50m</strong>
+              <span className="text-xs text-slate-400 font-medium">Geofencing Real na Piscina</span>
+            </div>
+
+            <div className="space-y-1">
+              <div className="flex items-center justify-center text-sky-400 mb-2">
+                <Cloud className="w-7 h-7" />
+              </div>
+              <strong className="text-2xl sm:text-3xl font-black font-mono text-white block">Zero Egress</strong>
+              <span className="text-xs text-slate-400 font-medium">Evidências em Cloudflare R2</span>
+            </div>
+
           </div>
 
-          <div className="space-y-1">
-            <div className="flex items-center justify-center text-cyan-400 mb-2">
-              <Activity className="w-7 h-7" />
+          {/* Banner Hero do Score 100/100 */}
+          <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-emerald-950/40 via-slate-950 to-cyan-950/40 border border-emerald-500/30 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 shrink-0">
+                <Award className="w-6 h-6" />
+              </div>
+              <div>
+                <strong className="text-sm font-bold text-white block">
+                  Certificação Oficial de Engenharia: Score 100 / 100
+                </strong>
+                <span className="text-slate-400 text-[11px]">
+                  Auditado sob estresse de 50.000 cálculos de Langelier e concorrência paralela. Veja o benchmarking contra concorrentes.
+                </span>
+              </div>
             </div>
-            <strong className="text-2xl sm:text-3xl font-black font-mono text-white block">ISL Calibrado</strong>
-            <span className="text-xs text-slate-400 font-medium">Equilíbrio Químico Multi-Substrato</span>
-          </div>
 
-          <div className="space-y-1">
-            <div className="flex items-center justify-center text-emerald-400 mb-2">
-              <Compass className="w-7 h-7" />
+            <div className="flex items-center gap-3 shrink-0">
+              <Link
+                href="/benchmarking"
+                className="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs transition shadow-md shadow-emerald-500/20"
+              >
+                Ver Benchmarking Competitivo
+              </Link>
+              <a
+                href="/api/pdf/system-stability"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 hover:text-white font-bold text-xs transition"
+              >
+                Laudo PDF
+              </a>
             </div>
-            <strong className="text-2xl sm:text-3xl font-black font-mono text-white block">GPS 50m</strong>
-            <span className="text-xs text-slate-400 font-medium">Geofencing Real na Piscina</span>
           </div>
-
-          <div className="space-y-1">
-            <div className="flex items-center justify-center text-sky-400 mb-2">
-              <Cloud className="w-7 h-7" />
-            </div>
-            <strong className="text-2xl sm:text-3xl font-black font-mono text-white block">Zero Egress</strong>
-            <span className="text-xs text-slate-400 font-medium">Evidências em Cloudflare R2</span>
-          </div>
-
         </div>
       </section>
 
