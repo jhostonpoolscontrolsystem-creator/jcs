@@ -59,6 +59,10 @@ O sistema atende de forma modular a cinco perfis de operação:
 - **TypeScript Estrito:** `npx tsc --noEmit` deve sempre passar com 0 erros.
 - **Nota 100/100:** Cada ciclo de desenvolvimento deve ser validado via bateria automatizada de testes de estresse e resiliência.
 
+### 2.6. Atualização Contínua de Evolução, Manuais e Telas de Ajuda (Mandatório)
+- **Registro de Evolução:** Toda nova funcionalidade, correção ou módulo entregue DEVE ser imediatamente registrado no arquivo `ACOMPANHAMENTO_EVOLUCAO_SISTEMA.md`, com versionamento incremental, data e detalhamento dos componentes afetados.
+- **Telas de Ajuda e Guias:** Qualquer alteração em fluxos de trabalho ou telas operacionais deve refletir nas telas de ajuda in-app (ex: `/guia-cliente`, modais de ajuda contextual) e nos manuais do usuário. A entrega só é considerada concluída se a documentação do usuário estiver em perfeita sincronia com o código.
+
 ---
 
 ## 3. Catálogo de Agentes Autônomos (Personas)

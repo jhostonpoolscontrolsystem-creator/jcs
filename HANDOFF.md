@@ -69,3 +69,17 @@ O sistema possui 5 perfis pré-configurados que podem ser acessados diretamente 
   2. Implementação do cache offline de leitura/escrita com sincronização em background.
   3. Captura com compressão automática WebP e upload direto ao Cloudflare R2.
   4. Validação obrigatória de Geofencing GPS (50m) para check-in e encerramento de visitas.
+
+---
+
+## 6. Governança de Documentação & Suporte ao Usuário
+
+Toda e qualquer evolução técnica no ecossistema JHPCS deve manter a documentação viva e sincronizada nos seguintes pontos de contato:
+
+1. **Changelog Vivo:** [`ACOMPANHAMENTO_EVOLUCAO_SISTEMA.md`](file:///c:/JHPCS/ACOMPANHAMENTO_EVOLUCAO_SISTEMA.md) — histórico cronológico de cada versão, sprints, melhorias e correções implementadas.
+2. **Guia e Central de Ajuda do Cliente:** `/guia-cliente` — manual interativo dentro da plataforma para operadores de campo, síndicos e gerentes.
+3. **Manuais e Compêndios Técnicos:**
+   - Laudo de Estabilidade: `public/LAUDO_ESTABILIDADE_SISTEMA_JHPCS.pdf`
+   - Relatório de Refatoração de Campo: `public/RELATORIO_REFATORACAO_PWA_CAMPO.pdf`
+   - Revista Executiva / Compêndio de Treinamento: `/revista-executiva` e endpoints de PDF em `/api/pdf/*`.
+
