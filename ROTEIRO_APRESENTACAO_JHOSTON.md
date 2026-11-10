@@ -1,14 +1,19 @@
-# 🏆 Roteiro Executivo de Apresentação & Homologação Comercial: JHPCS
-### *JHoston Pools Control System — A Revolução da Garantia Inteligente & Digital Twin de Revestimentos Monolíticos*
+# 🏆 Roteiro Executivo de Apresentação & Homologação Comercial: JHPCS (v6.19)
+### *JHoston Pools Control System — A Revolução da Garantia Inteligente, Digital Twin & Cadeia Multi-Setor*
+**Governança & Arquitetura:** Daniel Lopes & Patrícia Grübel | **Parceiro Construtor:** Joabson (JHoston Pools & Lagoons)  
+**Status Atual:** Versão 6.19 em Produção | Score Pericial de Estabilidade: **100 / 100** (Auditado)
+
+> **Nota de Sincronismo:** Para o roteiro expandido cobrindo todas as frentes de mercado (Lojas de Piscinas, Hotéis Anvisa, Frotas de Manutenção, Tratadores e Governança Master Fiscal), consulte o documento unificado [`ROTEIRO_APRESENTACAO_SISTEMA.md`](file:///c:/JHPCS/ROTEIRO_APRESENTACAO_SISTEMA.md).
 
 ---
 
 ## 🎯 Objetivo da Demonstração
-Apresentar à Diretoria da **JHoston Pools** (Joabson e equipe) o sistema definitivo que:
-1. **Blindagem Jurídica da Garantia**: Elimina custos com garantias indevidas provocadas por tratadores que usam produtos errados (ácido muriático, limpa pedras, falta de escovação).
-2. **Receita Recorrente & Fidelização**: Venda contínua de insumos químicos homologados com cálculo preditivo de reposição antes do cliente ficar sem produto.
-3. **Controle Total na Palma da Mão**: Visibilidade 360° da carteira de piscinas em tempo real, com laudos e alertas automáticos via WhatsApp oficial em menos de 3.2 segundos.
-4. **Isolamento de Tenants & Adoção de Campo Descomplicada**: O piscineiro (funcionário do cliente final) acessa estritamente as piscinas do seu contratante e instala o aplicativo com **1 toque através de QR Code adesivado na casa de máquinas**, disponível em aba exclusiva para a gerência do cliente gerar e imprimir em PDF.
+Apresentar à Diretoria da **JHoston Pools** (Joabson e equipe executiva) o sistema definitivo que:
+1. **Blindagem Jurídica da Garantia Decenal (10 Anos)**: Elimina sinistros provocados pelo uso criminoso de ácido muriático bruto, limpa pedras ou falta de escovação durante o período crítico de cura submersa de 28 dias.
+2. **Receita Recorrente & Fidelização de Balcão**: Venda contínua de insumos químicos homologados com cálculo instantâneo em 5 segundos no balcão de revendas e checkout PIX dinâmico.
+3. **Controle Total e Governança Soberana**: Cockpit F1 com mapa georreferenciado, auditoria LGPD e liberação individual da Chave Fiscal (NF-e/NFS-e em standby).
+4. **App de Campo Isolado (PWA Offline-First)**: O tratador na borda da piscina utiliza aplicativo com trava de satélite de 50 metros (Geofencing), compressão WebP em hardware local e upload direto para Cloudflare R2 com zero taxas de tráfego.
+5. **Caderno Sanitário Anvisa NBR 10.818**: Conquista imediata de clientes corporativos (Resorts, Condomínios e Clubes) através de logbook digital e selo público de conformidade da água.
 
 ---
 
