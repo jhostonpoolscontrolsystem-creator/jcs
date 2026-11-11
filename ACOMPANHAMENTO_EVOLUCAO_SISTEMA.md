@@ -6,10 +6,11 @@
 ---
 
 ## 📌 Status Atual do Ecossistema (Novembro/2026)
-- **Versão Homologada**: `JHPCS Core v6.22 (Bento Cockpit Grid & Modern UX/UI Edition)`
+- **Versão Homologada**: `JHPCS Core v6.23 (GADAP Holding Institutional & Architecture Manifesto Edition)`
 - **Índice de Estabilidade do Sistema**: **100 / 100** (Auditado via `scripts/run-system-audit.mjs` com Benchmarking e Laudo de 3 Páginas)
 - **Portais em Produção**:
   - 🌐 **Landing Page Institucional & Comercial**: `https://jhpcs.vercel.app/` (Grupo de Rotas Marketing com Banner Score 100)
+  - 🏛️ **Página Institucional GADAP**: `https://jhpcs.vercel.app/gadap` (Holding de Engenharia, Origem & Manifesto)
   - 🏆 **Página de Benchmarking Competitivo & Score 100**: `https://jhpcs.vercel.app/benchmarking` (Arma Comercial & Matriz Competitiva)
   - 🛡️ **Página Pericial de Garantia Decenal JHoston**: `https://jhpcs.vercel.app/garantia-jhoston`
   - 🧭 **Página de Setores & Soluções Especializadas**: `https://jhpcs.vercel.app/solucoes`
@@ -42,6 +43,18 @@
 ---
 
 ## 📅 Linha do Tempo & Histórico Detalhado de Evolução
+
+### [v6.23] - 11/11/2026: Página Institucional GADAP, Filosofia e Manifesto de Engenharia
+- **1. Página Oficial GADAP ([`src/app/(marketing)/gadap/page.tsx`](file:///c:/JHPCS/src/app/(marketing)/gadap/page.tsx))**:
+  - Estética *Executive Tech & Heritage* com tema Dark Slate (`#080C16`), acentos em Ciano Tecnológico, Azul Royal e Dourado Metálico.
+  - Símbolo central minimalista em SVG: Escudo protetor e guardião geométrico com hexágono duplo e núcleo de autoridade.
+  - Seção dos 3 Pilares Etimológicos: **ADAP** (*Adaptare* - Inovação & Flexibilidade), **ADAB** (*Conduta & Ética* - Respeito e Clareza LGPD) e **GADA** (*Força Protetora* - Blindagem e Rastreabilidade).
+  - Editorial *A Essência por Trás do Nome* destacando as origens familiares, geracionais e o compromisso da governança de Daniel Lopes e Patrícia Grübel.
+  - Vitrine do ecossistema de soluções: JHPCS PoolTech Ecosystem, ERPs Multi-Tenant e PWA Field com Telemetria IoT.
+  - Manifesto de Engenharia com os 4 Compromissos (Zero Atrito Cognitivo, Privacidade por Design, Eficiência de Infraestrutura e Rastreabilidade Pericial).
+- **2. Navegação Global Integrada**:
+  - Inclusão do link `"A GADAP"` na navbar desktop e drawer mobile ([`src/components/marketing/MarketingNavbar.tsx`](file:///c:/JHPCS/src/components/marketing/MarketingNavbar.tsx)).
+  - Assinatura oficial no rodapé: `"Uma plataforma desenvolvida por GADAP Engenharia & Sistemas"` com link direto ([`src/components/marketing/MarketingFooter.tsx`](file:///c:/JHPCS/src/components/marketing/MarketingFooter.tsx)).
 
 ### [v6.22] - 11/11/2026: Modernização de UI/UX — Bento Cockpit Grid, Toasts Sonner & Steppers Táteis
 - **1. Cockpit em Grids Bento Box ([`src/components/BentoCockpitGrid.tsx`](file:///c:/JHPCS/src/components/BentoCockpitGrid.tsx) & [`src/components/MasterGovernanceHub.tsx`](file:///c:/JHPCS/src/components/MasterGovernanceHub.tsx))**:

@@ -40,6 +40,12 @@ export function MarketingFooter() {
             <span className="text-xs text-white font-bold block">
               Jhoston Pools & Lagoons Ltda.
             </span>
+            <div className="pt-1">
+              <Link href="/gadap" className="text-[11px] text-cyan-400 hover:text-cyan-300 font-medium inline-flex items-center gap-1 transition">
+                <span>Uma plataforma desenvolvida por GADAP Engenharia & Sistemas</span>
+                <ExternalLink className="w-2.5 h-2.5" />
+              </Link>
+            </div>
           </div>
 
           {/* Badges de Tecnologia */}

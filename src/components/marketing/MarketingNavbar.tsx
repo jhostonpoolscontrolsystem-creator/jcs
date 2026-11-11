@@ -79,6 +79,10 @@ export function MarketingNavbar() {
             <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
             <span>Garantia Jhoston</span>
           </Link>
+          <Link href="/gadap" className="hover:text-cyan-400 transition-colors py-1 flex items-center gap-1.5 text-slate-300">
+            <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+            <span>A GADAP</span>
+          </Link>
         </nav>
 
         {/* BLOCO DIREITO: AÇÕES RÁPIDAS & ACESSOS (DESKTOP) */}
@@ -201,6 +205,14 @@ export function MarketingNavbar() {
             >
               <ShieldCheck className="w-4 h-4 text-amber-400" />
               <span>Garantia Jhoston (Perícia)</span>
+            </Link>
+            <Link
+              href="/gadap"
+              onClick={() => setMobileMenuOpen(false)}
+              className="p-2.5 rounded-lg hover:bg-slate-900 text-cyan-300 flex items-center gap-2 transition"
+            >
+              <Sparkles className="w-4 h-4 text-cyan-400" />
+              <span>A GADAP (Holding & Arquitetura)</span>
             </Link>
           </nav>
 
