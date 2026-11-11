@@ -6,7 +6,7 @@
 ---
 
 ## 📌 Status Atual do Ecossistema (Novembro/2026)
-- **Versão Homologada**: `JHPCS Core v6.21 (Predictive Weather IoT, Spatial Grid Cache & 48h Chemical Buffer Edition)`
+- **Versão Homologada**: `JHPCS Core v6.22 (Bento Cockpit Grid & Modern UX/UI Edition)`
 - **Índice de Estabilidade do Sistema**: **100 / 100** (Auditado via `scripts/run-system-audit.mjs` com Benchmarking e Laudo de 3 Páginas)
 - **Portais em Produção**:
   - 🌐 **Landing Page Institucional & Comercial**: `https://jhpcs.vercel.app/` (Grupo de Rotas Marketing com Banner Score 100)
@@ -42,6 +42,17 @@
 ---
 
 ## 📅 Linha do Tempo & Histórico Detalhado de Evolução
+
+### [v6.22] - 11/11/2026: Modernização de UI/UX — Bento Cockpit Grid, Toasts Sonner & Steppers Táteis
+- **1. Cockpit em Grids Bento Box ([`src/components/BentoCockpitGrid.tsx`](file:///c:/JHPCS/src/components/BentoCockpitGrid.tsx) & [`src/components/MasterGovernanceHub.tsx`](file:///c:/JHPCS/src/components/MasterGovernanceHub.tsx))**:
+  - Reorganização moderna dos cards dispersos em layout Bento Box elegante (Hero 8 colunas de Soberania & Margem 92%, Chave Fiscal 4 colunas, Balcão Rápido, Logbook Sanitário Anvisa e Gestão de Usuários).
+  - Redução da fadiga visual eliminando a necessidade de navegação horizontal extensa.
+- **2. Notificações Modernas com Sonner ([`src/app/layout.tsx`](file:///c:/JHPCS/src/app/layout.tsx))**:
+  - Inclusão do `<Toaster theme="dark" richColors position="bottom-right" />` para feedback táctil instantâneo (ex: cópia de chaves PIX e cálculos de dosagens).
+- **3. Steppers Táteis de Venda Rápida ([`src/app/trade/balcao/page.tsx`](file:///c:/JHPCS/src/app/trade/balcao/page.tsx))**:
+  - Botões rápidos com incremento/decremento tátil para pH (`[6.8]` a `[7.8]`) e Cloro (`[0.0]` a `[3.0]`), dispensando teclado virtual em smartphones e tablets de balcão.
+- **4. OmniSearch Global com Atalho ([`src/components/GlobalCommandPalette.tsx`](file:///c:/JHPCS/src/components/GlobalCommandPalette.tsx))**:
+  - Acesso instantâneo a qualquer módulo e tela operacional através de `Ctrl+K` ou `Cmd+K`.
 
 ### [v6.21] - 11/11/2026: IoT Híbrido Preditivo, Spatial Grid Cache e Alertas Químicos 48h
 - **1. Migration PostgreSQL & Cache Espacial ([`supabase/migrations/20261111_predictive_weather_iot.sql`](file:///c:/JHPCS/supabase/migrations/20261111_predictive_weather_iot.sql))**:
