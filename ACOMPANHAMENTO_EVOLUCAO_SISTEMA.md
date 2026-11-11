@@ -6,7 +6,7 @@
 ---
 
 ## 📌 Status Atual do Ecossistema (Novembro/2026)
-- **Versão Homologada**: `JHPCS Core v6.19 (Investor Pitch Deck & Multi-Sector Welcome Kit Edition)`
+- **Versão Homologada**: `JHPCS Core v6.20 (White-Label Monthly Reports, Cloudflare R2 PDF & Evolution API Direct Dispatch Edition)`
 - **Índice de Estabilidade do Sistema**: **100 / 100** (Auditado via `scripts/run-system-audit.mjs` com Benchmarking e Laudo de 3 Páginas)
 - **Portais em Produção**:
   - 🌐 **Landing Page Institucional & Comercial**: `https://jhpcs.vercel.app/` (Grupo de Rotas Marketing com Banner Score 100)
@@ -21,6 +21,9 @@
   - 🧾 **Motor Fiscal Eletrônico (NF-e & NFS-e)**: `https://jhpcs.vercel.app/api/fiscal/emit` (Standby Controlado por Super Usuário)
   - 🔐 **Cofre de Certificados Digitais A1 (KMS Vault)**: `https://jhpcs.vercel.app/api/fiscal/certificate` (AES-256-CBC)
   - 📡 **Worker Serverless Webhook Sefaz**: `https://jhpcs.vercel.app/api/webhooks/sefaz` (Recepção de Lote em Tempo Real)
+  - 📊 **Consolidação Analítica Mensal**: `https://jhpcs.vercel.app/api/reports/monthly` (Médias ISL, pH, Cloro e Reposição)
+  - 📲 **Disparo Direto no WhatsApp via Evolution API**: `https://jhpcs.vercel.app/api/reports/send-whatsapp` (Base64 + Lembrete PIX)
+  - 📱 **Página Pública Interativa do Relatório**: `https://jhpcs.vercel.app/relatorio/[token]` (Mobile-First com Galeria R2 & PIX)
   - 📄 **Relatório Pericial de Refatoração do PWA**: `https://jhpcs.vercel.app/api/pdf/pwa-refactoring` (Download/View de Laudo A4 em 4 Páginas)
   - 💼 **Roteiro Canva & Kit do Investidor**: `ROTEIRO_APRESENTACAO_INVESTIDORES_CANVA.md` (Pitch Deck de 12 Slides + Credenciais)
   - 🎬 **Roteiro Master de Demonstração do Sistema**: `ROTEIRO_APRESENTACAO_SISTEMA.md` (Apresentação Prática em 7 Atos para Clientes e Parceiros)
@@ -36,6 +39,24 @@
 ---
 
 ## 📅 Linha do Tempo & Histórico Detalhado de Evolução
+
+### [v6.20] - 11/11/2026: Ecossistema Completo de Relatórios Mensais White-Label, PDF Cloudflare R2 e Cobrança PIX WhatsApp
+- **1. Endpoint de Consolidação Analítica Mensal ([`src/app/api/reports/monthly/route.ts`](file:///c:/JHPCS/src/app/api/reports/monthly/route.ts))**:
+  - Consolida todas as manutenções do mês computando médias de pH, Cloro Livre, Alcalinidade Total e Índice de Saturação de Langelier (ISL/LSI).
+  - Soma estequiométrica dos insumos consumidos para gerar a "Lista Inteligente de Reposição de Químicos".
+  - Geração de token público seguro (`report_public_token`) para acesso mobile sem necessidade de login.
+- **2. Gerador Server-Side de PDF A4 Leve (< 800KB) com Backup no Cloudflare R2 ([`src/lib/reports/monthlyPdfGenerator.ts`](file:///c:/JHPCS/src/lib/reports/monthlyPdfGenerator.ts))**:
+  - Emissão de documento A4 corporativo com identidade visual Dark Slate / Ciano / Esmeralda.
+  - Tabelas de parâmetros, insumos consumidos, dados do ativo e combo de prestação de contas com chave PIX.
+  - Upload automático para o bucket `jhpcs-fotos-inspecoes` no Cloudflare R2 no caminho `relatorios/{tenantId}/{poolId}-{year}-{month}.pdf`.
+- **3. Atualização do Client da Evolution API ([`src/lib/whatsapp/evolutionClient.ts`](file:///c:/JHPCS/src/lib/whatsapp/evolutionClient.ts))**:
+  - Método `sendMediaDocument` aprimorado com sanitização de Base64 puro, envio como `mediatype: 'document'` e delay humanizado anti-ban.
+- **4. Endpoint de Disparo WhatsApp com Fallback Inteligente ([`src/app/api/reports/send-whatsapp/route.ts`](file:///c:/JHPCS/src/app/api/reports/send-whatsapp/route.ts))**:
+  - Se a instância estiver conectada: Dispara o PDF direto em Base64 no WhatsApp do cliente e, opcionalmente, o lembrete de PIX Copia e Cola após delay de 2 segundos.
+  - Se a instância estiver desconectada: Retorna fallback gracioso com link público CDN do R2 e texto formatado para compartilhamento.
+- **5. Página Pública do Relatório Interativo ([`src/app/relatorio/[token]/page.tsx`](file:///c:/JHPCS/src/app/relatorio/[token]/page.tsx))**:
+  - Interface mobile-first otimizada para o cliente final com cabeçalho White-Label, selo de auditoria técnica JHPCS, cronograma de visitas, galeria de evidências fotográficas em alta resolução, lista de reposição e botão de copiar chave PIX.
+  - Suporte a impressão A4 com `@media print` e compatibilidade total com Next.js Cache Components via `<Suspense>`.
 
 ### [v6.19] - 10/11/2026: Pitch Deck Executivo para Investidores (12 Slides Canva) e Kit de Boas-Vindas Multi-Setor
 - **1. Roteiro Completo para o Canva ([`ROTEIRO_APRESENTACAO_INVESTIDORES_CANVA.md`](file:///c:/JHPCS/ROTEIRO_APRESENTACAO_INVESTIDORES_CANVA.md))**:

@@ -33,7 +33,7 @@ BT
 9.1999999999999993 TL
 0.58 0.639 0.722 rg
 39.6850393700787407 773.8585039370078675 Td
-(Data da Auditoria: 10/11/2026, 14:37:37  |  Ambiente: Vercel Edge Serverless + Supabase REST + Cloudflare R2) Tj
+(Data da Auditoria: 11/11/2026, 10:29:45  |  Ambiente: Vercel Edge Serverless + Supabase REST + Cloudflare R2) Tj
 ET
 BT
 /F1 8 Tf
@@ -274,7 +274,7 @@ BT
 8.0499999999999989 TL
 0.796 0.835 0.882 rg
 85.0393700787401627 504.0002362204724591 Td
-(Supabase REST Read \(pools\): Conexão OK \(1425ms\) - 5 registros lidos) Tj
+(Supabase REST Read \(pools\): Conexão OK \(2301ms\) - 5 registros lidos) Tj
 ET
 BT
 /F1 7 Tf
@@ -288,7 +288,7 @@ BT
 8.0499999999999989 TL
 0.796 0.835 0.882 rg
 85.0393700787401627 493.2285826771653774 Td
-(Database Latency SLA: Latência operacional dentro da meta \(1425ms\)) Tj
+(Database Latency SLA: Latência operacional dentro da meta \(2301ms\)) Tj
 ET
 BT
 /F1 7 Tf
@@ -1359,7 +1359,7 @@ endobj
 23 0 obj
 <<
 /Producer (jsPDF 4.2.1)
-/CreationDate (D:20261110143737-03'00')
+/CreationDate (D:20261111102945-03'00')
 >>
 endobj
 24 0 obj
@@ -1402,7 +1402,7 @@ trailer
 /Size 25
 /Root 24 0 R
 /Info 23 0 R
-/ID [ <0034F022DBB054E3D440536FBBF13034> <0034F022DBB054E3D440536FBBF13034> ]
+/ID [ <E4C0992BAD0CD546B2494FC7F9526AF7> <E4C0992BAD0CD546B2494FC7F9526AF7> ]
 >>
 startxref
 34361

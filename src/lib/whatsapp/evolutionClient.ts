@@ -133,6 +133,7 @@ export async function sendTextMessage(
 
 /**
  * 5. Envia documento em PDF ou imagem via URL ou Base64
+ * Suporta Base64 puro ou com prefixo data:...;base64, e URLs públicas
  */
 export async function sendMediaDocument(
   instanceName: string,
@@ -144,6 +145,12 @@ export async function sendMediaDocument(
   try {
     const normalizedNumber = normalizePhoneNumber(recipientNumber);
 
+    // Sanitiza Base64 removendo eventual prefixo de data URI caso presente
+    let sanitizedMedia = mediaContent;
+    if (sanitizedMedia.includes(';base64,')) {
+      sanitizedMedia = sanitizedMedia.split(';base64,')[1];
+    }
+
     const res = await fetch(`${EVOLUTION_API_URL}/message/sendMedia/${instanceName}`, {
       method: 'POST',
       headers: getHeaders(),
@@ -152,12 +159,13 @@ export async function sendMediaDocument(
         mediaMessage: {
           mediatype: 'document',
           mimetype: 'application/pdf',
-          caption: caption || `📄 Documento emitido por JHPCS: ${fileName}`,
-          media: mediaContent,
+          caption: caption || `📄 Relatório Técnico e Prestação de Contas JHPCS: ${fileName}`,
+          media: sanitizedMedia,
           fileName,
         },
         options: {
-          delay: 1200,
+          delay: 1500,
+          presence: 'composing',
         },
       }),
     });
