@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { 
   ShieldCheck, 
   Mail, 
@@ -40,10 +41,29 @@ export function MarketingFooter() {
             <span className="text-xs text-white font-bold block">
               Jhoston Pools & Lagoons Ltda.
             </span>
-            <div className="pt-1">
-              <Link href="/gadap" className="text-[11px] text-cyan-400 hover:text-cyan-300 font-medium inline-flex items-center gap-1 transition">
-                <span>Uma plataforma desenvolvida por GADAP Engenharia & Sistemas</span>
-                <ExternalLink className="w-2.5 h-2.5" />
+            <div className="pt-2">
+              <Link 
+                href="/gadap" 
+                className="p-2 rounded-xl bg-slate-900/90 border border-slate-800 hover:border-cyan-500/40 flex items-center gap-2.5 transition group"
+              >
+                <div className="w-8 h-8 rounded-lg bg-slate-950 border border-cyan-500/30 p-1 flex items-center justify-center shrink-0">
+                  <Image 
+                    src="/images/gadap-logo.png" 
+                    alt="GADAP Logo" 
+                    width={32} 
+                    height={32} 
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <span className="text-[11px] font-bold text-white group-hover:text-cyan-300 block truncate">
+                    GADAP Engenharia & Sistemas
+                  </span>
+                  <span className="text-[9px] text-slate-400 block font-mono">
+                    Holding de Arquitetura & Software
+                  </span>
+                </div>
+                <ExternalLink className="w-3 h-3 text-cyan-400 group-hover:translate-x-0.5 transition-transform" />
               </Link>
             </div>
           </div>

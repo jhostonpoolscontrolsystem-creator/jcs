@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { 
   ShieldCheck, 
   Sparkles, 
@@ -46,49 +47,19 @@ export default function GadapPage() {
             </span>
           </div>
 
-          {/* Símbolo Escudo Geométrico Guardião GADAP (SVG Minimalista) */}
+          {/* Símbolo Guardião Geométrico GADAP (Logomarca Oficial) */}
           <div className="py-2 flex justify-center">
             <div className="relative group">
-              <div className="absolute -inset-2 bg-gradient-to-r from-cyan-500 via-blue-600 to-amber-500 rounded-3xl blur-xl opacity-30 group-hover:opacity-60 transition duration-700" />
-              <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-slate-950 border border-slate-700/80 p-4 flex items-center justify-center shadow-2xl">
-                <svg viewBox="0 0 100 100" className="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  {/* Hexágono / Escudo Externo */}
-                  <polygon 
-                    points="50,6 90,26 90,74 50,94 10,74 10,26" 
-                    stroke="url(#gadap-grad-cyan)" 
-                    strokeWidth="3.5" 
-                    strokeLinejoin="round" 
-                    className="drop-shadow-sm"
-                  />
-                  {/* Escudo Interno Inabalável */}
-                  <polygon 
-                    points="50,18 80,33 80,67 50,82 20,67 20,33" 
-                    stroke="url(#gadap-grad-blue)" 
-                    strokeWidth="2.5" 
-                    strokeDasharray="4 2"
-                    strokeLinejoin="round" 
-                    opacity="0.8"
-                  />
-                  {/* Vértice Central / Núcleo Dourado de Proteção */}
-                  <circle cx="50" cy="50" r="10" fill="url(#gadap-grad-gold)" />
-                  <path d="M50 28 L50 72 M28 50 L72 50" stroke="#080C16" strokeWidth="2.5" strokeLinecap="round" />
-                  
-                  {/* Gradientes */}
-                  <defs>
-                    <linearGradient id="gadap-grad-cyan" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#22D3EE" />
-                      <stop offset="100%" stopColor="#0284C7" />
-                    </linearGradient>
-                    <linearGradient id="gadap-grad-blue" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#3B82F6" />
-                      <stop offset="100%" stopColor="#1D4ED8" />
-                    </linearGradient>
-                    <linearGradient id="gadap-grad-gold" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#FBBF24" />
-                      <stop offset="100%" stopColor="#D97706" />
-                    </linearGradient>
-                  </defs>
-                </svg>
+              <div className="absolute -inset-3 bg-gradient-to-r from-cyan-500 via-sky-500 to-amber-500 rounded-3xl blur-2xl opacity-40 group-hover:opacity-75 transition duration-700" />
+              <div className="relative w-36 h-36 sm:w-44 sm:h-44 rounded-3xl bg-slate-950 border border-cyan-500/40 p-2 flex items-center justify-center shadow-2xl overflow-hidden">
+                <Image
+                  src="/images/gadap-logo.png"
+                  alt="GADAP - Guardião Geométrico & Engenharia Digital"
+                  width={176}
+                  height={176}
+                  priority
+                  className="w-full h-full object-contain rounded-2xl group-hover:scale-105 transition-transform duration-500"
+                />
               </div>
             </div>
           </div>
@@ -479,3 +450,4 @@ export default function GadapPage() {
     </div>
   );
 }
+
