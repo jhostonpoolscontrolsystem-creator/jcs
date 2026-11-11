@@ -23,7 +23,8 @@ export default function RootLayout({
       className="h-full antialiased dark"
     >
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/icons/jhpcs-shield-isl.png" sizes="any" />
+        <link rel="apple-touch-icon" href="/icons/jhpcs-shield-isl.png" />
         <link rel="manifest" href="/manifest.json" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
