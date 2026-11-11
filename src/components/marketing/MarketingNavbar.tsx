@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { 
   Menu, 
   X, 
@@ -44,20 +45,14 @@ export function MarketingNavbar() {
         
         {/* BLOCO ESQUERDO: BRAND IDENTITY */}
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-cyan-500 via-sky-500 to-blue-600 flex items-center justify-center font-black text-slate-950 text-xl shadow-lg shadow-cyan-500/20 group-hover:scale-105 group-hover:shadow-cyan-500/30 transition-all duration-300">
-            <Waves className="w-5 h-5 text-slate-950 stroke-[2.5]" />
-          </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="font-extrabold text-base bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-400 bg-clip-text text-transparent tracking-wider block">
-                JHPCS
-              </span>
-              <span className="px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 text-[10px] font-mono font-bold border border-cyan-500/30">
-                by Jhoston Pools & Lagoons
-              </span>
-            </div>
-            <span className="text-[10px] text-slate-400 block font-medium">PoolTech Ecosystem</span>
-          </div>
+          <Image
+            src="/images/jhpcs-full-logo.png"
+            alt="JHPCS PoolTech Ecosystem"
+            width={240}
+            height={60}
+            priority
+            className="h-12 w-auto object-contain group-hover:brightness-110 transition-all duration-300"
+          />
         </Link>
 
         {/* BLOCO CENTRAL: NAVEGAÇÃO DESKTOP */}

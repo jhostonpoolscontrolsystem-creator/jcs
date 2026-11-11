@@ -20,15 +20,15 @@ export function MarketingFooter() {
         
         {/* Coluna 1: Identidade & Propósito */}
         <div className="space-y-4">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-2xl bg-gradient-to-tr from-cyan-500 via-sky-500 to-blue-600 flex items-center justify-center font-black text-slate-950 text-lg shadow-lg shadow-cyan-500/20">
-              <Waves className="w-4 h-4 text-slate-950 stroke-[2.5]" />
-            </div>
-            <div>
-              <span className="font-black text-sm text-white tracking-wider block">JHPCS</span>
-              <span className="text-[10px] text-cyan-400 font-mono font-bold">PoolTech Ecosystem</span>
-            </div>
-          </div>
+          <Link href="/" className="inline-block group">
+            <Image
+              src="/images/jhpcs-full-logo.png"
+              alt="JHPCS PoolTech Ecosystem"
+              width={200}
+              height={50}
+              className="h-10 w-auto object-contain group-hover:brightness-110 transition-all"
+            />
+          </Link>
 
           <p className="text-slate-400 text-xs leading-relaxed">
             Plataforma SaaS unificada de inteligência físico-química de borda, gestão de frotas e rotas, logbook sanitário e blindagem pericial de revestimentos nobres.
@@ -209,4 +209,3 @@ export function MarketingFooter() {
     </footer>
   );
 }
-
