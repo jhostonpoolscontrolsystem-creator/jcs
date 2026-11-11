@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { ModuleGate } from '@/lib/licensing/moduleGuard';
+import { toast } from 'sonner';
 
 export default function CounterPrescriptionPage() {
   // Dados do Cliente
@@ -67,8 +68,14 @@ export default function CounterPrescriptionPage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Falha ao processar receita de balcão.');
       setPrescription(data);
+      toast.success('Prescrição de balcão calculada com sucesso!', {
+        description: `Balanço LSI: ${data.diagnosis?.lsi >= 0 ? '+' : ''}${data.diagnosis?.lsi?.toFixed(2)} (${data.diagnosis?.classification})`,
+      });
     } catch (err: any) {
       setErrorMsg(err.message || 'Erro inesperado.');
+      toast.error('Erro na prescrição química', {
+        description: err.message || 'Verifique os parâmetros informados.',
+      });
     } finally {
       setLoading(false);
     }
@@ -78,6 +85,9 @@ export default function CounterPrescriptionPage() {
     if (!prescription?.checkout?.pixCopyAndPaste) return;
     navigator.clipboard.writeText(prescription.checkout.pixCopyAndPaste);
     setCopiedPix(true);
+    toast.success('Código PIX Copiado!', {
+      description: 'Chave copia e cola pronta para envio no WhatsApp do cliente.',
+    });
     setTimeout(() => setCopiedPix(false), 2500);
   };
 

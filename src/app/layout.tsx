@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { GlobalCommandPalette } from "@/components/GlobalCommandPalette";
+import { Toaster } from "sonner";
 
 export const viewport: Viewport = {
   themeColor: "#020617",
@@ -49,6 +50,21 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-slate-950 text-slate-100 font-sans selection:bg-cyan-500 selection:text-black">
         {children}
         <GlobalCommandPalette />
+        <Toaster
+          position="top-right"
+          theme="dark"
+          richColors
+          closeButton
+          toastOptions={{
+            style: {
+              background: '#0F172A',
+              border: '1px solid rgba(51, 65, 85, 0.8)',
+              color: '#F8FAFC',
+              borderRadius: '1rem',
+              boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.5)',
+            },
+          }}
+        />
       </body>
     </html>
   );

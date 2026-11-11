@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, Suspense } from 'react';
 import { useParams } from 'next/navigation';
+import { toast } from 'sonner';
 import {
   ShieldCheck,
   CheckCircle2,
@@ -127,6 +128,9 @@ function PublicReportContent() {
     const key = report?.financialInfo?.pixKey || report?.tenant.phone || 'pix@jhpcs.com.br';
     navigator.clipboard.writeText(key);
     setCopiedPix(true);
+    toast.success('Chave PIX copiada!', {
+      description: 'Abra o app do seu banco e selecione PIX para pagar a mensalidade.',
+    });
     setTimeout(() => setCopiedPix(false), 2500);
   };
 
