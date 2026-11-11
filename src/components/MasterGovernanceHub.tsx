@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { BentoCockpitGrid } from '@/components/BentoCockpitGrid';
 import { 
   Crown, 
   ShieldCheck, 
@@ -449,6 +450,21 @@ export function MasterGovernanceHub({
           </div>
         )}
       </div>
+
+      {/* 2.5. Modern Bento Box Grid do Cockpit Master */}
+      <BentoCockpitGrid
+        onOpenUserManagement={onOpenUserManagement}
+        onOpenFiscalModal={() => {
+          if (tenants.length > 0) {
+            handleOpenFiscalModal(tenants[0]);
+          } else {
+            setFiscalModalOpen(true);
+          }
+        }}
+        onNavigateTab={onNavigateTab}
+        corpState={corpState}
+        totalTenants={tenants.length}
+      />
 
       {/* 3. 4 Pilares de Controle Soberano do MASTER */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
