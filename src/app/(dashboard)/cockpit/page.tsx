@@ -43,6 +43,7 @@ import { OrderCommercialDashboard } from '@/components/OrderCommercialDashboard'
 import ClientPortfolioViewer from '@/components/ClientPortfolioViewer';
 import ExecutiveWelcomeKitModal, { WelcomeKitAudience } from '@/components/ExecutiveWelcomeKitModal';
 import { PoolMachineRoomTagHub } from '@/components/PoolMachineRoomTagHub';
+import { PredictiveWeatherRadar } from '@/components/PredictiveWeatherRadar';
 import { UserRole, Pool } from '@/types/database';
 import { LogIn, LogOut, Users, UserCheck, GraduationCap, HelpCircle, Crown, Download, ShoppingBag, Building2, ShieldCheck, QrCode, ClipboardList, Settings, Receipt, CreditCard, Award, Cpu, Wallet } from 'lucide-react';
 
@@ -590,6 +591,9 @@ export default function JHPCSApp() {
       {/* Main Container */}
       <main className="flex-1 max-w-7xl w-full mx-auto p-6 md:p-8 space-y-8">
         
+        {/* RADAR CLIMÁTICO & QUÍMICO PREDITIVO (SPATIAL GRID 48H) */}
+        <PredictiveWeatherRadar tenantId="demo-fleet" />
+
         {/* TAB 0: EXCLUSIVO MASTER (Centro de Comando & Governança Soberana) */}
         {activeTab === 'master' && (
           <MasterGovernanceHub

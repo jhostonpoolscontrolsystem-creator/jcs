@@ -18,6 +18,7 @@ import {
   RefreshCw
 } from 'lucide-react';
 import { ModuleGate } from '@/lib/licensing/moduleGuard';
+import { PredictiveWeatherRadar } from '@/components/PredictiveWeatherRadar';
 
 interface SanitaryRecord {
   id: string;
@@ -190,6 +191,8 @@ export default function LogbookSanitarioPage() {
         </div>
 
         {/* Informative Banner */}
+        <PredictiveWeatherRadar tenantId="demo-facility" poolId={poolId} />
+
         <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div className="flex items-center gap-3.5">
             <div className="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">

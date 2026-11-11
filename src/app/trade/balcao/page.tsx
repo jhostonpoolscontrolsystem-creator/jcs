@@ -128,6 +128,17 @@ export default function CounterPrescriptionPage() {
           
           {/* LADO ESQUERDO: Formulário do Balconista */}
           <div className="lg:col-span-6 bg-slate-900/80 border border-slate-800 rounded-3xl p-6 md:p-8 space-y-6 shadow-xl">
+            {/* OPORTUNIDADE COMERCIAL PREDITIVA (RADAR CLIMÁTICO 48H) */}
+            <div className="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-200 text-xs flex items-center justify-between gap-3">
+              <div className="flex items-center gap-2.5">
+                <Sparkles className="w-4 h-4 text-amber-400 shrink-0" />
+                <div>
+                  <span className="font-bold text-amber-300">Radar Climático 48h na Região:</span>
+                  <p className="text-[11px] text-slate-300 mt-0.5">Previsão de tempestades e calor intenso. Sugira o <strong className="text-white">Kit Pré-Tempestade</strong> (Bicarbonato + Algicida sem Cobre) para elevar o ticket médio.</p>
+                </div>
+              </div>
+            </div>
+
             <div className="border-b border-slate-800/80 pb-4">
               <h2 className="text-base font-extrabold text-white flex items-center gap-2">
                 <Droplet className="w-5 h-5 text-cyan-400" />

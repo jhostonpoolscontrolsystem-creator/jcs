@@ -6,7 +6,7 @@
 ---
 
 ## 📌 Status Atual do Ecossistema (Novembro/2026)
-- **Versão Homologada**: `JHPCS Core v6.20 (White-Label Monthly Reports, Cloudflare R2 PDF & Evolution API Direct Dispatch Edition)`
+- **Versão Homologada**: `JHPCS Core v6.21 (Predictive Weather IoT, Spatial Grid Cache & 48h Chemical Buffer Edition)`
 - **Índice de Estabilidade do Sistema**: **100 / 100** (Auditado via `scripts/run-system-audit.mjs` com Benchmarking e Laudo de 3 Páginas)
 - **Portais em Produção**:
   - 🌐 **Landing Page Institucional & Comercial**: `https://jhpcs.vercel.app/` (Grupo de Rotas Marketing com Banner Score 100)
@@ -14,13 +14,15 @@
   - 🛡️ **Página Pericial de Garantia Decenal JHoston**: `https://jhpcs.vercel.app/garantia-jhoston`
   - 🧭 **Página de Setores & Soluções Especializadas**: `https://jhpcs.vercel.app/solucoes`
   - 💳 **Tabela de Preços & Comparativo de Planos**: `https://jhpcs.vercel.app/planos`
-  - 👑 **Centro de Comando & Cockpit SUPER ADMIN**: `https://jhpcs.vercel.app/cockpit` (Visão Soberana Master com Chave Fiscal Multi-Tenant)
+  - 👑 **Centro de Comando & Cockpit SUPER ADMIN**: `https://jhpcs.vercel.app/cockpit` (Visão Soberana Master com Radar Climático 48h)
   - 🚀 **Onboarding & Ativação de Novos Clientes**: `https://jhpcs.vercel.app/onboarding`
   - 🛡️ **Perícia de Garantia JHoston (Interna)**: `https://jhpcs.vercel.app/garantia-pericial`
   - 💵 **JHPCS Financeiro & Contratos**: `https://jhpcs.vercel.app/financeiro` (Integrado à Governança Fiscal)
   - 🧾 **Motor Fiscal Eletrônico (NF-e & NFS-e)**: `https://jhpcs.vercel.app/api/fiscal/emit` (Standby Controlado por Super Usuário)
   - 🔐 **Cofre de Certificados Digitais A1 (KMS Vault)**: `https://jhpcs.vercel.app/api/fiscal/certificate` (AES-256-CBC)
   - 📡 **Worker Serverless Webhook Sefaz**: `https://jhpcs.vercel.app/api/webhooks/sefaz` (Recepção de Lote em Tempo Real)
+  - 🌦️ **Cron Meteorológico Preditivo 48h**: `https://jhpcs.vercel.app/api/cron/weather-predict` (Spatial Grid Cache de 6h & Alertas WhatsApp)
+  - ⚡ **Feed PWA de Alertas Climáticos**: `https://jhpcs.vercel.app/api/v1/pwa/weather-alerts` (Offline Cache para o App de Campo)
   - 📊 **Consolidação Analítica Mensal**: `https://jhpcs.vercel.app/api/reports/monthly` (Médias ISL, pH, Cloro e Reposição)
   - 📲 **Disparo Direto no WhatsApp via Evolution API**: `https://jhpcs.vercel.app/api/reports/send-whatsapp` (Base64 + Lembrete PIX)
   - 📱 **Página Pública Interativa do Relatório**: `https://jhpcs.vercel.app/relatorio/[token]` (Mobile-First com Galeria R2 & PIX)
@@ -31,15 +33,33 @@
   - ⚙️ **Gerador de Plaqueta Metálica NFC (Laser CNC)**: `https://jhpcs.vercel.app/plaqueta-nfc`
   - 🏅 **Selo de Conformidade & Totem de Recepção**: `https://jhpcs.vercel.app/selo`
   - 💳 **Gestão de Assinatura & Módulos**: `https://jhpcs.vercel.app/settings/subscription`
-  - 📋 **Logbook Sanitário Digital Anvisa**: `https://jhpcs.vercel.app/logbook-sanitario`
+  - 📋 **Logbook Sanitário Digital Anvisa**: `https://jhpcs.vercel.app/logbook-sanitario` (Com Radar Climático Integrado)
   - ⚙️ **Configurações Multi-Tenant & WhatsApp**: `https://jhpcs.vercel.app/configuracoes`
-  - 🛒 **Receituário de Balcão & PIX**: `https://jhpcs.vercel.app/trade/balcao`
+  - 🛒 **Receituário de Balcão & PIX**: `https://jhpcs.vercel.app/trade/balcao` (Com Oportunidade Comercial de Kit Pré-Tempestade)
   - 📱 **App PWA de Campo (Isolado)**: `https://jhpcs-campo.vercel.app`
   - 💾 **Storage Global de Evidências**: Cloudflare R2 (`pub-0698df4992464295bd9d323e91a2aee4.r2.dev`)
 
 ---
 
 ## 📅 Linha do Tempo & Histórico Detalhado de Evolução
+
+### [v6.21] - 11/11/2026: IoT Híbrido Preditivo, Spatial Grid Cache e Alertas Químicos 48h
+- **1. Migration PostgreSQL & Cache Espacial ([`supabase/migrations/20261111_predictive_weather_iot.sql`](file:///c:/JHPCS/supabase/migrations/20261111_predictive_weather_iot.sql))**:
+  - Criação da tabela `weather_grid_cache` com chave de célula geográfica (`-23.5_-46.6` ≈ 11.1km) para redução drástica de chamadas à OpenWeather API.
+  - Criação da tabela `pool_predictive_alerts` com vínculos de piscina, tenant, dosagens estequiométricas preventivas e data de validade de 48h.
+- **2. Motor de Sincronização Econômica ([`src/lib/weather/predictiveEngine.ts`](file:///c:/JHPCS/src/lib/weather/predictiveEngine.ts))**:
+  - Algoritmo que agrupa piscinas por célula espacial e reaproveita previsões consultadas nas últimas 6 horas.
+  - Análise termodinâmica de 16 blocos de 3h (janela de 48h): acúmulo pluviométrico > 15mm (risco de chuva ácida e diluição) e picos térmicos > 29°C (risco de proliferação de algas).
+  - Cálculo estequiométrico preventivo exato por volume ($m^3$) e substrato: +15g/m³ de Bicarbonato de Sódio para efeito tampão, +4g/m³ de Dicloro para meta de 3.0 ppm e 5ml/m³ de Algicida sem Cobre.
+  - Alerta `CRITICAL` imediato para piscinas da JHoston Pools em período de cura submersa (< 28 dias).
+- **3. Cron Job Serverless & Disparo no WhatsApp ([`src/app/api/cron/weather-predict/route.ts`](file:///c:/JHPCS/src/app/api/cron/weather-predict/route.ts))**:
+  - Execução periódica protegida por `CRON_SECRET`.
+  - Agrupamento de alertas por tenant para envio de resumo matinal consolidado no WhatsApp via Evolution API (máximo 1 mensagem diária).
+- **4. Integração Visual & Componente de Radar ([`src/components/PredictiveWeatherRadar.tsx`](file:///c:/JHPCS/src/components/PredictiveWeatherRadar.tsx))**:
+  - Banner "Radar Climático & Químico Preditivo 48h" incorporado no Cockpit Master (`/cockpit`) e no Logbook Sanitário Anvisa (`/logbook-sanitario`), com botão de "Marcar Aplicada".
+  - Oportunidade comercial incorporada na tela de Balcão (`/trade/balcao`) para sugerir o "Kit Pré-Tempestade" nas vendas de químicos.
+- **5. Endpoint Leve para o PWA de Campo ([`/api/v1/pwa/weather-alerts`](file:///c:/JHPCS/src/app/api/v1/pwa/weather-alerts/route.ts))**:
+  - Permite ao tratador consultar e sincronizar no IndexedDB os alertas de sua rota sem efetuar chamadas externas à OpenWeather.
 
 ### [v6.20] - 11/11/2026: Ecossistema Completo de Relatórios Mensais White-Label, PDF Cloudflare R2 e Cobrança PIX WhatsApp
 - **1. Endpoint de Consolidação Analítica Mensal ([`src/app/api/reports/monthly/route.ts`](file:///c:/JHPCS/src/app/api/reports/monthly/route.ts))**:
