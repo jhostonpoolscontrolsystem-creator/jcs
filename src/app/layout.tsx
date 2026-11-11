@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import { GlobalCommandPalette } from "@/components/GlobalCommandPalette";
 
 export const viewport: Viewport = {
   themeColor: "#020617",
@@ -47,6 +48,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col bg-slate-950 text-slate-100 font-sans selection:bg-cyan-500 selection:text-black">
         {children}
+        <GlobalCommandPalette />
       </body>
     </html>
   );
