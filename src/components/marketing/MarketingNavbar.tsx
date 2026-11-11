@@ -15,8 +15,10 @@ import {
   ShieldCheck, 
   LogIn, 
   PlayCircle,
-  Waves,
-  Award
+  Award,
+  Layers,
+  ArrowRight,
+  ExternalLink
 } from 'lucide-react';
 
 interface DemoAccount {
@@ -37,62 +39,92 @@ const DEMO_ACCOUNTS: DemoAccount[] = [
 
 export function MarketingNavbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [solutionsOpen, setSolutionsOpen] = useState(false);
   const [demoDropdownOpen, setDemoDropdownOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 backdrop-blur-md bg-slate-950/85 border-b border-slate-800/80 transition-all duration-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+    <header className="sticky top-0 z-50 backdrop-blur-xl bg-slate-950/80 border-b border-slate-800/60 transition-all duration-300">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
         
-        {/* BLOCO ESQUERDO: BRAND IDENTITY */}
-        <Link href="/" className="flex items-center gap-3 group">
+        {/* BRAND IDENTITY */}
+        <Link href="/" className="flex items-center gap-3 shrink-0 group">
           <Image
             src="/images/jhpcs-full-logo.png"
             alt="JHPCS PoolTech Ecosystem"
-            width={240}
-            height={60}
+            width={210}
+            height={52}
             priority
-            className="h-12 w-auto object-contain group-hover:brightness-110 transition-all duration-300"
+            className="h-10 sm:h-11 w-auto object-contain group-hover:brightness-110 transition-all duration-300"
           />
         </Link>
 
-        {/* BLOCO CENTRAL: NAVEGAÇÃO DESKTOP */}
-        <nav className="hidden lg:flex items-center gap-6 text-xs font-bold text-slate-300">
-          <Link href="/" className="hover:text-cyan-400 transition-colors py-1">
-            Início
-          </Link>
-          <Link href="/solucoes" className="hover:text-cyan-400 transition-colors py-1">
-            Soluções por Setor
-          </Link>
+        {/* NAVEGAÇÃO DESKTOP REFINADA */}
+        <nav className="hidden lg:flex items-center gap-7 text-xs font-semibold text-slate-300">
+          
+          {/* Dropdown Soluções */}
+          <div className="relative">
+            <button
+              type="button"
+              onClick={() => setSolutionsOpen(!solutionsOpen)}
+              onMouseEnter={() => setSolutionsOpen(true)}
+              className="hover:text-cyan-400 transition-colors py-2 flex items-center gap-1 cursor-pointer"
+            >
+              <span>Soluções</span>
+              <ChevronDown className={`w-3.5 h-3.5 text-slate-500 transition-transform duration-200 ${solutionsOpen ? 'rotate-180' : ''}`} />
+            </button>
+
+            {solutionsOpen && (
+              <div 
+                className="absolute left-0 mt-1 w-64 rounded-2xl bg-slate-900/95 backdrop-blur-md border border-slate-800 p-2 shadow-2xl space-y-1 z-50 animate-in fade-in slide-in-from-top-2 duration-150"
+                onMouseLeave={() => setSolutionsOpen(false)}
+              >
+                <Link
+                  href="/solucoes"
+                  onClick={() => setSolutionsOpen(false)}
+                  className="p-2.5 rounded-xl hover:bg-slate-800/80 block transition"
+                >
+                  <strong className="text-xs text-white block">Todas as Soluções</strong>
+                  <span className="text-[11px] text-slate-400 block">Visão geral por setor de atuação</span>
+                </Link>
+                <div className="border-t border-slate-800/80 my-1" />
+                <Link
+                  href="/garantia-jhoston"
+                  onClick={() => setSolutionsOpen(false)}
+                  className="p-2.5 rounded-xl hover:bg-slate-800/80 flex items-center gap-2.5 transition"
+                >
+                  <ShieldCheck className="w-4 h-4 text-amber-400 shrink-0" />
+                  <div>
+                    <strong className="text-xs text-amber-300 block">Garantia Decenal</strong>
+                    <span className="text-[10px] text-slate-400 block">Perícia e proteção de substrato</span>
+                  </div>
+                </Link>
+              </div>
+            )}
+          </div>
+
           <Link href="/planos" className="hover:text-cyan-400 transition-colors py-1">
-            Planos & Preços
+            Planos
           </Link>
-          <Link href="/benchmarking" className="hover:text-emerald-400 transition-colors py-1 flex items-center gap-1.5 text-emerald-300 font-extrabold">
+
+          <Link href="/benchmarking" className="hover:text-emerald-400 transition-colors py-1 flex items-center gap-1.5 text-slate-300 hover:text-emerald-300">
             <Award className="w-3.5 h-3.5 text-emerald-400" />
-            <span>Score 100 & Benchmarking</span>
+            <span>Score 100</span>
           </Link>
-          <Link href="/garantia-jhoston" className="hover:text-amber-400 transition-colors py-1 flex items-center gap-1.5 text-amber-300">
-            <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
-            <span>Garantia Jhoston</span>
-          </Link>
+
           <Link href="/gadap" className="hover:text-cyan-400 transition-colors py-1 flex items-center gap-1.5 text-slate-300">
-            <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
             <span>A GADAP</span>
           </Link>
-        </nav>
 
-        {/* BLOCO DIREITO: AÇÕES RÁPIDAS & ACESSOS (DESKTOP) */}
-        <div className="hidden lg:flex items-center gap-3">
-          
-          {/* Dropdown Ambientes Demo */}
+          {/* Demonstrações Interativas */}
           <div className="relative">
             <button
               type="button"
               onClick={() => setDemoDropdownOpen(!demoDropdownOpen)}
-              className="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white text-xs font-bold border border-slate-800 transition-all flex items-center gap-1.5 cursor-pointer"
+              className="text-slate-400 hover:text-cyan-300 text-xs font-medium transition-colors flex items-center gap-1 cursor-pointer py-1"
             >
               <PlayCircle className="w-3.5 h-3.5 text-cyan-400" />
-              <span>Ambientes Demo</span>
-              <ChevronDown className={`w-3.5 h-3.5 text-slate-500 transition-transform duration-200 ${demoDropdownOpen ? 'rotate-180' : ''}`} />
+              <span>Ver Demos</span>
+              <ChevronDown className={`w-3 h-3 text-slate-500 transition-transform duration-200 ${demoDropdownOpen ? 'rotate-180' : ''}`} />
             </button>
 
             {demoDropdownOpen && (
@@ -102,7 +134,7 @@ export function MarketingNavbar() {
               >
                 <div className="px-3 py-2 border-b border-slate-800/80">
                   <span className="text-[10px] font-mono font-bold text-slate-400 uppercase block">
-                    Selecione um Perfil de Demonstração
+                    Ambientes de Demonstração
                   </span>
                 </div>
                 {DEMO_ACCOUNTS.map((acc, i) => {
@@ -130,26 +162,35 @@ export function MarketingNavbar() {
               </div>
             )}
           </div>
+        </nav>
 
+        {/* AÇÕES DE CONVERSÃO (DESKTOP) */}
+        <div className="hidden lg:flex items-center gap-3">
           <Link
             href="/login"
-            className="px-3.5 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs font-bold transition-all flex items-center gap-1.5"
+            className="px-4 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-slate-900 border border-transparent hover:border-slate-800 text-xs font-bold transition-all flex items-center gap-1.5"
           >
             <LogIn className="w-3.5 h-3.5 text-cyan-400" />
-            <span>Entrar / Acessar</span>
+            <span>Acessar</span>
           </Link>
 
           <Link
             href="/onboarding"
-            className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 via-sky-400 to-cyan-400 hover:brightness-110 text-slate-950 font-black text-xs transition-all shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/30 flex items-center gap-1.5"
+            className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 via-sky-400 to-cyan-400 hover:brightness-110 text-slate-950 font-black text-xs transition-all shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/30 flex items-center gap-1.5"
           >
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Criar Conta / Teste Grátis</span>
+            <span>Teste Grátis</span>
+            <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
 
-        {/* NAVEGAÇÃO MOBILE (HAMBÚRGUER) */}
+        {/* NAVEGAÇÃO MOBILE */}
         <div className="flex lg:hidden items-center gap-2">
+          <Link
+            href="/login"
+            className="px-3 py-1.5 rounded-lg border border-slate-800 text-slate-300 text-xs font-bold"
+          >
+            Entrar
+          </Link>
           <Link
             href="/onboarding"
             className="px-3 py-1.5 rounded-lg bg-cyan-500 text-slate-950 font-black text-xs"
@@ -168,10 +209,10 @@ export function MarketingNavbar() {
 
       </div>
 
-      {/* MENU SUSPENSO / DRAWER MOBILE */}
+      {/* DRAWER MOBILE */}
       {mobileMenuOpen && (
         <div className="lg:hidden bg-slate-950/95 backdrop-blur-md border-b border-slate-800 px-6 py-6 space-y-4">
-          <nav className="flex flex-col space-y-3 text-xs font-bold text-slate-300">
+          <nav className="flex flex-col space-y-2 text-xs font-bold text-slate-300">
             <Link
               href="/"
               onClick={() => setMobileMenuOpen(false)}
@@ -192,6 +233,14 @@ export function MarketingNavbar() {
               className="p-2.5 rounded-lg hover:bg-slate-900 hover:text-white transition"
             >
               Planos & Preços
+            </Link>
+            <Link
+              href="/benchmarking"
+              onClick={() => setMobileMenuOpen(false)}
+              className="p-2.5 rounded-lg hover:bg-slate-900 text-emerald-300 flex items-center gap-2 transition"
+            >
+              <Award className="w-4 h-4 text-emerald-400" />
+              <span>Score 100 & Benchmarking</span>
             </Link>
             <Link
               href="/garantia-jhoston"
@@ -236,7 +285,7 @@ export function MarketingNavbar() {
               onClick={() => setMobileMenuOpen(false)}
               className="w-full py-2.5 rounded-xl bg-slate-900 text-slate-200 hover:text-white text-xs font-bold text-center block border border-slate-800 transition"
             >
-              Entrar / Acessar Conta
+              Entrar na Conta
             </Link>
             <Link
               href="/onboarding"
@@ -251,4 +300,3 @@ export function MarketingNavbar() {
     </header>
   );
 }
-
