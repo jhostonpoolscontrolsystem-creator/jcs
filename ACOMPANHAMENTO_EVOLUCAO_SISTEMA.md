@@ -27,6 +27,7 @@
   - 📄 **Relatório Pericial de Refatoração do PWA**: `https://jhpcs.vercel.app/api/pdf/pwa-refactoring` (Download/View de Laudo A4 em 4 Páginas)
   - 💼 **Roteiro Canva & Kit do Investidor**: `ROTEIRO_APRESENTACAO_INVESTIDORES_CANVA.md` (Pitch Deck de 12 Slides + Credenciais)
   - 🎬 **Roteiro Master de Demonstração do Sistema**: `ROTEIRO_APRESENTACAO_SISTEMA.md` (Apresentação Prática em 7 Atos para Clientes e Parceiros)
+  - 🎙️ **Especial de Lançamento (Prompts #01 a #18)**: `ROTEIRO_LANCAMENTO_PROMPTS_1_A_18.md` (Talk-Show com Patrícia Grübel & Joabson Nascimento)
   - ⚙️ **Gerador de Plaqueta Metálica NFC (Laser CNC)**: `https://jhpcs.vercel.app/plaqueta-nfc`
   - 🏅 **Selo de Conformidade & Totem de Recepção**: `https://jhpcs.vercel.app/selo`
   - 💳 **Gestão de Assinatura & Módulos**: `https://jhpcs.vercel.app/settings/subscription`
