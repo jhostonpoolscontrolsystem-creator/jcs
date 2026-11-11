@@ -132,11 +132,11 @@ export function MarketingNavbar() {
           </div>
 
           <Link
-            href="/cockpit"
-            className="px-3.5 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-900 border border-transparent hover:border-slate-800 text-xs font-bold transition-all flex items-center gap-1.5"
+            href="/login"
+            className="px-3.5 py-2 rounded-xl text-slate-300 hover:text-white hover:bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs font-bold transition-all flex items-center gap-1.5"
           >
-            <LogIn className="w-3.5 h-3.5 text-slate-400" />
-            <span>Cockpit Master</span>
+            <LogIn className="w-3.5 h-3.5 text-cyan-400" />
+            <span>Entrar / Acessar</span>
           </Link>
 
           <Link
@@ -232,11 +232,11 @@ export function MarketingNavbar() {
 
           <div className="pt-2 flex flex-col gap-2">
             <Link
-              href="/cockpit"
+              href="/login"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full py-2.5 rounded-xl bg-slate-900 text-slate-300 hover:text-white text-xs font-bold text-center block border border-slate-800 transition"
+              className="w-full py-2.5 rounded-xl bg-slate-900 text-slate-200 hover:text-white text-xs font-bold text-center block border border-slate-800 transition"
             >
-              Acessar Cockpit Master
+              Entrar / Acessar Conta
             </Link>
             <Link
               href="/onboarding"
