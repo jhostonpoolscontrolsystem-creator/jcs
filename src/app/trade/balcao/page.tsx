@@ -219,56 +219,109 @@ export default function CounterPrescriptionPage() {
                 </div>
               </div>
 
-              {/* Parâmetros Físico-Químicos da Fita */}
-              <div className="p-4 rounded-2xl bg-slate-950/80 border border-slate-800/80 space-y-3">
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
-                  Medições da Fita de Teste
-                </span>
+              {/* Parâmetros Físico-Químicos da Fita com Quick Steppers Táteis */}
+              <div className="p-4 rounded-2xl bg-slate-950/80 border border-slate-800/80 space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
+                    Medições da Fita de Teste (Toque Rápido / Steppers)
+                  </span>
+                  <span className="text-[10px] text-cyan-400 font-mono">Modo Balcão Ágil</span>
+                </div>
 
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                  <div>
-                    <label className="block text-[11px] font-semibold text-slate-400 mb-1">pH</label>
-                    <input
-                      type="number"
-                      step="0.1"
-                      required
-                      value={ph}
-                      onChange={(e) => setPh(Number(e.target.value))}
-                      className="w-full bg-slate-900 border border-slate-800 rounded-lg py-1.5 px-2 text-xs text-cyan-300 font-mono font-black text-center"
-                    />
+                {/* pH Stepper */}
+                <div className="space-y-1.5">
+                  <div className="flex items-center justify-between">
+                    <label className="text-[11px] font-semibold text-slate-300">pH da Água</label>
+                    <span className="text-xs font-mono font-black text-cyan-400">{ph.toFixed(1)}</span>
+                  </div>
+                  <div className="grid grid-cols-6 gap-1.5">
+                    {[6.8, 7.0, 7.2, 7.4, 7.6, 7.8].map((val) => (
+                      <button
+                        key={val}
+                        type="button"
+                        onClick={() => setPh(val)}
+                        className={`py-1.5 rounded-lg text-xs font-mono font-bold transition cursor-pointer ${
+                          ph === val
+                            ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/30'
+                            : 'bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800'
+                        }`}
+                      >
+                        {val.toFixed(1)}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Cloro Stepper */}
+                <div className="space-y-1.5">
+                  <div className="flex items-center justify-between">
+                    <label className="text-[11px] font-semibold text-slate-300">Cloro Livre (ppm)</label>
+                    <span className="text-xs font-mono font-black text-amber-400">{chlorinePpm.toFixed(1)} ppm</span>
+                  </div>
+                  <div className="grid grid-cols-6 gap-1.5">
+                    {[0.0, 0.5, 1.0, 1.5, 2.0, 3.0].map((val) => (
+                      <button
+                        key={val}
+                        type="button"
+                        onClick={() => setChlorinePpm(val)}
+                        className={`py-1.5 rounded-lg text-xs font-mono font-bold transition cursor-pointer ${
+                          chlorinePpm === val
+                            ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/30'
+                            : 'bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800'
+                        }`}
+                      >
+                        {val.toFixed(1)}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Alcalinidade & Dureza */}
+                <div className="grid grid-cols-2 gap-3 pt-1">
+                  <div className="space-y-1.5">
+                    <div className="flex items-center justify-between">
+                      <label className="text-[11px] font-semibold text-slate-300">Alcalinidade</label>
+                      <span className="text-xs font-mono font-black text-emerald-400">{alkalinityPpm} ppm</span>
+                    </div>
+                    <div className="grid grid-cols-4 gap-1">
+                      {[40, 80, 100, 140].map((val) => (
+                        <button
+                          key={val}
+                          type="button"
+                          onClick={() => setAlkalinityPpm(val)}
+                          className={`py-1 rounded-md text-[11px] font-mono font-bold transition cursor-pointer ${
+                            alkalinityPpm === val
+                              ? 'bg-emerald-500 text-slate-950 font-black'
+                              : 'bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800'
+                          }`}
+                        >
+                          {val}
+                        </button>
+                      ))}
+                    </div>
                   </div>
 
-                  <div>
-                    <label className="block text-[11px] font-semibold text-slate-400 mb-1">Cloro (ppm)</label>
-                    <input
-                      type="number"
-                      step="0.1"
-                      required
-                      value={chlorinePpm}
-                      onChange={(e) => setChlorinePpm(Number(e.target.value))}
-                      className="w-full bg-slate-900 border border-slate-800 rounded-lg py-1.5 px-2 text-xs text-amber-300 font-mono font-black text-center"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-[11px] font-semibold text-slate-400 mb-1">Alcalinidade</label>
-                    <input
-                      type="number"
-                      required
-                      value={alkalinityPpm}
-                      onChange={(e) => setAlkalinityPpm(Number(e.target.value))}
-                      className="w-full bg-slate-900 border border-slate-800 rounded-lg py-1.5 px-2 text-xs text-emerald-300 font-mono font-black text-center"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-[11px] font-semibold text-slate-400 mb-1">Dureza (ppm)</label>
-                    <input
-                      type="number"
-                      value={calciumHardnessPpm}
-                      onChange={(e) => setCalciumHardnessPpm(Number(e.target.value))}
-                      className="w-full bg-slate-900 border border-slate-800 rounded-lg py-1.5 px-2 text-xs text-purple-300 font-mono font-black text-center"
-                    />
+                  <div className="space-y-1.5">
+                    <div className="flex items-center justify-between">
+                      <label className="text-[11px] font-semibold text-slate-300">Dureza Cálcica</label>
+                      <span className="text-xs font-mono font-black text-purple-400">{calciumHardnessPpm} ppm</span>
+                    </div>
+                    <div className="grid grid-cols-4 gap-1">
+                      {[150, 200, 250, 350].map((val) => (
+                        <button
+                          key={val}
+                          type="button"
+                          onClick={() => setCalciumHardnessPpm(val)}
+                          className={`py-1 rounded-md text-[11px] font-mono font-bold transition cursor-pointer ${
+                            calciumHardnessPpm === val
+                              ? 'bg-purple-500 text-slate-950 font-black'
+                              : 'bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800'
+                          }`}
+                        >
+                          {val}
+                        </button>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
