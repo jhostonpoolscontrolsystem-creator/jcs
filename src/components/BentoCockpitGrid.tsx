@@ -16,7 +16,8 @@ import {
   Award,
   Wallet,
   QrCode,
-  FileText
+  FileText,
+  BookOpen
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -177,6 +178,49 @@ export function BentoCockpitGrid({
         <div className="pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs text-purple-400 font-bold">
           <span>Gerenciar Operadores</span>
           <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition" />
+        </div>
+      </div>
+
+      {/* 6. BENTO CARD: MOTOR DE REVISTA ELETRÔNICA BIMESTRAL WHITE-LABEL (Col 12) */}
+      <div className="md:col-span-12 bg-gradient-to-r from-slate-900 via-[#0F172A] to-cyan-950/30 border border-cyan-500/30 hover:border-cyan-400/50 rounded-3xl p-6 sm:p-7 shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-6 transition">
+        <div className="flex items-start gap-4">
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-slate-950 shrink-0 shadow-lg shadow-cyan-500/20">
+            <BookOpen className="w-6 h-6 stroke-[2.2]" />
+          </div>
+          <div className="space-y-1">
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-cyan-400 bg-cyan-500/10 px-2.5 py-0.5 rounded-full border border-cyan-500/30">
+                Módulo Editorial Bimestral (B2B2C)
+              </span>
+              <span className="text-[10px] font-mono font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+                Ativo no Core Master
+              </span>
+            </div>
+            <h3 className="text-lg font-black text-white">
+              Revista PoolTech Living & Engenharia (Edição #01 Publicada)
+            </h3>
+            <p className="text-xs text-slate-400 max-w-2xl leading-relaxed">
+              Curadoria automatizada bimestral para os clientes dos seus tenants. Inclui calculadora interativa de litragem, captação de leads e personalização White-Label com WhatsApp direto.
+            </p>
+          </div>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-3 shrink-0">
+          <Link
+            href="/revista/jhoston/edicao-01"
+            target="_blank"
+            className="px-4 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-black transition flex items-center gap-1.5 shadow-lg shadow-cyan-500/20 cursor-pointer"
+          >
+            <span>Ver Revista Interativa (Edição #01)</span>
+            <ExternalLink className="w-3.5 h-3.5" />
+          </Link>
+          <button
+            type="button"
+            onClick={() => alert('Configurações do Motor Editorial: O agendamento bimestral e o funil de leads estão ativados com sucesso.')}
+            className="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 text-xs font-bold border border-slate-800 transition cursor-pointer"
+          >
+            Configurações Master
+          </button>
         </div>
       </div>
     </div>

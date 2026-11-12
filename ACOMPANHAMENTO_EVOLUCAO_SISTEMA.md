@@ -6,10 +6,11 @@
 ---
 
 ## 📌 Status Atual do Ecossistema (Novembro/2026)
-- **Versão Homologada**: `JHPCS Core v6.23 (GADAP Holding Institutional & Architecture Manifesto Edition)`
+- **Versão Homologada**: `JHPCS Core v6.27 (Bimonthly Magazine B2B2C & Lead Engine Edition)`
 - **Índice de Estabilidade do Sistema**: **100 / 100** (Auditado via `scripts/run-system-audit.mjs` com Benchmarking e Laudo de 3 Páginas)
 - **Portais em Produção**:
   - 🌐 **Landing Page Institucional & Comercial**: `https://jhpcs.vercel.app/` (Grupo de Rotas Marketing com Banner Score 100)
+  - 📖 **Revista Eletrônica Bimestral White-Label**: `https://jhpcs.vercel.app/revista/jhoston/edicao-01` (B2B2C, Calculadora & Leads)
   - 🏛️ **Página Institucional GADAP**: `https://jhpcs.vercel.app/gadap` (Holding de Engenharia, Origem & Manifesto)
   - 🏆 **Página de Benchmarking Competitivo & Score 100**: `https://jhpcs.vercel.app/benchmarking` (Arma Comercial & Matriz Competitiva)
   - 🛡️ **Página Pericial de Garantia Decenal JHoston**: `https://jhpcs.vercel.app/garantia-jhoston`
@@ -43,6 +44,22 @@
 ---
 
 ## 📅 Linha do Tempo & Histórico Detalhado de Evolução
+
+### [v6.27] - 12/11/2026: Motor de Revista Eletrônica Bimestral White-Label (B2B2C) & Captação de Leads
+- **1. Migration PostgreSQL e Estrutura de Dados ([`supabase/migrations/20261112_automated_bimonthly_magazine.sql`](file:///c:/JHPCS/supabase/migrations/20261112_automated_bimonthly_magazine.sql))**:
+  - `magazine_editions`: Armazenamento de edições bimestrais com JSON estruturado de matérias e curadoria.
+  - `tenant_magazine_settings`: Governança por tenant com ativação soberana restrita ao Usuário Master (`is_enabled_by_master`).
+  - `magazine_leads`: Funil de conversão e captação de clientes finais integrado ao CRM do tenant.
+- **2. Motor Editorial & Primeira Edição Bimestral ([`src/lib/magazine/bimonthlyMagazineEngine.ts`](file:///c:/JHPCS/src/lib/magazine/bimonthlyMagazineEngine.ts))**:
+  - Lançamento oficial da **Edição #01 (Nov/Dez 2026)** com 4 cadernos editoriais: *Revestimentos Monolíticos*, *O Enigma do ISL*, *Iluminação Cênica Subaquática* e *Checklist Preventivo de Pré-Verão*.
+- **3. Leitor Web App Responsivo White-Label ([`src/app/revista/[slug]/[edition]/page.tsx`](file:///c:/JHPCS/src/app/revista/[slug]/[edition]/page.tsx))**:
+  - Leitura fluida mobile-first com branding dinâmico do cliente/franquia.
+  - Calculadora interativa de litragem, potência da moto-bomba e carga de aquecimento integrada com botão de envio direto para o especialista.
+- **4. Controle no Cockpit Master ([`src/components/BentoCockpitGrid.tsx`](file:///c:/JHPCS/src/components/BentoCockpitGrid.tsx))**:
+  - Adicionado card executivo em Bento Grid para visualização rápida da edição e acionamento da governança.
+
+### [v6.26] - 11/11/2026: Refinamento da Navegação Global e Padrão Enterprise
+- Limpeza da barra de navegação, unificação de soluções em dropdown e redirecionamento de acessos ao `/login`.
 
 ### [v6.23] - 11/11/2026: Página Institucional GADAP, Filosofia e Manifesto de Engenharia
 - **1. Página Oficial GADAP ([`src/app/(marketing)/gadap/page.tsx`](file:///c:/JHPCS/src/app/(marketing)/gadap/page.tsx))**:
