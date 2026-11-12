@@ -1,5 +1,5 @@
 import { jsPDF } from 'jspdf';
-import { FIRST_BIMONTHLY_EDITION } from './bimonthlyMagazineEngine.ts';
+import { FIRST_BIMONTHLY_EDITION } from './bimonthlyMagazineEngine';
 
 export interface BimonthlyMagazinePdfInput {
   tenantName?: string;
