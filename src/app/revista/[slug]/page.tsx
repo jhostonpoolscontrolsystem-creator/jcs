@@ -9,3 +9,4 @@ export default async function TenantDefaultEditionRedirect({
   const slug = resolvedParams.slug || 'jhoston';
   redirect(`/revista/${slug}/edicao-01`);
 }
+

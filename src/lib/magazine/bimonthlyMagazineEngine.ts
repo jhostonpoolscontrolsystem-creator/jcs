@@ -133,3 +133,4 @@ export const FIRST_BIMONTHLY_EDITION: MagazineEdition = {
     }
   ]
 };
+

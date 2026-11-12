@@ -61,3 +61,4 @@ CREATE INDEX IF NOT EXISTS idx_magazine_leads_tenant ON magazine_leads(tenant_id
 COMMENT ON TABLE magazine_editions IS 'Edições bimestrais da Revista Eletrônica JHPCS geradas por IA e curadoria pericial.';
 COMMENT ON TABLE tenant_magazine_settings IS 'Configuração White-Label e ativação soberana da revista por empresa cliente.';
 COMMENT ON TABLE magazine_leads IS 'Funil de captação de leads de proprietários de piscinas gerados pela revista.';
+

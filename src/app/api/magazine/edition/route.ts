@@ -73,3 +73,4 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: err.message || 'Erro ao carregar edição' }, { status: 500 });
   }
 }
+
