@@ -1,0 +1,112 @@
+:root {
+  --color-bg-primary: #080A14;
+  --color-bg-secondary: #0F172A;
+  --color-bg-tertiary: #111827;
+  --color-cyan: #22D3EE;
+  --color-cyan-glow: rgba(34, 211, 238, 0.15);
+  --color-green: #10B981;
+  --color-green-glow: rgba(16, 185, 129, 0.15);
+  --color-amber: #F59E0B;
+  --color-amber-glow: rgba(245, 158, 11, 0.15);
+  --color-white: #F8FAFC;
+  --color-text-primary: #E2E8F0;
+  --color-text-secondary: #CBD5E1;
+  --color-text-muted: #94A3B8;
+  --color-line: #1E293B;
+  --color-line-light: #334155;
+  --color-black: #020617;
+
+  --page-width: 210mm;
+  --page-height: 297mm;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 40px;
+  --space-8: 56px;
+  --space-9: 72px;
+
+  --font-family-sans: "Inter", "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-family-mono: "JetBrains Mono", "Fira Code", monospace;
+
+  --font-size-xs: 10px;
+  --font-size-sm: 12px;
+  --font-size-md: 14px;
+  --font-size-lg: 16px;
+  --font-size-xl: 20px;
+  --font-size-2xl: 28px;
+  --font-size-3xl: 36px;
+  --font-size-4xl: 48px;
+  --font-size-metric: 56px;
+
+  --breakpoint-mobile: 640px;
+  --breakpoint-tablet: 768px;
+  --breakpoint-desktop: 1024px;
+  --breakpoint-large: 1440px;
+}
+
+/* Base de Visualização Digital A4 */
+.editorial-document-viewport {
+  background-color: #030712;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 16px 80px 16px;
+  color: var(--color-text-primary);
+  font-family: var(--font-family-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.a4-page-sheet {
+  width: var(--page-width);
+  min-height: var(--page-height);
+  background-color: var(--color-bg-primary);
+  position: relative;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(30, 41, 59, 0.8);
+  margin-bottom: 48px;
+  box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Modos de Impressão de Alta Fidelidade A4 */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  body {
+    background: #000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .editorial-document-viewport {
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .editorial-no-print {
+    display: none !important;
+  }
+
+  .a4-page-sheet {
+    width: 210mm !important;
+    height: 297mm !important;
+    max-height: 297mm !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    page-break-after: always !important;
+    break-after: page !important;
+    overflow: hidden !important;
+  }
+}

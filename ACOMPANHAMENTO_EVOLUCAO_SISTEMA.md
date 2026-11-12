@@ -6,11 +6,11 @@
 ---
 
 ## 📌 Status Atual do Ecossistema (Novembro/2026)
-- **Versão Homologada**: `JHPCS Core v6.27 (Bimonthly Magazine B2B2C & Lead Engine Edition)`
+- **Versão Homologada**: `JHPCS Core v6.30 (A4 Data-Driven Editorial System & 6-Page Canvas Architecture)`
 - **Índice de Estabilidade do Sistema**: **100 / 100** (Auditado via `scripts/run-system-audit.mjs` com Benchmarking e Laudo de 3 Páginas)
 - **Portais em Produção**:
   - 🌐 **Landing Page Institucional & Comercial**: `https://jhpcs.vercel.app/` (Grupo de Rotas Marketing com Banner Score 100)
-  - 📖 **Revista Eletrônica Bimestral White-Label**: `https://jhpcs.vercel.app/revista/jhoston/edicao-01` (B2B2C, Calculadora & Leads)
+  - 📖 **Revista Eletrônica Bimestral White-Label**: `https://jhpcs.vercel.app/revista/jhoston/edicao-01` (B2B2C, Canvas A4, Calculadora & Leads)
   - 🏛️ **Página Institucional GADAP**: `https://jhpcs.vercel.app/gadap` (Holding de Engenharia, Origem & Manifesto)
   - 🏆 **Página de Benchmarking Competitivo & Score 100**: `https://jhpcs.vercel.app/benchmarking` (Arma Comercial & Matriz Competitiva)
   - 🛡️ **Página Pericial de Garantia Decenal JHoston**: `https://jhpcs.vercel.app/garantia-jhoston`
@@ -45,7 +45,25 @@
 
 ## 📅 Linha do Tempo & Histórico Detalhado de Evolução
 
-### [v6.27] - 12/11/2026: Motor de Revista Eletrônica Bimestral White-Label (B2B2C) & Captação de Leads
+### [v6.30] - 12/11/2026: Sistema Gráfico Editorial A4 & Arquitetura Desacoplada Canvas (6 Páginas)
+- **1. Arquitetura Editorial Desacoplada ([`src/components/editorial/editorialSchema.ts`](file:///c:/JHPCS/src/components/editorial/editorialSchema.ts))**:
+  - Contrato de dados estruturados em TypeScript com tipagem estrita para slots editoriais: `MetricSlot`, `AuditItemSlot`, `ComparisonItemSlot`, `TableColumnSlot`, `TableRowSlot`, `CTASlot`, `QuoteSlot` e `IndexEntrySlot`.
+  - Separação mandatória entre sistema visual (placeholders/slots) e camada de telemetria/dados auditados do SaaS (zero hardcoding, zero alucinações).
+- **2. Design Tokens Gráficos A4 Retrato ([`src/styles/editorial/editorialTokens.css`](file:///c:/JHPCS/src/styles/editorial/editorialTokens.css))**:
+  - Dimensões periciais A4 (210mm x 297mm), escala de 8px e paleta editorial sofisticada (`#080A14`, `#0F172A`, `#22D3EE`, `#10B981`, `#F59E0B`).
+  - Suporte completo a `@media print` com quebras forçadas de página sem cortes e viewport interativo com toolbar flutuante.
+- **3. Suíte de 6 Templates Editoriais Especializados ([`src/components/editorial/templates/EditorialPageTemplates.tsx`](file:///c:/JHPCS/src/components/editorial/templates/EditorialPageTemplates.tsx))**:
+  - **Página 1 (Capa Premium)**: Badge da edição, título hero com destaque ciano/dourado, slots de métricas da base e chamada editorial customizada conforme o perfil (`garantia` vs `orcamento`).
+  - **Página 2 (Índice Editorial & Carta)**: Sumário de matérias numerado com tempo de leitura, carta da engenharia pericial e termômetro da base.
+  - **Página 3 (Matéria Técnica & Audit Trail)**: Layout em duas colunas com cards de auditoria e rastreabilidade estrita da telemetria (1.420 piscinas, 78% oscilação pós-chuva ácida).
+  - **Página 4 (Arquitetura & Comparativo de Materiais)**: Matéria de design de lazer com painel comparativo de engenharia (Monolítico vs Vinil vs Alvenaria Tradicional).
+  - **Página 5 (Tabela Técnica & Dimensionamento)**: Tabela de vazão e recirculação (ABNT NBR 10.339), callout técnico de salvaguarda de garantia e CTA para diagnóstico preventivo.
+  - **Página 6 (Encerramento Institucional & Contato White-Label)**: Manifesto institucional da engenharia, canais de contato customizados por tenant e selo de garantia decenal.
+- **4. Adaptador Dinâmico do SaaS ([`src/components/editorial/editorialAdapter.ts`](file:///c:/JHPCS/src/components/editorial/editorialAdapter.ts))**:
+  - Consome o motor data-driven (`DATA_DRIVEN_EDITION_01`) e constrói dinamicamente o array de 6 páginas com personalização White-Label e perfil comportamental.
+- **5. Gerador de PDF em Alta Definição ([`src/lib/magazine/luxuryDataDrivenPdf.ts`](file:///c:/JHPCS/src/lib/magazine/luxuryDataDrivenPdf.ts))**:
+  - Renderizador jsPDF de precisão milimétrica gerando documento físico de 6 páginas diagramadas em [public/REVISTA_POOLTECH_DATA_DRIVEN_EDICAO_01.pdf](file:///c:/JHPCS/public/REVISTA_POOLTECH_DATA_DRIVEN_EDICAO_01.pdf).
+- **6. Certificação de Qualidade**: `npx tsc --noEmit` (0 erros), bateria `scripts/run-system-audit.mjs` (Score 100/100) e compilação de produção Turbopack (`npm run build`) 100% aprovada.
 - **1. Migration PostgreSQL e Estrutura de Dados ([`supabase/migrations/20261112_automated_bimonthly_magazine.sql`](file:///c:/JHPCS/supabase/migrations/20261112_automated_bimonthly_magazine.sql))**:
   - `magazine_editions`: Armazenamento de edições bimestrais com JSON estruturado de matérias e curadoria.
   - `tenant_magazine_settings`: Governança por tenant com ativação soberana restrita ao Usuário Master (`is_enabled_by_master`).
